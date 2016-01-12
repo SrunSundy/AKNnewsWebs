@@ -12,8 +12,6 @@
 	<!-- START TOP MENU HEADER -->
 	<%@include file="include/topmenu.jsp"%>	
 	<!-- END TOP MENU HEADER -->
-	
-      <!-- //////////////////////////////////////////////////////////////////////////// -->
 
   <!-- START MAIN -->
   <div id="main">
@@ -23,8 +21,6 @@
       <!-- START LEFT SIDEBAR NAV-->
       <%@include file="include/leftbar.jsp"%>
       <!-- END LEFT SIDEBAR NAV-->
-
-      <!-- //////////////////////////////////////////////////////////////////////////// -->
 
       <!-- START CONTENT -->
       <section id="content">
@@ -64,11 +60,7 @@
         </div>
         <!--end container-->
       </section>
-      <!-- END CONTENT -->
-
-      <!-- //////////////////////////////////////////////////////////////////////////// -->
-      <!-- START RIGHT SIDEBAR NAV-->
-      
+      <!-- END CONTENT -->      
 
     </div>
     <!-- END WRAPPER -->
