@@ -4,7 +4,7 @@
 <html>
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Home | Page</title>
+		<title>AKN News | Home Page</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
@@ -80,22 +80,26 @@
 			var app = angular.module('myApp', []);
 			app.controller('myCtrl', function($scope, $window, $http){
 				
+				var domain = "http://localhost:8080/AKNnews/";
+				
 				$scope.articles = [];
 				$scope.categories = [];
 				$scope.populars = [];
 				$scope.navCategory = [];
 				
-				$scope.sid = 0;
 				$scope.uid = 0;
+				$scope.row = 10;
+
+				$scope.sid = 0;
 				$scope.cid = 0;
 				$scope.page = 0;
-				$scope.row = 10;
+				
 				$scope.key = "";
 				
 				$scope.loadCategories = function(){
 					$http({
                         method: "GET",
-                        url: "http://localhost:8080/AKNnews/api/article/category/news/",
+                        url: domain + "api/article/category/news/",  //load only category that has news
                         headers: {
                              'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
@@ -115,7 +119,7 @@
 					$scope.page += 1;
 					$http({
                         method: "GET",
-                        url: "http://localhost:8080/AKNnews/api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/",
+                        url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/",
                         headers: {
                              'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
@@ -149,7 +153,7 @@
 				$scope.loadPopulars = function(){
 					$http({
 						method: "GET",
-                        url: "http://localhost:8080/AKNnews/api/article/popular/"+$scope.uid+"/",
+                        url: domain + "api/article/popular/"+$scope.uid+"/",
                         headers: {
                              'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
@@ -166,7 +170,6 @@
 				
 				$scope.articleCategory = function(cid){
 					$scope.page = 0;
-					$scope.uid = 0;
 					$scope.cid = cid;
 					$scope.sid = 0;
 					$scope.articles = [];
@@ -176,7 +179,6 @@
 				
 				$scope.articleSite = function(sid){
 					$scope.page = 0;
-					$scope.uid = 0;
 					$scope.cid = 0;
 					$scope.sid = sid;
 					$scope.articles = [];
@@ -186,7 +188,6 @@
 				
 				$scope.searchArticles = function(){
 					$scope.page = 0;
-					$scope.uid = 0;
 					$scope.cid = 0;
 					$scope.sid = 0;
 					$scope.articles = [];
