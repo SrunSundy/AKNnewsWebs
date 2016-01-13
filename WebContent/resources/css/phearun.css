@@ -18,12 +18,28 @@ body {
 	position: relative;
 }
 
+.a-nav, ul.a-category li:first-child, ul.a-popular li:first-child, .a-category li:first-child:hover{
+	background-color:#AD1827;
+}
+
+.nav-search button{
+	color:#AD1827;
+}
+ 
+
+/* apply font style */
+body{
+	font-family: 'Khmer OS Siemreap';
+	
+}
+
+/* end apply font style  */
+
 .a-nav {
 	min-height: 50px;
-	background-color: #43A047;
 	position: fixed;
 	width: 100%;
-	box-shadow: 0px 0px 3px #43A047;
+	box-shadow: 0px 0px 3px #AD1827;
 	z-index: 100000;
 }
 
@@ -67,7 +83,6 @@ i.fa.fa-search{
 	border:none;
 	left:-4px;
 	background-color:#dadada;
-	color:#43A047;
 }
 
 .nav-category{
@@ -80,12 +95,13 @@ i.fa.fa-search{
 	color:#fff;
 	list-style-type:none;
 	display: flex;
+	margin-top:-5px;
 }
 .nav-category li{
 	cursor:pointer;
 	padding: 5px 10px;
 	text-transform:capital;
-	background-color:rgba(49, 134, 52, 0.57);
+	background-color:rgb(160, 23, 23);
 	margin-left:4px;
 	border-radius:2px;
 }
@@ -93,7 +109,7 @@ i.fa.fa-search{
 	color:#fff;
 }
 .nav-category li:hover{
-	background-color:rgba(31, 82, 17, 0.59);
+	background-color:#800000;
 }
 
 .a-left-side, .a-body, .a-right-side {
@@ -134,7 +150,6 @@ i.fa.fa-search{
 }
 
 ul.a-category li:first-child, ul.a-popular li:first-child {
-	background-color: #43A047;
 	color: #fff;
 	padding: 10px;
 }
