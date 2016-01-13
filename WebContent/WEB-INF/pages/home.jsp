@@ -48,7 +48,7 @@
 								</div>
 								<div class="article-action">
 									<div class="action">
-										<pre><span>1002K Views</span></pre>
+										<pre><span>{{article.hit | number}} Views</span></pre>
 									</div>
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 				$scope.loadCategories = function(){
 					$http({
                         method: "GET",
-                        url: "http://localhost:8080/AKNnews/api/article/category/",
+                        url: "http://localhost:8080/AKNnews/api/article/category/news/",
                         headers: {
                              'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
