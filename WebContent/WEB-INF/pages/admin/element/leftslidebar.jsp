@@ -22,12 +22,18 @@
               </a>
      
             </li>
-             <li class=" ">
-              <a href="${pageContext.request.contextPath }/admin/article/">
-                <i class="fa fa-key"></i> <span>ArticleManagement</span>
+        
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>ArticleManagement</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
-     
+              <ul class="treeview-menu">
+                <li> <a href="${pageContext.request.contextPath }/admin/article/"><i class="fa fa-key"></i> <span>ArticleManagement</span></li>
+                <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+              </ul>
             </li>
+            
             
           </ul>
         </section>
