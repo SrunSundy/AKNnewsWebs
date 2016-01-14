@@ -10,12 +10,7 @@
     <!-- Tell the browser to be responsive to screen width -->
 
 	<jsp:include page="import/header.jsp"></jsp:include>
-   <style>
-   i.ion{
-   		margin-top: 25px;
-   }
-  
-   </style>
+
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -49,15 +44,37 @@
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Responsive Hover Table</h3>
+                
+                 
+                
+                
                   <div class="box-tools">
                     <div class="input-group" style="width: 150px;">
                       <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
                       <div class="input-group-btn">
-                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-sm btn-default"><i class="fa fa-search" ></i></button>
                       </div>
                     </div>
                   </div>
                 </div><!-- /.box-header -->
+                
+                
+                <div class="box-footer clearfix">
+                  <ul class="pagination pagination-sm no-margin pull-left">
+                    <li> 
+                    <select class="form-control select2" id="row"  >
+                     
+                      <option>10</option>
+                    
+                      <option>15</option>
+                      <option>30</option>
+                      <option>50</option>
+                      <option>100</option>
+                    </select>
+               <!-- /.form-group --></li>
+                   
+                  </ul>
+                </div>
                
                 <div class="box-body table-responsive no-padding">
                   <table class="table table-hover">
@@ -73,13 +90,15 @@
                     </tr>
                    
                    <tr ng-repeat="article in articles">
+                   		
+                      <td><img class='logo-style' src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
-                      <td>Alexander Pierce</td>
-                       <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td><span class="label label-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      <td>{{mySplit(article.title)}}</td>
+                       
+                      <td>{{article.date}}</td>
+                      <td>{{article.hit }}</td>
+                      <td><span class="label label-warning"></span></td>
+                      <td>{{article.status }}</td>
                     </tr>
                    
                   </table>
@@ -119,11 +138,8 @@
 		
 		var domain = "http://localhost:8080/AKNnews/";
 		
-		
-		
-		
 		$scope.listArticles = function(){
-			alert();
+			
 			
 			$http({
                 method: "GET",
@@ -134,21 +150,28 @@
             })
             .success(function (response) {
             	if(response.RESPONSE_DATA.length == 0){
-            		console.log('no more article..!');
+            		console.log('no article..!');
 					return;                    		
             	}
             	
 		    		  $scope.articles=response.RESPONSE_DATA; 
-		    		 /*  angular.forEach(response.RESPONSE_DATA, function(data, key) {
-		    			  console.log(key + ': ' + data);
-			    		  $scope.articles.push(data);
-			    	}); */
 		    	
 		    });
 			
 		};
 		
 		$scope.listArticles();
+		
+		$scope.mySplit = function(string) {
+		    var array = string.substring(0,50);
+		    return array;
+		}
+		
+		$scope.changeRow = function() {
+			var data= $("#row").val();
+			alert(data);
+			
+		}
 		
 	});
   

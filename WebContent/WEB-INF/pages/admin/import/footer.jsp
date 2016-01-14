@@ -21,3 +21,12 @@
     <script src="${pageContext.request.contextPath }/resources/dist/js/pages/dashboard2.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
+    
+     <!-- iCheck 1.0.1 -->
+    <script src="${pageContext.request.contextPath }/resources/plugins/iCheck/icheck.min.js"></script>
+    
+    
+ 
+   
+ 
+  

@@ -10,12 +10,7 @@
     <!-- Tell the browser to be responsive to screen width -->
 
 	<jsp:include page="import/header.jsp"></jsp:include>
-   <style>
-   i.ion{
-   		margin-top: 25px;
-   }
-  
-   </style>
+   
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
