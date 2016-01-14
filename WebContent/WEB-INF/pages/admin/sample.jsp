@@ -61,45 +61,6 @@
 
   <jsp:include page="import/footer.jsp"></jsp:include>
   
-  <script>
-	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $window, $http){
-		
-		var domain = "http://localhost:8080/AKNnews/";
-		
-		
-		
-		
-		$scope.listArticles = function(){
-			alert();
-			
-			$http({
-                method: "GET",
-                url: domain + "api/article/1/15/0/0/1/",
-               /*  headers: {
-                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                } */
-            })
-            .success(function (response) {
-            	if(response.RESPONSE_DATA.length == 0){
-            		console.log('no more article..!');
-					return;                    		
-            	}
-            	
-		    		  $scope.articles=response.RESPONSE_DATA; 
-		    		 /*  angular.forEach(response.RESPONSE_DATA, function(data, key) {
-		    			  console.log(key + ': ' + data);
-			    		  $scope.articles.push(data);
-			    	}); */
-		    	
-		    });
-			
-		};
-		
-		$scope.listArticles();
-		
-	});
   
-  </script>
   </body>
 </html>
