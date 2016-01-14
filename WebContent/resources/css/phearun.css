@@ -68,20 +68,20 @@ i.fa.fa-search{
 	height: 29px;
 	width:400px;
 	border:none;
-	padding:10px 10px 10px 25px;
-	border-top-left-radius:2px;
-	border-bottom-left-radius:2px;
+	padding:10px 10px 10px 27px;
+	/* border-top-left-radius:2px;
+	border-bottom-left-radius:2px; */
 }
 .nav-search button{
 	text-transform:capitalize;
-	border-top-right-radius:2px;
-	border-bottom-right-radius:2px;
+	/* border-top-right-radius:2px;
+	border-bottom-right-radius:2px; */
 	cursor:pointer;
 	position:relative;
 	height: 29px;
 	padding:0px 10px;
 	border:none;
-	left:-4px;
+	left:-5px;
 	background-color:#dadada;
 }
 
