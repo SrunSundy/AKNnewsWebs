@@ -12,7 +12,7 @@
 	<jsp:include page="import/header.jsp"></jsp:include>
 
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="myCtrl">
     <div class="wrapper">
     
       <header class="main-header">
@@ -37,7 +37,7 @@
 
         <!-- Main content -->
         <!-- Main content -->
-        <section class="content" ng-app="myApp" ng-controller="myCtrl">
+        <section class="content" >
           
          	<div class="row">
             <div class="col-xs-12">
@@ -62,14 +62,10 @@
                 <div class="box-footer clearfix">
                   <ul class="pagination pagination-sm no-margin pull-left">
                     <li> 
-                    <select class="form-control select2" id="row"  >
-                     
-                      <option>10</option>
+
+                    <select class="form-control select2" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
+                    ng-change="changeRow(selected)" >
                     
-                      <option>15</option>
-                      <option>30</option>
-                      <option>50</option>
-                      <option>100</option>
                     </select>
                <!-- /.form-group --></li>
                    
@@ -95,9 +91,9 @@
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
                        
-                      <td>{{article.date}}</td>
+                      <td>{{article.date | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
-                      <td><span class="label label-warning"></span></td>
+                      <td><span class="label label-warning">{{article.category.name}}</span></td>
                       <td>{{article.status }}</td>
                     </tr>
                    
@@ -138,15 +134,18 @@
 		
 		var domain = "http://localhost:8080/AKNnews/";
 		
-		$scope.listArticles = function(){
+		
+		
+		
+		$scope.listArticles = function(page,row,cate,source){
 			
 			
 			$http({
                 method: "GET",
-                url: domain + "api/article/1/15/0/0/1/",
-               /*  headers: {
+                url: domain + "api/article/"+page+"/"+row+"/"+cate+"/"+source+"/0/",
+                headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                } */
+                } 
             })
             .success(function (response) {
             	if(response.RESPONSE_DATA.length == 0){
@@ -160,18 +159,40 @@
 			
 		};
 		
-		$scope.listArticles();
+		
+		
+		$scope.listArticles(1,15,0,0);
 		
 		$scope.mySplit = function(string) {
 		    var array = string.substring(0,50);
 		    return array;
-		}
+		};
 		
-		$scope.changeRow = function() {
-			var data= $("#row").val();
-			alert(data);
+		$scope.changeRow = function(row) {
 			
-		}
+			$scope.listArticles(1,row.label,0,0);
+		};
+		
+	
+		
+		$scope.items = [{
+			  id: 1,
+			  label: '15',
+			
+			},{
+				  id: 2,
+				  label: '30',
+				
+				},{
+					  id:3,
+					  label: '50',
+					
+					}, {
+			  id: 4,
+			  label: '100',
+			 
+			}];
+		$scope.selected = $scope.items[0];
 		
 	});
   
