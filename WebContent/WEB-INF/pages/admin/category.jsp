@@ -16,6 +16,9 @@
    }
   
    </style>
+   
+   <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
+   
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -46,6 +49,54 @@
           
          	
          	this is category!
+         	
+         	
+				
+		<div ng-app="myApp" ng-controller="myCtrl">
+		
+		First Name: <input type="text" ng-model="firstName"><br>
+		Last Name: <input type="text" ng-model="lastName"><br>
+		<br>
+		Full Name: {{firstName + " " + lastName}}
+		
+		</div>
+
+
+
+		
+		<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+		    $scope.firstName = "John";
+		    $scope.lastName = "Doe";
+		});
+		</script>
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
+         	
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 		
