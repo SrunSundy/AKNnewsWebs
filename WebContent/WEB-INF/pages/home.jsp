@@ -32,9 +32,9 @@
 						<div class="article-block">
 							<div class="article-item" ng-repeat="article in articles">
 								<div class="article-info">
-									<img ng-click="articleSite(article.site.id)" src="{{article.site.logo}}"/>
+									<img ng-click="articleSite(article.site.id)" src="${pageContext.request.contextPath}/{{article.site.logo}}"/>
 									<p ng-click="articleSite(article.site.id)">{{article.site.name | uppercase}}</p><br>
-									<pre>{{article.date | date:'medium'}}</pre>	
+									<pre>{{article.date | date:'EEEE, d MMM y'}}</pre>	
 									<div class="clear"></div>								
 								</div>
 								<div class="article-components">
@@ -74,8 +74,6 @@
 			
 		</div><!--/end main container  -->
 		
-		
-		
 		<script>
 			var app = angular.module('myApp', []);
 			app.controller('myCtrl', function($scope, $window, $http){
@@ -88,7 +86,7 @@
 				$scope.navCategory = [];
 				
 				$scope.uid = 0;
-				$scope.row = 10;
+				$scope.row = 50;
 
 				$scope.sid = 0;
 				$scope.cid = 0;
