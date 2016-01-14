@@ -8,9 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
 	
-	@RequestMapping(value={"/", "/home"})
+	/*@RequestMapping(value={"/", "/home"})
 	public String homePage(ModelMap model){
 		model.addAttribute("message", "hello world");
 		return  "home";
+	}*/
+	
+	@RequestMapping(value={"/admin", })
+	public String homePage(ModelMap model){
+		model.addAttribute("message", "hello world");
+		return  "admin/index";
+	}
+	@RequestMapping(value={"/admin/article", })
+	public String toArticle(ModelMap model){
+		model.addAttribute("message", "hello world");
+		return  "admin/article";
 	}
 }
