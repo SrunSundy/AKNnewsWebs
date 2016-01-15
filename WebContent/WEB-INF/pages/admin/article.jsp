@@ -128,7 +128,7 @@
   </script>
   <script>
 	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $window, $http){
+	app.controller('myCtrl', function($scope, $http){
 		
 		var domain = "http://localhost:8080/AKNnews/";
 	
@@ -211,6 +211,7 @@
 		};
 		
 		$scope.changeRow = function(row) {
+			$scope.page = 1;
 			$scope.row= row.label;
 			$scope.listArticles();
 		};
