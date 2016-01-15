@@ -47,6 +47,7 @@
                 
                  
                 
+    
                 
                   <div class="box-tools">
                     <div class="input-group" style="width: 150px;">
@@ -101,13 +102,7 @@
                 </div><!-- /.box-body -->
                 
                   <div class="box-footer clearfix">
-                  <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                  </ul>
+                  	<div id="display"></div>
                 </div>
               </div><!-- /.box -->
             </div>
@@ -127,22 +122,33 @@
     </div><!-- ./wrapper -->
 
   <jsp:include page="import/footer.jsp"></jsp:include>
+  <script>
+ 
   
+  </script>
   <script>
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $window, $http){
 		
 		var domain = "http://localhost:8080/AKNnews/";
+	
+		$scope.numofpage=1;
+		$scope.uid = 0;
+		$scope.row = 15;
+
+		$scope.sid = 0;
+		$scope.cid = 0;
+		$scope.page = 1;
 		
 		
+		$scope.triggerpage = 0;
 		
-		
-		$scope.listArticles = function(page,row,cate,source){
+		$scope.maindisplay = function(){
 			
-			
+			$scope.triggerpage++;
 			$http({
                 method: "GET",
-                url: domain + "api/article/"+page+"/"+row+"/"+cate+"/"+source+"/0/",
+                url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.cid+"/0/",
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 } 
@@ -152,16 +158,52 @@
             		console.log('no article..!');
 					return;                    		
             	}
-            	
 		    		  $scope.articles=response.RESPONSE_DATA; 
+		    		 $scope.numofpage=response.TOTAL_PAGES;
+		    		 alert($scope.numofpage);
+		    		 
+		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
+		    		 
+		    		 if($scope.triggerpage > 1){
+		    			 return;
+		    		 }
+		    		 $scope.loadpagination($scope.numofpage);
+		    		
 		    	
 		    });
-			
+		};
+		
+		$scope.loadpagination = function(numofpage){
+		
+			 $('#display').bootpag({
+		            total:  numofpage,
+		            maxVisible: 5,
+			        leaps: true,
+			        firstLastUse: true,
+			        first: '&#8592;',
+			        last: '&#8594;',
+			        wrapClass: 'pagination',
+			        activeClass: 'active',
+			        disabledClass: 'disabled',
+			        nextClass: 'next',
+			        prevClass: 'prev',
+			        lastClass: 'last',
+			        firstClass: 'first'
+		        }).on("page", function(event, /* page number here */ num){
+		        	$scope.page = num;
+		        	$scope.maindisplay();
+		        });
 		};
 		
 		
 		
-		$scope.listArticles(1,15,0,0);
+		$scope.listArticles = function(){
+				$scope.maindisplay();
+				
+		};
+		
+		$scope.listArticles();
+		
 		
 		$scope.mySplit = function(string) {
 		    var array = string.substring(0,50);
@@ -169,29 +211,35 @@
 		};
 		
 		$scope.changeRow = function(row) {
-			
-			$scope.listArticles(1,row.label,0,0);
+			$scope.row= row.label;
+			$scope.listArticles();
 		};
 		
-	
+		
+		
+			
+			
+		
+		
+
 		
 		$scope.items = [{
-			  id: 1,
-			  label: '15',
+	    id: 1,
+		label: '15',
 			
-			},{
-				  id: 2,
-				  label: '30',
+	    },{
+		id: 2,
+		label: '30',
 				
-				},{
-					  id:3,
-					  label: '50',
+		 },{
+		 id:3,
+		 label: '50',
 					
-					}, {
-			  id: 4,
-			  label: '100',
+		 }, {
+		 id: 4,
+		 label: '100',
 			 
-			}];
+		}];
 		$scope.selected = $scope.items[0];
 		
 	});

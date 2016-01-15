@@ -1,7 +1,9 @@
   <!-- jQuery 2.1.4 -->
+  
+   <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
+  
     
     <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -24,6 +26,9 @@
     
      <!-- iCheck 1.0.1 -->
     <script src="${pageContext.request.contextPath }/resources/plugins/iCheck/icheck.min.js"></script>
+    
+    
+     <script src="${pageContext.request.contextPath }/resources/js/jquery.bootpag.min.js"></script>
     
     
  
