@@ -10,7 +10,157 @@
     <!-- Tell the browser to be responsive to screen width -->
 
 	<jsp:include page="import/header.jsp"></jsp:include>
+<style>
 
+.pagination {
+    height: 36px;
+    margin: 18px 0;
+    color: #6c58bF;
+}
+
+.pagination ul {
+    display: inline-block;
+    *display: inline;
+    /* IE7 inline-block hack */
+    *zoom: 1;
+    margin-left: 0;
+    color: #ffffff;
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pagination li {
+    display: inline;
+    color: #6c58bF;
+}
+
+.pagination a {
+    float: left;
+    padding: 0 14px;
+    line-height: 34px;
+    color: #6c58bF;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-left-width: 0;
+}
+
+.pagination a:hover,
+.pagination .active a {
+    background-color: #6c58bF;
+    color: #ffffff;
+}
+
+.pagination a:focus {
+    background-color: #6c58bF;
+    color: #ffffff;
+}
+
+
+.pagination .active a {
+    color: #ffffff;
+    cursor: default;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+    color: #999999;
+    background-color: transparent;
+    cursor: default;
+}
+
+.pagination li:first-child a {
+    border-left-width: 1px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+
+.pagination li:last-child a {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination-right {
+    text-align: right;
+}
+
+.pager {
+    margin-left: 0;
+    margin-bottom: 18px;
+    list-style: none;
+    text-align: center;
+    color: #6c58bF;
+    *zoom: 1;
+}
+
+.pager:before,
+.pager:after {
+    display: table;
+    content: "";
+}
+
+.pager:after {
+    clear: both;
+}
+
+.pager li {
+    display: inline;
+    color: #6c58bF;
+}
+
+.pager a {
+    display: inline-block;
+    padding: 5px 14px;
+    color: #6c58bF;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.pager a:hover {
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+.pager .next a {
+    float: right;
+}
+
+.pager .previous a {
+    float: left;
+}
+
+.pager .disabled a,
+.pager .disabled a:hover {
+    color: #999999;
+}
+.pagination > li:hover,
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+.pagination > li > span.active
+  {
+    z-index: 3;
+    color: #23527c;
+    background-color: purple;
+    border-color: #ddd;
+}
+	
+</style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="myCtrl">
     <div class="wrapper">
@@ -59,21 +209,41 @@
                   </div>
                 </div><!-- /.box-header -->
                 
-                
-                <div class="box-footer clearfix">
-                  <ul class="pagination pagination-sm no-margin pull-left">
-                    <li> 
-
-                    <select class="form-control select2" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
-                    ng-change="changeRow(selected)" >
-                    
-                    </select>
-               <!-- /.form-group --></li>
-                   
-                  </ul>
-                </div>
+                <div class="div-filter col-md-12">
+                	<div class="row">
+	                <div class="box-footer clearfix col-md-2">
+	                  <ul class="pagination pagination-sm no-margin pull-left">
+	                    <li> 
+	
+	                    <select class="form-control select2" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
+	                    ng-change="changeRow(selected)" >
+	                    
+	                    </select>
+	               <!-- /.form-group --></li>
+	                   
+	                  </ul>
+	                </div>
+	                 
+	                 <div class="col-md-4"></div>
+	                
+	                 <div class="box-footer clearfix col-md-3">
+	                    <select class="form-control select2 " ng-options="category as category.name for category in categories track by category.id" ng-model="fcate"
+	                    ng-change="filterCategory(fcate)" >
+	                    </select>
+	                </div>
+	                
+	                 <div class="box-footer clearfix col-md-3">
+	                    <select class="form-control select2 " ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
+	                    ng-change="filterSite(fsite)" >
+	                    </select>
+	                </div>
+	                
+	             </div><!-- row -->
+               </div>
                
-                <div class="box-body table-responsive no-padding">
+               
+               
+                <div class="box-body table-responsive no-padding col-md-12">
                   <table class="table table-hover">
                     <tr>
                       <th>Source</th>
@@ -131,24 +301,22 @@
 	app.controller('myCtrl', function($scope, $http){
 		
 		var domain = "http://localhost:8080/AKNnews/";
-	
-		$scope.numofpage=1;
-		$scope.uid = 0;
-		$scope.row = 15;
 
+		$scope.categories = [];
+		$scope.sites = [];
+		
+		$scope.row = 15;
 		$scope.sid = 0;
 		$scope.cid = 0;
 		$scope.page = 1;
 		
-		
 		$scope.triggerpage = 0;
 		
-		$scope.maindisplay = function(){
-			
+		$scope.listArticles = function(){
 			$scope.triggerpage++;
 			$http({
                 method: "GET",
-                url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.cid+"/0/",
+                url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/0/",
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 } 
@@ -158,18 +326,50 @@
             		console.log('no article..!');
 					return;                    		
             	}
-		    		  $scope.articles=response.RESPONSE_DATA; 
-		    		 $scope.numofpage=response.TOTAL_PAGES;
-		    		 alert($scope.numofpage);
-		    		 
+		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
-		    		 
 		    		 if($scope.triggerpage > 1){
 		    			 return;
 		    		 }
-		    		 $scope.loadpagination($scope.numofpage);
-		    		
-		    	
+		    		 $scope.loadpagination($scope.numofpage);		
+		    });
+		};
+		
+		$scope.listCategories = function(){
+			$http({
+                method: "GET",
+                url: domain + "api/article/category/news/",
+                headers: {
+                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                }
+            })
+            .success(function (response) {
+            	$scope.categories.push({
+            		id : "0" , name:"NO FILTER" , menu : true 
+            	 });
+            	angular.forEach(response.DATA, function(data, key) {
+           		  $scope.categories.push(data);
+		    	});
+            	$scope.fcate = $scope.categories[0];    	
+		    });
+		};
+		
+		$scope.listSites = function(){			
+			$http({
+                method: "GET",
+                url: domain + "api/article/site/",
+                headers: {
+                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                }
+            })
+            .success(function (response) {
+            	$scope.sites.push({
+            		id : "0" , name:"NO FILTER" ,
+            	 });
+            	angular.forEach(response.DATA, function(data, key) {
+           		  $scope.sites.push(data);
+		    	});
+            	$scope.fsite = $scope.sites[0];  	
 		    });
 		};
 		
@@ -191,20 +391,16 @@
 			        firstClass: 'first'
 		        }).on("page", function(event, /* page number here */ num){
 		        	$scope.page = num;
-		        	$scope.maindisplay();
+		        	$scope.listArticles();
 		        });
 		};
 		
 		
-		
-		$scope.listArticles = function(){
-				$scope.maindisplay();
-				
-		};
-		
 		$scope.listArticles();
+		$scope.listCategories();
+		$scope.listSites();
 		
-		
+
 		$scope.mySplit = function(string) {
 		    var array = string.substring(0,50);
 		    return array;
@@ -212,36 +408,25 @@
 		
 		$scope.changeRow = function(row) {
 			$scope.page = 1;
+			 $('#display').bootpag({page : '1' });
 			$scope.row= row.label;
 			$scope.listArticles();
 		};
+		$scope.filterCategory = function(cate){
+			$scope.cid = cate.id;
+			alert($scope.cid);
+			$scope.listArticles();
+		};
 		
-		
-		
-			
-			
-		
-		
+		$scope.filterSite = function(site){
+			$scope.sid = site.id;
+			alert($scope.sid);
+			$scope.listArticles();
+		}
 
-		
-		$scope.items = [{
-	    id: 1,
-		label: '15',
-			
-	    },{
-		id: 2,
-		label: '30',
-				
-		 },{
-		 id:3,
-		 label: '50',
-					
-		 }, {
-		 id: 4,
-		 label: '100',
-			 
-		}];
+		$scope.items = [{id: 1,label: '15',},{id: 2,label: '30',},{id:3,label: '50',}, {id: 4,label: '100',}];
 		$scope.selected = $scope.items[0];
+		
 		
 	});
   
