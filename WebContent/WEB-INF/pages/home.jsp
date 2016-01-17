@@ -4,12 +4,14 @@
 <html>
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>AKN News | Home Page</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun.css"/>
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive.css"/>
 		
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
@@ -29,44 +31,42 @@
 					</div><!--/end a-left-side  -->
 					
 					<div class="a-body">
-						<div class="article-block">
-							<div class="article-item" ng-repeat="article in articles">
-								<div class="article-info">
-									<img ng-click="articleSite(article.site.id)" src="${pageContext.request.contextPath}/{{article.site.logo}}"/>
-									<p ng-click="articleSite(article.site.id)">{{article.site.name | uppercase}}</p><br>
-									<pre>{{article.date | date:'EEEE, d MMM y'}}</pre>	
-									<div class="clear"></div>								
-								</div>
-								<div class="article-components">
-									<div class="article-image">
-										<a href="{{article.url}}" target="_blank"><img src="{{article.image}}"/></a>
+						<div class="article-block" ng-repeat="article in articles">
+							<div class="article-block-b1">
+								<div class="article-item">
+									<div class="article-info">
+										<img ng-click="articleSite(article.site.id)" src="${pageContext.request.contextPath}/{{article.site.logo}}"/>
+										<p ng-click="articleSite(article.site.id)">{{article.site.name | uppercase}}</p>
+										
+										<div class="saved">
+											<i ng-if="article.saved==false" ng-click="saveNews(article.id)" title="click here to save news for later" class="fa fa-bookmark-o"></i>
+											<i ng-if="article.saved==true" title="news have been saved" class="fa fa-bookmark"></i>
+										</div>
+										
+										<div class="clear"></div>
+										<small>{{article.date | date:'EEEE, d MMM y'}}</small>								
 									</div>
-									<div class="article-desc">
-											<h3><a href="{{article.url}}" target="_blank">{{article.title}}</a></h3>
-											<p><a href="{{article.url}}" target="_blank">{{article.description | limitTo:200}}</a></p>
+									<div class="article-components">
+										<div class="article-image">
+											<a href="{{article.url}}" ng-click="readNews()" target="_blank"><img src="{{article.image}}"/></a>
+										</div>
+										<div class="article-desc">
+											<p><a href="{{article.url}}" ng-click="readNews()" target="_blank">{{article.title}}</a></p>
+										</div>
 									</div>
-								</div>
-								<div class="article-action">
-									<div class="action">
-										<pre><span>{{article.hit | number}} Views</span></pre>
+									<div class="article-action">
+										<div class="action">
+											<small><span>{{article.hit | number}} Views</span></small>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="loading" ng-show="loadingStatus">
+							<img src="${pageContext.request.contextPath}/resources/images/loading.gif"/>
+						</div>
 					</div><!--/end a-body  -->
 					
-					<div class="a-right-side">
-						<ul class="a-popular">
-							<li><i class="fa fa-area-chart"></i>ព័ត៌មានពេញនិយម</li>
-							<li ng-repeat="popular in populars">
-								<div class="a-popular-item">
-									<a href="{{popular.url}}" target="_blank"><img src="{{popular.image}}"/></a>
-									<p><a href="{{popular.url}}" target="_blank">{{popular.title}}</a></p>
-									<div class="clear"></div>
-								</div>
-							</li>
-						</ul>
-					</div><!--/end a-right-side  -->
 					
 				</div><!--/end a-row  -->
 				
@@ -78,15 +78,15 @@
 			var app = angular.module('myApp', []);
 			app.controller('myCtrl', function($scope, $window, $http){
 				
-				var domain = "http://localhost:8080/AKNnews/";
+				var baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.articles = [];
 				$scope.categories = [];
 				$scope.populars = [];
 				$scope.navCategory = [];
 				
-				$scope.uid = 0;
-				$scope.row = 50;
+				$scope.uid = 5;
+				$scope.row = 18;
 
 				$scope.sid = 0;
 				$scope.cid = 0;
@@ -94,10 +94,12 @@
 				
 				$scope.key = "";
 				
+				$scope.loadingStatus = false;
+				
 				$scope.loadCategories = function(){
 					$http({
                         method: "GET",
-                        url: domain + "api/article/category/news/",  //load only category that has news
+                        url: baseurl + "api/article/category/news/",  //load only category that has news
                         headers: {
                              'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
@@ -117,7 +119,7 @@
 					$scope.page += 1;
 					$http({
                         method: "GET",
-                        url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/",
+                        url: baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/",
                         headers: {
                              'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
@@ -125,11 +127,14 @@
                     .success(function (response) {
                     	if(response.RESPONSE_DATA.length == 0){
                     		console.log('no more article..!');
+                    		$scope.loadingStatus = false;
 							return;                    		
                     	}
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.articles.push(data);
 				    	});
+                    	
+                    	$scope.loadingStatus = false;
 				    });
 				};
 					
@@ -144,6 +149,9 @@
                     windowBottom = windowHeight + window.pageYOffset;
 
                     if (windowBottom >= docHeight) {
+                    	console.log("reached..!");
+                    	$scope.loadingStatus = true;
+                    	
                     	$scope.$apply($scope.loadArticles());
                     }
      	        });
@@ -151,7 +159,7 @@
 				$scope.loadPopulars = function(){
 					$http({
 						method: "GET",
-                        url: domain + "api/article/popular/"+$scope.uid+"/",
+                        url: baseurl + "api/article/popular/"+$scope.uid+"/",
                         headers: {
                              'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
@@ -192,6 +200,15 @@
 					
 					$scope.loadArticles();
 				}; 
+				
+				$scope.saveNews = function(nid){
+					alert(nid);
+				};
+				
+				$scope.readNews = function(){
+					alert("clicked");
+				};
+				
 			});
 		
 		</script>
