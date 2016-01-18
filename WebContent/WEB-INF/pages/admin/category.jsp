@@ -14,10 +14,23 @@
    i.ion{
    		margin-top: 25px;
    }
+   	  .ng-required{
+   	  	color:red;
+   	  }
+      .ng-invalid {
+          color: red;
+      }
+      .ng-dirty.ng-invalid-required {
+          color: red;
+      }
+      ng-dirty.ng-invalid-minlength {
+          color: red;
+      }
+ 
   
    </style>
    
-   <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
+  <%--  <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script> --%>
    
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -34,62 +47,147 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Article Management
-            <small>Version 2.0</small>
+            Category Management
+            <!-- <small>Version 2.0</small> -->
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Article Management</li>
+            <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
+            <li class="active">Category Management</li>
           </ol>
         </section>
 
         <!-- Main content -->
         <!-- Main content -->
-        <section class="content">
-          
-         	
-         	this is category!
-         	
-         	
-		<div ng-app="myApp" ng-controller="myCtrl">
+        
+        <section class="content">         	          
+		<div ng-app="myApp" ng-controller="myCtrl" >
 		<br/>
 		
-		<form ng-submit="submit()" name="myForm">
-		<input type="text" ng-model="category.id" name="id" ng-disabled=true />
-          <input type="text" ng-model="category.name" name="uname" placeholder="Enter your name" required ng-minlength="3"/>
+		  <!-- Modal ADD -->
+		  <div class="modal fade" id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" ng-click='reset()'>&times;</button>
+		          <h4 class="modal-title">{{!category.id ? 'ADD NEW'  : 'UPDATE' }}</h4>
+		        </div>
+		        <div class="modal-body">
+					<form ng-submit="submit()" name="myForm">
+					<input type="hidden" ng-model="category.id" name="id" ng-disabled=true />
+					  <h4>Name</h4>
+			          <input type="text" ng-model="category.name" name="uname" placeholder="Enter category name" required ng-minlength="3" class='form-control'/>
+			          
+			              <span ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
+			              <span ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 3</span>
+			              <span ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/><br/>
+			          
+			          <input type="submit" value="{{!category.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
+			          class="{{!category.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
+			          
+			      	</form>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()' >Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		  
+		  		  <!-- Modal View -->
+		  <div class="modal fade" id="myView" role="dialog" data-keyboard="false" data-backdrop="static">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" ng-click='reset()'>&times;</button>
+		          <h4 class="modal-title">ADD NEW</h4>
+		        </div>
+		        <div class="modal-body">
+					<table class="table " >	
+			          	<tr>
+			          		<th style="border-top: none !important; ">NAME</th>
+			          		<td style="border-top: none !important; ">{{ category.name }}</td>
+			          	</tr>
+			            <tr>
+			          		<th>IS_MENU</th>
+			          		<td>{{ category.menu }}</td>
+			          	</tr>
+		          	</table>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()'>Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		  
+		  		<!-- Modal Delete Msg -->
+		  <div class="modal fade" id="myDelete" role="dialog" data-keyboard="false" data-backdrop="static">
+		    <div class="modal-dialog">		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" ng-click='reset()'>&times;</button>
+		          <h4 class="modal-title">DELETE</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<center>
+						<h4> Delete this category : " {{category.name}}  " ?</h4>
+						<button type="button" class="btn btn-info" data-dismiss="modal" ng-click='reset()'>NO</button>					
+						<button ng-click='deteteCategory(category.id)' class='btn btn-danger' data-dismiss="modal">YES</button>
+					</center>					
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()'>Close</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		  
           
-              <span ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
-              <span ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 4</span>
-              <span ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/><br/>
-          
-          <input type="submit" value="{{!category.id ? 'Add' : 'Update'}}" ng-disabled="myForm.$invalid" >
-      	</form>
-		<br/>
 		
-		<button ng-click='insertCategory()'>insert</button>
-		<table border="1">
-			<tr>
-				<td> ID </td>
-				<td> NAME </td>
-				<td> MENU </td>	
-				<td> ACTION </td>							
-			</tr>
-			<tr ng-repeat="cat in category_list">
-				<td> {{cat.id}}</td>
-				<td> {{cat.name}}</td>
-				<td> {{cat.menu}}
+		<br/>
+		<div>
+			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">ADD NEW</button> <br/><br/>
+		</div>
+		
+		<div>
+			<div class="box">
+				<div class="box-body table-responsive no-padding">
+					<table class="table table-condensed table-hover">
+						<tr>
+							<th> ID </th>
+							<th> NAME </th>
+							<th> MENU </th>	
+							<th> ACTION </th>							
+						</tr>
+						<tr ng-repeat="cat in category_list">
+							<td> {{cat.id}}</td>
+							<td> {{cat.name}}</td>
+							<td> 							
+								 <input type="checkbox"  value={{cat.menu}} ng-click="menuCategory(cat.id)" checked ng-if="cat.menu == true " />
+						         <input type="checkbox" value={{cat.menu}} ng-click="menuCategory(cat.id,cat.status)" ng-if="cat.menu == false " />						               
+							</td>
+							<td> 
+								<button ng-click='findCategoryById(cat.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete">DELETE</button>
+								<button ng-click='findCategoryById(cat.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd">UPDATE</button>
+								<button ng-click='findCategoryById(cat.id)' class='btn btn-info' data-toggle="modal" data-target="#myView">VIEW</button>
+							 </td>	
+						</tr>
+					 
+					</table>
+				</div>
 				
-					 <input type="checkbox" value={{cat.menu}} ng-click="menuCategory(cat.id)" checked ng-if="cat.menu == true " />
-			         <input type="checkbox" value={{cat.menu}} ng-click="menuCategory(cat.id,cat.status)" ng-if="cat.menu == false " />
-			               
-				</td>
-				<td> 
-					<button ng-click='deteteCategory(cat.id)'>delete</button>
-					<button ng-click='findCategoryById(cat.id)'>view</button>
-				 </td>	
-			</tr>
-		
-		</table>
+			</div>
+			
+		</div>
+
 		
 		</div>
 
@@ -99,7 +197,7 @@
 		    $scope.category={id:null,name:''};		 
 		    
 		    $scope.submit = function() {
-		    	alert( $scope.category.id );
+		    	//alert( $scope.category.id );
 		    	if ( $scope.category.id == null){
 		    		$scope.insertCategory();
 		    		$scope.reset();
@@ -108,6 +206,8 @@
 		    		$scope.reset();
 		    	}
                 console.log('Form is submitted with following user', $scope.category);
+                
+                
 		    }
 		    
  		    $scope.findCategoryById = function(id){
@@ -127,7 +227,7 @@
             }
 		    
 		    $scope.category_list = {};
-		    var 
+		    var url = 'http://localhost:8080/AKNnews/api/';
 		    
 		    var config = {headers: {
 	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
@@ -135,9 +235,9 @@
 	       		 }
 	    	};
 		    $scope.listCategory = function(){
-		    	alert("list");
+		    	////alert("list");
 			    $http.get(
-						'http://localhost:8080/AKNnews/api/article/category/'
+						url+'article/category/'
 						,config
 					).success(function(response){
 						$scope.category_list = response.DATA;
@@ -150,10 +250,10 @@
 		    $scope.listCategory();
 		    
 		    $scope.insertCategory = function(){
-		    	alert("insert");
+		    	//alert("insert");
 		    	console.log('category', $scope.category);
 			    $http.post(
-						'http://localhost:8080/AKNnews/api/article/category/'
+						url+'article/category/'
 						,$scope.category
 						,config
 					).success(function(response){						
@@ -167,10 +267,10 @@
 		    
 		    
 		    $scope.updateCategory = function(){
-		    	alert("update");
+		    	//alert("update");
 		    	console.log('category', $scope.category);
 			    $http.put(
-						'http://localhost:8080/AKNnews/api/article/category/'
+						url+'article/category/'
 						,$scope.category
 						,config
 					).success(function(response){						
@@ -183,23 +283,24 @@
 		    }  
 		    
 		    $scope.deteteCategory = function(id){
-		    	alert("delete");
+		    	////alert("delete");
 			    $http.delete(
-						'http://localhost:8080/AKNnews/api/article/category/'+id
+						url+'article/category/'+id
 						,config
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
 						console.log( response ); 						
 						console.log( $scope.category_list );
+						$scope.reset();
 					}).error(function(response){
 						console.log( response ); 
 					});	  
 		    }  
 		    
 		    $scope.menuCategory = function(id){
-		    	alert("menu");
+		    	//alert("menu");
 			    $http.patch(
-						'http://localhost:8080/AKNnews/api/article/category/toggle/'+id
+						url+'article/category/toggle/'+id
 						,''
 						,config
 					).success(function(response){						
