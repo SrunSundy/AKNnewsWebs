@@ -12,154 +12,36 @@
 	<jsp:include page="import/header.jsp"></jsp:include>
 <style>
 
-.pagination {
-    height: 36px;
-    margin: 18px 0;
-    color: #6c58bF;
-}
-
-.pagination ul {
-    display: inline-block;
-    *display: inline;
-    /* IE7 inline-block hack */
-    *zoom: 1;
-    margin-left: 0;
-    color: #ffffff;
-    margin-bottom: 0;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.pagination li {
-    display: inline;
-    color: #6c58bF;
-}
-
-.pagination a {
-    float: left;
-    padding: 0 14px;
-    line-height: 34px;
-    color: #6c58bF;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-left-width: 0;
-}
-
-.pagination a:hover,
-.pagination .active a {
-    background-color: #6c58bF;
-    color: #ffffff;
-}
-
-.pagination a:focus {
-    background-color: #6c58bF;
-    color: #ffffff;
-}
 
 
-.pagination .active a {
-    color: #ffffff;
-    cursor: default;
-}
 
-.pagination .disabled span,
-.pagination .disabled a,
-.pagination .disabled a:hover {
-    color: #999999;
-    background-color: transparent;
-    cursor: default;
+ul.pagination li.active a{
+	background: #F44336;
+	border: 1px solid #E0E0E0;
 }
-
-.pagination li:first-child a {
-    border-left-width: 1px;
-    -webkit-border-radius: 3px 0 0 3px;
-    -moz-border-radius: 3px 0 0 3px;
-    border-radius: 3px 0 0 3px;
+ul.pagination li.active a:hover{
+	background: #F44336;
+	border: 1px solid #E0E0E0;
+	
 }
-
-.pagination li:last-child a {
-    -webkit-border-radius: 0 3px 3px 0;
-    -moz-border-radius: 0 3px 3px 0;
-    border-radius: 0 3px 3px 0;
+td.nodata{
+	text-align:center;
 }
-
-.pagination-centered {
-    text-align: center;
-}
-
-.pagination-right {
-    text-align: right;
-}
-
-.pager {
-    margin-left: 0;
-    margin-bottom: 18px;
-    list-style: none;
-    text-align: center;
-    color: #6c58bF;
-    *zoom: 1;
-}
-
-.pager:before,
-.pager:after {
-    display: table;
-    content: "";
-}
-
-.pager:after {
-    clear: both;
-}
-
-.pager li {
-    display: inline;
-    color: #6c58bF;
-}
-
-.pager a {
-    display: inline-block;
-    padding: 5px 14px;
-    color: #6c58bF;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-}
-
-.pager a:hover {
-    text-decoration: none;
-    background-color: #f5f5f5;
-}
-
-.pager .next a {
-    float: right;
-}
-
-.pager .previous a {
-    float: left;
-}
-
-.pager .disabled a,
-.pager .disabled a:hover {
-    color: #999999;
-}
-.pagination > li:hover,
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover
-.pagination > li > span.active
-  {
-    z-index: 3;
-    color: #23527c;
-    background-color: purple;
-    border-color: #ddd;
+td.nodata p{
+	font-weight: bold;
+	font-size: 16px;
 }
 	
+i.action{
+	text-align: center;
+	font-size: 17px;
+	color: #9E9E9E;
+	margin-right:5px;
+	cursor: pointer;
+}
+i.action:hover{
+	color: #F44336;
+}
 </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="myCtrl">
@@ -194,12 +76,16 @@
                 <div class="box-header">
                   <h3 class="box-title">Responsive Hover Table</h3>
                   <div class="box-tools">
+                     <form >
                     <div class="input-group" style="width: 150px;">
-                      <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search" ng-model="searchkey">
+                  
+                      <input id="searchbox" type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search" ng-model="searchkey">
                       <div class="input-group-btn">
-                        <button class="btn btn-sm btn-default"  ng-click="searchArticles(searchkey)"><i class="fa fa-search" ></i></button>
+                        <button  class="btn btn-sm btn-default"  ng-click="searchArticles(searchkey)"><i class="fa fa-search" ></i></button>
                       </div>
+                    
                     </div>
+                     </form>
                   </div>
                 </div><!-- /.box-header -->
                 
@@ -209,7 +95,7 @@
 	                  <ul class="pagination pagination-sm no-margin pull-left">
 	                    <li> 
 	
-	                    <select class="form-control select2" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
+	                    <select id="setrow" class="form-control select2" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
 	                    ng-change="changeRow(selected)" >
 	                    
 	                    </select>
@@ -221,15 +107,17 @@
 	                 <div class="col-md-4"></div>
 	                
 	                 <div class="box-footer clearfix col-md-3">
-	                    <select class="form-control select2 " ng-options="category as category.name for category in categories track by category.id" ng-model="fcate"
+	                    <select id="filtercate" class="form-control select2 " ng-options="category as category.name for category in categories track by category.id" ng-model="fcate"
 	                    ng-change="filterCategory(fcate)" >
 	                    </select>
 	                </div>
 	                
 	                 <div class="box-footer clearfix col-md-3">
-	                    <select class="form-control select2 " ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
+	                   <select id="filtersite" class="form-control select2 " ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
 	                    ng-change="filterSite(fsite)" >
-	                    </select>
+	                    </select> 
+	                   
+	                     
 	                </div>
 	                
 	             </div><!-- row -->
@@ -244,22 +132,31 @@
                       <th>View</th>
                       <th>Category</th>
                       <th>Status</th>
+                      <th>Action</th>
                     </tr>
-                   <tr ng-repeat="article in articles">	
+                   
+                    <tr ng-hide="articles.length">
+                    	<td colspan="8" class='nodata'><p>Oops! No Data Found</p></td>
+                    </tr>
+                   
+                   <tr  ng-repeat="article in articles">	
                       <td><img class='logo-style' src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
                       <td>{{article.date | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
-                      <td><span class="label label-warning">{{article.category.name}}</span></td>
-                      <td>{{article.status }}</td>
+                      <td><span class="label label-success">{{article.category.name}}</span></td>
+                      <td ng-show="article.status == true">T</td>
+                      <td ng-show="article.status == false">F</td>
+                       <td ><i class="fa fa-pencil-square-o action" ></i><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
+                       </td>
                     </tr>
-                   
+                 
                   </table>
                 </div><!-- /.box-body -->
                 
                   <div class="box-footer clearfix">
-                  	<div id="display"></div>
+                  	<div ng-hide="!articles.length" id="display"></div>
                 </div>
               </div><!-- /.box -->
             </div>
@@ -298,6 +195,11 @@
 		
 		$scope.triggerpage = 0;
 		
+		$scope.readNews = function(url){
+			alert(url);
+			location.href=url;
+		}
+		
 		$scope.listSearchArticles = function(key){
 			$scope.triggerpage++;
 			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": 0};
@@ -310,10 +212,9 @@
                 data : JSON.stringify(json),
             })
             .success(function (response) {
-            	alert(response.RESPONSE_DATA);
+            	
             	if(response.RESPONSE_DATA.length == 0){
-            		console.log('no article..!');
-					return;                    		
+            		console.log('no article..!');   		
             	}
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
@@ -327,6 +228,7 @@
 			$scope.page = 1;
 			$('#display').bootpag({page : '1' });
 			$scope.listSearchArticles($scope.searchkey);
+			$("#searchbox").blur();
 		
 		};
 
@@ -345,8 +247,7 @@
             })
             .success(function (response) {
             	if(response.RESPONSE_DATA.length == 0){
-            		console.log('no article..!');
-					return;                    		
+            		console.log('no article..!');              		
             	}
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
@@ -429,12 +330,14 @@
 		};
 		
 		$scope.changeRow = function(row) {
+			$("#setrow").blur();
 			$scope.page = 1;
 			$('#display').bootpag({page : '1' });
 			$scope.row= row.label;
 			$scope.listArticles();
 		};
 		$scope.filterCategory = function(cate){
+			$("#filtercate").blur();
 			$scope.page = 1;
 			$('#display').bootpag({page : '1' });
 			$scope.cid = cate.id;
@@ -442,6 +345,7 @@
 		};
 		
 		$scope.filterSite = function(site){
+			$("#filtersite").blur();
 			$scope.page = 1;
 			$('#display').bootpag({page : '1' });
 			$scope.sid = site.id;
