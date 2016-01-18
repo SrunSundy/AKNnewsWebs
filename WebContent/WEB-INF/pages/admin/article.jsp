@@ -195,14 +195,11 @@ i.action:hover{
 		
 		$scope.triggerpage = 0;
 		
-		$scope.readNews = function(url){
-			alert(url);
-			location.href=url;
-		}
+	
 		
 		$scope.listSearchArticles = function(key){
 			$scope.triggerpage++;
-			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": 0};
+			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": -1};
 			$http({
                 method: "POST",
                 url: domain + "api/article/search/",
@@ -240,15 +237,17 @@ i.action:hover{
 			$scope.triggerpage++;
 			$http({
                 method: "GET",
-                url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/0/",
+                url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/-1/",
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 } 
             })
             .success(function (response) {
+            	
             	if(response.RESPONSE_DATA.length == 0){
             		console.log('no article..!');              		
             	}
+            	
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
 		    		 if($scope.triggerpage > 1){
