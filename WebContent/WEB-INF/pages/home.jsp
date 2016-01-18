@@ -11,7 +11,7 @@
 		<script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive.css"/>
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 		
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
@@ -39,7 +39,7 @@
 										<p ng-click="articleSite(article.site.id)">{{article.site.name | uppercase}}</p>
 										
 										<div class="saved">
-											<i ng-if="article.saved==false" ng-click="saveNews(article.id)" title="click here to save news for later" class="fa fa-bookmark-o"></i>
+											<i ng-if="article.saved==false" ng-click="saveNews(article.id)" id="{{article.id}}" title="click here to save news for later" class="fa fa-bookmark-o"></i>
 											<i ng-if="article.saved==true" title="news have been saved" class="fa fa-bookmark"></i>
 										</div>
 										
@@ -48,10 +48,10 @@
 									</div>
 									<div class="article-components">
 										<div class="article-image">
-											<a href="{{article.url}}" ng-click="readNews()" target="_blank"><img src="{{article.image}}"/></a>
+											<a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank"><img src="{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
-											<p><a href="{{article.url}}" ng-click="readNews()" target="_blank">{{article.title}}</a></p>
+											<p><a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank">{{article.title}}</a></p>
 										</div>
 									</div>
 									<div class="article-action">
@@ -78,6 +78,7 @@
 			var app = angular.module('myApp', []);
 			app.controller('myCtrl', function($scope, $window, $http){
 				
+			
 				var baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.articles = [];
@@ -95,6 +96,9 @@
 				$scope.key = "";
 				
 				$scope.loadingStatus = false;
+				$scope.userprofileStatus = false;
+				$scope.phoneMenuStatus = false;
+				
 				
 				$scope.loadCategories = function(){
 					$http({
@@ -202,13 +206,50 @@
 				}; 
 				
 				$scope.saveNews = function(nid){
-					alert(nid);
+					
+					$http({
+						method: "POST",
+                        url: baseurl + "api/article/savelist",
+                        data: {
+                        	newsid:nid, userid:$scope.uid
+                        },
+                        headers: {
+                             'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                        }
+                    })
+                    .success(function (response) {
+                    	angular.element('#'+nid).removeClass("fa-bookmark-o").addClass("fa-bookmark");
+                    	console.log(response.MESSAGE);
+				    });	
 				};
 				
-				$scope.readNews = function(){
-					alert("clicked");
+				$scope.readNews = function(nid){
+					$http({
+						method: "PATCH",
+                        url: baseurl + "api/article/viewcount/"+nid,
+                        headers: {
+                             'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                        }
+                    })
+                    .success(function (response) {
+                    	console.log(response.MESSAGE);
+				    });
 				};
 				
+				$scope.toggleShowProfile = function(){
+					if($scope.userprofileStatus == false)
+						$scope.userprofileStatus = true;
+					else
+						$scope.userprofileStatus = false;
+				};
+				
+				$scope.togglePhoneMenu = function(){
+					
+					if($scope.phoneMenuStatus == false)
+						$scope.phoneMenuStatus = true;
+					else
+						$scope.phoneMenuStatus = false;
+				};
 			});
 		
 		</script>
