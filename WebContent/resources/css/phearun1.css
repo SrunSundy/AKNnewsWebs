@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Hanuman:400,700);
+
 * {
 	padding: 0px;
 	margin: 0 auto;
@@ -5,11 +7,9 @@
 	border-radius:0px;
 }
 
-@import url(http://fonts.googleapis.com/css?family=Hanuman:400,700);
-
 body {
+	font-family: 'Hanuman';
 	background-color: #dadada;
-	/* overflow-x:hidden; */
 }
 
 .main-container {
@@ -42,13 +42,6 @@ body {
 	margin-left:5px;
 	cursor:pointer;
 }
-
-/* apply font style */
-body{
-	font-family: 'Hanuman';
-}
-
-/* end apply font style  */
 
 .a-nav {
 	min-height: 50px;
