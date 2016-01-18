@@ -11,11 +11,11 @@
 			<li><a href="${pageContext.request.contextPath }"><i class="fa fa-home"></i>ទំព័រដើម</a></li>
 			<li ng-repeat="category in navCategory" ng-click="articleCategory(category.id)">{{category.name}}</li>
 		</ul>
-		<div class="user-profile">
+		<div class="user-profile" ng-click="toggleShowProfile()">
 			<img src="${pageContext.request.contextPath}/resources/images/user/avatar.png"/>
 		</div>
 		<div class="clear"></div>
-		<div id="user-profile" class="user-profile-info">
+		<div ng-show="userprofileStatus" id="user-profile" class="user-profile-info">
 			
 			<ul class="profile-info">
 				<li><i class="fa fa-user"></i>សូស្តី</li>
@@ -27,6 +27,7 @@
 			<ul class="profile-after-login">
 				<li><i class="fa fa-user"></i>សូស្តី! ភារុន</li>
 				<li><i class="fa fa-user-secret"></i>គ្រប់គ្រងព័ត៌មាន</li>
+				<li><i class="fa fa-bookmark"></i> ព័ត៌មានបាន រក្សាទុក</li>
 				<li><i class="fa fa-key"></i>ប្តូរ លេខសម្ងាត់</li>
 				<li><i class="fa fa-camera"></i>ប្តូរ រូបភាព</li>
 				<li><i class="fa fa-sign-out"></i>ចាកចេញ</li>
@@ -34,12 +35,12 @@
 			</ul>
 		</div>
 	</div>
-	<div class="phone-menu">
+	<div class="phone-menu" ng-show="phoneMenuStatus">
 		<ul>
-			<li ng-repeat="category in navCategory" ng-click="articleCategory(category.id)"><i class="fa fa-angle-down"></i>{{category.name}}</li>
+			<li ng-repeat="category in categories" ng-click="articleCategory(category.id)"><i class="fa fa-angle-down"></i>{{category.name}}</li>
 		</ul>
 	</div>
-	<div class="phone-menu-icon">
+	<div class="phone-menu-icon" ng-click="togglePhoneMenu()">
 		<i class="fa fa-bars"></i>
 	</div>
 </div>
