@@ -1,15 +1,5 @@
 /************************* start responsive here **************************/
-@media screen and (max-width: 1920px) {
-		.a-body{
-			width:1100px;
-			left:5%;
-		}
-		.article-image{
-			height:160px;
-		}
-}
-@media screen and (max-width: 1740px) {
-		
+@media screen and (max-width: 1317px) {
 		.a-left-side, .nav-search{
 			left:5%;
 		}
@@ -18,39 +8,16 @@
 		}
 		
 }
-@media screen and (max-width: 1555px) {
-		.a-body{
-			width:1000px;
-			left:10%;
-		}
-}
-
-@media screen and (max-width: 1435px) {
-		.a-body{
-			width:900px;
-			left:20%;
-		}
-}
-
-@media screen and (max-width: 1290px) {
-		.a-body{
-			left:17%;
-		}
-}
-@media screen and (max-width: 1265px) {
+@media screen and (max-width: 1185px) {
 		.a-left-side, .nav-search{
 			left:1%;
 		}
 		.nav-category{
 			right: 1%;
 		}
+		
 }
-@media screen and (max-width: 1170px) {
-		.a-body{
-			left:18%;
-		}
-}
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1096px) {
 		.a-left-side{
 			display:none;
 		}
@@ -69,6 +36,7 @@
 			max-height: 54px;
 		}
 }
+
 @media screen and (max-width: 900px) {
 		.a-body{
 			width: 98.5%;
@@ -134,5 +102,3 @@
 		}
 		
 }
-
-/*********************** end responsive *******************************/

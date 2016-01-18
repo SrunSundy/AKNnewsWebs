@@ -75,7 +75,7 @@ i.fa.fa-search{
 	color: #9E9A9A;
 	left:7px;
 }
-i.fa.fa-bookmark,i.fa.fa-bookmark-o{
+i.fa.fa-bookmark, i.fa.fa-bookmark-o{
 	padding-right:0px;
 } 
 .nav-search input{
@@ -331,7 +331,7 @@ a, a:hover, a:active {
 }
 
 .user-profile-info{
-	display:none;
+	display:block;
 	position:absolute;
 	right:0px;
 	margin-top:11px;
@@ -343,7 +343,7 @@ a, a:hover, a:active {
 }
 .user-profile-info ul li, .phone-menu ul li{
 	border-bottom:1px solid #DADADA;
-	padding: 7px 25px;
+	padding: 7px 70px 7px 20px;
 	background-color:rgba(173, 24, 39, 0.82);
 }
 
@@ -353,7 +353,7 @@ a, a:hover, a:active {
 	color:#fff;
 	cursor:pointer;
 	margin-top:51px;
-	display:none;
+	display:block;
 }
 
 .phone-menu-icon{
