@@ -201,9 +201,9 @@
                 
                   <div class="box-tools">
                     <div class="input-group" style="width: 150px;">
-                      <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+                      <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search" ng-model="searchkey">
                       <div class="input-group-btn">
-                        <button class="btn btn-sm btn-default"><i class="fa fa-search" ></i></button>
+                        <button class="btn btn-sm btn-default"  ng-click="searchArticles(searchkey)"><i class="fa fa-search" ></i></button>
                       </div>
                     </div>
                   </div>
@@ -292,11 +292,9 @@
     </div><!-- ./wrapper -->
 
   <jsp:include page="import/footer.jsp"></jsp:include>
+ 
   <script>
  
-  
-  </script>
-  <script>
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http){
 		
@@ -312,7 +310,43 @@
 		
 		$scope.triggerpage = 0;
 		
+		$scope.listSearchArticles = function(key){
+			$scope.triggerpage++;
+			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": 0};
+			$http({
+                method: "POST",
+                url: domain + "api/article/search/",
+                headers: {
+                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                },
+                data : JSON.stringify(json),
+            })
+            .success(function (response) {
+            	alert(response.RESPONSE_DATA);
+            	if(response.RESPONSE_DATA.length == 0){
+            		console.log('no article..!');
+					return;                    		
+            	}
+		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
+		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
+		    		 if($scope.triggerpage > 1){
+		    			 return;
+		    		 }
+		    		 $scope.loadpagination($scope.numofpage);		
+		    });
+		};
+		$scope.searchArticles = function(key){
+			$scope.page = 1;
+			$('#display').bootpag({page : '1' });
+			$scope.listSearchArticles($scope.searchkey);
+		
+		};
+
 		$scope.listArticles = function(){
+			if(!($scope.searchkey == '' || $scope.searchkey==null)){
+				$scope.listSearchArticles($scope.searchkey);
+				return;
+			}
 			$scope.triggerpage++;
 			$http({
                 method: "GET",
@@ -326,6 +360,7 @@
             		console.log('no article..!');
 					return;                    		
             	}
+            	
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
 		    		 if($scope.triggerpage > 1){
@@ -373,6 +408,10 @@
 		    });
 		};
 		
+		
+		
+		
+		
 		$scope.loadpagination = function(numofpage){
 		
 			 $('#display').bootpag({
@@ -408,19 +447,21 @@
 		
 		$scope.changeRow = function(row) {
 			$scope.page = 1;
-			 $('#display').bootpag({page : '1' });
+			$('#display').bootpag({page : '1' });
 			$scope.row= row.label;
 			$scope.listArticles();
 		};
 		$scope.filterCategory = function(cate){
+			$scope.page = 1;
+			$('#display').bootpag({page : '1' });
 			$scope.cid = cate.id;
-			alert($scope.cid);
 			$scope.listArticles();
 		};
 		
 		$scope.filterSite = function(site){
+			$scope.page = 1;
+			$('#display').bootpag({page : '1' });
 			$scope.sid = site.id;
-			alert($scope.sid);
 			$scope.listArticles();
 		}
 
