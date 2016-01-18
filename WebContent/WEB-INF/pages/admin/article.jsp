@@ -168,8 +168,7 @@
       <header class="main-header">
     	<jsp:include page="element/topheader.jsp"></jsp:include>
 	  </header>
-	  
-		 <jsp:include page="element/leftslidebar.jsp"></jsp:include>
+	  	<jsp:include page="element/leftslidebar.jsp"></jsp:include>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -194,11 +193,6 @@
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Responsive Hover Table</h3>
-                
-                 
-                
-    
-                
                   <div class="box-tools">
                     <div class="input-group" style="width: 150px;">
                       <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search" ng-model="searchkey">
@@ -240,9 +234,6 @@
 	                
 	             </div><!-- row -->
                </div>
-               
-               
-               
                 <div class="box-body table-responsive no-padding col-md-12">
                   <table class="table table-hover">
                     <tr>
@@ -253,15 +244,11 @@
                       <th>View</th>
                       <th>Category</th>
                       <th>Status</th>
-                    
                     </tr>
-                   
-                   <tr ng-repeat="article in articles">
-                   		
+                   <tr ng-repeat="article in articles">	
                       <td><img class='logo-style' src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
-                       
                       <td>{{article.date | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
                       <td><span class="label label-warning">{{article.category.name}}</span></td>
@@ -276,6 +263,7 @@
                 </div>
               </div><!-- /.box -->
             </div>
+            
           </div>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -360,7 +348,6 @@
             		console.log('no article..!');
 					return;                    		
             	}
-            	
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
 		    		 if($scope.triggerpage > 1){
@@ -407,11 +394,7 @@
             	$scope.fsite = $scope.sites[0];  	
 		    });
 		};
-		
-		
-		
-		
-		
+
 		$scope.loadpagination = function(numofpage){
 		
 			 $('#display').bootpag({
