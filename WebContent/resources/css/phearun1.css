@@ -331,7 +331,7 @@ a, a:hover, a:active {
 }
 
 .user-profile-info{
-	display:block;
+	display:none;
 	position:absolute;
 	right:0px;
 	margin-top:11px;
@@ -353,7 +353,7 @@ a, a:hover, a:active {
 	color:#fff;
 	cursor:pointer;
 	margin-top:51px;
-	display:block;
+	display:none;
 }
 
 .phone-menu-icon{
@@ -363,7 +363,7 @@ a, a:hover, a:active {
 	cursor:pointer;
 	margin-top:10px;
 	font-size:30px;
-	display:block;		
+	display:none;		
 }
 .loading{
 	color:#fff;
