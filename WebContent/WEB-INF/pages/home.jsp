@@ -13,6 +13,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 		
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css">
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		
@@ -21,7 +23,6 @@
 			<jsp:include page="include/header.jsp"></jsp:include>
 			
 			<div class="a-container">
-			
 				<div class="a-row">
 					<div class="a-left-side">
 						<ul class="a-category">
@@ -32,7 +33,30 @@
 					
 					<div class="a-body">
 						<div class="slide-show">
-							SlSlideide
+							
+							
+							<!-- <div class="popular-text">
+								<p>Popular<p>
+							</div> -->
+							
+							<div class="popular-news">
+								<div class="slide-image">
+									<div id="owl-demo" class="owl-carousel owl-theme">
+									  <div class="item"><img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Coverr75.jpg?ebb82d" alt="Mirror Edge"></div>
+									</div>
+								</div>
+								
+								<div class="popular-title">
+									<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
+								</div>
+							</div>
+							<div class="slide-button">
+								<div id="sleft" class="button-left"></div>
+								<div id="sright" class="button-right"></div>
+							</div>
+							<div class="popular-news-b1">
+								
+							</div>
 						</div>
 						<div class="article-block" ng-repeat="article in articles">
 							<div class="article-block-b1">
@@ -77,11 +101,12 @@
 			
 		</div><!--/end main container  -->
 		
+		<script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
+		
 		<script>
 			var app = angular.module('myApp', []);
 			app.controller('myCtrl', function($scope, $window, $http){
 				
-			
 				var baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.articles = [];
@@ -253,6 +278,30 @@
 					else
 						$scope.phoneMenuStatus = false;
 				};
+				
+				
+				//Carosel Slider //Initialize Plugin
+				  angular.element("#owl-demo").owlCarousel({
+				      navigation : false,
+				      slideSpeed : 500,
+				      paginationSpeed : 400,
+				      singleItem:true,
+				      autoPlay:true,
+				      pagination:false,
+				  });
+				
+				  //get carousel instance data and store it in variable owl
+				  var owl = angular.element(".owl-carousel").data('owlCarousel');
+				
+				  angular.element("#sleft").click(function(){
+					  owl.prev();
+				  });
+				  angular.element("#sright").click(function(){
+					  owl.next();
+				  });
+				  
+				  
+				  
 			});
 		
 		</script>
