@@ -12,7 +12,11 @@
 	<%-- <jsp:include page="import/header.jsp"></jsp:include> --%>
 	 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
+  
+   
+     <!-- Select2 -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
@@ -25,7 +29,7 @@
     
        <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-mini"  ng-app="myApp" ng-controller="myCtrl">
     <div class="wrapper">
     
       <header class="main-header">
@@ -63,18 +67,18 @@
                 		<div class="col-md-6">
                 		 <div class="input-group">
 		                    <span class="input-group-addon">Category</span>
-		                    <input type="text" class="form-control" placeholder="Username">
+		                     <select  id="filtercate" class=" select2 " style="width: 100%"  ng-options="category as category.name for category in categories track by category.id" ng-model="fcate"
+	                    ng-change="filterCategory(fcate)"  >
+	                    </select> 
+	                    
 		                  </div>
 		                  <br>
-		                  <div class="input-group">
-		                    <span class="input-group-addon">Title</span>
-		                    <input type="text" class="form-control" placeholder="Username">
-		                  </div>
-		                  <br>
-		                  <div class="input-group">
-		                    <span class="input-group-addon">Descirpiton</span>
-		                    <input type="text" class="form-control" placeholder="Username">
-		                  </div>
+		                
+		                  <!-- textarea -->
+                    <div class="form-group">
+                      <label>Textarea</label>
+                      <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                    </div>
 		                  <br>
                 		</div>
                 		
@@ -150,8 +154,12 @@
   
    <!-- jQuery 2.1.4 -->
     <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    
+      <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
+    
+     <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
     <!-- FastClick -->
     <script src="${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
@@ -170,6 +178,47 @@
         //bootstrap WYSIHTML5 - text editor
         $(".textarea").wysihtml5();
       });
+    </script>
+    <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+     
+      });
+    </script>
+    
+    <script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope, $http){
+		
+		var domain = "http://localhost:8080/AKNnews/";
+
+		$scope.categories = [];
+		$scope.listCategories = function(){
+			$http({
+                method: "GET",
+                url: domain + "api/article/category/news/",
+                headers: {
+                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                }
+            })
+            .success(function (response) {
+            	
+            	angular.forEach(response.DATA, function(data, key) {
+           		  $scope.categories.push(data);
+		    	});
+            	$scope.fcate = $scope.categories[0];    	
+		    });
+		};
+		
+	
+		$scope.listCategories();
+
+
+	});
+  
+    
     </script>
   
   </body>
