@@ -31,6 +31,9 @@
 					</div><!--/end a-left-side  -->
 					
 					<div class="a-body">
+						<div class="slide-show">
+							SlSlideide
+						</div>
 						<div class="article-block" ng-repeat="article in articles">
 							<div class="article-block-b1">
 								<div class="article-item">
