@@ -42,13 +42,28 @@
 							<div class="popular-news">
 								<div class="slide-image">
 									<div id="owl-demo" class="owl-carousel owl-theme">
-									  <div class="item"><img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Coverr75.jpg?ebb82d" alt="Mirror Edge"></div>
+									  <div class="item">
+									  		<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1172.jpg?ebb82d" alt="Mirror Edge">
+									  		<div class="popular-title">
+												<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
+											</div>
+									  </div>
+									  <div class="item">
+									  		<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1172.jpg?ebb82d" alt="Mirror Edge">
+									  		<div class="popular-title">
+												<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
+											</div>
+									  </div>
+									  <div class="item">
+									  		<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1172.jpg?ebb82d" alt="Mirror Edge">
+									  		<div class="popular-title">
+												<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
+											</div>
+									  </div>
+									  
 									</div>
 								</div>
 								
-								<div class="popular-title">
-									<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
-								</div>
 							</div>
 							<div class="slide-button">
 								<div id="sleft" class="button-left"></div>
@@ -104,8 +119,11 @@
 		<script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
 		
 		<script>
+		
 			var app = angular.module('myApp', []);
 			app.controller('myCtrl', function($scope, $window, $http){
+				
+				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
 				var baseurl = "http://localhost:8080/AKNnews/";
 				
@@ -131,10 +149,7 @@
 				$scope.loadCategories = function(){
 					$http({
                         method: "GET",
-                        url: baseurl + "api/article/category/news/",  //load only category that has news
-                        headers: {
-                             'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                        }
+                        url: baseurl + "api/article/category/news/" //load only category that has news
                     })
                     .success(function (response) {
                     	
@@ -151,10 +166,7 @@
 					$scope.page += 1;
 					$http({
                         method: "GET",
-                        url: baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/",
-                        headers: {
-                             'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                        }
+                        url: baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/"
                     })
                     .success(function (response) {
                     	if(response.RESPONSE_DATA.length == 0){
@@ -191,10 +203,7 @@
 				$scope.loadPopulars = function(){
 					$http({
 						method: "GET",
-                        url: baseurl + "api/article/popular/"+$scope.uid+"/",
-                        headers: {
-                             'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                        }
+                        url: baseurl + "api/article/popular/"+$scope.uid+"/"
                     })
                     .success(function (response) {
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
@@ -240,9 +249,6 @@
                         url: baseurl + "api/article/savelist",
                         data: {
                         	newsid:nid, userid:$scope.uid
-                        },
-                        headers: {
-                             'Authorization': 'Basic YXBpOmFrbm5ld3M='
                         }
                     })
                     .success(function (response) {
@@ -254,10 +260,7 @@
 				$scope.readNews = function(nid){
 					$http({
 						method: "PATCH",
-                        url: baseurl + "api/article/viewcount/"+nid,
-                        headers: {
-                             'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                        }
+                        url: baseurl + "api/article/viewcount/"+nid
                     })
                     .success(function (response) {
                     	console.log(response.MESSAGE);
@@ -287,9 +290,10 @@
 				      paginationSpeed : 400,
 				      singleItem:true,
 				      autoPlay:true,
-				      pagination:false,
+				      pagination:false
+				      
 				  });
-				
+				 
 				  //get carousel instance data and store it in variable owl
 				  var owl = angular.element(".owl-carousel").data('owlCarousel');
 				
@@ -299,8 +303,6 @@
 				  angular.element("#sright").click(function(){
 					  owl.next();
 				  });
-				  
-				  
 				  
 			});
 		
