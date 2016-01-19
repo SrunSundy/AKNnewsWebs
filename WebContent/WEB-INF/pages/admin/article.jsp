@@ -113,9 +113,14 @@ i.action:hover{
 	                </div>
 	                
 	                 <div class="box-footer clearfix col-md-3">
-	                   <select id="filtersite" class="form-control select2 " ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
+	                  <select id="filtersite" class="form-control select2 " ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
 	                    ng-change="filterSite(fsite)" >
 	                    </select> 
+	                    
+	                  <!--   <select id="filtersite" class="form-control select2 "  ng-model="fsite"
+	                    ng-change="filterSite(fsite)" >
+	                    	<option ng-repeat="site in sites" value="{{site.id}}" style="background-image=URL" data-image="/AKNnewsWebs/resources/images/logo/sabay.jpg">{{site.name}}</option>
+	                    </select>  -->
 	                   
 	                     
 	                </div>
@@ -148,8 +153,9 @@ i.action:hover{
                       <td><span class="label label-success">{{article.category.name}}</span></td>
                       <td ng-show="article.status == true">T</td>
                       <td ng-show="article.status == false">F</td>
-                       <td ><i class="fa fa-pencil-square-o action" ></i><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
+                       <td ng-show="article.category.id == 6"><i class="fa fa-pencil-square-o action" ></i><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
                        </td>
+                       <td ng-show="article.category.id != 6"><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a></td>
                     </tr>
                  
                   </table>
@@ -289,6 +295,7 @@ i.action:hover{
             		id : "0" , name:"NO FILTER" ,
             	 });
             	angular.forEach(response.DATA, function(data, key) {
+            	
            		  $scope.sites.push(data);
 		    	});
             	$scope.fsite = $scope.sites[0];  	
