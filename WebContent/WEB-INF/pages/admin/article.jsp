@@ -8,8 +8,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 2 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
-
-	<jsp:include page="import/header.jsp"></jsp:include>
+<%-- 
+	<jsp:include page="import/header.jsp"></jsp:include> --%>
+	
+	 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
+  
+   
+    <!-- Select2 -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+           <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
+	 
 <style>
 
 
@@ -42,7 +57,9 @@ i.action{
 i.action:hover{
 	color: #F44336;
 }
-</style>
+
+</style> 
+                
   </head>
   <body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="myCtrl">
     <div class="wrapper">
@@ -91,31 +108,43 @@ i.action:hover{
                 
                 <div class="div-filter col-md-12">
                 	<div class="row">
-	                <div class="box-footer clearfix col-md-2">
+	                <div class="box-footer clearfix col-md-3">
 	                  <ul class="pagination pagination-sm no-margin pull-left">
 	                    <li> 
 	
-	                    <select id="setrow" class="form-control select2" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
+	                    <select  id="setrow" class="form-control select3" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
 	                    ng-change="changeRow(selected)" >
 	                    
 	                    </select>
 	               <!-- /.form-group --></li>
 	                   
 	                  </ul>
+	                  
 	                </div>
 	                 
-	                 <div class="col-md-4"></div>
+	                 <div class="col-md-3">
+	                 	
+	                 </div>
 	                
 	                 <div class="box-footer clearfix col-md-3">
-	                    <select id="filtercate" class="form-control select2 " ng-options="category as category.name for category in categories track by category.id" ng-model="fcate"
-	                    ng-change="filterCategory(fcate)" >
-	                    </select>
+	                 	<div class="input-group">
+		                    <span class="input-group-addon">Category</span>
+		                     <select  id="filtercate" class=" select2 " style="width: 100%"  ng-options="category as category.name for category in categories track by category.id" ng-model="fcate"
+	                    ng-change="filterCategory(fcate)"  >
+	                    </select> 
+	                    
+		                  </div>
+	                
+	                   
 	                </div>
 	                
 	                 <div class="box-footer clearfix col-md-3">
-	                  <select id="filtersite" class="form-control select2 " ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
+	                 <div class="input-group">
+		                    <span class="input-group-addon">Site</span>
+	                  <select   id="filtersite" class=" select2 " style="width: 100%"  ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
 	                    ng-change="filterSite(fsite)" >
 	                    </select> 
+	                   </div>
 	                    
 	                  <!--   <select id="filtersite" class="form-control select2 "  ng-model="fsite"
 	                    ng-change="filterSite(fsite)" >
@@ -126,6 +155,9 @@ i.action:hover{
 	                </div>
 	                
 	             </div><!-- row -->
+               </div>
+               <div class="col-md-12">
+               		 <h4 class="box-title" style="margin-right: 10px;" ><i>Result:</i> <small>{{Totalrecord}} records</small></h4>
                </div>
                 <div class="box-body table-responsive no-padding col-md-12">
                   <table class="table table-hover">
@@ -182,8 +214,39 @@ i.action:hover{
 
     </div><!-- ./wrapper -->
 
-  <jsp:include page="import/footer.jsp"></jsp:include>
+ <%--  <jsp:include page="import/footer.jsp"></jsp:include> --%>
  
+   
+      <!-- jQuery 2.1.4 -->
+    <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+     <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+
+    <!-- SlimScroll 1.3.0 -->
+    <script src="${pageContext.request.contextPath }/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+     <script src="${pageContext.request.contextPath }/resources/js/jquery.bootpag.min.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
+  <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+     
+      });
+    </script>
   <script>
  
 	var app = angular.module('myApp', []);
@@ -200,6 +263,8 @@ i.action:hover{
 		$scope.page = 1;
 		
 		$scope.triggerpage = 0;
+		
+		$scope.Totalrecord = 0;
 		
 	
 		
@@ -219,7 +284,8 @@ i.action:hover{
             	if(response.RESPONSE_DATA.length == 0){
             		console.log('no article..!');   		
             	}
-		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
+		    		 $scope.articles=response.RESPONSE_DATA; 		    	
+		    		$scope.Totalrecord = response.TOTAL_RECORDS;
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
 		    		 if($scope.triggerpage > 1){
 		    			 return;
@@ -253,7 +319,8 @@ i.action:hover{
             	if(response.RESPONSE_DATA.length == 0){
             		console.log('no article..!');              		
             	}
-            	
+    	    	
+	    		$scope.Totalrecord = response.TOTAL_RECORDS;
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
 		    		 if($scope.triggerpage > 1){
@@ -360,6 +427,7 @@ i.action:hover{
 
 		$scope.items = [{id: 1,label: '15',},{id: 2,label: '30',},{id:3,label: '50',}, {id: 4,label: '100',}];
 		$scope.selected = $scope.items[0];
+		
 		
 		
 	});
