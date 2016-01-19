@@ -24,4 +24,9 @@ public class MainController {
 		model.addAttribute("message", "hello world");
 		return  "admin/article";
 	}
+	@RequestMapping(value={"/admin/addarticle", })
+	public String toAddArticle(ModelMap model){
+		model.addAttribute("message", "hello world");
+		return  "admin/insertarticle";
+	}
 }
