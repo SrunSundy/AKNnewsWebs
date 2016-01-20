@@ -15,7 +15,7 @@
 		
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css">
-		
+		<base >
 		
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" />
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" /> -->
@@ -56,7 +56,7 @@
 								<div class="slide-image">
 									<data-owl-carousel class="owl-carousel" data-options="{navigation: false,singleItem:true, autoPlay:true}">
       									<div owl-carousel-item="" ng-repeat="pop in populars" class="item">
-        									<img src="{{pop.image}}" alt="Mirror Edge">
+        									<img ng-src="{{pop.image}}" alt="{{pop.title}}">
 									  		<div class="popular-title">
 												<p><a href="{{pop.url}}" target="_blank">{{pop.title}}</a></p>
 											</div>
@@ -78,7 +78,7 @@
 							<div class="article-block-b1">
 								<div class="article-item">
 									<div class="article-info">
-										<img ng-click="articleSite(article.site.id)" src="${pageContext.request.contextPath}/{{article.site.logo}}"/>
+										<img ng-click="articleSite(article.site.id)" ng-src="{{baseurl}}resources/images/logo/{{article.site.logo}}"/>
 										<p ng-click="articleSite(article.site.id)">{{article.site.name | uppercase}}</p>
 										
 										<div class="saved">
@@ -91,7 +91,7 @@
 									</div>
 									<div class="article-components">
 										<div class="article-image">
-											<a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank"><img src="{{article.image}}"/></a>
+											<a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
 											<p><a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank">{{article.title}}</a></p>
@@ -129,7 +129,7 @@
 				
 				$scope.items = [{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24},{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24}];
 				
-				var baseurl = "http://localhost:8080/AKNnews/";
+				$scope.baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.articles = [];
 				$scope.categories = [];
@@ -153,7 +153,7 @@
 				$scope.loadCategories = function(){
 					$http({
                         method: "GET",
-                        url: baseurl + "api/article/category/news/" //load only category that has news
+                        url: $scope.baseurl + "api/article/category/news/" //load only category that has news
                     })
                     .success(function (response) {
                     	
@@ -171,7 +171,7 @@
 					$scope.page += 1;
 					$http({
                         method: "GET",
-                        url: baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/"
+                        url: $scope.baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/"
                     })
                     .success(function (response) {
                     	if(response.RESPONSE_DATA.length == 0){
@@ -208,7 +208,7 @@
 				$scope.loadPopulars = function(){
 					$http({
 						method: "GET",
-                        url: baseurl + "api/article/popular/"+$scope.uid+"/"
+                        url: $scope.baseurl + "api/article/popular/"+$scope.uid+"/"
                     })
                     .success(function (response) {
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
@@ -251,7 +251,7 @@
 					
 					$http({
 						method: "POST",
-                        url: baseurl + "api/article/savelist",
+                        url: $scope.baseurl + "api/article/savelist",
                         data: {
                         	newsid:nid, userid:$scope.uid
                         }
@@ -265,7 +265,7 @@
 				$scope.readNews = function(nid){
 					$http({
 						method: "PATCH",
-                        url: baseurl + "api/article/viewcount/"+nid
+                        url: $scope.baseurl + "api/article/viewcount/"+nid
                     })
                     .success(function (response) {
                     	console.log(response.MESSAGE);
@@ -298,7 +298,7 @@
 					 owl.trigger('owl.next');
 				}); 
 				 
-			}).directive("owlCarousel", function() {
+		}).directive("owlCarousel", function() {
 			    return {
 			        restrict: 'E',
 			        transclude: false,
