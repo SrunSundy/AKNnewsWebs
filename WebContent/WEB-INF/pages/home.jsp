@@ -13,18 +13,21 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 		
-		<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css"> --%>
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css">
 		
 		
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" />
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" />
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" />
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" /> -->
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.transitions.min.css" />
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" />
-    	<script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.15/angular.js" data-semver="1.3.15"></script>
-    	<script data-require="jquery@2.1.3" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-		
+    	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" /> -->
+    	
+    	<!-- <script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.15/angular.js" data-semver="1.3.15"></script>
+    	<script data-require="jquery@2.1.3" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
+    	
+    	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script> -->
+    	
+	    <script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		
@@ -51,9 +54,12 @@
 							
 							<div class="popular-news">
 								<div class="slide-image">
-									<data-owl-carousel class="owl-carousel" data-options="{navigation: false, pagination: true, rewindNav : false, autoPlay:true}">
-      									<div owl-carousel-item="" ng-repeat="item in items" class="item">
-        									<a href="{{item.age}}">{{item.name}}</a>
+									<data-owl-carousel class="owl-carousel" data-options="{navigation: false,singleItem:true, autoPlay:true}">
+      									<div owl-carousel-item="" ng-repeat="pop in populars" class="item">
+        									<img src="{{pop.image}}" alt="Mirror Edge">
+									  		<div class="popular-title">
+												<p><a href="{{pop.url}}" target="_blank">{{pop.title}}</a></p>
+											</div>
       									</div>
     								</data-owl-carousel>
 								
@@ -133,7 +139,7 @@
 			
 		</div><!--/end main container  -->
 		
-		<%-- <script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script> --%>
+		
 		
 		<script>
 		
@@ -142,6 +148,8 @@
 			app.controller('myCtrl', function($scope, $window, $http){
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
+				
+				$scope.items = [{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24},{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24}];
 				
 				var baseurl = "http://localhost:8080/AKNnews/";
 				
@@ -303,7 +311,7 @@
 				
 				
 				//Carosel Slider //Initialize Plugin
-				  angular.element("#owl-demo").owlCarousel({
+				  /* angular.element("#owl-demo").owlCarousel({
 				      navigation : false,
 				      slideSpeed : 500,
 				      paginationSpeed : 400,
@@ -321,45 +329,40 @@
 				  });
 				  angular.element("#sright").click(function(){
 					  owl.next();
-				  });
+				  }); */
 				 
 				  
-			});
-			
-			app.controller('myCtrl', function($scope) {
-				  $scope.items = [{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24},{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24}];
-			
 			}).directive("owlCarousel", function() {
-				    return {
-				        restrict: 'E',
-				        transclude: false,
-				        link: function (scope) {
-				            scope.initCarousel = function(element) {
-				              // provide any default options you want
-				                var defaultOptions = {
-				                };
-				                var customOptions = scope.$eval($(element).attr('data-options'));
-				                // combine the two options objects
-				                for(var key in customOptions) {
-				                    defaultOptions[key] = customOptions[key];
-				                }
-				                // init carousel
-				                $(element).owlCarousel(defaultOptions);
-				            };
-				        }
-				    };
-			}).directive('owlCarouselItem', [function() {
-				    return {
-				        restrict: 'A',
-				        transclude: false,
-				        link: function(scope, element) {
-				          // wait for the last item in the ng-repeat then call init
-				            if(scope.$last) {
-				                scope.initCarousel(element.parent());
-				            }
-				        }
-				    };
-			}]);
+			    return {
+			        restrict: 'E',
+			        transclude: false,
+			        link: function (scope) {
+			            scope.initCarousel = function(element) {
+			              // provide any default options you want
+			                var defaultOptions = {
+			                };
+			                var customOptions = scope.$eval($(element).attr('data-options'));
+			                // combine the two options objects
+			                for(var key in customOptions) {
+			                    defaultOptions[key] = customOptions[key];
+			                }
+			                // init carousel
+			                $(element).owlCarousel(defaultOptions);
+			            };
+			        }
+			    };
+		}).directive('owlCarouselItem', [function() {
+			    return {
+			        restrict: 'A',
+			        transclude: false,
+			        link: function(scope, element) {
+			          // wait for the last item in the ng-repeat then call init
+			            if(scope.$last) {
+			                scope.initCarousel(element.parent());
+			            }
+			        }
+			    };
+		}]);
 		</script>
 	</body>
 </html>
