@@ -182,12 +182,12 @@ i.action:hover{
                       <td>{{mySplit(article.title)}}</td>
                       <td>{{article.date | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
-                      <td><span class="label label-success">{{article.category.name}}</span></td>
+                      <td><span class="label label-success">{{article.category.name }}</span></td>
                       <td ng-show="article.status == true">T</td>
                       <td ng-show="article.status == false">F</td>
-                       <td ng-show="article.category.id == 6"><i class="fa fa-pencil-square-o action" ></i><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
+                       <td ng-show="article.site.id == 6"><i class="fa fa-pencil-square-o action" ></i><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
                        </td>
-                       <td ng-show="article.category.id != 6"><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a></td>
+                       <td ng-show="article.site.id != 6"><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a></td>
                     </tr>
                  
                   </table>
