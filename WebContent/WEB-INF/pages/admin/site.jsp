@@ -135,7 +135,7 @@
 			          	</tr>
 			          	<tr>
 			          		<th>LOGO</th>
-			          		<td>{{ site.logo }}</td>
+			          		<td><img class="img"  src='${base_url}{{site.logo}}' data-toggle="modal"/></td>
 			          	</tr>
 			      	    <tr>
 			          		<th>BASEPATH</th>
