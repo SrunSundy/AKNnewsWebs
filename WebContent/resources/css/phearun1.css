@@ -397,13 +397,15 @@ a, a:hover, a:active {
 	background-color:rgba(88, 86, 83, 0.38);
 	/* min-height:60px;
 	max-height:60px; */
-	/* top:275px; */
+	top:275px;
 	width:100%;
-	padding:5px;
+	padding:15px 5px;
 	color:#fff;
-	/* position:absolute; */
+	position:absolute; 
 }
-
+.popular-title a{
+	color:#fff;
+}
 .slide-button{
 	
 }
