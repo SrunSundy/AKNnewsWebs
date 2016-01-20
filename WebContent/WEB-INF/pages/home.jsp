@@ -63,28 +63,6 @@
       									</div>
     								</data-owl-carousel>
 								
-								
-									<!-- <div id="owl-demo" class="owl-carousel owl-theme">
-									  <div class="item">
-									  		<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1172.jpg?ebb82d" alt="Mirror Edge">
-									  		<div class="popular-title">
-												<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
-											</div>
-									  </div>
-									  <div class="item">
-									  		<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1172.jpg?ebb82d" alt="Mirror Edge">
-									  		<div class="popular-title">
-												<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
-											</div>
-									  </div>
-									  <div class="item">
-									  		<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1172.jpg?ebb82d" alt="Mirror Edge">
-									  		<div class="popular-title">
-												<p>iPhone ជំនាន់​ថ្មី​អាច​បំពាក់​បច្ចេកវិទ្យា​ Li-Fi លឿន​ជាង​ Wi-Fi ១០០​ដង​</p>
-											</div>
-									  </div>
-									  
-									</div> -->
 								</div>
 								
 							</div>
@@ -310,28 +288,16 @@
 				};
 				
 				
-				//Carosel Slider //Initialize Plugin
-				  /* angular.element("#owl-demo").owlCarousel({
-				      navigation : false,
-				      slideSpeed : 500,
-				      paginationSpeed : 400,
-				      singleItem:true,
-				      autoPlay:true,
-				      pagination:false
-				      
-				  });
-				 
-				  //get carousel instance data and store it in variable owl
-				  var owl = angular.element(".owl-carousel").data('owlCarousel');
-				
-				  angular.element("#sleft").click(function(){
-					  owl.prev();
-				  });
-				  angular.element("#sright").click(function(){
-					  owl.next();
-				  }); */
-				 
+				//get carousel instance data and store it in variable owl
+				var owl = angular.element(".owl-carousel");
 				  
+				angular.element("#sleft").click(function(){
+					 owl.trigger('owl.prev');
+				});
+				angular.element("#sright").click(function(){
+					 owl.trigger('owl.next');
+				}); 
+				 
 			}).directive("owlCarousel", function() {
 			    return {
 			        restrict: 'E',
