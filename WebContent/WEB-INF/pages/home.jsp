@@ -78,7 +78,7 @@
 							<div class="article-block-b1">
 								<div class="article-item">
 									<div class="article-info">
-										<img ng-click="articleSite(article.site.id)" ng-src="{{baseurl}}resources/images/logo/{{article.site.logo}}"/>
+										<img ng-click="articleSite(article.site.id)" ng-src="{{imageURL}}/{{article.site.logo}}"/>
 										<p ng-click="articleSite(article.site.id)">{{article.site.name | uppercase}}</p>
 										
 										<div class="saved">
@@ -127,8 +127,7 @@
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
-				$scope.items = [{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24},{name:'HelloWorld1', age:20},{name:'HelloWorld2', age:21},{name:'HelloWorld3', age:20},{name:'HelloWorld4', age:20},{name:'HelloWorld5', age:24}];
-				
+				$scope.imageURL = "http://192.168.178.127:8080/AKNnews/resources/images";
 				$scope.baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.articles = [];
