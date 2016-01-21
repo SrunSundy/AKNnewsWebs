@@ -15,18 +15,10 @@
 		
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css">
-		<base >
 		
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" />
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" /> -->
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.transitions.min.css" />
-    	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" /> -->
     	
-    	<!-- <script data-require="angular.js@1.3.x" src="https://code.angularjs.org/1.3.15/angular.js" data-semver="1.3.15"></script>
-    	<script data-require="jquery@2.1.3" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script> -->
-    	
-    	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script> -->
-    	
+
 	    <script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
@@ -38,6 +30,12 @@
 			<div class="a-container">
 				<div class="a-row">
 					<div class="a-left-side">
+						<ul class="a-source">
+							<select ng-model="site.id" ng-change="articleSite(site.id)">
+								<option><i class="fa fa-tags" value="0"></i>ប្រភព</option>
+								<option ng-selected="site.id" ng-repeat="site in sites" value="{{site.id}}">{{site.name | uppercase}}</option>
+							</select>
+						</ul>
 						<ul class="a-category">
 							<li><i class="fa fa-tags"></i>ប្រភេទ</li>
 							<li ng-repeat="category in categories" ng-click="articleCategory(category.id)" value="{{category.id}}"><i class="fa fa-angle-down"></i>{{category.name}}</li>
@@ -78,7 +76,7 @@
 							<div class="article-block-b1">
 								<div class="article-item">
 									<div class="article-info">
-										<img ng-click="articleSite(article.site.id)" ng-src="{{imageURL}}/{{article.site.logo}}"/>
+										<img ng-click="articleSite(article.site.id)" ng-src="{{baseurl}}resources/images/{{article.site.logo}}"/>
 										<p ng-click="articleSite(article.site.id)">{{article.site.name | uppercase}}</p>
 										
 										<div class="saved">
@@ -127,13 +125,13 @@
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
-				$scope.imageURL = "http://192.168.178.127:8080/AKNnews/resources/images";
 				$scope.baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.articles = [];
 				$scope.categories = [];
 				$scope.populars = [];
 				$scope.navCategory = [];
+				$scope.sites = [];
 				
 				$scope.uid = 5;
 				$scope.row = 18;
@@ -164,6 +162,18 @@
 				    });
 					
 				};
+				$scope.loadSites = function(){
+					$http({
+                        method: "GET",
+                        url: $scope.baseurl + "api/article/site/" 
+                    })
+                    .success(function (response) {
+                    	angular.forEach(response.DATA, function(data, key) {
+				    		$scope.sites.push(data);
+                    	});
+				    });
+					
+				};
 				
 				$scope.loadArticles = function(){
 					
@@ -187,7 +197,7 @@
 				};
 					
 				$scope.loadCategories();
-				
+				$scope.loadSites();
 				$scope.loadArticles();
 				
 				angular.element($window).bind("scroll", function() {
