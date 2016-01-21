@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css">
 		
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.transitions.min.css" />
+    	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.transitions.min.css" /> -->
     	
 
 	    <script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
@@ -32,13 +32,13 @@
 					<div class="a-left-side">
 						<ul class="a-source">
 							<select ng-model="site.id" ng-change="articleSite(site.id)">
-								<option><i class="fa fa-tags" value="0"></i>ប្រភព</option>
-								<option ng-selected="site.id" ng-repeat="site in sites" value="{{site.id}}">{{site.name | uppercase}}</option>
+								<option ng-value="0">ប្រភព</option>
+								<option ng-repeat="site in sites" ng-value="{{site.id}}">{{site.name | uppercase}}</option>
 							</select>
 						</ul>
 						<ul class="a-category">
 							<li><i class="fa fa-tags"></i>ប្រភេទ</li>
-							<li ng-repeat="category in categories" ng-click="articleCategory(category.id)" value="{{category.id}}"><i class="fa fa-angle-down"></i>{{category.name}}</li>
+							<li ng-repeat="category in categories" ng-click="articleCategory(category.id)" id="category{{category.id}}" value="{{category.id}}"><i class="fa fa-angle-down"></i>{{category.name}}</li>
 						</ul>
 					</div><!--/end a-left-side  -->
 					
@@ -141,11 +141,11 @@
 				$scope.page = 0;
 				
 				$scope.key = "";
+				$scope.isSearch = false;
 				
 				$scope.loadingStatus = false;
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
-				
 				
 				$scope.loadCategories = function(){
 					$http({
@@ -196,6 +196,35 @@
 				    });
 				};
 					
+				$scope.loadSearchArticles = function(){
+					$scope.page += 1;
+					$http({
+                        method: "POST",
+                        url: $scope.baseurl + "api/article/search",
+                        data: {
+                        	  "key": $scope.key,
+                        	  "page": $scope.page,
+                        	  "row": $scope.row,
+                        	  "cid": 0,
+                        	  "sid": 0,
+                        	  "uid": $scope.uid
+                        }
+                    })
+                    .success(function (response) {
+                    	if(response.RESPONSE_DATA.length == 0){
+                    		console.log('no more article..!');
+                    		$scope.loadingStatus = false;
+							return;                    		
+                    	}
+                    	angular.forEach(response.RESPONSE_DATA, function(data, key) {
+				    		  $scope.articles.push(data);
+				    	});
+                    	
+                    	$scope.loadingStatus = false;
+				    });
+				};
+			
+				
 				$scope.loadCategories();
 				$scope.loadSites();
 				$scope.loadArticles();
@@ -210,7 +239,15 @@
                     	console.log("reached..!");
                     	$scope.loadingStatus = true;
                     	
-                    	$scope.$apply($scope.loadArticles());
+                    	if($scope.isSearch==false){
+                    		$scope.$apply($scope.loadArticles());
+							console.log("loading article");                    		
+                    	}
+                    	else{
+                    		$scope.$apply($scope.loadSearchArticles());
+							console.log("loading search article");                    		
+                    	}
+                    	
                     }
      	        });
      	    	
@@ -233,17 +270,23 @@
 					$scope.page = 0;
 					$scope.cid = cid;
 					$scope.sid = 0;
+					$scope.key = "";
 					$scope.articles = [];
 					
 					$scope.loadArticles();
+					
+					angular.element(".a-category li").removeClass("active");
+					angular.element("#category"+cid).addClass("active");
+										
 				};
 				
 				$scope.articleSite = function(sid){
 					$scope.page = 0;
 					$scope.cid = 0;
 					$scope.sid = sid;
+					$scope.key = "";
 					$scope.articles = [];
-					
+
 					$scope.loadArticles();
 				};
 				
@@ -253,7 +296,9 @@
 					$scope.sid = 0;
 					$scope.articles = [];
 					
-					$scope.loadArticles();
+					$scope.isSearch = true;
+					
+					$scope.loadSearchArticles();
 				}; 
 				
 				$scope.saveNews = function(nid){
