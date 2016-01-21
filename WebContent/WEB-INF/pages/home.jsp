@@ -33,7 +33,7 @@
 						<ul class="a-source">
 							<select ng-model="site.id" ng-change="articleSite(site.id)">
 								<option ng-value="0">ប្រភព</option>
-								<option ng-repeat="site in sites" ng-value="{{site.id}}">{{site.name | uppercase}}</option>
+								<option ng-selected="{{site.id}}" data-image="http://design.ubuntu.com/wp-content/uploads/ubuntu-logo32.png" ng-repeat="site in sites" ng-value="{{site.id}}">{{site.name | uppercase}}</option>
 							</select>
 						</ul>
 						<ul class="a-category">
@@ -269,7 +269,7 @@
 				$scope.articleCategory = function(cid){
 					$scope.page = 0;
 					$scope.cid = cid;
-					$scope.sid = 0;
+					$scope.sid = $scope.sid;
 					$scope.key = "";
 					$scope.articles = [];
 					
@@ -282,7 +282,7 @@
 				
 				$scope.articleSite = function(sid){
 					$scope.page = 0;
-					$scope.cid = 0;
+					$scope.cid = $scope.cid;
 					$scope.sid = sid;
 					$scope.key = "";
 					$scope.articles = [];
