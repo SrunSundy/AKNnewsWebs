@@ -22,4 +22,24 @@ public class TestController {
 		return "admin/category";
 	}
 	
+	@RequestMapping(value={"/site"})
+	public String test3(){
+		System.out.println("**************************########################## testing");
+		return "admin/site";
+	}
+	
+	@RequestMapping(value={"/sitedetail"})
+	public String test4(){
+		System.out.println("**************************########################## testing");
+		return "admin/sitedetail";
+	}
+	
+	@RequestMapping(value={"/article"})
+	public String test5(){
+		System.out.println("**************************########################## testing");
+		return "admin/article";
+	}
+	
+	
+	
 }
