@@ -177,7 +177,7 @@ i.action:hover{
                     </tr>
                    
                    <tr  ng-repeat="article in articles">	
-                      <td><img class='logo-style' src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
+                      <td><img class='logo-style' ng-src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
                       <td>{{article.date | date:'EEEE, d MMM y'}}</td>
@@ -185,7 +185,16 @@ i.action:hover{
                       <td><span class="label label-success">{{article.category.name }}</span></td>
                       <td ng-show="article.status == true">T</td>
                       <td ng-show="article.status == false">F</td>
-                       <td ng-show="article.site.id == 6"><i class="fa fa-pencil-square-o action" ></i><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
+
+                    
+                       <td ng-show="article.site.id == 6">
+                       <form action="${pageContext.request.contextPath }/admin/addarticle/" method="POST">
+                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/>
+                       		<button class="fa fa-pencil-square-o action" ></button>
+                       </form>
+                        <input type="hidden" name="newsid" ng-value="{{article.id}}"/>
+                       <a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
+
                        </td>
                        <td ng-show="article.site.id != 6"><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a></td>
                     </tr>
@@ -326,7 +335,7 @@ i.action:hover{
 		    		 if($scope.triggerpage > 1){
 		    			 return;
 		    		 }
-		    		 $scope.loadpagination($scope.numofpage);		
+		    		 $scope.loadpagination();		
 		    });
 		};
 		
@@ -369,10 +378,10 @@ i.action:hover{
 		    });
 		};
 
-		$scope.loadpagination = function(numofpage){
+		$scope.loadpagination = function(){
 		
 			 $('#display').bootpag({
-		            total:  numofpage,
+		            
 		            maxVisible: 5,
 			        leaps: true,
 			        firstLastUse: true,
@@ -398,6 +407,9 @@ i.action:hover{
 		
 
 		$scope.mySplit = function(string) {
+			if(string=="" || string == null){
+				return "";
+			}
 		    var array = string.substring(0,50);
 		    return array;
 		};
@@ -424,6 +436,7 @@ i.action:hover{
 			$scope.sid = site.id;
 			$scope.listArticles();
 		}
+	
 
 		$scope.items = [{id: 1,label: '15',},{id: 2,label: '30',},{id:3,label: '50',}, {id: 4,label: '100',}];
 		$scope.selected = $scope.items[0];

@@ -68,7 +68,7 @@
             <small>Version 2.0</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home </a></li>
             <li class="active">Article Management</li>
           </ol>
         </section>
@@ -181,6 +181,7 @@
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
 
+		<input type="hidden" id="newsid" value="${newsid }"/>
     </div><!-- ./wrapper -->
 
 <%--   <jsp:include page="import/footer.jsp"></jsp:include> --%>
@@ -232,7 +233,11 @@
 		var domain = "http://localhost:8080/AKNnews/";
 
 		$scope.categories = [];
+		
+		
+		
 		$scope.listCategories = function(){
+			
 			$http({
                 method: "GET",
                 url: domain + "api/article/category/news/",
@@ -266,7 +271,33 @@
 		        alert(response.MESSAGE);
 		     
 		    });
-		}
+		};
+		
+		$scope.listDataToForm = function(){
+			
+			var newsid = $("#newsid").val();
+			alert(newsid);
+			$http({
+                method: "GET",
+                url: domain + "api/article/detail/"+newsid,
+                headers: {
+                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                }
+            })
+            .success(function (response) {
+            	
+            	alert(response.RESPONSE_DATA.image);
+            	$scope.news = response.RESPONSE_DATA;
+            	alert($scope.news.category.id);
+            	$scope.title = $scope.news.title;
+            	$scope.description = $scope.news.description;
+            	alert($scope.news.image);
+            	$("#thum").html("<img src="+domain+"resources/images/"+$scope.news.image+" />");
+            	$scope.fcate = $scope.news.category.id;    
+           		
+		    });
+			
+		};
 	
 		$scope.insertNews = function(image){
 			alert( $scope.fcate +"  "+$scope.title+"  "+$scope.description+"  "+CKEDITOR.instances.editor1.getData()+"  "+image);
@@ -293,13 +324,21 @@
 	            	
 			    });
 				
-		}
+		};
 		
 		
 		
-	
+		$scope.runListDataToForm = function(){
+			if($("#newsid").val()!= 0){
+				
+				$scope.listDataToForm();
+			}
+		};
+		
 		$scope.listCategories();
-
+		$scope.runListDataToForm();
+		
+		
 
 	});
   
