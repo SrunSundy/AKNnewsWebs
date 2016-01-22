@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mangofactory.swagger.annotations.ApiIgnore;
 
 @Controller
-@ApiIgnore
 public class HTTPErrorController {
 
 	@RequestMapping(value="/500")
