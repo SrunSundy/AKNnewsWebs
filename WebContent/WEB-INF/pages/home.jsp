@@ -5,8 +5,11 @@
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
 		<title>AKN News | Home Page</title>
-
+		
+		<link href="${pageContext.request.contextPath }/resources/images/logo/akn.png" rel="shortcut icon">
+			
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -114,7 +117,8 @@
 									</div>
 									<div class="article-components">
 										<div class="article-image">
-											<a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{article.image}}"/></a>
+											<a href="{{article.url}}" ng-if="article.site.id!=6"ng-click="readNews(article.id)" target="_blank"><img ng-src="{{article.image}}"/></a>
+											<a href="{{article.url}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
 											<p><a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank">{{article.title}}</a></p>
