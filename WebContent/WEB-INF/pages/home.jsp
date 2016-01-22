@@ -8,16 +8,13 @@
 		<title>AKN News | Home Page</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-		<script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
+		<script src="${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 		
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css">
-		
-    	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.transitions.min.css" /> -->
-    	
 
 	    <script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
 	</head>
@@ -33,7 +30,7 @@
 						<ul class="a-source">
 							<select ng-model="site.id" ng-change="articleSite(site.id)">
 								<option ng-value="0">ប្រភព</option>
-								<option ng-selected="{{site.id}}" data-image="http://design.ubuntu.com/wp-content/uploads/ubuntu-logo32.png" ng-repeat="site in sites" ng-value="{{site.id}}">{{site.name | uppercase}}</option>
+								<option ng-selected="{{site.id}}" ng-repeat="site in sites" ng-value="{{site.id}}">{{site.name | uppercase}}</option>
 							</select>
 						</ul>
 						<ul class="a-category">
@@ -46,9 +43,9 @@
 						<div class="slide-show">
 							
 							
-							<!-- <div class="popular-text">
-								<p>Popular<p>
-							</div> -->
+							<div class="popular-text">
+								<p>ពេញនិយម<p>
+							</div>
 							
 							<div class="popular-news">
 								<div class="slide-image">
@@ -134,7 +131,7 @@
 				$scope.sites = [];
 				
 				$scope.uid = 5;
-				$scope.row = 18;
+				$scope.row = 6;
 
 				$scope.sid = 0;
 				$scope.cid = 0;
