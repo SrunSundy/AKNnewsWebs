@@ -482,5 +482,7 @@ a, a:hover, a:active {
 }
 .item{
 	max-height:330px;
-	
+}
+span.slogo{
+	font-family: -webkit-body;
 }
