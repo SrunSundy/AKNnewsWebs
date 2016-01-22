@@ -15,7 +15,7 @@
 			<img src="${pageContext.request.contextPath}/resources/images/user/avatar.png"/>
 		</div>
 		<div class="clear"></div>
-		<div ng-show="userprofileStatus" id="user-profile" class="user-profile-info">
+		<div ng-if="userprofileStatus" id="user-profile" class="user-profile-info">
 			
 			<ul class="profile-info">
 				<li><i class="fa fa-user"></i>សូស្តី</li>
@@ -35,7 +35,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="phone-menu" ng-show="phoneMenuStatus">
+	<div class="phone-menu" ng-if="phoneMenuStatus">
 		<ul>
 			<li ng-repeat="category in categories" ng-click="articleCategory(category.id)"><i class="fa fa-angle-down"></i>{{category.name}}</li>
 		</ul>
