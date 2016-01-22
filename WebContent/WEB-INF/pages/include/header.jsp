@@ -19,19 +19,19 @@
 			
 			<ul class="profile-info">
 				<li><i class="fa fa-user"></i>សូស្តី</li>
-				<li><i class="fa fa-sign-in"></i>ចូលប្រើប្រាស់</li>
-				<li><i class="fa fa-user-plus"></i>ចុះឈ្មោះប្រើប្រាស់</li>
-				<li><i class="fa fa-info-circle"></i>អំពីយើង</li>
+				<li><i class="fa fa-sign-in"></i><a href="login">ចូលប្រើប្រាស់</a></li>
+				<li><i class="fa fa-user-plus"></i><a href="signup">ចុះឈ្មោះប្រើប្រាស់</a></li>
+				<li><i class="fa fa-info-circle"></i><a href="about">អំពីយើង</a></li>
 			</ul>
 			
 			<ul class="profile-after-login">
 				<li><i class="fa fa-user"></i>សូស្តី! ភារុន</li>
-				<li><i class="fa fa-user-secret"></i>គ្រប់គ្រងព័ត៌មាន</li>
-				<li><i class="fa fa-bookmark"></i> ព័ត៌មានបាន រក្សាទុក</li>
-				<li><i class="fa fa-key"></i>ប្តូរ លេខសម្ងាត់</li>
-				<li><i class="fa fa-camera"></i>ប្តូរ រូបភាព</li>
-				<li><i class="fa fa-sign-out"></i>ចាកចេញ</li>
-				<li><i class="fa fa-info-circle"></i>អំពីយើង</li>
+				<li><i class="fa fa-user-secret"></i><a href="admin">គ្រប់គ្រងព័ត៌មាន</a></li>
+				<li><i class="fa fa-bookmark"></i><a href="saved-news"> ព័ត៌មានបាន រក្សាទុក</a></li>
+				<li><i class="fa fa-key"></i><a href="change-passwd">ប្តូរ លេខសម្ងាត់</a></li>
+				<li><i class="fa fa-camera"></i><a href="change-profile">ប្តូរ រូបភាព</a></li>
+				<li><i class="fa fa-sign-out"></i><a href="logout">ចាកចេញ</a></li>
+				<li><i class="fa fa-info-circle"></i><a href="about">អំពីយើង</a></li>
 			</ul>
 		</div>
 	</div>
