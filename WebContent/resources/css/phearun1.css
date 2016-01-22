@@ -168,6 +168,7 @@ ul.a-category{
 .a-source select{
 	width:100%;
 	padding:5px;
+	border:1px solid #AD1827;
 	font-family: Hanuman;
 	
 }
@@ -409,7 +410,7 @@ a, a:hover, a:active {
 	background-color:rgba(88, 86, 83, 0.38);
 	/* min-height:60px;
 	max-height:60px; */
-	top:275px;
+	top:277px;
 	width:100%;
 	padding:15px 5px;
 	color:#fff;
