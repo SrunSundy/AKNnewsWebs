@@ -410,8 +410,10 @@ a, a:hover, a:active {
 .popular-news-b1{
 	width: 32.6%;
 	min-height:330px;
-	background-color:#fff;	
 	float:right;
+}
+.popular-news-b1 img{
+	width:100%;
 }
 .popular-text{
 	position:absolute;	
@@ -421,8 +423,6 @@ a, a:hover, a:active {
 }
 .popular-title{
 	background-color:rgba(88, 86, 83, 0.38);
-	/* min-height:60px;
-	max-height:60px; */
 	top:277px;
 	width:100%;
 	padding:15px 5px;
@@ -434,6 +434,26 @@ a, a:hover, a:active {
 }
 .slide-button{
 	
+}
+.top-1{
+	min-height:160.5px;
+	max-height:160.5px;
+	background-color:red;
+	margin-bottom:10px;
+	overflow:hidden;
+}
+
+.top-title{
+	position:relative;
+	background-color:rgba(125, 118, 101, 0.4);
+	top:-66px;
+	margin-right:5px;
+	padding:5px;
+	color:#fff;
+	
+}
+.top-title a{
+	color:#fff;
 }
 .button-left{
 	position:absolute;
