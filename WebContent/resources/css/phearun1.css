@@ -29,7 +29,20 @@ body {
 .nav-search button{
 	color:#AD1827;
 }
-
+.slogo img{
+	width:20px;
+	height:20px;
+	border-radius:30px;
+	position:relative;
+	top:4px;
+}
+.img-flag{
+	
+	
+}
+.select2-container--default .select2-selection--single{
+	border-radius:0px !important;
+}
 .active{
 	background-color:#dadada;
 } 
