@@ -17,6 +17,16 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/owl-carousel/owl.theme.css">
 
 	    <script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
+	    
+	    
+	    
+	    
+	    
+	    <!-- select2 -->
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
+	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
+	    
+	    
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		
@@ -28,7 +38,12 @@
 				<div class="a-row">
 					<div class="a-left-side">
 						<ul class="a-source">
-							<select ng-options="site as site.name for site in sites track by site.id " ng-model="siteid" ng-change="articleSite(siteid.id)"></select>
+							<!-- <select ng-options="site as site.name for site in sites track by site.id" ng-model="siteid" ng-change="articleSite(siteid.id)"></select> -->
+							<select ng-model="site" ng-change="articleSite(site)">
+								<option ng-value="0" id="domain.png">គេហទំព័រ</option>
+								<option ng-repeat="site in sites" ng-value="{{site.id}}" id="{{site.logo}}">{{site.name | uppercase}}​</option>
+							</select>
+							
 						</ul>
 						<ul class="a-category">
 							<li><i class="fa fa-tags"></i>ប្រភេទ</li>
@@ -176,13 +191,11 @@
                         url: $scope.baseurl + "api/article/site/" 
                     })
                     .success(function (response) {
-                    	$scope.sites.push({id:0,name:"ប្រភព"});
+                    	
                     	angular.forEach(response.DATA, function(data, key) {
 				    		$scope.sites.push(data);
                     	});
-                    	$scope.siteid = $scope.sites[0];
 				    });
-					
 				};
 				
 				$scope.loadArticles = function(){
@@ -363,6 +376,23 @@
 					 owl.trigger('owl.next');
 				}); 
 				 
+				
+				
+				
+				function formatState (state) {
+	 				if (!state.id) { return state.text; }
+					
+	  				var $state = angular.element('<span class="slogo"><img src="'+$scope.baseurl+'resources/images/'+state.element.id+'" class="img-flag" /> ' + state.text + '</span>');
+	  				return $state;
+				};
+	 
+				angular.element("select").select2({
+	  				templateResult: formatState,
+					templateSelection: formatState
+				});
+				
+				
+				
 		}).directive("owlCarousel", function() {
 			    return {
 			        restrict: 'E',
