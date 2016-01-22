@@ -302,6 +302,7 @@ i.action:hover{
 		    		 $scope.loadpagination($scope.numofpage);		
 		    });
 		};
+		
 		$scope.searchArticles = function(key){
 			$scope.page = 1;
 			$('#display').bootpag({page : '1' });

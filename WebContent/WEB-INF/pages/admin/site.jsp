@@ -37,7 +37,7 @@
   
    </style>
    
-  <%--  <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script> --%>
+   <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
    
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
