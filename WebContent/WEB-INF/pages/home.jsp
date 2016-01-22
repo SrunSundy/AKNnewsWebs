@@ -56,7 +56,6 @@
 					
 					<div class="a-body">
 						<div class="slide-show">
-							
 							<div class="popular-news">
 								<div class="slide-image">
 									<data-owl-carousel class="owl-carousel" data-options="{navigation: false,singleItem:true, autoPlay:true}">
@@ -74,7 +73,24 @@
 								<div id="sright" class="button-right"></div>
 							</div>
 							<div class="popular-news-b1">
-								<div class="article-item">
+								<div class="top-1">
+									<div class="top-image">
+										<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1218-285x170.jpg?ebb82d"/>
+									</div>
+									<div class="top-title">
+										<p><a href="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1218-285x170.jpg?ebb82d">ចង់ចាប់​ជំនាញ​​បច្ចេកទេស​ជួសជុល​រថយន្ត សាលា ៤ ​អាច​ពិចារណា​បាន</a></p>
+									</div>
+								</div>
+								<div class="top-1">
+									<div class="top-image">
+										<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1218-285x170.jpg?ebb82d"/>
+									</div>
+									<div class="top-title">
+										<p><a href="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1218-285x170.jpg?ebb82d">ចង់ចាប់​ជំនាញ​​បច្ចេកទេស​ជួសជុល​រថយន្ត សាលា ៤ ​អាច​ពិចារណា​បាន</a></p>
+									</div>
+								</div>
+								
+								<!-- <div class="article-item">
 									<div class="article-info">
 										<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1218-285x170.jpg?ebb82d"/>
 										<p>AKN</p>
@@ -97,7 +113,7 @@
 											<small><span>{{1002121 | number}} Views</span></small>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="article-block" ng-repeat="article in articles">
