@@ -28,10 +28,7 @@
 				<div class="a-row">
 					<div class="a-left-side">
 						<ul class="a-source">
-							<select ng-model="site.id" ng-change="articleSite(site.id)">
-								<option ng-value="0">ប្រភព</option>
-								<option ng-selected="{{site.id}}" ng-repeat="site in sites" ng-value="{{site.id}}">{{site.name | uppercase}}</option>
-							</select>
+							<select ng-options="site as site.name for site in sites track by site.id " ng-model="siteid" ng-change="articleSite(siteid.id)"></select>
 						</ul>
 						<ul class="a-category">
 							<li><i class="fa fa-tags"></i>ប្រភេទ</li>
@@ -41,11 +38,6 @@
 					
 					<div class="a-body">
 						<div class="slide-show">
-							
-							
-							<div class="popular-text">
-								<p>ពេញនិយម<p>
-							</div>
 							
 							<div class="popular-news">
 								<div class="slide-image">
@@ -57,16 +49,37 @@
 											</div>
       									</div>
     								</data-owl-carousel>
-								
 								</div>
-								
 							</div>
 							<div class="slide-button">
 								<div id="sleft" class="button-left"></div>
 								<div id="sright" class="button-right"></div>
 							</div>
 							<div class="popular-news-b1">
-								
+								<div class="article-item">
+									<div class="article-info">
+										<img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1218-285x170.jpg?ebb82d"/>
+										<p>AKN</p>
+										<div class="saved">
+											<i class="fa fa-bookmark-o"></i>
+										</div>
+										<div class="clear"></div>
+										<small>2016-01-08 09:00:22.813</small>		
+									</div>
+									<div class="article-components">
+										<div class="article-image">
+											<a href="" target="_blank"><img src="http://cdn.sabay.com/cdn/news.sabay.com.kh/wp-content/uploads/2016/01/Untitled-1218-285x170.jpg?ebb82d"/></a>
+										</div>
+										<div class="article-desc">
+											<p><a href="df" target="_blank">ចង់ចាប់​ជំនាញ​​បច្ចេកទេស​ជួសជុល​រថយន្ត សាលា ៤ ​អាច​ពិចារណា​បាន</a></p>
+										</div>
+									</div>
+									<div class="article-action">
+										<div class="action">
+											<small><span>{{1002121 | number}} Views</span></small>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="article-block" ng-repeat="article in articles">
@@ -112,10 +125,9 @@
 			
 		</div><!--/end main container  -->
 		
-		
+		<!-- <script src="http://192.168.178.186:8080/HRD_MEMO/resources/admin/js/memo.min.js"></script> -->
 		
 		<script>
-		
 			var app = angular.module('myApp', []);
 			
 			app.controller('myCtrl', function($scope, $window, $http){
@@ -131,7 +143,7 @@
 				$scope.sites = [];
 				
 				$scope.uid = 5;
-				$scope.row = 6;
+				$scope.row = 9;
 
 				$scope.sid = 0;
 				$scope.cid = 0;
@@ -143,14 +155,13 @@
 				$scope.loadingStatus = false;
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
-				
+		
 				$scope.loadCategories = function(){
 					$http({
                         method: "GET",
                         url: $scope.baseurl + "api/article/category/news/" //load only category that has news
                     })
                     .success(function (response) {
-                    	
                     	angular.forEach(response.DATA, function(data, key) {
                     		 $scope.categories.push(data);
                     		 if(data.menu==true)
@@ -165,9 +176,11 @@
                         url: $scope.baseurl + "api/article/site/" 
                     })
                     .success(function (response) {
+                    	$scope.sites.push({id:0,name:"ប្រភព"});
                     	angular.forEach(response.DATA, function(data, key) {
 				    		$scope.sites.push(data);
                     	});
+                    	$scope.siteid = $scope.sites[0];
 				    });
 					
 				};
@@ -187,7 +200,7 @@
                     	}
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.articles.push(data);
-				    	});
+                    	});
                     	
                     	$scope.loadingStatus = false;
 				    });
@@ -272,6 +285,7 @@
 					
 					$scope.loadArticles();
 					
+					$scope.phoneMenuStatus = false;
 					angular.element(".a-category li").removeClass("active");
 					angular.element("#category"+cid).addClass("active");
 										
@@ -283,7 +297,7 @@
 					$scope.sid = sid;
 					$scope.key = "";
 					$scope.articles = [];
-
+					
 					$scope.loadArticles();
 				};
 				
@@ -380,6 +394,7 @@
 			        }
 			    };
 		}]);
+			
 		</script>
 	</body>
 </html>
