@@ -1,5 +1,6 @@
 package com.spring.akn.configuration.security;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,14 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	@Qualifier(value="ajaxAuthenticationSuccessHandler")
+	private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
+	
+	@Autowired
+	@Qualifier(value="ajaxAuthenticationFailureHandler")
+	private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -30,15 +39,28 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/user/**").hasRole("USER");
 		
-		http.formLogin().permitAll().loginPage("/login").usernameParameter("username").passwordParameter("password");
-		
-		/*  .successHandler(ajaxAuthenticationSuccessHandler)
-		  .failureHandler(ajaxAuthenticationFailureHandler);*/
-		 
-		http.sessionManagement().sessionAuthenticationErrorUrl("/login").maximumSessions(1).expiredUrl("/login");
-		http.logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout").invalidateHttpSession(true)
-				.deleteCookies("JESSIONID").permitAll();
+		http
+		.formLogin()
+		.permitAll()
+		.loginPage("/login")
+		.usernameParameter("username")
+		.passwordParameter("password")
+		.successHandler(ajaxAuthenticationSuccessHandler)
+		.failureHandler(ajaxAuthenticationFailureHandler);
+		http
+			.sessionManagement()
+			.sessionAuthenticationErrorUrl("/login")
+			.maximumSessions(1)
+			.expiredUrl("/login");
+		http
+			.logout()
+			.logoutUrl("/logout")
+			.logoutSuccessUrl("/login?logout")
+			
+			.invalidateHttpSession(true)
+			.deleteCookies("JESSIONID")
+			.permitAll();
 		http.csrf().disable();
-		http.exceptionHandling().accessDeniedPage("/accessDenied");
+		http.exceptionHandling().accessDeniedPage("/accessDenied");	
 	}
 }
