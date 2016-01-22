@@ -51,6 +51,7 @@
        </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini"  ng-app="myApp" ng-controller="myCtrl">
+  <input type="hidden" id="newsid" ng-model="newsid" value="${newsid }"/>
     <div class="wrapper">
     
       <header class="main-header">
@@ -102,7 +103,9 @@
                 		    <div class="fileinput fileinput-new" data-provides="fileinput">
 							  <div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
 							  <div>
-							    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" type="file" name="..."></span>
+							    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" 
+							     onchange="angular.element(this).scope().triggerChange(this)"
+							      type="file"  name="..." /></span>
 							    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 							  </div>
 							</div>
@@ -140,7 +143,7 @@
 		                <div class="box-body pad">
 		                  <form>
 		                    <textarea id="editor1" name="editor1" rows="10" cols="80">
-		                                            This is my textarea
+		                                          
 		                    </textarea>
 		                  </form>
 		                </div>
@@ -151,7 +154,8 @@
               			<div class="col-md-10"></div>
               			<div class="col-md-2">
               				<div class="row">
-              					<button class="btn btn-danger" ng-click="processInsertNews()" style="width: 100%">Insert</button>
+              					<button class="btn btn-danger" id="btnaction" ng-model="btnaction" ng-click="processActionNews()" style="width: 100%">Insert</button>
+              					
               				</div>
               			</div>
               			
@@ -181,7 +185,7 @@
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
 
-		<input type="hidden" id="newsid" value="${newsid }"/>
+		
     </div><!-- ./wrapper -->
 
 <%--   <jsp:include page="import/footer.jsp"></jsp:include> --%>
@@ -234,7 +238,22 @@
 
 		$scope.categories = [];
 		
+	 	$scope.triggerimage = 0;
+		$scope.image = "NO IMAGE"; 
 		
+		
+		$scope.processActionNews = function(){
+			if($("#newsid").val()!= 0){
+				$scope.updateNews();
+			}
+			else{
+				$scope.processInsertNews();
+			}
+		};
+		
+		 $scope.triggerChange = function(test){
+			$scope.triggerimage = 1;
+		}; 
 		
 		$scope.listCategories = function(){
 			
@@ -273,6 +292,7 @@
 		    });
 		};
 		
+		
 		$scope.listDataToForm = function(){
 			
 			var newsid = $("#newsid").val();
@@ -286,13 +306,16 @@
             })
             .success(function (response) {
             	
-            	alert(response.RESPONSE_DATA.image);
+            	
             	$scope.news = response.RESPONSE_DATA;
             	alert($scope.news.category.id);
             	$scope.title = $scope.news.title;
             	$scope.description = $scope.news.description;
             	alert($scope.news.image);
+            	$scope.image = $scope.news.image;
             	$("#thum").html("<img src="+domain+"resources/images/"+$scope.news.image+" />");
+            	alert($scope.news.content);
+            	CKEDITOR.instances["editor1"].setData($scope.news.content);
             	$scope.fcate = $scope.news.category.id;    
            		
 		    });
@@ -300,7 +323,7 @@
 		};
 	
 		$scope.insertNews = function(image){
-			alert( $scope.fcate +"  "+$scope.title+"  "+$scope.description+"  "+CKEDITOR.instances.editor1.getData()+"  "+image);
+			
 			var json={
 					"category":{
 						"id" : $scope.fcate.id
@@ -327,12 +350,18 @@
 		};
 		
 		
-		
 		$scope.runListDataToForm = function(){
 			if($("#newsid").val()!= 0){
-				
 				$scope.listDataToForm();
+				$("#btnaction").html("Update");
 			}
+		};
+		
+
+		$scope.updateNews = function(){
+			alert($("#newsid").val());
+		 alert($scope.triggerimage);
+			alert($scope.image); 
 		};
 		
 		$scope.listCategories();
