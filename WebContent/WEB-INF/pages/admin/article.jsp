@@ -188,11 +188,12 @@ i.action:hover{
 
                     
                        <td ng-show="article.site.id == 6">
-                       <form action="${pageContext.request.contextPath }/admin/addarticle/" method="POST">
+                       <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
                       		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/>
+                      		 <input type="hidden" name="newscate" ng-value="'{{article.category.name}}'"/>
                        		<button class="fa fa-pencil-square-o action" ></button>
                        </form>
-                        <input type="hidden" name="newsid" ng-value="{{article.id}}"/>
+                     
                        <a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
 
                        </td>

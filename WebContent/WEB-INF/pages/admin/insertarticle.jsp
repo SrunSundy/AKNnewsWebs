@@ -51,7 +51,7 @@
        </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini"  ng-app="myApp" ng-controller="myCtrl">
-  <input type="hidden" id="newsid" ng-model="newsid" value="${newsid }"/>
+ <%--  <input type="hidden" id="newsid" ng-model="newsid" value="${newsid }"/> --%>
     <div class="wrapper">
     
       <header class="main-header">
@@ -104,7 +104,6 @@
 							  <div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
 							  <div>
 							    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" 
-							     onchange="angular.element(this).scope().triggerChange(this)"
 							      type="file"  name="..." /></span>
 							    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 							  </div>
@@ -116,6 +115,7 @@
 		                <div class="input-group">
 		                    <span class="input-group-addon">Title</span>
 		                    <input type="text" class="form-control" ng-model="title" placeholder="Username">
+		                  
 		                  </div>
 		                  <br>
 		                  <!-- textarea -->
@@ -154,7 +154,7 @@
               			<div class="col-md-10"></div>
               			<div class="col-md-2">
               				<div class="row">
-              					<button class="btn btn-danger" id="btnaction" ng-model="btnaction" ng-click="processActionNews()" style="width: 100%">Insert</button>
+              					<button class="btn btn-danger" id="btnaction" ng-model="btnaction" ng-click="processInsertNews()" style="width: 100%">Insert</button>
               					
               				</div>
               			</div>
@@ -238,24 +238,21 @@
 
 		$scope.categories = [];
 		
-	 	$scope.triggerimage = 0;
+	 	/*$scope.triggerimage = 0;
 		$scope.image = "NO IMAGE"; 
 		
-		
-		$scope.processActionNews = function(){
+		 */
+		/* $scope.processActionNews = function(){
 			if($("#newsid").val()!= 0){
-				$scope.updateNews();
+				$scope.processupdateNews();
 			}
 			else{
 				$scope.processInsertNews();
 			}
-		};
+		}; */
 		
-		 $scope.triggerChange = function(test){
-			$scope.triggerimage = 1;
-		}; 
 		
-		$scope.listCategories = function(){
+		 $scope.listCategories = function(){
 			
 			$http({
                 method: "GET",
@@ -271,29 +268,39 @@
 		    	});
             	$scope.fcate = $scope.categories[0];    	
 		    });
-		};
+		}; 
 		
 		$scope.processInsertNews = function(){
-			$scope.content = new FormData();
-		    $scope.content.append('file', $('#newsthumbnail')[0].files[0]); 
-		    
-		    $http({
-		        method: 'POST', 
-		        url: domain + "api/article/insertupload/",
-	
+			
+			var json={
+					"category":{
+						"id" : $scope.fcate.id
+					},
+					"title" :  $scope.title,
+					"description" : $scope.description,
+					"content": CKEDITOR.instances.editor1.getData()
+				};
+			 var formData = new FormData();
+		     var file = $('#newsthumbnail')[0].files[0];
+		     alert(file);
+		     formData.append("file", file);
+		     formData.append("json",JSON.stringify(json));//important: convert to JSON!
+		     $http({
+		    		  url: domain + "api/article/",
+		        method: 'POST',
 		        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
-		        data: $scope.content,
-		    }).success(function(response) {
-				
-		    	$scope.insertNews(response.IMAGENAME);
-		        console.log('Request finished', response);
-		        alert(response.MESSAGE);
-		     
-		    });
+		        data: formData,
+		        
+		      }).success(function(response) {
+			        console.log('Request finished', response);
+			        alert(response.MESSAGE);
+			     
+			  }); 
 		};
 		
 		
-		$scope.listDataToForm = function(){
+		
+		/* $scope.listDataToForm = function(){
 			
 			var newsid = $("#newsid").val();
 			alert(newsid);
@@ -320,35 +327,39 @@
            		
 		    });
 			
-		};
+		}; */
 	
-		$scope.insertNews = function(image){
-			
+	/* 	
+		$scope.processupdateNews = function(){
+			alert($("#newsid").val());
+		 alert($scope.triggerimage);
+		 alert( $scope.fcate.id);
+			alert($scope.image +  "     " +$scope.title+"   "+$scope.description+"  "+CKEDITOR.instances.editor1.getData());
 			var json={
 					"category":{
 						"id" : $scope.fcate.id
 					},
 					"title" :  $scope.title,
-					"image": image,
 					"description" : $scope.description,
 					"content": CKEDITOR.instances.editor1.getData()
 				};
-				$http({
-	                method: "POST",
-	                url: domain + "api/article/",
-	                headers: {
-	                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-	                },
-	                data : JSON.stringify(json)
-	            })
-	            .success(function (response) {
-	            	
-	            	alert(response.MESSAGE);
-	            	
-			    });
-				
+			 var formData = new FormData();
+			  var file = $('#newsthumbnail')[0].files[0];
+			     alert(file);
+		     formData.append("file", file);
+		    formData.append("json",JSON.stringify(json));//important: convert to JSON!
+		     $http({
+		    		  url: domain + "api/article/",
+		        method: 'PUT',
+		        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
+		        data: formData
+		        
+		      }).success(function(response) {
+			        console.log('Request finished', response);
+			        alert(response.MESSAGE);
+			     
+			  }); 
 		};
-		
 		
 		$scope.runListDataToForm = function(){
 			if($("#newsid").val()!= 0){
@@ -357,15 +368,11 @@
 			}
 		};
 		
-
-		$scope.updateNews = function(){
-			alert($("#newsid").val());
-		 alert($scope.triggerimage);
-			alert($scope.image); 
-		};
+ */
 		
-		$scope.listCategories();
-		$scope.runListDataToForm();
+		
+		 $scope.listCategories();
+ /*	$scope.runListDataToForm(); */
 		
 		
 
