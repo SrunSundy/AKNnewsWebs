@@ -38,6 +38,16 @@ public class AdminController {
 		return "admin/user";
 	}
 	
+	@RequestMapping(value ="/scrap")
+	public String scrapPage() {
+		return "admin/scrap";
+	}
+	
+	@RequestMapping(value ="/testscrap")
+	public String testScrapPage() {
+		return "admin/testscrap";
+	}
+	
 	@RequestMapping(value ="/category")
 	public String toCategory() {
 		return "admin/category";
