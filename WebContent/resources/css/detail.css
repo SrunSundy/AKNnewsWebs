@@ -1,0 +1,34 @@
+.a-body{
+	width: 567px;
+}
+
+.detail-content{
+	
+}
+.article-content,.article-title, .article-comment, .article-share{
+	padding:10px;
+	background-color:#fff;
+} 
+.article-content{
+	
+}
+.article-content img{
+	width:100%;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.article-title{
+	margin-bottom:10px;
+}
+.article-comment{
+	
+}
+.article-share{
+	margin-bottom:10px;
+}
+.article-save{
+	float:right;
+	cursor:pointer;
+	color:brown;
+}

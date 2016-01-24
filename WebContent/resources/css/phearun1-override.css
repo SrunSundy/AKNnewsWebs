@@ -1,0 +1,27 @@
+.article-components{
+	border:none;
+}
+ul.a-category{
+	margin-top:0px;
+	margin-bottom:10px;
+}
+.article-item{
+	padding:0px;
+}
+.remove-icon{
+	position:absolute;
+	color:brown;
+	padding:5px;
+	cursor:pointer;
+}
+.remove-icon:hover{
+	color:red;
+	padding-left:6px;	
+}
+.timeline-block{
+	padding: 5px;
+	color:rgba(173, 24, 39, 0.79);
+}
+.a-body{
+	border:1px solid rgba(177, 178, 180, 0.34);
+}

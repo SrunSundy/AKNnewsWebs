@@ -1,0 +1,29 @@
+.a-nav, ul.a-category li:first-child, ul.a-popular li:first-child, .a-category li:first-child:hover, .a-source{
+	background-color:#00a65a;
+}
+.nav-category li:hover, .phone-menu li:hover{
+	background-color:rgba(1, 119, 66, 0.21);
+}
+.nav-category li{
+	background-color:rgba(1, 119, 66, 0.38);
+}
+
+.user-profile-info ul li, .phone-menu ul li{
+	background-color: rgba(0, 166, 90, 0.71);
+}
+
+/*article date background*/
+.article-info small{
+	background-color:rgba(0, 166, 90, 0.71);
+}
+
+/*nav border bottom */
+.a-nav{
+	box-shadow: 0px 0px 3px #317D5A;
+	-webkit-box-shadow: 0px 0px 3px #317D5A;
+	-moz-box-shadow: 0px 0px 3px #317D5A;
+}
+/*web site name color*/
+.article-info p, .article-info, .nav-search button{
+	color:#00A65A;
+}
