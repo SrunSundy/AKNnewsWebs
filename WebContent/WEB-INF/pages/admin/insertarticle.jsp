@@ -367,8 +367,16 @@
 				$("#btnaction").html("Update");
 			}
 		};
-		
+
+
+		$scope.updateNews = function(){
+			alert($("#newsid").val());
+			alert($scope.triggerimage);
+			alert($scope.image); 
+		};
+
  */
+
 		
 		
 		 $scope.listCategories();

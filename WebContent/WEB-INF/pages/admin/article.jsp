@@ -47,15 +47,10 @@ td.nodata p{
 	font-size: 16px;
 }
 	
-i.action{
-	text-align: center;
-	font-size: 17px;
-	color: #9E9E9E;
-	margin-right:5px;
-	cursor: pointer;
-}
-i.action:hover{
-	color: #F44336;
+button.action{
+	
+	
+
 }
 
 </style> 
@@ -180,7 +175,7 @@ i.action:hover{
                       <td><img class='logo-style' ng-src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
-                      <td>{{article.date | date:'EEEE, d MMM y'}}</td>
+                      <td >{{convertTimeago(article.date) }}</td>
                       <td>{{article.hit }}</td>
                       <td><span class="label label-success">{{article.category.name }}</span></td>
                       <td ng-show="article.status == true">T</td>
@@ -189,15 +184,15 @@ i.action:hover{
                     
                        <td ng-show="article.site.id == 6">
                        <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
-                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/>
+                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/> 
                       		 <input type="hidden" name="newscate" ng-value="'{{article.category.name}}'"/>
-                       		<button class="fa fa-pencil-square-o action" ></button>
+                       		<button type="submit" class="fa fa-pencil-square-o action btn btn-primary" ></button>
                        </form>
                      
-                       <a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a>
+                       <button type="button" class="fa fa-share action" ng-click="gotoSite({{article.url}})" ></button>
 
                        </td>
-                       <td ng-show="article.site.id != 6"><a href="{{article.url}}" target="_blank"><i class="fa fa-share action"></i></a></td>
+                       <td ng-show="article.site.id != 6"><button type="button" class="fa fa-share action" ng-click="gotoSite('{{article.url}}')" ></button></td>
                     </tr>
                  
                   </table>
@@ -215,6 +210,7 @@ i.action:hover{
 		
 		<footer class="main-footer">
 	      <jsp:include page="element/footer.jsp"></jsp:include>
+	      <time class="timeago" datetime="2008-07-17T09:24:17Z">July 17, 2008</time>
 		</footer>
     
     <jsp:include page="element/rightslidebar.jsp"></jsp:include>
@@ -248,7 +244,9 @@ i.action:hover{
     <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
      <script src="${pageContext.request.contextPath }/resources/js/jquery.bootpag.min.js"></script>
+
     <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
+    
   <script>
       $(function () {
         //Initialize Select2 Elements
@@ -256,6 +254,7 @@ i.action:hover{
 
      
       });
+      
     </script>
   <script>
  
@@ -277,7 +276,37 @@ i.action:hover{
 		$scope.Totalrecord = 0;
 		
 	
-		
+		$scope.convertTimeago = function(time){
+			
+			var now = new Date(),
+		      secondsPast = (now.getTime() - time) / 1000;
+		    if(secondsPast < 60){
+		      return parseInt(secondsPast) + ' second';
+		    }
+		    if(secondsPast < 3600){
+		      return parseInt(secondsPast/60) + ' minute';
+		    }
+		    if(secondsPast <= 86400){
+		      var hour = 0;
+		      hour = parseInt(secondsPast/3600);
+		      if(hour <= 1){
+		    	  return 'an hour ago';
+		      }
+		      return  hour+ ' hours ago';
+		    }
+		    if(secondsPast > 86400){
+		       var day=0;
+		       day=parseInt(secondsPast/86400);
+		       if(day <= 1){
+		    	   return "a day ago";
+		       }
+		       return day + " days ago";
+		    }
+		}
+		$scope.gotoSite = function(url){
+			alert(url);
+			location.href = url;
+		}
 		$scope.listSearchArticles = function(key){
 			$scope.triggerpage++;
 			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": -1};

@@ -1,24 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 2 | Dashboard</title>
-    <!-- Tell the browser to be responsive to screen width -->
-
 	<%-- <jsp:include page="import/header.jsp"></jsp:include> --%>
-	 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
-  
-   
      <!-- Select2 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
     <!-- Ionicons -->
-   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -26,33 +21,23 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">  
-     
-     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">  
-    
-    
-    
-       <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
-       
-       
-       <style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">  
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+    <style>
        .text-show{
-       		
        		word-break: break-all;
-       		 word-wrap:break-word;
+       		word-wrap:break-word;
        }
        #thum{
-       width: 320px; height: 150px;
+       		width: 320px; height: 150px;
        }
-       		@media (max-width: 1600px) {
-			  
-			   
-			    #thum{
-			     
-			    	width: 100%;
-			    	height: 100%;
+       @media (max-width: 1600px) {
+			#thum{
+			   width: 100%;
+			   height: 100%;
 			    	
-			    }
 			}
+		}
 			
        </style>
   </head>
@@ -60,13 +45,10 @@
   <input type="hidden" id="newsid" ng-model="newsid" value="${newsid }"/>
   <input type="hidden" id="newscate" ng-model="newscate" value="${newscate }"/>
     <div class="wrapper">
-    
       <header class="main-header">
     	<jsp:include page="element/topheader.jsp"></jsp:include>
 	  </header>
-	  
 		 <jsp:include page="element/leftslidebar.jsp"></jsp:include>
-
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -84,7 +66,6 @@
         <!-- Main content -->
         <section class="content">
           <div class="row">
-          	
           	<div class="col-md-12">
           	    <!-- Input addon -->
               <div class="box ">
@@ -125,7 +106,7 @@
 			                    
 				                  </div>
 			                   	 <br>
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="processActionNews()" style="width: 100%">Insert</button>
+	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateCategory()" style="width: 100%">Update</button>
 			             	
 			             	 </div><!-- /.box -->
 		             	
@@ -167,7 +148,7 @@
 				                  </div>
 				                  <br>
 			                   	 
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="processActionNews()" style="width: 100%">Insert</button>
+	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateTitle()" style="width: 100%">Update</button>
 			             	
 			             	 </div><!-- /.box -->
 		             	
@@ -205,7 +186,7 @@
 			                    </div>
 				                  <br>
 			                   	 
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="processActionNews()" style="width: 100%">Insert</button>
+	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateDescription()" style="width: 100%">Update</button>
 			             	
 			             	 </div><!-- /.box -->
 		             	
@@ -229,13 +210,13 @@
 							  </div>
 							  <div>
 							    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" 
-							      type="file"  name="..." /></span>
+							      type="file" onchange="angular.element(this).scope().isLoadingImage()" name="..." /></span>
 							    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 							  </div>
 							</div>
 				                  <br>
 			                   	 
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="" style="width: 100%">Insert</button>
+	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateThumbnail()" style="width: 100%">Insert</button>
 			             	
 			             	 </div><!-- /.box -->
 		             	
@@ -257,11 +238,11 @@
 		                  </div><!-- /. tools -->
 		                </div><!-- /.box-header -->
 		                <div class="box-body pad dis" >
-		                		                    <textarea id="editor1" name="editor1" rows="10" cols="80">
+		                		                    <textarea id="editor1" name="editor1" rows="100" cols="80">
 		                                          
 		                    </textarea>
 		                    <br>
-		                     <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="processActionNews()" style="width: 100%">Insert</button>
+		                     <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateContent()" style="width: 100%">Update</button>
 			             	
 		                
 		                </div>
@@ -354,7 +335,9 @@
 		$scope.newid = $("#newsid").val();
 		$scope.newcate = $("#newscate").val();
 		
-		$scope.categories = [];
+		$scope.isupload = 0;
+		
+		$scope.categories = null;
 		$scope.catetrigger = 0;
 		
 		$scope.showtitle ="";
@@ -369,14 +352,12 @@
 		$scope.showcontent = "";
 		$scope.contenttrigger = 0;
 		
-		$scope.loadCategories = function(){
-			$scope.displayBox();
-			if($scope.catetrigger > 0 && !($scope.categories.length == 0)){
-				
-				return;
-			}
-			$scope.showcate = $scope.newcate;
-			alert($scope.showcate);
+		
+		$scope.isLoadingImage = function(){
+			$scope.isupload = 1;
+		};
+		
+		$scope.processLoadCategories = function(){
 			$http({
                 method: "GET",
                 url: domain + "api/article/category/news/",
@@ -387,21 +368,24 @@
             .success(function (response) {
             	
             	$scope.catetrigger=1;
-            	angular.forEach(response.DATA, function(data, key) {
-           		  $scope.categories.push(data);
-		    	});
+            	 $scope.categories = response.DATA; 
+  
             	$scope.fcate = $scope.categories[0];    	
 		    });
 		};
 		
-		$scope.loadTitle = function(){
 		
+		$scope.loadCategories = function(){
 			$scope.displayBox();
-			
-			if($scope.titletrigger > 0 && !($scope.showtitle == "")){
-				
+			if($scope.catetrigger > 0 && !($scope.categories.length == 0)){	
 				return;
 			}
+			$scope.showcate = $scope.newcate;
+			$scope.processLoadCategories();
+		};
+		
+		
+		$scope.processLoadTitle = function(){
 			$http({
                 method: "GET",
                 url: domain + "api/article/title/"+$scope.newid,
@@ -413,14 +397,20 @@
             	$scope.titletrigger=1;
             	$scope.showtitle = response.RESPONSE_DATA;	
 		    });
-		};
-		
-		$scope.loadDescription = function(){
 			
+		};
+		$scope.loadTitle = function(){
+		
 			$scope.displayBox();
-			if($scope.thumbtrigger > 0 && !($scope.show == "")){
+			if($scope.titletrigger > 0 && !($scope.showtitle == "")){
+				
 				return;
 			}
+			$scope.processLoadTitle();
+			
+		};
+		
+		$scope.processLoadDescription = function(){
 			$http({
                 method: "GET",
                 url: domain + "api/article/description/"+$scope.newid,
@@ -433,13 +423,18 @@
             	$scope.showdes = response.RESPONSE_DATA;	
 		    });
 		};
-		
-		$scope.loadThumbnail = function(){
+		$scope.loadDescription = function(){
 			
 			$scope.displayBox();
-			if($scope.thumbtrigger > 0 && !($scope.showthumbnail == "")){
+			if($scope.thumbtrigger > 0 && !($scope.show == "")){
 				return;
 			}
+			$scope.processLoadDescription();
+			
+		};
+		
+		$scope.processLoadThumbnail = function(){
+			
 			$http({
                 method: "GET",
                 url: domain + "api/article/image/"+$scope.newid,
@@ -455,12 +450,16 @@
 		    });
 		};
 		
-		$scope.loadContent = function(){
+		$scope.loadThumbnail = function(){
 			
 			$scope.displayBox();
-			if($scope.contenttrigger > 0 && !($scope.showcontent == "")){
+			if($scope.thumbtrigger > 0 && !($scope.showthumbnail == "")){
 				return;
 			}
+			$scope.processLoadThumbnail();
+		};
+		
+		$scope.processLoadContent = function(){
 			$http({
                 method: "GET",
                 url: domain + "api/article/content/"+$scope.newid,
@@ -471,11 +470,121 @@
             .success(function (response) {
             	$scope.contenttrigger=1;
             	$scope.showcontent = response.RESPONSE_DATA;	
-            	 CKEDITOR.instances["editor1"].setData($scope.showcontent); 
-            	
-            	
+            	 CKEDITOR.instances["editor1"].setData($scope.showcontent);  	
 		    });
 		};
+		$scope.loadContent = function(){
+			
+			$scope.displayBox();
+			if($scope.contenttrigger > 0 && !($scope.showcontent == "")){
+				return;
+			}
+			$scope.processLoadContent();
+		};
+		
+		$scope.updateCategory = function(){
+			var json = {"category":{"id" : $scope.fcate.id},"id" : $scope.newid};
+			$http({
+                method: "PUT",
+                url: domain + "api/article/newscategory/",
+                headers: {
+                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                },
+                data : JSON.stringify(json)
+            })
+            .success(function (response) {
+            	$scope.showcate = $scope.fcate.name;
+		    });
+		};
+		
+		$scope.updateTitle = function(){
+			var json = {"title": $scope.title,"id" : $scope.newid};
+			$http({
+	              method: "PUT",
+	              url: domain + "api/article/title/",
+	              headers: {
+	                  'Authorization': 'Basic YXBpOmFrbm5ld3M='
+	              },
+	              data : JSON.stringify(json)
+	        }).success(function (response) {
+	            $scope.processLoadTitle();
+			});
+		};
+		
+		$scope.updateDescription = function(){
+			var json = {
+					"description": $scope.description,
+					"id" : $scope.newid
+				};
+				$http({
+	                method: "PUT",
+	                url: domain + "api/article/description/",
+	                headers: {
+	                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+	                },
+	                data : JSON.stringify(json)
+	            })
+	            .success(function (response) {
+	            	$scope.processLoadDescription();
+			    });
+		};
+		
+		$scope.updateContent = function(){
+			var json = {
+					"content": CKEDITOR.instances.editor1.getData(),
+					"id" : $scope.newid
+				};
+				$http({
+	                method: "PUT",
+	                url: domain + "api/article/content/",
+	                headers: {
+	                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+	                },
+	                data : JSON.stringify(json)
+	            })
+	            .success(function (response) {
+	            	alert(1);
+			    });
+		};
+		
+		$scope.updateThumbnail = function(){
+			
+			if($scope.isupload == 0){
+				alert("Please Select New Image to Update");
+				return;
+			}
+			 var json = {
+				"image": $scope.showthumbnail,
+			};
+			 var file = $('#newsthumbnail')[0].files[0];
+			 if(typeof file === 'undefined'){
+				 alert("Please Select New Image to Update");
+					return;
+			};
+				var json={
+					  "image": $scope.showthumbnail
+					};
+				 var formData = new FormData();
+			    
+			     alert(file+" "+$scope.showthumbnail);
+			     formData.append("file", file);
+			     formData.append("json",JSON.stringify(json));//important: convert to JSON!
+			     $http({
+			    		  url: domain + "api/article/image/",
+			        method: 'POST',
+			        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
+			        data: formData,
+			        
+			      }).success(function(response) {
+				        console.log('Request finished', response);
+				        alert(response.MESSAGE);
+				     
+				  }); 
+			
+		};
+		
+		
+		
 		
 		$scope.displayBox = function(){
 			  
