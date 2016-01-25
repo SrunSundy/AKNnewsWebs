@@ -13,7 +13,7 @@
 	
 }
 .article-content img{
-	width:100%;
+	width:100% !important;
 	margin-top:5px;
 	margin-bottom:5px;
 }
