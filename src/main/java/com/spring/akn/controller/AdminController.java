@@ -26,11 +26,14 @@ public class AdminController {
 		return  "admin/insertarticle";
 	}
 	
-	@RequestMapping(value="/addarticle" , method = RequestMethod.POST)
-	public String toAddArticle(ModelMap model,@RequestParam("newsid") int id){
-		System.err.println(id);
+	@RequestMapping(value="/admin/updatearticle" , method = RequestMethod.POST)
+	public String toUpdateArticle(ModelMap model,@RequestParam("newsid") int id,@RequestParam("newscate") String cate){
+		
 		model.addAttribute("newsid", id);
-		return  "admin/insertarticle";
+		System.err.println(cate);
+		System.err.println(id);
+		model.addAttribute("newscate", cate);
+		return  "admin/updatearticle";
 	}
 	
 	@RequestMapping(value ="/user")

@@ -29,12 +29,6 @@ public class MainController {
 		return "saved-news";
 	}
 
-	@RequestMapping(value="/admin/addarticle" )
-	public String toAddArticle(ModelMap model){
-		/*model.addAttribute("newsid", 0);*/
-		return  "admin/insertarticle";
-
-	}
 	@RequestMapping(value="/login")
 	public String loginPage(){
 		return  "login";
@@ -42,20 +36,6 @@ public class MainController {
 	}
 
 
-	@RequestMapping(value="/admin/updatearticle" )
-	public String toUpdateArticles(ModelMap model){
 	
-		return  "admin/updatearticle";
-	}
-	
-	@RequestMapping(value="/admin/updatearticle" , method = RequestMethod.POST)
-	public String toUpdateArticle(ModelMap model,@RequestParam("newsid") int id,@RequestParam("newscate") String cate){
-		
-		model.addAttribute("newsid", id);
-		System.err.println(cate);
-		System.err.println(id);
-		model.addAttribute("newscate", cate);
-		return  "admin/updatearticle";
-	}
 
 }
