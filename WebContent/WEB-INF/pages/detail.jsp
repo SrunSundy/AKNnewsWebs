@@ -18,7 +18,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/detail.css"/>
-		
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/detail-responsive.css"/>
 		<!-- select2 -->
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
 	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
