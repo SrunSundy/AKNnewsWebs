@@ -8,11 +8,15 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import com.spring.akn.entyties.User;
 
 @Component("ajaxAuthenticationSuccessHandler")
 public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -21,6 +25,15 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
 			
+			//for get user principle for get user id
+		    User user = (User) auth.getPrincipal();
+			System.out.println("User ID:"+user.getId());
+			
+            //create and store session to browser
+	        HttpSession session = request.getSession(true);    
+	        session.setAttribute("SessionUser", user);  
+	        
+			//respone back to client 
 			response.getWriter().print(determineTargetUrl(auth));
 	        response.getWriter().flush();
 	        
@@ -43,7 +56,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		if (roles.contains("ROLE_ADMIN")) {
 			return "admin";
 		}else if (roles.contains("ROLE_USER")) {
-			return "user";
+			return "";
 		}else{
 			return "accessDenied";
 		}
