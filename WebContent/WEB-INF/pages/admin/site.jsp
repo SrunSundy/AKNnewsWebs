@@ -340,6 +340,7 @@
 						,config
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
+						alert(response);
 						console.log( response ); 						
 						console.log( $scope.site_list );
 						$scope.reset();
@@ -349,8 +350,7 @@
 		    }  
 		    
 		    $scope.changeLogo = function(){
-		    	var form_data = new FormData(document.getElementById('frmupload'));
-		    	
+		    	var form_data = new FormData(document.getElementById('frmupload'));                     		    	
   			    $http.post(
 						url+'article/site/upload'
 						,form_data
