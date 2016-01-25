@@ -12,11 +12,38 @@
 			
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
+		
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
+		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1-override.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 	    
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">  
+	    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
+	    <script src="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+	    
+	    <style>
+	    	 .modal{
+	    		z-index:100000;
+	    		margin-top:100px;
+	    	} 
+	    	.modal-content{
+	    		border-radius:0px;
+	    		border:0px;
+	    	}
+	    	.btn{
+	    		border-radius:0px;
+	    	}
+	    	.form-control{
+	    		border-radius:0px;
+	    	}
+	    	h3{
+	    		margin-top:0px;
+	    		margin-bottom:0px;
+	    	}
+	    </style>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		
@@ -30,8 +57,8 @@
 						<ul class="a-category">
 							<li><i class="fa fa-user"></i>ព័ត៌មាន អ្នកប្រើប្រាស់</li>
 							<li><i class="fa fa-bookmark"></i> ព័ត៌មាន បានរក្សាទុក</li>
-							<li><i class="fa fa-camera"></i>ប្តូរ រូបភាព</li>
-							<li><i class="fa fa-key"></i>ប្តូរ លេខសម្ងាត់</li>
+							<li data-toggle="modal" data-target="#myUpload"><i class="fa fa-camera"></i>ប្តូរ រូបភាព</li>
+							<li data-toggle="modal" data-target="#changePWD"><i class="fa fa-key"></i>ប្តូរ លេខសម្ងាត់</li>
 						</ul>
 						<ul class="a-category">
 							<li><i class="fa fa-clock-o"></i>ព័ត៌មាន តាមកាលបរិច្ជេទ</li>
@@ -71,8 +98,71 @@
 					</div><!--/end a-body  -->
 					
 					
+					
 				</div><!--/end a-row  -->
 				
+				<!-- Modal Change Image -->
+				<div class="modal fade" id="myUpload" role="dialog" >
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          	<h4>Change Profile</h4>
+				        </div>
+				        <div class="modal-body">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
+							  	<div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
+							  	<div>
+							   		 <span class="btn btn-default btn-file"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" type="file"  name="..." /></span>
+							    	 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+							  	</div>
+							</div>
+				        </div>
+				        <div class="modal-footer">
+					         <button type="submit" class="btn btn-default">Upload</button>
+					    </div>
+				      </div>
+				      
+				    </div>
+				 </div><!--end modal  -->
+				 
+				<!-- Modal Change Password -->
+				<div class="modal fade" id="changePWD" role="dialog" >
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          	<h4>Change Password</h4>
+				        </div>
+				        <div class="modal-body">
+			                <form role="form">
+					              <div class="box-body">
+					                <div class="form-group">
+					                  	<label for="oldpasswd">Old Password</label>
+					                  	<input type="password" class="form-control" id="oldpasswd" placeholder="Old Password">
+					                </div>
+					                <div class="form-group">
+					                  	<label for="newpasswd">New Password</label>
+					                  	<input type="password" class="form-control" id="newpasswd" placeholder="News Password">
+					                </div>
+					                <div class="form-group">
+					                  	<label for="confirmpasswd">Confirm Password</label>
+					                  	<input type="password" class="form-control" id="confirmpasswd" placeholder="Confirm Password">
+					                </div>
+					              </div>
+					              <!-- /.box-body -->
+					         </form>
+				        </div>
+				        <div class="modal-footer">
+					         <button type="button" class="btn btn-primary">Save</button>
+					    </div>
+				      </div>
+				      
+				    </div>
+				 </div><!--end modal  -->
+				 
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
