@@ -1,0 +1,59 @@
+/************************* start responsive here **************************/
+@media screen and (max-width: 1317px) {
+		.a-left-side, .nav-search{
+			left:5%;
+		}
+		.nav-category{
+			right: 5%;
+		}
+		.a-right-side{
+			right:5%;
+		}
+}
+@media screen and (max-width: 1185px) {
+		.a-left-side, .nav-search{
+			left:1%;
+		}
+		.nav-category{
+			right: 1%;
+		}
+		.a-right-side{
+			right:1%;
+		}
+		
+}
+@media screen and (max-width: 1096px) {
+		.a-left-side{
+			display:none;
+		}
+		.a-body{
+			left:1%;
+		}
+}
+
+@media screen and (max-width: 900px) {
+		.a-body{
+			width: 97.7%;
+		}
+		.nav-category, .a-right-side{
+			display:none;
+		}
+		.phone-menu-icon{
+			display:block;
+		}
+		.phone-menu{
+			left:0%;
+		}
+}
+
+
+@media screen and (max-width: 414px) {
+		.nav-search input{
+			width:200px;
+		}
+}
+@media screen and (max-width: 375px) {
+		.a-body{
+			width: 98.5%;
+		}
+}
