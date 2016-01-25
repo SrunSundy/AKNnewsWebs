@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SITE DETAIL | ADMIN</title>
+    <title>SCRAP URL | ADMIN</title>
     <!-- Tell the browser to be responsive to screen width -->
 
 	<jsp:include page="import/header.jsp"></jsp:include>
@@ -47,12 +47,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Site Detail Management
+            Scrap Url Management
             <!-- <small>Version 2.0</small> -->
           </h1>
           <ol class="breadcrumb">
             <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
-            <li class="active">Site Detail Management</li>
+            <li class="active">Scrap Url Management</li>
           </ol>
         </section>
 
@@ -61,7 +61,7 @@
         
         <section class="content">         	          
 		<div ng-app="myApp" ng-controller="myCtrl" >
-		<br/>
+
 		
 		  <!-- Modal ADD -->
 		  <div class="modal fade" id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
@@ -165,11 +165,7 @@
 		      
 		    </div>
 		  </div>
-<!-- 		  
 
-		  <hr>
-		  <tt>repeatSelect category = {{sitedetail.c_id}}</tt><br/>
-		  <tt>repeatSelect site = {{sitedetail.s_id}}</tt><br/> -->
 		
 		<br/>
 		<div>
@@ -267,7 +263,7 @@
 		    $scope.listsitedetail = function(){
 		    	////alert("list");
 			    $http.get(
-						url+'article/sitedetail/'
+						url+'article/scrapurl/'
 						,config
 					).success(function(response){
 						$scope.sitedetail_list = response.DATA;
@@ -285,7 +281,7 @@
 		    	alert("insert");
  		    	console.log('sitedetail', $scope.sitedetail);
  			    $http.post(
-						url+'article/sitedetail/'
+						url+'article/scrapurl/'
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
@@ -303,7 +299,7 @@
 		    	//alert("update");
 		    	console.log('sitedetail', $scope.sitedetail);
 			    $http.put(
-						url+'article/sitedetail/'
+						url+'article/scrapurl/'
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
@@ -318,7 +314,7 @@
 		    
 		    $scope.detetesitedetail = function(s_id,c_id){
 			    $http.delete(
-						url+'article/sitedetail/'+s_id+'/'+c_id
+						url+'article/scrapurl/'+s_id+'/'+c_id
 						,config
 					).success(function(response){						
 						$scope.sitedetail_list  = $scope.listsitedetail();
@@ -333,7 +329,7 @@
 		    $scope.statusSiteDetail = function(s_id, c_id){
 		    	alert("status");
 			    $http.patch(
-						url+'article/sitedetail/toggle/'+s_id+'/'+c_id
+						url+'article/scrapurl/toggle/'+s_id+'/'+c_id
 						,''
 						,config
 					).success(function(response){						
