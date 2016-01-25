@@ -42,7 +42,7 @@
 			    <c:out value="${sessionScope.SessionUser.enabled }"></c:out> 
 			--%>
 			<jsp:include page="include/header.jsp"></jsp:include>
-			<br/>
+
 			<div class="a-container">
 				<div class="a-row">
 					<div class="a-left-side">
@@ -147,7 +147,7 @@
 		<script>
 			var app = angular.module('myApp', []);
 			
-			app.controller('myCtrl', function($scope, $window, $http){
+			app.controller('myCtrl', function($scope, $window, $http, $location){
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
@@ -164,10 +164,12 @@
 				$scope.row = 9;
 
 				$scope.sid = 0;
-				$scope.cid = 0;
+				$scope.cid = "${cid}";
 				$scope.page = 1;
 				
-				$scope.key = "";
+				$scope.key = "${key}";
+				alert($scope.key);
+				
 				$scope.isSearch = false;
 				
 				$scope.isNoNews = false;
@@ -180,7 +182,7 @@
 				$scope.initializeNews = function(){
 					$http({
                         method: "GET",
-                        url: $scope.baseurl + "api/initialize/" + $scope.row +"/"+ $scope.uid + "/"
+                        url: $scope.baseurl + "api/initialize/" + $scope.row +"/"+ $scope.cid + "/" + $scope.uid
                     })
                     .success(function (response) {
                     	
@@ -204,6 +206,8 @@
                     			$scope.top2.push(data);
 				    	});
 				    });
+					
+					//angular.element("#category"+$scope.cid).addClass("active");
 				};
 				$scope.initializeNews();
 
@@ -280,6 +284,7 @@
      	        });
      	    	
 				$scope.articleCategory = function(cid){
+					
 					$scope.page = 0;
 					$scope.cid = cid;
 					$scope.sid = $scope.sid;
@@ -305,6 +310,9 @@
 				};
 				
 				$scope.searchArticles = function(){
+					
+					$location.path('search').search('key='+$scope.key);
+				
 					$scope.page = 0;
 					$scope.cid = 0;
 					$scope.sid = 0;
@@ -354,7 +362,6 @@
 					else
 						$scope.phoneMenuStatus = false;
 				};
-				
 				
 				//get carousel instance data and store it in variable owl
 				var owl = angular.element(".owl-carousel");
@@ -411,7 +418,16 @@
 			        }
 			    };
 		}]);
-			
+		
+		/* .filter('encodeURIComponent', function() {
+		    return function(input) {
+		        if(input) {
+		        	console.log(window.encodeURIComponent(input));
+		            return window.encodeURIComponent(input); 
+		        }
+		        return "";
+		    }
+		}); */
 		</script>
 	</body>
 </html>
