@@ -26,6 +26,29 @@
     
     	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
        
+       <style>
+       		.dis {
+       			visibility: hidden;
+       		}
+       		.sh{
+       			visibility: show;
+       		}
+       		
+       	  .ng-required{
+	   	  	color:red;
+	   	  }
+	      .ng-invalid {
+	          color: red;
+	      }
+	      .ng-dirty.ng-invalid-required {
+	          color: red;
+	      }
+	      ng-dirty.ng-invalid-minlength {
+	          color: red;
+	      }
+       		
+       		
+       </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini"  ng-app="myApp" ng-controller="myCtrl">
   	
@@ -47,7 +70,6 @@
 			            	<li class="active">Article Management</li>
 			          </ol>
 		        </section>
-
 		        <!-- Main content -->
 		        <section class="content">
 		          	<div class="row">
@@ -56,25 +78,36 @@
 				                <div class="box-header with-border">
 				                  <h3 class="box-title">Scraping</h3>
 				                </div>
-				                <div class="box-body">
+				                <div class="box-body"> 
+				                	<form name="myForm" ng-submit='scrapSite()' >
 				                	<div class="col-md-12">
 				                		<div class="col-md-12">
 				                		     <div class="input-group">
 						                     	 <span class="input-group-addon">Web Site</span>
-							                     <select class="select2" style="width: 100%">
-							                     	<option>A</option>
-							                     	<option>A</option>
-							                     	<option>A</option>
-							                     </select>
+							                     
+									        	   <!-- <h4>SOURCE NAME</h4> -->
+									        	   
+												    <select name="s_select" id="s_select" ng-model="id" required class='form-control'>
+												      <option value="">---Please select---</option>
+												      <option ng-repeat="site in site_list" value="{{site.id}}">{{site.name}}</option>
+												    </select>
 						                  	 </div><br>
 						                 </div>
 				                	</div>
 				                	<div class="col-md-12">
-					                	<div class="col-md-10"></div>
+					                	<div class="col-md-10">
+					                	 	<span ng-show="myForm.$dirty && myForm.s_select.$error.required">This is a required field</span>
+					                	</div>
 				                		<div class="col-md-2">
-				                			<button style="width:100%" class="btn btn-default">Scrap</button>
+				                		<!-- 	<button style="width:100%" class="btn btn-default" ng-disabled="myForm.$invalid">Scrap</button> -->
+				                			<input style="width:100%" type="submit" value="SCRAP" ng-disabled="myForm.$invalid" class="btn btn-success" />
 				                		</div>
 				                	</div>
+								</form>
+								<center >
+									<img class='dis' id='load' src='${pageContext.request.contextPath }/resources/images/loading.gif'/>
+									<h4 >Effected News : {{effected}}</h4>
+								</center>
 				                </div><!-- /.box-body -->
 				              </div><!-- /.box -->
           				</div>	          		
@@ -83,6 +116,7 @@
 		        </section><!-- /.content -->
     		</div><!-- /.content-wrapper -->
     		
+    				 
     		<footer class="main-footer">
 	      		<jsp:include page="element/footer.jsp"></jsp:include>
 			</footer>
@@ -120,8 +154,48 @@
 	app.controller('myCtrl', function($scope, $http){
 		
 		var domain = "http://localhost:8080/AKNnews/";
+		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
 		
 		angular.element(".select2").select2();
+		$scope.show_loading = true;
+		$scope.id = null;
+		$scope.effected = null;
+		$scope.site_list = {};
+	    $scope.listsite = function(){
+		    $http.get(
+		    		domain+'api/article/site/'					
+				).success(function(response){
+					$scope.site_list = response.DATA;
+					console.log( $scope.site_list );
+				}).error(function(response){
+					$scope.site_list = response;
+				});	 
+	    }
+	    
+	    $scope.scrapSite = function(){
+	    	angular.element( "#load" ).removeClass( 'dis' );
+	    	angular.element( "#load" ).addClass( 'sh' );
+  		    $http.get(
+		    		domain+'api/scrap/site/'+$scope.id
+				).success(function(response){
+					$scope.effected = response.CONTENT;
+					console.log( response );
+			    	angular.element( "#load" ).removeClass( 'sh' );
+			    	angular.element( "#load" ).addClass( 'dis' );
+				}).error(function(response){
+					console.log( response );
+				});	 
+	    }
+	    
+/* 		$scope.reset = function(){
+ 			$scope.id=null;
+ 			$scope.effected = null;
+ 		   	//$scope.sitedetail={c_id:'',s_id:'',url:'',status:''};	
+            $scope.myForm.$setPristine(); //reset Form
+        } */
+	    
+	    $scope.listsite();
+	    
 		
 	});
   
