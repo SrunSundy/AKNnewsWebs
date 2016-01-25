@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,9 +33,15 @@
 	<body ng-app="myApp" ng-controller="myCtrl">
 		
 		<div class="main-container">
-		
+		 
+		    <%-- Session User  
+			    <c:out value="${sessionScope.SessionUser.id }"></c:out>
+			    <c:out value="${sessionScope.SessionUser.username }"></c:out>
+			    <c:out value="${sessionScope.SessionUser.image }"></c:out>
+			    <c:out value="${sessionScope.SessionUser.enabled }"></c:out> 
+			--%>
 			<jsp:include page="include/header.jsp"></jsp:include>
-			
+			<br/>
 			<div class="a-container">
 				<div class="a-row">
 					<div class="a-left-side">
