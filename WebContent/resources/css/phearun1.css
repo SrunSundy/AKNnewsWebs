@@ -140,6 +140,11 @@ i.fa.fa-bookmark, i.fa.fa-bookmark-o{
 }
 .nav-category li:hover, .phone-menu li:hover{
 	background-color:#800000;
+	
+}
+
+.phone-menu a, .phone-menu a:hover{
+	color:#fff;
 }
 
 .a-left-side, .a-body, .a-right-side {
@@ -397,7 +402,7 @@ a, a:hover, a:active {
 	right:1%;
 	color:#fff;
 	cursor:pointer;
-	margin-top:10px;
+	margin-top:7px;
 	font-size:30px;
 	display:none;		
 }
@@ -406,6 +411,11 @@ a, a:hover, a:active {
 	margin:0px 5px;
 	background-color:#fff;
 	color:rgba(154, 35, 47, 0.78);
+}
+.loading img{
+	
+}
+.loading p{
 	padding:5px;
 }
 
@@ -436,7 +446,7 @@ a, a:hover, a:active {
 }
 .popular-title{
 	background-color:rgba(1, 1, 1, 0.4);
-	top:277px;
+	top:278px;
 	width:100%;
 	padding:15px 5px;
 	color:#fff;
