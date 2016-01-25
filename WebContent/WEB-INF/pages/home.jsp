@@ -27,7 +27,8 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
 	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
 	    
-	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
+	    <%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/> --%>
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color.css"/>
 	    
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
@@ -65,7 +66,7 @@
       									<div owl-carousel-item="" ng-repeat="pop in populars" class="item">
         									<img ng-src="{{pop.image}}" alt="{{pop.title}}">
 									  		<div class="popular-title">
-												<p><a href="{{pop.url}}" ng-click="readNews(pop.id)" target="_blank">{{pop.title}}</a></p>
+												<p><a href="{{pop.url}}" ng-click="readNews(pop.id)" target="_blank" ng-bind="pop.title"></a></p>
 											</div>
       									</div>
     								</data-owl-carousel>
@@ -118,11 +119,24 @@
 								</div>
 							</div>
 						</div>
-						<div class="loading" ng-show="loadingStatus">
-							<img src="${pageContext.request.contextPath}/resources/images/loading.gif"/>
+						<div class="clear"></div>
+						<div class="loading">
+							<img ng-show="loadingStatus" src="${pageContext.request.contextPath}/resources/images/loading.gif"/>
+							<p ng-show="!loadingStatus">អស់ព័ត៌មាន...</p>
 						</div>
 					</div><!--/end a-body  -->
 					
+					
+					<!--dynamic color  -->
+					<div class="d-color">
+						<ul>
+							<li class="brown"></li>
+							<li class="blue"></li>
+							<li class="green"></li>
+							<li class="red"></li>
+							<li class="gray"></li>
+						</ul>	
+					</div>
 					
 				</div><!--/end a-row  -->
 				
@@ -156,6 +170,7 @@
 				$scope.key = "";
 				$scope.isSearch = false;
 				
+				$scope.isNoNews = false;
 				$scope.loadingStatus = true;
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
@@ -203,12 +218,13 @@
                     	if(response.RESPONSE_DATA.length == 0){
                     		console.log('No more article..!');
                     		$scope.loadingStatus = false;
+                    		$scope.isNoNews = true;
 							return;                    		
                     	}
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.articles.push(data);
                     	});
-                    	
+                    	$scope.isNoNews = true;
                     	$scope.loadingStatus = false;
 				    });
 				};
@@ -259,6 +275,7 @@
                     		$scope.$apply($scope.loadSearchArticles());
 							console.log("loading search article");                    		
                     	}
+                    	
                     }
      	        });
      	    	
