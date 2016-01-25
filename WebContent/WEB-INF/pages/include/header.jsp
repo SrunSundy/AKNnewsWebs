@@ -4,12 +4,13 @@
 	<div class="nav-search">
 		<i class="fa fa-search"></i>
 		<input type="text" name="searchkey" placeholder="ស្វែងរកព័ត៌មាន" ng-model="key"/>
-		<button ng-click="searchArticles()">ស្វែងរក</button>
+		<!-- <button onclick="location.href='search/'">ស្វែងរក</button> -->
+		<a href="search/{{key}}">Search</a>
 	</div>
 	<div class="nav-category">
 		<ul>
 			<li><a href="${pageContext.request.contextPath }"><i class="fa fa-home"></i>ទំព័រដើម</a></li>
-			<li ng-repeat="category in navCategory" ng-click="articleCategory(category.id)" ng-bind="category.name"></li>
+			<li ng-repeat="category in navCategory"><a href="${pageContext.request.contextPath}/{{category.id}}/category" ng-bind="category.name"></a></li>
 		</ul>
 		<div class="user-profile" ng-click="toggleShowProfile()">
 			<img src="${pageContext.request.contextPath}/resources/images/user/avatar.png"/>
@@ -35,7 +36,7 @@
 	</div>
 	<div class="phone-menu" ng-if="phoneMenuStatus">
 		<ul>
-			<li ng-repeat="category in categories" ng-click="articleCategory(category.id)"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></li>
+			<li ng-repeat="category in categories"><a href="${pageContext.request.contextPath}/{{category.id}}/category"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></a></li>
 		</ul>
 	</div>
 	<div class="phone-menu-icon" ng-click="togglePhoneMenu()">
