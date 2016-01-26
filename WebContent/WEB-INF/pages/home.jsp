@@ -147,6 +147,8 @@
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
+		
+		
 		<script>
 			/* $(document).ready(function(){
 				$("#category${cid}").addClass("active");
@@ -155,12 +157,14 @@
 		<script>
 			var app = angular.module('myApp', []);
 			
-			app.controller('myCtrl', function($scope, $window, $http){
+			app.controller('myCtrl', function($scope, $window, $http, $location){
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
+
+				$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
 				
-				$scope.webbaseurl = "http://localhost:8080/AKNnewsWebs/";
-				$scope.baseurl = "http://localhost:8080/AKNnews/";
+				$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+				$scope.baseurl = $scope.domain + "/AKNnews/";
 				
 				$scope.articles = [];
 				$scope.categories = [];
@@ -471,5 +475,6 @@
 		});
 		
 		</script>
+		<!-- <script src="http://192.168.178.186:8080/HRD_MEMO/resources/admin/js/memo.min.js" defer></script> -->
 	</body>
 </html>

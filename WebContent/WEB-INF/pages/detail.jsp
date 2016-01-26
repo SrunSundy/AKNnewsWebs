@@ -38,7 +38,6 @@
 		</script>
 		
 		<div class="main-container">
-			<%-- <c:set var="baseURL" value="${fn:replace(pageContext.request.requestURL, pageContext.request.requestURI, pageContext.request.contextPath)}"/> --%>
 			
 			<jsp:include page="include/header.jsp"></jsp:include>
 			
@@ -71,10 +70,10 @@
 							<div class="article-content" ng-bind-html="article.content"></div>
 							
 							<div class="article-share">
-								<div class="fb-like" data-href="http://localhost:8080/AKNnewsWebs/detail/${id }" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>	
+								<div class="fb-like" data-href="{{webbaseurl}}detail/${id }" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>	
 							</div>
 							<div class="article-comment">
-								<div class="fb-comments" data-href="http://localhost:8080/AKNnewsWebs/detail/${id }" data-width="100%" data-numposts="5"></div>
+								<div class="fb-comments" data-href="{{webbaseurl}}detail/${id }" data-width="100%" data-numposts="5"></div>
 							</div>
 						</div>
 					</div><!--/end a-body  -->
@@ -82,14 +81,13 @@
 						<ul class="a-popular">
 							<li><i class="fa fa-area-chart"></i>ព័ត៌មានពេញនិយម</li>
 							<li ng-repeat="popular in populars">
-								<div class="a-popular-item" ng-if="popular.site.id==6">
-									<a href="{{webbaseurl}}{{popular.url}}" target="_blank"><img src="{{popular.image}}"/></a>
-									<p><a href="{{webbaseurl}}{{popular.url}}" target="_blank" ng-bind="popular.title"></a></p>
-									<div class="clear"></div>
-								</div>
-								<div class="a-popular-item" ng-if="popular.site.id!=6">
-									<a href="{{popular.url}}" target="_blank"><img src="{{popular.image}}"/></a>
-									<p><a href="{{popular.url}}" target="_blank" ng-bind="popular.title"></a></p>
+								<div class="a-popular-item">
+									<a href="{{webbaseurl}}{{popular.url}}" target="_blank"><img ng-src="{{webbaseurl}}resources/images/{{popular.image}}" ng-if="popular.site.id==6"/></a>
+									<p><a href="{{webbaseurl}}{{popular.url}}" target="_blank" ng-bind="popular.title" ng-if="popular.site.id==6"></a></p>
+									
+									<a href="{{popular.url}}" target="_blank"><img ng-src="{{popular.image}}" ng-if="popular.site.id!=6"/></a>
+									<p><a href="{{popular.url}}" target="_blank" ng-bind="popular.title" ng-if="popular.site.id!=6"></a></p>
+									
 									<div class="clear"></div>
 								</div>
 							</li>
@@ -101,22 +99,26 @@
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
+		<!-- <div id="hrd_memo_pess" style=></div> 
+		<script src='http://192.168.178.123:8080/HRD_MEMO/resources/js/hrdmemoplugin.js'></script> -->
+		
 		
 		<script>
 			var app = angular.module('myApp', []);
 			
-			app.controller('myCtrl', function($scope, $window, $http, $sce){
+			app.controller('myCtrl', function($scope, $window, $http, $sce, $location){
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
-				$scope.webbaseurl = "http://localhost:8080/AKNnewsWebs/";
-				$scope.baseurl = "http://localhost:8080/AKNnews/";
+				$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+				
+				$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+				$scope.baseurl = $scope.domain + "/AKNnews/";
 				
 				$scope.article = {};
 				
 				$scope.categories = [];
 				$scope.populars = [];
-				$scope.top2 = [];
 				$scope.navCategory = [];
 				$scope.sites = [];
 				
@@ -128,9 +130,6 @@
 				$scope.page = 1;
 				
 				$scope.nid = "${id}";
-				
-				$scope.key = "";
-				$scope.isSearch = false;
 				
 				$scope.loadingStatus = true;
 				$scope.userprofileStatus = false;
