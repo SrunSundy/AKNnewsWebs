@@ -12,7 +12,7 @@ public class AdminController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String adminDashbord() {
-		return "admin/user";
+		return "admin/dashboard";
 	}
      
 	@RequestMapping(value="/article" )
@@ -25,8 +25,13 @@ public class AdminController {
 		model.addAttribute("newsid", 0);
 		return  "admin/insertarticle";
 	}
-	
-	@RequestMapping(value="/admin/updatearticle" , method = RequestMethod.POST)
+	@RequestMapping(value="/updatearticle" )
+	public String toUpdate(ModelMap model){
+		
+		model.addAttribute("newsid", 0);
+		return  "admin/updatearticle";
+	}
+	@RequestMapping(value="/updatearticle" , method = RequestMethod.POST)
 	public String toUpdateArticle(ModelMap model,@RequestParam("newsid") int id,@RequestParam("newscate") String cate){
 		
 		model.addAttribute("newsid", id);
