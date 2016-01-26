@@ -23,7 +23,7 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
 	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
 	    
-	    
+	     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		<div id="fb-root"></div>

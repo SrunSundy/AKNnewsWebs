@@ -27,7 +27,7 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
 	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
 	    
-	    <%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/> --%>
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color.css"/>
 	    
 	</head>
@@ -66,7 +66,8 @@
       									<div owl-carousel-item="" ng-repeat="pop in populars" class="item">
         									<img ng-src="{{pop.image}}" alt="{{pop.title}}">
 									  		<div class="popular-title">
-												<p><a href="{{pop.url}}" ng-click="readNews(pop.id)" target="_blank" ng-bind="pop.title"></a></p>
+												<p><a href="{{pop.url}}" ng-click="readNews(pop.id)" ng-if="pop.site.id!=6" target="_blank" ng-bind="pop.title"></a></p>
+												<p><a href="{{webbaseurl}}detail/{{pop.id}}" ng-click="readNews(pop.id)" ng-if="pop.site.id==6" target="_blank" ng-bind="pop.title"></a></p>
 											</div>
       									</div>
     								</data-owl-carousel>
@@ -82,7 +83,9 @@
 										<img ng-src="{{top.image}}"/>
 									</div>
 									<div class="top-title">
-										<p><a href="{{top.url}}" ng-click="readNews(top.id)" target="_blank" ng-bind="top.title"></a></p>
+										<p><a href="{{top.url}}" ng-click="readNews(top.id)" ng-if="top.site.id!=6" target="_blank" ng-bind="top.title"></a></p>
+										<p><a href="{{webbaseurl}}detail/{{top.id}}" ng-click="readNews(top.id)" ng-if="top.site.id==6" target="_blank" ng-bind="top.title"></a></p>
+										
 									</div>
 								</div>
 							</div>
@@ -100,15 +103,16 @@
 										</div>
 										
 										<div class="clear"></div>
-										<small ng-bind="article.date | date:'EEEE, d MMM y'"></small>								
+										<small ng-bind="article.date | timeAgo" title="{{article.date | date:'medium'}}"></small>								
 									</div>
 									<div class="article-components">
 										<div class="article-image">
 											<a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{article.image}}"/></a>
-											<a href="{{article.url}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/{{article.image}}"/></a>
+											<a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
-											<p><a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
+											<p><a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
+											<p><a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
 										</div>
 									</div>
 									<div class="article-action">
@@ -143,14 +147,19 @@
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
-		
+		<script>
+			/* $(document).ready(function(){
+				$("#category${cid}").addClass("active");
+			}); */
+		</script>
 		<script>
 			var app = angular.module('myApp', []);
 			
-			app.controller('myCtrl', function($scope, $window, $http, $location){
+			app.controller('myCtrl', function($scope, $window, $http){
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
+				$scope.webbaseurl = "http://localhost:8080/AKNnewsWebs/";
 				$scope.baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.articles = [];
@@ -220,6 +229,7 @@
                     .success(function (response) {
                     	
                     	if($scope.key=="" || $scope.key==null){
+                    		$scope.page += 1;
                     		angular.forEach(response.NEWS, function(data, key) {
                         		$scope.articles.push(data);
                         	});
@@ -282,11 +292,11 @@
                     	
                     	if($scope.isSearch==false){
                     		$scope.$apply($scope.loadArticles());
-							console.log("loading article");                    		
+							console.log("loading article, page="+$scope.page);                    		
                     	}
                     	else{
                     		$scope.$apply($scope.loadSearchArticles());
-							console.log("loading search article");                    		
+							console.log("loading search article, page="+$scope.page);                    		
                     	}
                     }
      	        });
@@ -317,7 +327,7 @@
 				};
 				
 				$scope.searchArticles = function(){
-					$location.path('search').search('key='+$scope.key);
+					//$location.path('search').search('key='+$scope.key);
 					$scope.page = 0;
 					$scope.cid = 0;
 					$scope.sid = 0;
@@ -419,7 +429,7 @@
 			            }
 			        }
 			    };
-		}]);
+		}])
 		
 		/* .filter('encodeURIComponent', function() {
 		    return function(input) {
@@ -430,6 +440,36 @@
 		        return "";
 		    }
 		}); */
+		
+		.filter('timeAgo', function($filter){
+			return function(time){
+				var now = new Date(),
+			    secondsPast = (now.getTime() - time) / 1000;
+				
+			    if(secondsPast < 60){
+			      var second = parseInt(secondsPast);
+			      return  second+ ' វិនាទីមុន';
+			    }
+			    if(secondsPast < 3600){
+			      var minute = parseInt(secondsPast/60);
+			      return  minute+ ' នាទីមុន';
+			    }
+			    if(secondsPast < 86400){
+			    
+			     var hour = parseInt(secondsPast/3600);
+			      return  hour+ ' ម៉ោងមុន';
+			    }
+			    if(secondsPast < 691200){//under 8 days
+			      
+			      var day=parseInt(secondsPast/86400);
+			       return day + " ថ្ងៃមុន";
+			    }
+			    if(secondsPast >= 691200){//over 8 days
+			    	return $filter('date')(time, 'EEEE, d MMM y');
+			    }
+			}
+		});
+		
 		</script>
 	</body>
 </html>
