@@ -10,6 +10,7 @@
 body {
 	font-family: 'Hanuman' !important;
 	background-color: #dadada;
+	font-size:14px !important;
 }
 
 .main-container {
@@ -29,6 +30,15 @@ body {
 .nav-search button{
 	color:#AD1827;
 }
+.nav-search a{
+	color:#00A65A !important;
+	background-color:#dadada !important;
+	position:relative !important;
+	top:2px​ !important;
+	padding: 3px 10px 5px 10px !important;
+	left:-5px !important; 
+}
+
 .slogo img{
 	width:20px;
 	height:20px;
@@ -45,7 +55,7 @@ body {
 }
 .active{
 	background-color:#dadada;
-	border-left:2px solid #AD1828;
+	border-left:2px solid #00a65a;
 } 
 
 .user-profile{
@@ -137,6 +147,7 @@ i.fa.fa-bookmark, i.fa.fa-bookmark-o{
 }
 .nav-category a, .nav-category a:hover{
 	color:#fff;
+	text-decoration:none !important;
 }
 .nav-category li:hover, .phone-menu li:hover{
 	background-color:#800000;
@@ -204,7 +215,7 @@ ul.a-category li:first-child, ul.a-popular li:first-child, ul.a-source li:first-
 ul.a-category li:hover{
 	background-color: #dadada;
 	cursor: pointer;
-	border-left:2px solid #AD1828;
+	border-left:2px solid #00a65a;
 }
 
 .a-category li:not(first-child), .a-source li:not(first-child) {
@@ -516,7 +527,7 @@ span.slogo{
 	font-family: Hanuman;
 }
 
-.popular-news, .top-1, .article-item, ul.a-category, .a-source, .loading{
+.popular-news, .top-1, .article-item, ul.a-category, .a-source, .loading, .article-title, .article-content, .article-comment, .a-right-side{
 	/* box-shadow: 0px 0px 0px #A09A9A; */
 	box-shadow: 0 0px 10px 0 rgba(0,0,0,0.2),0 0px 15px 0 rgba(0,0,0,0.19);
 }
