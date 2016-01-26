@@ -24,6 +24,9 @@
 	    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
 	    <script src="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
 	    
+	    
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
+	     
 	    <style>
 	    	 .modal{
 	    		z-index:100000;
