@@ -23,7 +23,7 @@ public class HTTPErrorController {
 	
 	@RequestMapping(value="/401")
 	public String error401(ModelMap m){
-//		m.addAttribute("msg","Error 404 | Page not found");
+    	m.addAttribute("msg","Error 401 | Unauthorized");
 		return "errors/401";
 	}
 	
