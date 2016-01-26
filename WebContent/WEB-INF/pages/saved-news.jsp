@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" 
+           uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,6 +47,9 @@
 	    	h3{
 	    		margin-top:0px;
 	    		margin-bottom:0px;
+	    	}
+	    	.error{
+	    		color:red;
 	    	}
 	    </style>
 	</head>
@@ -110,21 +115,26 @@
 				    
 				      <!-- Modal content-->
 				      <div class="modal-content">
+				      <form id="frmupload" name="frm" ng-submit='uploadImage()' enctype="multipart/form-data">
 				        <div class="modal-header">
 				          	<h4>Change Profile</h4>
 				        </div>
 				        <div class="modal-body">
-							<div class="fileinput fileinput-new" data-provides="fileinput">
-							  	<div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
-							  	<div>
-							   		 <span class="btn btn-default btn-file"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" type="file"  name="..." /></span>
-							    	 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-							  	</div>
-							</div>
+								<div class="fileinput fileinput-new" data-provides="fileinput">
+								  	<div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
+								  	<div>
+								  		 <input type="hidden" value='{{uid}}' required name="id" id="id"/> 
+								   		 <span class="btn btn-default btn-file"><span class="fileinput-new">Select Image</span>
+								   		 <span class="fileinput-exists">Change</span>
+								   		 <input id="newsthumbnail" type="file" name="file" required  name="..." /></span>
+								    	 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								  	</div>
+								</div>
 				        </div>
 				        <div class="modal-footer">
-					         <button type="submit" class="btn btn-default">Upload</button>
+					         <input type="submit" class="btn btn-default" value='Upload' ng-disabled="frm.$invalid" ></button>
 					    </div>
+					    </form>
 				      </div>
 				      
 				    </div>
@@ -136,31 +146,42 @@
 				    
 				      <!-- Modal content-->
 				      <div class="modal-content">
+				      <form ng-submit="changePassword()" name="myForm">
 				        <div class="modal-header">
 				          	<h4>Change Password</h4>
 				        </div>
 				        <div class="modal-body">
-			                <form role="form">
 					              <div class="box-body">
 					                <div class="form-group">
+					                	<input type="hidden" value='{{uid}}' required name="id" id="id"/> 
 					                  	<label for="oldpasswd">Old Password</label>
-					                  	<input type="password" class="form-control" id="oldpasswd" placeholder="Old Password">
+					                  	<input type="password" class="form-control" name='oldpwd' placeholder="Old Password" required ng-minlength="3" ng-model='userpwd.oldpass'/>
+				                  	 	  <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$error.required">This is a required field</span>
+							              <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$error.minlength">Minimum length required is 5</span>
+							              <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$invalid">This field is invalid </span>
 					                </div>
 					                <div class="form-group">
 					                  	<label for="newpasswd">New Password</label>
-					                  	<input type="password" class="form-control" id="newpasswd" placeholder="News Password">
+					                  	<input type="password" class="form-control"  name='newpwd' placeholder="News Password" required ng-minlength="5" ng-model='userpwd.newpass'/>
+ 					                  	  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$error.required">This is a required field</span>
+			             		   		  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$error.minlength">Minimum length required is 5</span>
+			            				  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$invalid">This field is invalid </span>
 					                </div>
 					                <div class="form-group">
 					                  	<label for="confirmpasswd">Confirm Password</label>
-					                  	<input type="password" class="form-control" id="confirmpasswd" placeholder="Confirm Password">
+					                  	<input type="password" class="form-control" name='newpwd2' placeholder="Confirm Password" required ng-minlength="5" ng-model='conpwd' compare-to="userpwd.newpass" ng-change='checkPassword()'/>
+ 					                  	  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$error.required">This is a required field</span>
+			             		   		  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$error.minlength">Minimum length required is 5</span>
+			            				  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$invalid">This field is invalid </span>
+			            				  <span class='error'ng-show="status">Password not match </span>
 					                </div>
 					              </div>
 					              <!-- /.box-body -->
-					         </form>
 				        </div>
 				        <div class="modal-footer">
-					         <button type="button" class="btn btn-primary">Save</button>
+					         <input type="submit" class="btn btn-primary" value='SAVE' ng-disabled="myForm.$invalid" />
 					    </div>
+					    </form>
 				      </div>
 				      
 				    </div>
@@ -171,11 +192,12 @@
 		</div><!--/end main container  -->
 		
 		<script>
+			
 			var app = angular.module('myApp', []);
 			
 			app.controller('myCtrl', function($scope, $window, $http){
 				
-				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
+				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=                                                          ' ;
 				
 				$scope.baseurl = "http://localhost:8080/AKNnews/";
 				
@@ -186,7 +208,7 @@
 				$scope.navCategory = [];
 				$scope.sites = [];
 				
-				$scope.uid = 5;
+				$scope.uid = ${uid};
 				$scope.row = 9;
 
 				$scope.sid = 0;
@@ -199,7 +221,73 @@
 				$scope.loadingStatus = false;
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
-		
+				
+				//user check password
+				$scope.userpwd = {id:null,oldpass:'',newpass:''};
+				$scope.conpwd = null;
+				$scope.status = false;
+				
+				//check password 
+				$scope.checkPassword = function(){
+					if ($scope.conpwd != $scope.userpwd.newpass){
+						$scope.status = true;
+						return;
+					}
+					$scope.status = false;
+				}
+				//upload image 
+				$scope.uploadImage = function(){
+			    	var form_data = new FormData(document.getElementById('frmupload'));                  
+ 	  			    $http.post(
+							$scope.baseurl+'api/user/editupload'
+							,form_data
+							,{
+								transformRequest : angular.identity,
+								headers: {
+					            'Accept': 'application/json;odata=verbose',
+					            'Content-Type' : undefined
+					       		 }
+							}
+						).success(function(response){						
+							console.log( response ); 
+							$scope.reset_image();
+						}).error(function(response){
+							console.log( response ); 
+						});	  
+				}
+				
+				//change password
+				$scope.changePassword = function(){
+					if ($scope.conpwd != $scope.userpwd.newpass){
+						$scope.status = true;
+						return;
+					} 
+					$scope.status = false;
+					$scope.userpwd.id = $scope.uid;
+					console.log($scope.userpwd);
+ 	  			    $http.put(
+							$scope.baseurl+'api/user/changepwd'
+							,$scope.userpwd
+						).success(function(response){						
+							console.log( response ); 	
+							alert(response.MESSAGE);
+							$scope.reset();
+						}).error(function(response){
+							console.log( response ); 
+						});	 
+				}
+				
+				//reset form change password
+	 		    $scope.reset = function(){
+	 		    	$scope.userpwd = {id:null,oldpass:'',newpass:''};
+	 		    	$scope.conpwd = null;
+	                $scope.myForm.$setPristine(); //reset Form
+	            }
+				
+				//reset form image
+	 		    $scope.reset_image = function(){
+	 		    	document.forms["frm"].reset();
+	            }
 				
 				//initialize news data
 				$scope.initializeNews = function(){
@@ -208,7 +296,6 @@
                         url: $scope.baseurl + "api/article/savelist/" + $scope.uid
                     })
                     .success(function (response) {
-                    	
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
                     		$scope.articles.push(data);
                     	});
