@@ -70,7 +70,8 @@
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home </a></li>
-            <li class="active">Article Management</li>
+            <li >Article Management</li>
+            <li class="active">Add Article</li>
           </ol>
         </section>
 
@@ -82,7 +83,7 @@
           	    <!-- Input addon -->
               <div class="box ">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Input Addon</h3>
+                  <h3 class="box-title">Insert AKN News</h3>
                 </div>
                 <div class="box-body">
                 	<div class="col-md-12">

@@ -178,12 +178,12 @@ button.action{
                     </tr>
                    
                    <tr  ng-repeat="article in articles">	
-                      <td><img class='logo-style' ng-src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
+                      <td><img class='logo-style' ng-src='http://localhost:8080/AKNnews/resources/images/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
                       <td >{{convertTimeago(article.date) | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
-                      <td><span class="label label-success">{{article.category.name }}</span></td>
+                      <td><span class="label label-danger">{{article.category.name }}</span></td>
                       <td ng-show="article.status == true">T</td>
                       <td ng-show="article.status == false">F</td>
                       <td ng-show="article.site.id == 6">
@@ -252,8 +252,6 @@ button.action{
       $(function () {
         //Initialize Select2 Elements
         $(".select2").select2();
-
-     
       });
       
     </script>
@@ -275,50 +273,7 @@ button.action{
 		$scope.triggerpage = 0;
 		
 		$scope.Totalrecord = 0;
-		
-	
-		$scope.convertTimeago = function(time){
-			
-			var now = new Date(),
-		      secondsPast = (now.getTime() - time) / 1000;
-			
-		    if(secondsPast < 60){
-		      var second = parseInt(secondsPast);
-		      if(second <= 1){
-		    	  return 'a second ago';
-		      }
-		      return  second+ ' seconds ago';
-		    }
-		    if(secondsPast < 3600){
-		      var minute = parseInt(secondsPast/60);
-		      if(minute <= 1){
-		    	  return 'a minute ago';
-		      }
-		      return  minute+ ' minutes ago';
-		    }
-		    if(secondsPast < 86400){
-		    
-		     var hour = parseInt(secondsPast/3600);
-		      if(hour <= 1){
-		    	  return 'an hour ago';
-		      }
-		      return  hour+ ' hours ago';
-		    }
-		    if(secondsPast < 691200){//under 8 days
-		      
-		      var day=parseInt(secondsPast/86400);
-		       if(day <= 1){
-		    	   return "a day ago";
-		       }
-		       return day + " days ago";
-		    }
-		    if(secondsPast >= 691200){//over 8 days
-		    	return time;
-		    }
-		}
-		
-		
-		
+
 		$scope.gotoSite = function(url){
 			alert(url);
 			location.href = url;
@@ -488,6 +443,46 @@ button.action{
 		$scope.items = [{id: 1,label: '15',},{id: 2,label: '30',},{id:3,label: '50',}, {id: 4,label: '100',}];
 		$scope.selected = $scope.items[0];
 		
+		//timeago
+		$scope.convertTimeago = function(time){
+			
+			var now = new Date(),
+		      secondsPast = (now.getTime() - time) / 1000;
+			
+		    if(secondsPast < 60){
+		      var second = parseInt(secondsPast);
+		      if(second <= 1){
+		    	  return 'a second ago';
+		      }
+		      return  second+ ' seconds ago';
+		    }
+		    if(secondsPast < 3600){
+		      var minute = parseInt(secondsPast/60);
+		      if(minute <= 1){
+		    	  return 'a minute ago';
+		      }
+		      return  minute+ ' minutes ago';
+		    }
+		    if(secondsPast < 86400){
+		    
+		     var hour = parseInt(secondsPast/3600);
+		      if(hour <= 1){
+		    	  return 'an hour ago';
+		      }
+		      return  hour+ ' hours ago';
+		    }
+		    if(secondsPast < 691200){//under 8 days
+		      
+		      var day=parseInt(secondsPast/86400);
+		       if(day <= 1){
+		    	   return "a day ago";
+		       }
+		       return day + " days ago";
+		    }
+		    if(secondsPast >= 691200){//over 8 days
+		    	return time;
+		    }
+		}
 		
 		
 	});
