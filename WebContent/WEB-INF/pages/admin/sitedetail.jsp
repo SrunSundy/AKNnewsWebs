@@ -14,7 +14,7 @@
    i.ion{
    		margin-top: 25px;
    }
-   	  .ng-required{
+/*    	  .ng-required{
    	  	color:red;
    	  }
       .ng-invalid {
@@ -25,12 +25,16 @@
       }
       ng-dirty.ng-invalid-minlength {
           color: red;
+      } */
+      
+      .error{
+      	color:red;
       }
  
   
    </style>
    
-  <%--  <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script> --%>
+    <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script> 
    
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -80,18 +84,18 @@
 					      <option value="">---Please select---</option>
 					      <option ng-repeat="site in site_list" value="{{site.id}}">{{site.name}}</option>
 					    </select>
-					    <span ng-show="myForm.$dirty && myForm.s_select.$error.required">This is a required field</span>
+					    <span class='error' ng-show="myForm.$dirty && myForm.s_select.$error.required">This is a required field</span>
 					    <h4>CATEGORY NAME</h4>
 					    <select name="c_select" id="c_select" ng-model="sitedetail.c_id" required class='form-control'>
 					      <option value="">---Please select---</option>
 					      <option ng-repeat="cate in category_list" value="{{cate.id}}" >{{cate.name}}</option>
 					    </select>
-					    <span ng-show="myForm.$dirty && myForm.c_select.$error.required">This is a required field</span>
+					    <span class='error' ng-show="myForm.$dirty && myForm.c_select.$error.required">This is a required field</span>
 					    <h4>URL</h4>
 					    <input type="text" ng-model="sitedetail.url" name="url" placeholder="Enter sitedetail url" ng-minlength="15" required class='form-control'/>
-					      <span ng-show="myForm.$dirty && myForm.url.$error.required">This is a required field</span>
-			              <span ng-show="myForm.$dirty && myForm.url.$error.minlength">Minimum length required is 15</span>
-			              <span ng-show="myForm.$dirty && myForm.url.$invalid">This field is invalid </span><br/><br/>
+					      <span class='error' ng-show="myForm.$dirty && myForm.url.$error.required">This is a required field</span>
+			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.minlength">Minimum length required is 15</span>
+			              <span class='error' ng-show="myForm.$dirty && myForm.url.$invalid">This field is invalid </span><br/>
 					    <input type="submit" value="{{!id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 						          class="{{!sitedetail.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
 					  </form>
@@ -165,9 +169,6 @@
 		      
 		    </div>
 		  </div>
-
-		
-		<br/>
 		<div>
 			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">ADD NEW</button> <br/><br/>
 		</div>
@@ -186,8 +187,8 @@
 						</tr>
 						<tr ng-repeat="cat in sitedetail_list" >
 							<td> {{$index+1}} </td>
-							<td> {{ siteName(cat.s_id) }}</td>
-							<td> {{ categoryName(cat.c_id) }}</td>
+							<td> <button class='btn btn-xs btn-danger'>{{ siteName(cat.s_id) }}</button></td>
+							<td> <button class='btn btn-xs btn-warning'>{{ categoryName(cat.c_id) }}</button></td>
 							<td> {{cat.url}}</td>
 							<td> 
 								 <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.s_id,cat.c_id)" checked ng-if="cat.status == true " />
@@ -217,11 +218,7 @@
 			$scope.id=null;
 		    $scope.sitedetail={c_id:'',s_id:'',url:'',status:''};		 
 		    
-		    //$scope.c_data = {c_repeat: null};
-		    //$scope.s_data = {s_repeat: null};
-		    
 		    $scope.submit = function() {
-		    	//alert( $scope.sitedetail.id );
 		    	if ( $scope.id == null){
 		    		$scope.insertsitedetail();
 		    		$scope.reset();
@@ -235,12 +232,10 @@
  		    $scope.findsitedetailById = function(s_id, c_id){
                 console.log('id to be edited', s_id +"      "+c_id);
                 for(var i = 0; i < $scope.sitedetail_list.length; i++){
-                	//alert(i);
                     if( $scope.sitedetail_list[i].s_id === s_id && $scope.sitedetail_list[i].c_id === c_id ) {
                     	$scope.sitedetail = angular.copy($scope.sitedetail_list[i]);
                     	console.log($scope.sitedetail);   
                     	$scope.id=100;
-                       //alert(1);
                        break;
                     }
                 }
@@ -261,7 +256,6 @@
 	       		 }
 	    	};
 		    $scope.listsitedetail = function(){
-		    	////alert("list");
 			    $http.get(
 						url+'article/scrapurl/'
 						,config
@@ -278,15 +272,15 @@
 		    $scope.listsitedetail();
 		    
 		    $scope.insertsitedetail = function(){
-		    	alert("insert");
  		    	console.log('sitedetail', $scope.sitedetail);
  			    $http.post(
 						url+'article/scrapurl/'
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
-						$scope.sitedetail_list  = $scope.listsitedetail();
-						console.log( response ); 						
+						$scope.listsitedetail();
+						console.log( response ); 		
+						alert(response.MESSAGE);
 						console.log( $scope.sitedetail_list );
 					}).error(function(response){
 						alert('add exit site and categoy exist fail! try again!');
@@ -296,16 +290,16 @@
 		    
 		    
 		    $scope.updatesitedetail = function(){
-		    	//alert("update");
 		    	console.log('sitedetail', $scope.sitedetail);
 			    $http.put(
 						url+'article/scrapurl/'
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
-						$scope.sitedetail_list  = $scope.listsitedetail();
+						$scope.listsitedetail();
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
+						alert(response.MESSAGE);
 					}).error(function(response){
 						alert('update exit site and categoy exist fail! try again!');
 						console.log( response ); 
@@ -317,9 +311,14 @@
 						url+'article/scrapurl/'+s_id+'/'+c_id
 						,config
 					).success(function(response){						
-						$scope.sitedetail_list  = $scope.listsitedetail();
+						$scope.listsitedetail();
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
+						if ( response.STATUS == 404){
+							alert(response.MESSAGE + '     STATUS TRUE!');
+						}else{
+							alert(response.MESSAGE);
+						}
 						$scope.reset();
 					}).error(function(response){
 						console.log( response ); 
@@ -327,13 +326,12 @@
 		    }  
 		    
 		    $scope.statusSiteDetail = function(s_id, c_id){
-		    	alert("status");
 			    $http.patch(
 						url+'article/scrapurl/toggle/'+s_id+'/'+c_id
 						,''
 						,config
 					).success(function(response){						
-						$scope.category_list  = $scope.sitedetail_list();
+						$scope.listsitedetail();
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
 					}).error(function(response){

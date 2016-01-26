@@ -14,18 +14,10 @@
    i.ion{
    		margin-top: 25px;
    }
-   	  .ng-required{
+   	  .error{
    	  	color:red;
    	  }
-      .ng-invalid {
-          color: red;
-      }
-      .ng-dirty.ng-invalid-required {
-          color: red;
-      }
-      ng-dirty.ng-invalid-minlength {
-          color: red;
-      }
+
  
   
    </style>
@@ -61,7 +53,7 @@
         
         <section class="content">         	          
 		<div ng-app="myApp" ng-controller="myCtrl" >
-		<br/>
+
 		
 		  <!-- Modal ADD -->
 		  <div class="modal fade" id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
@@ -79,9 +71,9 @@
 					  <h4>Name</h4>
 			          <input type="text" ng-model="category.name" name="uname" placeholder="Enter category name" required ng-minlength="3" class='form-control'/>
 			          
-			              <span ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
-			              <span ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 3</span>
-			              <span ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/><br/>
+			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
+			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 3</span>
+			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/><br/>
 			          
 			          <input type="submit" value="{{!category.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 			          class="{{!category.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
@@ -150,9 +142,7 @@
 		    </div>
 		  </div>
 		  
-          
-		
-		<br/>
+
 		<div>
 			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">ADD NEW</button> <br/><br/>
 		</div>
