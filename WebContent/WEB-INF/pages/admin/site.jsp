@@ -77,36 +77,29 @@
 					<input type="hidden" ng-model="site.id" name="id" ng-disabled=true />
 					  <h4>Name</h4>
 			          <input type="text" ng-model="site.name" name="uname" placeholder="Enter site name" required ng-minlength="3" class='form-control'/>
-			          
 			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 3</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span>
 			          <h4>URL</h4>  
 			          <input type="text" ng-model="site.url" name="url" placeholder="Enter site url" required ng-minlength="3" class='form-control'/>
-			          
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.required">This is a required field</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.minlength">Minimum length required is 3</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$invalid">This field is invalid </span><br/>   
 			         <h4>BASEPATH</h4>     
 			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/>
-			          
 			          <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 			          class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
-			          
 			      	</form>
 		        </div>
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()' >Close</button>
 		        </div>
 		      </div>
-		      
 		    </div>
 		  </div>
-		  
 		  		  <!-- Modal View -->
 		  <div class="modal fade" id="myView" role="dialog" data-keyboard="false" data-backdrop="static">
 		    <div class="modal-dialog">
-		    
 		      <!-- Modal content-->
 		      <div class="modal-content">
 		        <div class="modal-header">
@@ -140,7 +133,6 @@
 		      
 		    </div>
 		  </div>
-		  
 		  		<!-- Modal Delete Msg -->
 		  <div class="modal fade" id="myDelete" role="dialog" data-keyboard="false" data-backdrop="static">
 		    <div class="modal-dialog">		    
@@ -161,14 +153,11 @@
 		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()'>Close</button>
 		        </div>
 		      </div>
-		      
 		    </div>
 		  </div>
-		  
 		  	  <!-- Modal View -->
 		  <div class="modal fade" id="myUpload" role="dialog" data-keyboard="false" data-backdrop="static">
 		    <div class="modal-dialog">
-		    
 		      <!-- Modal content-->
 		      <div class="modal-content">
 		        <div class="modal-header">
@@ -186,14 +175,11 @@
 		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()'>Close</button>
 		        </div>
 		      </div>
-		      
 		    </div>
 		  </div>
 		<div>
 			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">ADD NEW</button> <br/><br/>
 		</div>
-
-		
 		<div>
 			<div class="box">
 				<div class="box-body table-responsive no-padding">
@@ -220,15 +206,10 @@
 								<button ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView">VIEW</button>
 							 </td>	
 						</tr>
-					 
 					</table>
 				</div>
-				
 			</div>
-			
 		</div>
-
-		
 		</div>
 
 		<script>
