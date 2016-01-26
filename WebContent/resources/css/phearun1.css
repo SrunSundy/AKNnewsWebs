@@ -295,8 +295,8 @@ ul.a-category li:hover{
 }
 
 .article-info small {
-	font-size:10px;
-	background-color:rgba(173, 24, 39, 0.71);
+	font-size:11px;
+	background-color:rgba(0, 0, 1, 0.51);
 	padding: 0px 5px;
 	color:#fff;
 	 
@@ -528,7 +528,6 @@ span.slogo{
 }
 
 .popular-news, .top-1, .article-item, ul.a-category, .a-source, .loading, .article-title, .article-content, .article-comment, .a-right-side{
-	/* box-shadow: 0px 0px 0px #A09A9A; */
 	box-shadow: 0 0px 10px 0 rgba(0,0,0,0.2),0 0px 15px 0 rgba(0,0,0,0.19);
 }
 
