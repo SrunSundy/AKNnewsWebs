@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -16,8 +17,8 @@ public class MainController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/search/{key}")
-	public String searchPage(ModelMap model, @PathVariable("key") String key){
+	@RequestMapping(value="/search")
+	public String searchPage(ModelMap model, @RequestParam("key") String key){
 		System.out.println(key);
 		model.addAttribute("cid", 0);
 		model.addAttribute("key", key);
