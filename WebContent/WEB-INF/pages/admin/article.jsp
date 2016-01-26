@@ -46,7 +46,12 @@ td.nodata p{
 	font-weight: bold;
 	font-size: 16px;
 }
-	
+
+button.ownweb{
+	display : inline-block;
+	float:left;
+	margin-right:3px;
+}
 button.action{
 	
 	
@@ -70,11 +75,12 @@ button.action{
         <section class="content-header">
           <h1>
             Article Management
-            <small>Version 2.0</small>
+            <small>Version 2</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Article Management</li>
+            <li >Article Management</li>
+            <li class="active">List Article</li>
           </ol>
         </section>
 
@@ -86,7 +92,7 @@ button.action{
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Responsive Hover Table</h3>
+                  <h3 class="box-title">List of News Source</h3>
                   <div class="box-tools">
                      <form >
                     <div class="input-group" style="width: 150px;">
@@ -160,7 +166,7 @@ button.action{
                       <th>Source</th>
                       <th>ID</th>
                       <th>Title</th>
-                      <th>Date</th>
+                      <th>Posted Time</th>
                       <th>View</th>
                       <th>Category</th>
                       <th>Status</th>
@@ -175,24 +181,20 @@ button.action{
                       <td><img class='logo-style' ng-src='${pageContext.request.contextPath }/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
-                      <td >{{convertTimeago(article.date) }}</td>
+                      <td >{{convertTimeago(article.date) | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
                       <td><span class="label label-success">{{article.category.name }}</span></td>
                       <td ng-show="article.status == true">T</td>
                       <td ng-show="article.status == false">F</td>
-
-                    
-                       <td ng-show="article.site.id == 6">
-                       <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
-                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/> 
-                      		 <input type="hidden" name="newscate" ng-value="'{{article.category.name}}'"/>
-                       		<button type="submit" class="fa fa-pencil-square-o action btn btn-primary" ></button>
-                       </form>
-                     
-                       <button type="button" class="fa fa-share action" ng-click="gotoSite({{article.url}})" ></button>
-
-                       </td>
-                       <td ng-show="article.site.id != 6"><button type="button" class="fa fa-share action" ng-click="gotoSite('{{article.url}}')" ></button></td>
+                      <td ng-show="article.site.id == 6">
+	                      <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
+	                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/> 
+	                      		 <input type="hidden" name="newscate" ng-value="'{{article.category.name}}'"/>
+	                       		<button type="submit" class="fa fa-pencil-square-o action ownweb btn btn-primary" ></button>
+	                      </form>
+	                      <button type="button" class="fa fa-share action ownweb btn btn-success" ng-click="gotoSite({{article.url}})" ></button>
+                      </td>
+                      <td ng-show="article.site.id != 6"><button type="button" class="fa fa-share action btn btn-success" ng-click="gotoSite('{{article.url}}')" ></button></td>
                     </tr>
                  
                   </table>
@@ -210,7 +212,6 @@ button.action{
 		
 		<footer class="main-footer">
 	      <jsp:include page="element/footer.jsp"></jsp:include>
-	      <time class="timeago" datetime="2008-07-17T09:24:17Z">July 17, 2008</time>
 		</footer>
     
     <jsp:include page="element/rightslidebar.jsp"></jsp:include>
@@ -280,29 +281,44 @@ button.action{
 			
 			var now = new Date(),
 		      secondsPast = (now.getTime() - time) / 1000;
+			
 		    if(secondsPast < 60){
-		      return parseInt(secondsPast) + ' second';
+		      var second = parseInt(secondsPast);
+		      if(second <= 1){
+		    	  return 'a second ago';
+		      }
+		      return  second+ ' seconds ago';
 		    }
 		    if(secondsPast < 3600){
-		      return parseInt(secondsPast/60) + ' minute';
+		      var minute = parseInt(secondsPast/60);
+		      if(minute <= 1){
+		    	  return 'a minute ago';
+		      }
+		      return  minute+ ' minutes ago';
 		    }
-		    if(secondsPast <= 86400){
-		      var hour = 0;
-		      hour = parseInt(secondsPast/3600);
+		    if(secondsPast < 86400){
+		    
+		     var hour = parseInt(secondsPast/3600);
 		      if(hour <= 1){
 		    	  return 'an hour ago';
 		      }
 		      return  hour+ ' hours ago';
 		    }
-		    if(secondsPast > 86400){
-		       var day=0;
-		       day=parseInt(secondsPast/86400);
+		    if(secondsPast < 691200){//under 8 days
+		      
+		      var day=parseInt(secondsPast/86400);
 		       if(day <= 1){
 		    	   return "a day ago";
 		       }
 		       return day + " days ago";
 		    }
+		    if(secondsPast >= 691200){//over 8 days
+		    	return time;
+		    }
 		}
+		
+		
+		
 		$scope.gotoSite = function(url){
 			alert(url);
 			location.href = url;
