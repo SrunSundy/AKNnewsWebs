@@ -81,15 +81,17 @@
 						<ul class="a-popular">
 							<li><i class="fa fa-area-chart"></i>ព័ត៌មានពេញនិយម</li>
 							<li ng-repeat="popular in populars">
-								<div class="a-popular-item">
-									<a href="{{webbaseurl}}{{popular.url}}" target="_blank"><img ng-src="{{webbaseurl}}resources/images/{{popular.image}}" ng-if="popular.site.id==6"/></a>
-									<p><a href="{{webbaseurl}}{{popular.url}}" target="_blank" ng-bind="popular.title" ng-if="popular.site.id==6"></a></p>
-									
-									<a href="{{popular.url}}" target="_blank"><img ng-src="{{popular.image}}" ng-if="popular.site.id!=6"/></a>
-									<p><a href="{{popular.url}}" target="_blank" ng-bind="popular.title" ng-if="popular.site.id!=6"></a></p>
-									
+								<div class="a-popular-item" ng-if="popular.site.id==6">
+									<a href="{{webbaseurl}}{{popular.url}}" target="_blank"><img ng-src="{{webbaseurl}}resources/images/{{popular.image}}"/></a>
+									<p​ ><a href="{{webbaseurl}}{{popular.url}}" target="_blank" ng-bind="popular.title"></a></p>
 									<div class="clear"></div>
 								</div>
+								<div class="a-popular-item" ng-if="popular.site.id!=6">
+									<a href="{{popular.url}}" target="_blank"><img ng-src="{{popular.image}}"/></a>
+									<p><a href="{{popular.url}}" target="_blank" ng-bind="popular.title"></a></p>
+									<div class="clear"></div>
+								</div>								
+								
 							</li>
 						</ul>
 					</div><!--/end a-right-side  -->
