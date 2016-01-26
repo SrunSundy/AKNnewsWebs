@@ -60,7 +60,7 @@
         
         <section class="content">         	          
 		<div ng-app="myApp" ng-controller="myCtrl" >
-		<c:set var="base_url" value="http://localhost:8080/AKNnews/resources/images/"/>
+		<c:set var="base_url" value="http://localhost:8080/AKNnews/resources/images/logo/"/>
 		
 		  <!-- Modal ADD -->
 		  <div class="modal fade" id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
