@@ -4,6 +4,7 @@
  img.logo-style{
   		width: 30px;
   		height: 30px;
+  		border-radius : 100%;
  }
  i.fa{
   	margin-top:6px;
