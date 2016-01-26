@@ -165,10 +165,9 @@
 
 				$scope.sid = 0;
 				$scope.cid = "${cid}";
-				$scope.page = 1;
+				$scope.page = 0;
 				
 				$scope.key = "${key}";
-				alert($scope.key);
 				
 				$scope.isSearch = false;
 				
@@ -177,63 +176,13 @@
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
 		
+				$scope.makeActive = function(cid){
+					angular.element(".a-category li").removeClass("active");
+					angular.element("#category"+cid).addClass("active");
+				};
 				
-				//initialize news data
-				$scope.initializeNews = function(){
-					$http({
-                        method: "GET",
-                        url: $scope.baseurl + "api/initialize/" + $scope.row +"/"+ $scope.cid + "/" + $scope.uid
-                    })
-                    .success(function (response) {
-                    	
-                    	angular.forEach(response.NEWS, function(data, key) {
-                    		$scope.articles.push(data);
-                    	});
-                    	
-                    	angular.forEach(response.CATEGORY, function(data, key) {
-                   		 	$scope.categories.push(data);
-                   			if(data.menu==true)
-                   			 	$scope.navCategory.push(data);
-				    	});
-                    	
-                    	angular.forEach(response.SITE, function(data, key) {
-				    		$scope.sites.push(data);
-                    	});
-                    	
-                    	angular.forEach(response.POPULAR, function(data, key) {
-                    		$scope.populars.push(data);
-                    		if(key<2)
-                    			$scope.top2.push(data);
-				    	});
-				    });
-					
-					//angular.element("#category"+$scope.cid).addClass("active");
-				};
-				$scope.initializeNews();
-
-				$scope.loadArticles = function(){
-					
-					$scope.page += 1;
-					$http({
-                        method: "GET",
-                        url: $scope.baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/"
-                    })
-                    .success(function (response) {
-                    	if(response.RESPONSE_DATA.length == 0){
-                    		console.log('No more article..!');
-                    		$scope.loadingStatus = false;
-                    		$scope.isNoNews = true;
-							return;                    		
-                    	}
-                    	angular.forEach(response.RESPONSE_DATA, function(data, key) {
-				    		  $scope.articles.push(data);
-                    	});
-                    	$scope.isNoNews = true;
-                    	$scope.loadingStatus = false;
-				    });
-				};
-					
 				$scope.loadSearchArticles = function(){
+					$scope.isSearch = true;
 					$scope.page += 1;
 					$http({
                         method: "POST",
@@ -261,6 +210,66 @@
 				    });
 				};
 				
+				
+				//initialize news data
+				$scope.initializeNews = function(){
+					$http({
+                        method: "GET",
+                        url: $scope.baseurl + "api/initialize/" + $scope.row +"/"+ $scope.cid + "/" + $scope.uid
+                    })
+                    .success(function (response) {
+                    	
+                    	if($scope.key=="" || $scope.key==null){
+                    		angular.forEach(response.NEWS, function(data, key) {
+                        		$scope.articles.push(data);
+                        	});
+                    	}else{
+                    		$scope.loadSearchArticles();
+                    	}
+                    	
+                    	angular.forEach(response.CATEGORY, function(data, key) {
+                   		 	$scope.categories.push(data);
+                   			if(data.menu==true)
+                   			 	$scope.navCategory.push(data);
+				    	});
+                    	
+                    	angular.forEach(response.SITE, function(data, key) {
+				    		$scope.sites.push(data);
+                    	});
+                    	
+                    	angular.forEach(response.POPULAR, function(data, key) {
+                    		$scope.populars.push(data);
+                    		if(key<2)
+                    			$scope.top2.push(data);
+				    	});
+				    });
+					
+				};
+				$scope.initializeNews();
+
+				$scope.loadArticles = function(){
+					
+					$scope.page += 1;
+					$http({
+                        method: "GET",
+                        url: $scope.baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.uid+"/"
+                    })
+                    .success(function (response) {
+                    	if(response.RESPONSE_DATA.length == 0){
+                    		console.log('No more article..!');
+                    		$scope.loadingStatus = false;
+                    		$scope.isNoNews = true;
+							return;                    		
+                    	}
+                    	angular.forEach(response.RESPONSE_DATA, function(data, key) {
+				    		  $scope.articles.push(data);
+                    	});
+                    	$scope.isNoNews = true;
+                    	$scope.loadingStatus = false;
+				    });
+				};
+				
+				
 				angular.element($window).bind("scroll", function() {
                     var windowHeight = "innerHeight" in window ? window.innerHeight: document.documentElement.offsetHeight;
                     var body = document.body, html = document.documentElement;
@@ -279,7 +288,6 @@
                     		$scope.$apply($scope.loadSearchArticles());
 							console.log("loading search article");                    		
                     	}
-                    	
                     }
      	        });
      	    	
@@ -294,9 +302,8 @@
 					$scope.loadArticles();
 					
 					$scope.phoneMenuStatus = false;
-					angular.element(".a-category li").removeClass("active");
-					angular.element("#category"+cid).addClass("active");
-										
+					
+					$scope.makeActive(cid);
 				};
 				
 				$scope.articleSite = function(sid){
@@ -310,21 +317,16 @@
 				};
 				
 				$scope.searchArticles = function(){
-					
 					$location.path('search').search('key='+$scope.key);
-				
 					$scope.page = 0;
 					$scope.cid = 0;
 					$scope.sid = 0;
 					$scope.articles = [];
-					
 					$scope.isSearch = true;
-					
 					$scope.loadSearchArticles();
 				}; 
 				
 				$scope.saveNews = function(nid){
-					
 					$http({
 						method: "POST",
                         url: $scope.baseurl + "api/article/savelist",
