@@ -352,6 +352,14 @@
 		$scope.showcontent = "";
 		$scope.contenttrigger = 0;
 		
+		$scope.hasNewsId = function(){
+			if($scope.newid < 1) location.href="${pageContext.request.contextPath }/admin/article";
+			else{
+				
+			}
+		}
+		
+		$scope.hasNewsId();
 		
 		$scope.isLoadingImage = function(){
 			$scope.isupload = 1;
@@ -593,6 +601,7 @@
 	    	  $(".iconshow").attr("class","fa fa-plus iconshow");
 		};
 		$scope.displayBox();
+		
 	
 
 	});

@@ -52,11 +52,7 @@ button.ownweb{
 	float:left;
 	margin-right:3px;
 }
-button.action{
-	
-	
 
-}
 
 </style> 
                 
@@ -192,9 +188,9 @@ button.action{
 	                      		 <input type="hidden" name="newscate" ng-value="'{{article.category.name}}'"/>
 	                       		<button type="submit" class="fa fa-pencil-square-o action ownweb btn btn-primary" ></button>
 	                      </form>
-	                      <button type="button" class="fa fa-share action ownweb btn btn-success" ng-click="gotoSite({{article.url}})" ></button>
+	                      <button type="button" class="fa fa-share action ownweb btn btn-success" ng-click="gotoSite(${pageContext.request.contextPath }/article.url)" ></button>
                       </td>
-                      <td ng-show="article.site.id != 6"><button type="button" class="fa fa-share action btn btn-success" ng-click="gotoSite('{{article.url}}')" ></button></td>
+                      <td ng-show="article.site.id != 6"><button type="button" class="fa fa-share action btn btn-success" ng-click="gotoSite(article.url)" ></button></td>
                     </tr>
                  
                   </table>
@@ -235,8 +231,6 @@ button.action{
     <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.js"></script>
     <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
-
     <!-- SlimScroll 1.3.0 -->
     <script src="${pageContext.request.contextPath }/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
