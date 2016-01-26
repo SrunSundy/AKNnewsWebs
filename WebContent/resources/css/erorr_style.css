@@ -1,0 +1,18 @@
+@CHARSET "ISO-8859-1";
+
+body{
+margin:0 auto;
+padding:0 auto;	
+}
+.header-title{
+    background-color: #00a65a;
+    height: 80px;
+    color: #fff;
+}
+.title{
+  margin:0 auto;
+  padding: 20px;
+}
+.message{
+padding-left: 20px;
+}
