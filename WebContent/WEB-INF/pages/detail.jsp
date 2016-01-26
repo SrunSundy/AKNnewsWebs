@@ -82,7 +82,12 @@
 						<ul class="a-popular">
 							<li><i class="fa fa-area-chart"></i>ព័ត៌មានពេញនិយម</li>
 							<li ng-repeat="popular in populars">
-								<div class="a-popular-item">
+								<div class="a-popular-item" ng-if="popular.site.id==6">
+									<a href="{{webbaseurl}}{{popular.url}}" target="_blank"><img src="{{popular.image}}"/></a>
+									<p><a href="{{webbaseurl}}{{popular.url}}" target="_blank" ng-bind="popular.title"></a></p>
+									<div class="clear"></div>
+								</div>
+								<div class="a-popular-item" ng-if="popular.site.id!=6">
 									<a href="{{popular.url}}" target="_blank"><img src="{{popular.image}}"/></a>
 									<p><a href="{{popular.url}}" target="_blank" ng-bind="popular.title"></a></p>
 									<div class="clear"></div>
@@ -104,6 +109,7 @@
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
+				$scope.webbaseurl = "http://localhost:8080/AKNnewsWebs/";
 				$scope.baseurl = "http://localhost:8080/AKNnews/";
 				
 				$scope.article = {};
