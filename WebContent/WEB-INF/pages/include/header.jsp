@@ -5,7 +5,7 @@
 		<i class="fa fa-search"></i>
 		<input type="text" name="searchkey" placeholder="ស្វែងរកព័ត៌មាន" ng-model="key"/>
 		<!-- <button onclick="location.href='search/'">ស្វែងរក</button> -->
-		<a href="${pageContext.request.contextPath}/search?key={{key}}">Search</a>
+		<a href="${pageContext.request.contextPath}/search?key={{key}}">ស្វែងរក</a>
 	</div>
 	<div class="nav-category">
 		<ul>
