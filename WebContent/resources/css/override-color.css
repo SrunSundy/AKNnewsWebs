@@ -24,6 +24,7 @@
 	-moz-box-shadow: 0px 0px 3px #317D5A;
 }
 /*web site name color*/
-.article-info p, .article-info, .nav-search button{
+.article-info p, .article-info, .nav-search button, .timeline-block{
 	color:#00A65A;
 }
+
