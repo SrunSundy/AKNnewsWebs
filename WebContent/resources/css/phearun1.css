@@ -384,7 +384,7 @@ a, a:hover, a:active {
 	display:block;
 	position:absolute;
 	right:0px;
-	margin-top:11px;
+	margin-top:3px;
 }
 
 
@@ -557,5 +557,12 @@ span.slogo{
 }
 
 
-
+.footer{
+	display:block;
+	min-height:100px;
+	max-height:100px;
+	background-color:red;
+	position:relative;
+	bottom:0px;		
+}
 
