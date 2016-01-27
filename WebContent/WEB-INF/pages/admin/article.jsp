@@ -6,72 +6,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Articlemanagment | AKNnews</title>
     <!-- Tell the browser to be responsive to screen width -->
-<%-- 
-	<jsp:include page="import/header.jsp"></jsp:include> --%>
+
+	<jsp:include page="import/header.jsp"></jsp:include> 
 	
-	 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
-  
-   
-    <!-- Select2 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-           <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
 	 
-<style>
 
-
-
-
-ul.pagination li.active a{
-	background: #F44336;
-	border: 1px solid #E0E0E0;
-}
-ul.pagination li.active a:hover{
-	background: #F44336;
-	border: 1px solid #E0E0E0;
-	
-}
-td.nodata{
-	text-align:center;
-}
-td.nodata p{
-	font-weight: bold;
-	font-size: 16px;
-}
-
-button.ownweb{
-	display : inline-block;
-	float:left;
-	margin-right:3px;
-}
-i.statustrue{
-	font-size: 23px;
-	color: #4CAF50;
-	cursor: pointer;
-}
-i.statustrue:hover{
-	color:#388E3C;
-}
-
-i.statusfalse{
-	font-size: 26px;
-	color: #F44336;
-	cursor: pointer;
-}
-i.statusfalse:hover{
-	color:#D32F2F;
-}
-
-
-</style> 
                 
   </head>
   <body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="myCtrl">
@@ -191,14 +132,17 @@ i.statusfalse:hover{
                     </tr>
                    
                    <tr  ng-repeat="article in articles">	
-                      <td><img class='logo-style' ng-src='http://localhost:8080/AKNnews/resources/images/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
+                      <td><img class='logo-style' ng-src='http://localhost:8080/AKNnews/resources/images/logo/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
                       <td >{{convertTimeago(article.date) | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
                       <td><span class="label label-danger">{{article.category.name }}</span></td>
-                      <td ng-if="article.status == true"><i ng-click="toggleStatusTrue(article.id)"  id="{{ 'n'+ article.id }}" class="fa fa-check-square statustrue"></i></td>
-                      <td ng-if="article.status == false"><i ng-click="toggleStatusFalse(article.id)" id="{{ 'd'+ article.id }}" class="fa fa-times-circle statusfalse"></i></td>
+                      
+                      <td ng-if="article.status == true"><i ng-click="toggleStatusTrue(article.id)"  id="{{ 't'+ article.id }}" class="fa fa-check-square statustrue"></i></td>
+                      <td ng-if="article.status == false"><i ng-click="toggleStatusFalse(article.id)" id="{{ 'f'+ article.id }}" class="fa fa-times-circle statusfalse"></i></td>
+                      
+                    
                       <td ng-show="article.site.id == 6">
 	                      <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
 	                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/> 
@@ -234,31 +178,7 @@ i.statusfalse:hover{
 
     </div><!-- ./wrapper -->
 
- <%--  <jsp:include page="import/footer.jsp"></jsp:include> --%>
- 
-   
-      <!-- jQuery 2.1.4 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-     <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Select2 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
-    <!-- InputMask -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <!-- SlimScroll 1.3.0 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <!-- FastClick -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-     <script src="${pageContext.request.contextPath }/resources/js/jquery.bootpag.min.js"></script>
-
-    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
-    
+  <jsp:include page="import/footer.jsp"></jsp:include> 
   <script>
       $(function () {
         //Initialize Select2 Elements
@@ -280,6 +200,9 @@ i.statusfalse:hover{
 		$scope.sid = 0;
 		$scope.cid = 0;
 		$scope.page = 1;
+		
+		$scope.statustrue =0;
+		$scope.statusfalse =0;
 		
 		$scope.triggerpage = 0;
 		
@@ -306,15 +229,29 @@ i.statusfalse:hover{
         		
 	    	}); */
 		};
-		  $scope.toggleStatusTrue = function(nid){
+		$scope.toggleStatusTrue = function(nid){
 			$scope.toggleStatus(nid).success(function (response) {
-        		angular.element("#n"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
+				$scope.statustrue++;
+				//alert($scope.statustrue);
+				if($scope.statustrue%2==0){
+					angular.element("#t"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
+					return;
+				}
+				angular.element("#t"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
+				
         		alert(response.MESSAGE);
 	    	});
 		};
 		$scope.toggleStatusFalse = function(nid){
 			$scope.toggleStatus(nid).success(function(response){
-				angular.element("#d"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
+				 $scope.statusfalse++;
+				alert($scope.statusfalse);
+				if($scope.statusfalse%2==0){
+					angular.element("#f"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
+					return;
+				}
+				 
+				angular.element("#f"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
 	        	alert(response.MESSAGE);
 			});
 		}  

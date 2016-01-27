@@ -6,60 +6,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>ArticleMangement | AKNnews</title>
     <!-- Tell the browser to be responsive to screen width -->
 
-	<%-- <jsp:include page="import/header.jsp"></jsp:include> --%>
-	 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
-  
+	 <jsp:include page="import/header.jsp"></jsp:include> 
+
    
-     <!-- Select2 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
-    <!-- Ionicons -->
-   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">  
-     
-     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">  
-    
-    
-    
-       <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
-       
-       
-       <style>
-       #thum{
-       width: 320px; height: 150px;
-       }
-       		@media (max-width: 1600px) {
-			  
-			   
-			    #thum{
-			     
-			    	width: 100%;
-			    	height: 100%;
-			    	
-			    }
-			}
-       </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini"  ng-app="myApp" ng-controller="myCtrl">
  <%--  <input type="hidden" id="newsid" ng-model="newsid" value="${newsid }"/> --%>
     <div class="wrapper">
-    
       <header class="main-header">
     	<jsp:include page="element/topheader.jsp"></jsp:include>
 	  </header>
-	  
-		 <jsp:include page="element/leftslidebar.jsp"></jsp:include>
-
+	  <jsp:include page="element/leftslidebar.jsp"></jsp:include>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -78,7 +38,6 @@
         <!-- Main content -->
         <section class="content">
           <div class="row">
-          	
           	<div class="col-md-12">
           	    <!-- Input addon -->
               <div class="box ">
@@ -86,67 +45,58 @@
                   <h3 class="box-title">Insert AKN News</h3>
                 </div>
                 <div class="box-body">
-                	<div class="col-md-12">
-                		<div class="col-md-12">
-                		 <div class="input-group">
-		                    <span class="input-group-addon" >Category</span>
-		                     <select  id="filtercate" class=" select2 " style="width: 100%"  ng-options="category as category.name for category in categories track by category.id" ng-model="fcate">
-	                    </select> 
-	                    
-		                  </div>
-		                   <br>
-		                 </div>
-		                 
-                	</div>
-                	 <br>
-                	<div class="col-md-12">
-                		<div class="col-md-3">
-                		    <div class="fileinput fileinput-new" data-provides="fileinput">
-							  <div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
-							  <div>
-							    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" 
-							      type="file"  name="..." /></span>
-							    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-							  </div>
-							</div>
-			             </div>
-                		
-                		<div class="col-md-9">
-                		 
-		                <div class="input-group">
-		                    <span class="input-group-addon">Title</span>
-		                    <input type="text" class="form-control" ng-model="title" placeholder="Username">
-		                  
-		                  </div>
-		                  <br>
-		                  <!-- textarea -->
-                    <div class="form-group">
-                      <label id="ldes">Description</label>
-                      <textarea class="form-control" ng-model="description" rows="3" placeholder="Enter ..."></textarea>
-                    </div>
-		                  <br>
-                		</div>
                 	
+                	<div class="col-md-12">
+                		<div class="row">
+	                		<div class="col-md-12">
+	                		 <div class="form-group">
+			                    <label id="ldes">Category</label>
+			                     <select  id="filtercate" class=" select2 " style="width: 100%"  ng-options="category as category.name for category in categories track by category.id" ng-model="fcate"> </select> 
+			                  </div>
+			                 </div>
+			             </div>
+                	</div><br>
+                	
+                	<div class="col-md-12">
+                		<div class="row">
+	                		<div class="col-md-9">
+	                		 	<div class="form-group">
+	                      			<label id="ldes">Title</label>
+	                      			<input type="text" class="form-control" ng-model="title" placeholder="Username">
+	                   			</div>
+			                  
+			                  <!-- textarea -->
+			                    <div class="form-group">
+			                      <label id="ldes">Description</label>
+			                      <textarea class="form-control" ng-model="description" rows="3" placeholder="Enter ..."></textarea>
+			                    </div>
+			                  <br>
+	                		</div>
+	                		<div class="col-md-3">
+	                		    <div class="fileinput fileinput-new" data-provides="fileinput">
+								  <div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
+								  <div>
+								    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input id="newsthumbnail" 
+								      type="file"  name="..." /></span>
+								    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								  </div>
+								</div>
+				             </div>
+				         </div>
                 	</div>
                  
-       
-         			
          			<div class="col-md-12">
          			 <div class="box">
 		                <div class="box-header">
-		                  <h3 class="box-title">CK Editor <small>Advanced and full of features</small></h3>
+		                  <h3 class="box-title">Content <small>Advanced and full of features</small></h3>
 		                  <!-- tools box -->
 		                  <div class="pull-right box-tools">
 		                    <button class="btn  btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 		                    <button class="btn  btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
 		                  </div><!-- /. tools -->
 		                </div><!-- /.box-header -->
-		                <div class="box-body pad">
-		                  <form>
-		                    <textarea id="editor1" name="editor1" rows="10" cols="80">
-		                                          
-		                    </textarea>
-		                  </form>
+		                <div class="box-body pad">		                 
+		                    <textarea id="editor1" name="editor1" rows="100" cols="80"></textarea>		                
 		                </div>
 		              </div><!-- /.box -->
               		</div>
@@ -155,23 +105,15 @@
               			<div class="col-md-10"></div>
               			<div class="col-md-2">
               				<div class="row">
-              					<button class="btn btn-danger" id="btnaction" ng-model="btnaction" ng-click="processInsertNews()" style="width: 100%">Insert</button>
-              					
+              					<button class="btn btn-danger" id="btnaction" ng-model="btnaction" ng-click="processInsertNews()" style="width: 100%">Insert</button>	
               				</div>
-              			</div>
-              			
+              			</div>	
               		</div>
               
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
           	
           	</div>
-            
-            <div class="col-md-12">
-             
-
-            </div><!-- /.col-->
-            
           </div><!-- ./row -->
         </section><!-- /.content -->
         
@@ -189,30 +131,9 @@
 		
     </div><!-- ./wrapper -->
 
-<%--   <jsp:include page="import/footer.jsp"></jsp:include> --%>
+   <jsp:include page="import/footer.jsp"></jsp:include> 
   
-   <!-- jQuery 2.1.4 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    
-      <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
-    <!-- FastClick -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
-    <!-- CK Editor -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/ckeditor/ckeditor.js"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-    
-     <script src="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
-    
-    
+
    <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
@@ -229,6 +150,7 @@
 
      
       });
+   
     </script>
     
     <script>

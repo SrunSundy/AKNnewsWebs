@@ -5,41 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
-	<%-- <jsp:include page="import/header.jsp"></jsp:include> --%>
-	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
-     <!-- Select2 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">  
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">  
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
-    <style>
-       .text-show{
-       		word-break: break-all;
-       		word-wrap:break-word;
-       }
-       #thum{
-       		width: 320px; height: 150px;
-       }
-       @media (max-width: 1600px) {
-			#thum{
-			   width: 100%;
-			   height: 100%;
-			    	
-			}
-		}
-			
-       </style>
+    <title>ArticleMangement | AKNnews</title>
+	 <jsp:include page="import/header.jsp"></jsp:include> 
+	
+   
   </head>
   <body class="hold-transition skin-blue sidebar-mini"  ng-app="myApp" ng-controller="myCtrl">
   <input type="hidden" id="newsid" ng-model="newsid" value="${newsid }"/>
@@ -70,86 +39,86 @@
           	    <!-- Input addon -->
               <div class="box ">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Input Addon</h3>
+                  <h3 class="box-title">Updating AKN Article</h3>
                 </div>
                 <div class="box-body">
                 	<div class="col-md-12">
          				<div class="box bdis" >
 			                <div class="box-header">
-				                  <h3 class="box-title">Category <small>Advanced and full of features</small></h3>
+				                  <h3 class="box-title">Category <small> Updating your current category</small></h3>
 				                  <!-- tools box -->
 				                  <div class="pull-right box-tools">
 				                    <button class="btn  btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse" ng-click="loadCategories()"><i class="fa fa-minus iconshow" id=""></i></button>
-				                  
+				    
 				                  </div><!-- /. tools -->
 			                </div><!-- /.box-header -->
 			                <div class="box-body pad  dis" id="">  
-			                
-			                  	<div class="box box-success">
-						            <div class="box-header with-border">
-						               <h3 class="box-title">Current Category</h3>
-						              
-						               <div class="box-tools pull-right">
-						                  <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-						                </div><!-- /.box-tools -->
-						            </div><!-- /.box-header -->
-						          	 <div class="box-header">
-						               		 <div ng-bind="showcate" class="text-show"></div>
-						                </div><!-- /.box-body -->
-						         </div><!-- /.box -->
-						              
-						              
-		                		 <div class="input-group">
-				                    <span class="input-group-addon" >Category</span>
-				                     <select  id="filtercate" class=" select2 " style="width: 100%"  ng-options="category as category.name for category in categories track by category.id" ng-model="fcate">
-			                    	 </select> 
-			                    
-				                  </div>
-			                   	 <br>
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateCategory()" style="width: 100%">Update</button>
-			             	
+			                	<div class="col-md-12">
+			                		<div class="row">
+			                			<div class="col-md-6">
+			                				<div class="box box-success">
+									            <div class="box-header with-border">
+									               <h3 class="box-title">Current Category</h3>
+									              
+									               <div class="box-tools pull-right">
+									                  <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+									                </div><!-- /.box-tools -->
+									            </div><!-- /.box-header -->
+									          	 <div class="box-header">
+									               		 <div  class="text-show"><h2 class="catetext" ng-bind="showcate"></h2></div>
+									             </div><!-- /.box-body -->
+									         </div><!-- /.box -->
+			                			</div>
+			                			<div class="col-md-6">
+			                				 <div class="input-group">
+							                    <span class="input-group-addon" >Category</span>
+							                     <select  id="filtercate" class=" select2 " style="width: 100%"  ng-options="category as category.name for category in categories track by category.id" ng-model="fcate">
+						                    	 </select> 
+							                  </div>
+						                   	 <br>
+				              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateCategory()" style="width: 100%">Update</button>
+			                			</div>
+			                		</div>
+			                	</div>
 			             	 </div><!-- /.box -->
-		             	
               			</div>
               		</div>
               		
               		<div class="col-md-12">
          				<div class="box bdis" >
 			                <div class="box-header">
-				                  <h3 class="box-title">Title <small>Advanced and full of features</small></h3>
+				                  <h3 class="box-title">Title <small>Updating your current title</small></h3>
 				                  <!-- tools box -->
 				                  <div class="pull-right box-tools">
 				                    <button class="btn  btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse" ng-click="loadTitle()"><i class="fa fa-minus iconshow" id=""></i></button>
-				                  
 				                  </div><!-- /. tools -->
 			                </div><!-- /.box-header -->
 			                <div class="box-body pad  dis" id=""> 
-			                
-			                
-			                		
-						              <div class="box box-success">
-						                <div class="box-header with-border">
-						                  <h3 class="box-title">Current Title</h3>
-						                  <div class="box-tools pull-right">
-						                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-						                  </div><!-- /.box-tools -->
-						                </div><!-- /.box-header -->
-						                <div class="box-header">
-						               		<div ng-bind="showtitle" class="text-show"></div>
-						                </div><!-- /.box-body -->
-						              </div><!-- /.box -->
-						      
-     
-						            
-		                		  <div class="input-group">
-				                    <span class="input-group-addon">New Title</span>
-				                    <input type="text" class="form-control" ng-model="title" placeholder="Username">
-				                  
-				                  </div>
-				                  <br>
-			                   	 
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateTitle()" style="width: 100%">Update</button>
-			             	
+			                	 <div class="col-md-12">
+			                	 	<div class="row">
+			                	 		<div class="col-md-6">
+			                	 			 <div class="box box-success">
+									              <div class="box-header with-border">
+									                  <h3 class="box-title">Current Title</h3>
+									                  <div class="box-tools pull-right">
+									                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+									                  </div><!-- /.box-tools -->
+									              </div><!-- /.box-header -->
+									              <div class="box-header">
+									               	  <div ng-bind="showtitle" class="text-show"></div>
+									              </div><!-- /.box-body -->
+									          </div><!-- /.box -->
+			                	 		</div>
+			                	 		
+			                	 		<div class="col-md-6">
+			                	 		  <div class="form-group">
+						                    <label >New Title</label>
+						                    <textarea class="form-control"ng-model="title" placeholder="Enter title..." rows="3"></textarea>
+						                  </div><br>			         
+			              				  <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateTitle()" style="width: 100%">Update</button>			             	
+					                	 </div>
+			                	 	</div>
+			                	 </div>
 			             	 </div><!-- /.box -->
 		             	
               			</div>
@@ -158,45 +127,48 @@
               		<div class="col-md-12">
          				<div class="box bdis" >
 			                <div class="box-header">
-				                  <h3 class="box-title">Description <small>Advanced and full of features</small></h3>
+				                  <h3 class="box-title">Description <small>updating your current description</small></h3>
 				                  <!-- tools box -->
 				                  <div class="pull-right box-tools">
-				                    <button class="btn  btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse" ng-click="loadDescription()"><i class="fa fa-minus iconshow" id=""></i></button>
-				                  
+				                    <button class="btn  btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse" ng-click="loadDescription()"><i class="fa fa-minus iconshow" id=""></i></button>  
 				                  </div><!-- /. tools -->
 			                </div><!-- /.box-header -->
+			               
 			                <div class="box-body pad  dis" id="">  
-			                
-			                   <div class="box box-success">
-						                <div class="box-header with-border">
-						                  <h3 class="box-title" >Current Description</h3>
-						                  <div class="box-tools pull-right">
-						                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-						                  </div><!-- /.box-tools -->
-						                </div><!-- /.box-header -->
-						                <div class="box-header">
-						               		<div ng-bind="showdes" class="text-show"></div>
-						                </div><!-- /.box-body -->
-						              </div><!-- /.box -->
-						              
-						              
-		                		   <div class="form-group">
-			                      <label id="ldes">New Description</label>
-			                      <textarea class="form-control" ng-model="description" rows="3" placeholder="Enter ..."></textarea>
-			                    </div>
-				                  <br>
-			                   	 
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateDescription()" style="width: 100%">Update</button>
-			             	
+			                   <div class="col-md-12">
+			                   		<div class="row">
+				                   		<div class="col-md-6">
+				                   			<div class="box box-success">
+									            <div class="box-header with-border">
+									                <h3 class="box-title" >Current Description</h3>
+									                <div class="box-tools pull-right">
+									                   <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+									                </div><!-- /.box-tools -->
+									            </div><!-- /.box-header -->
+									            <div class="box-header">
+									                <div ng-bind="showdes" class="text-show"></div>
+									            </div><!-- /.box-body -->
+									       </div><!-- /.box -->
+				                   		</div>
+				                   		
+				                   		<div class="col-md-6">
+				                   		   <div class="form-group">
+						                      <label id="ldes">New Description</label>
+						                      <textarea class="form-control" ng-model="description" rows="3" placeholder="Enter description ..."></textarea>
+						                   </div><br>
+				              			   <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateDescription()" style="width: 100%">Update</button>
+				                   		</div>
+			                   		</div>
+			                   </div>
+			                   
 			             	 </div><!-- /.box -->
-		             	
               			</div>
               		</div>
               		
               		<div class="col-md-12">
          				<div class="box bdis" >
 			                <div class="box-header">
-				                  <h3 class="box-title">Thumbnail <small>Advanced and full of features</small></h3>
+				                  <h3 class="box-title">Thumbnail <small>updating your current thumbnail</small></h3>
 				                  <!-- tools box -->
 				                  <div class="pull-right box-tools">
 				                    <button class="btn  btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse" ng-click="loadThumbnail()"><i class="fa fa-minus iconshow" id=""></i></button>
@@ -216,7 +188,7 @@
 							</div>
 				                  <br>
 			                   	 
-	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateThumbnail()" style="width: 100%">Insert</button>
+	              				 <button class="btn btn-danger update-btn" style="width:100px;float:right;" id="btnaction" ng-model="btnaction" ng-click="updateThumbnail()" style="width: 100%">Update</button>
 			             	
 			             	 </div><!-- /.box -->
 		             	
@@ -230,7 +202,7 @@
          			<div class="col-md-12" >
          			 <div class="box bdis" >
 		                <div class="box-header">
-		                  <h3 class="box-title">CK Editor <small>Advanced and full of features</small></h3>
+		                  <h3 class="box-title">Content <small>updating your current content</small></h3>
 		                  <!-- tools box -->
 		                  <div class="pull-right box-tools">
 		                    <button class="btn  btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse" ng-click="loadContent()"><i class="fa fa-minus iconshow" ></i></button>
@@ -279,32 +251,9 @@
 		
     </div><!-- ./wrapper -->
 
-<%--   <jsp:include page="import/footer.jsp"></jsp:include> --%>
+   <jsp:include page="import/footer.jsp"></jsp:include> 
   
-   <!-- jQuery 2.1.4 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    
-      <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
-    <!-- FastClick -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
-    <!-- CK Editor -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/ckeditor/ckeditor.js"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-    
-     <script src="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
-    
-    <script>
-    	
-    </script>
+   
    <script>
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
@@ -453,7 +402,7 @@
             .success(function (response) {
             	$scope.thumbtrigger=1;
             	$scope.showthumbnail = response.RESPONSE_DATA;	
-            	$("#thum").html("<img src="+domain+"resources/images/"+$scope.showthumbnail+" />");
+            	$("#thum").html("<img src="+domain+"resources/images/news/"+$scope.showthumbnail+" />");
             	
 		    });
 		};
