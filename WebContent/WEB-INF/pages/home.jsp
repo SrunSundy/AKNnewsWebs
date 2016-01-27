@@ -58,7 +58,8 @@
 								<div class="slide-image">
 									<data-owl-carousel class="owl-carousel" data-options="{navigation: false,singleItem:true, autoPlay:true}">
       									<div owl-carousel-item="" ng-repeat="pop in populars" class="item">
-        									<img ng-src="{{pop.image}}" alt="{{pop.title}}">
+        									<img ng-src="{{pop.image}}" alt="{{pop.title}}" ng-if="pop.site.id!=6">
+        									<img ng-src="{{baseurl}}resources/images/news/{{pop.image}}" ng-if="pop.site.id==6" alt="{{pop.title}}">
 									  		<div class="popular-title">
 												<p><a href="{{pop.url}}" ng-click="readNews(pop.id)" ng-if="pop.site.id!=6" target="_blank" ng-bind="pop.title"></a></p>
 												<p><a href="{{webbaseurl}}detail/{{pop.id}}" ng-click="readNews(pop.id)" ng-if="pop.site.id==6" target="_blank" ng-bind="pop.title"></a></p>
@@ -74,7 +75,8 @@
 							<div class="popular-news-b1">
 								<div class="top-1" ng-repeat="top in top2">
 									<div class="top-image">
-										<img ng-src="{{top.image}}"/>
+										<img ng-src="{{top.image}}" ng-if="top.site.id!=6"/>
+										<img ng-src="{{baseurl}}resources/images/news/{{top.image}}" ng-if="top.site.id==6"/>
 									</div>
 									<div class="top-title">
 										<p><a href="{{top.url}}" ng-click="readNews(top.id)" ng-if="top.site.id!=6" target="_blank" ng-bind="top.title"></a></p>
@@ -102,7 +104,7 @@
 									<div class="article-components">
 										<div class="article-image">
 											<a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{article.image}}"/></a>
-											<a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/{{article.image}}"/></a>
+											<a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/news/{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
 											<p><a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
