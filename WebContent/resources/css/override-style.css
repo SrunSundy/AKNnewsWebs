@@ -10,10 +10,7 @@
 .a-left-side, .a-body, .a-right-side{
 	
 }
-.a-nav{
-	min-height:150px;
-	position:static;
-}
+
 .a-left-side{
 	top:0px;
 	position:relative;
@@ -24,19 +21,42 @@
 
 .nav-category{
 	float:none;
-	width:1088px;
-	top:112px;
+	width:1080px;
+	top:77px;
 	right:0px;
+	left:0px;
 	margin:0 auto;
+	background-color:rgb(7, 156, 88);
 }
 .nav-search{
-	left:-21%;
-	position:relative;
-	right:21%;
-	float:right;
-}
+	position:static;
+	float:none;
+}  
 .nav-category li{
-	font-size:18px;
-	padding:5px 20px;
-	
+	font-size:15px;
+	background-color:rgba(1, 119, 66, 0.38);
+	margin-right:2px;
+	margin-left:0px;
+	padding:10px 15px;
+	margin-right:2px;
+
 }
+.user-profile-info{
+	z-index:20;
+}
+.nav-category ul{
+	margin-top:0px;
+}
+.user-profile img{
+	border-radius:0px;
+	margin-top:11px;
+	margin-right:5px;
+} 
+.a-container{
+	margin-top:10px;
+}
+
+.a-nav{
+	min-height:150px;
+	position:static;
+} 
