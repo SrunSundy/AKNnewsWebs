@@ -165,11 +165,13 @@
     </script>
     <script>
 	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $http){
+	app.controller('myCtrl', function($scope, $http, $location){
 		
 		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
+		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
 		
-		$scope.baseurl = "http://localhost:8080/AKNnews/";
+		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+		$scope.baseurl = $scope.domain + "/AKNnews/";
 		
 		angular.element(".select2").select2();
 		
