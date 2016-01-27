@@ -1,6 +1,6 @@
 
         <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
+          <b>HRD </b>center 
         </div>
         <strong>All Khmer News <a href="http://almsaeedstudio.com">AKN</a>.</strong> All rights reserved.
       </footer>
