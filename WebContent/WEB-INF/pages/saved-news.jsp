@@ -46,7 +46,7 @@
 	    	}
 	    	h3{
 	    		margin-top:0px;
-	    		margin-bottom:0px;
+	    		margin-bottom:10px;
 	    	}
 	    	.error{
 	    		color:red;
@@ -100,8 +100,10 @@
 							</div>
 						</div>
 						
-						<div class="loading" ng-show="loadingStatus">
-							<img src="${pageContext.request.contextPath}/resources/images/loading.gif"/>
+						<div class="clear"></div>
+						<div class="loading">
+							<img ng-show="loadingStatus" src="${pageContext.request.contextPath}/resources/images/loading.gif"/>
+							<p ng-show="!loadingStatus">អស់ព័ត៌មាន...</p>
 						</div>
 					</div><!--/end a-body  -->
 					
@@ -117,22 +119,22 @@
 				      <div class="modal-content">
 				      <form id="frmupload" name="frm" ng-submit='uploadImage()' enctype="multipart/form-data">
 				        <div class="modal-header">
-				          	<h4>Change Profile</h4>
+				          	<h4>ប្តូររូបភាព</h4>
 				        </div>
 				        <div class="modal-body">
 								<div class="fileinput fileinput-new" data-provides="fileinput">
 								  	<div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
 								  	<div>
 								  		 <input type="hidden" value='{{uid}}' required name="id" id="id"/> 
-								   		 <span class="btn btn-default btn-file"><span class="fileinput-new">Select Image</span>
-								   		 <span class="fileinput-exists">Change</span>
+								   		 <span class="btn btn-default btn-file"><span class="fileinput-new">ជ្រើសរើស រូបភាព</span>
+								   		 <span class="fileinput-exists">ផ្លាស់ប្តូរ</span>
 								   		 <input id="newsthumbnail" type="file" name="file" required  name="..." /></span>
-								    	 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+								    	 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">លុបចេញ</a>
 								  	</div>
 								</div>
 				        </div>
 				        <div class="modal-footer">
-					         <input type="submit" class="btn btn-default" value='Upload' ng-disabled="frm.$invalid" ></button>
+					         <input type="submit" class="btn btn-default" value='រក្សាទុក' ng-disabled="frm.$invalid" ></button>
 					    </div>
 					    </form>
 				      </div>
@@ -148,38 +150,32 @@
 				      <div class="modal-content">
 				      <form ng-submit="changePassword()" name="myForm">
 				        <div class="modal-header">
-				          	<h4>Change Password</h4>
+				          	<h4>ប្តូរលេខសម្ងាត់</h4>
 				        </div>
 				        <div class="modal-body">
 					              <div class="box-body">
 					                <div class="form-group">
 					                	<input type="hidden" value='{{uid}}' required name="id" id="id"/> 
-					                  	<label for="oldpasswd">Old Password</label>
-					                  	<input type="password" class="form-control" name='oldpwd' placeholder="Old Password" required ng-minlength="3" ng-model='userpwd.oldpass'/>
-				                  	 	  <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$error.required">This is a required field</span>
-							              <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$error.minlength">Minimum length required is 5</span>
-							              <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$invalid">This field is invalid </span>
+					                  	<label for="oldpasswd">លេខសម្ងាត់ចាស់</label>
+					                  	<input type="password" class="form-control" name='oldpwd' placeholder="បញ្ចូល លេខសម្ងាត់ចាស់" required ng-minlength="5" ng-model='userpwd.oldpass'/>
+							              <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$error.minlength">លេខសម្ងាត់ ត្រូវមានយ៉ាងតិច ៥ ខ្ទង់</span>
 					                </div>
 					                <div class="form-group">
-					                  	<label for="newpasswd">New Password</label>
-					                  	<input type="password" class="form-control"  name='newpwd' placeholder="News Password" required ng-minlength="5" ng-model='userpwd.newpass'/>
- 					                  	  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$error.required">This is a required field</span>
-			             		   		  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$error.minlength">Minimum length required is 5</span>
-			            				  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$invalid">This field is invalid </span>
+					                  	<label for="newpasswd">លេខសម្ងាត់ថ្មី</label>
+					                  	<input type="password" class="form-control"  name='newpwd' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី" required ng-minlength="5" ng-model='userpwd.newpass'/>
+			             		   		  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$error.minlength">លេខសម្ងាត់ ត្រូវមានយ៉ាងតិច ៥ ខ្ទង់</span>
 					                </div>
 					                <div class="form-group">
-					                  	<label for="confirmpasswd">Confirm Password</label>
-					                  	<input type="password" class="form-control" name='newpwd2' placeholder="Confirm Password" required ng-minlength="5" ng-model='conpwd' compare-to="userpwd.newpass" ng-change='checkPassword()'/>
- 					                  	  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$error.required">This is a required field</span>
-			             		   		  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$error.minlength">Minimum length required is 5</span>
-			            				  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$invalid">This field is invalid </span>
-			            				  <span class='error'ng-show="status">Password not match </span>
+					                  	<label for="confirmpasswd">បញ្ជាក់ លេខសម្ងាត់ថ្មី </label>
+					                  	<input type="password" class="form-control" name='newpwd2' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី ម្តងទៀត" required ng-minlength="5" ng-model='conpwd' compare-to="userpwd.newpass" ng-change='checkPassword()'/>
+			             		   		 <!--  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$error.minlength">លេខសម្ងាត់ ត្រូវមានយ៉ាងតិច ៥ ខ្ទង់</span> -->
+			            				  <span class='error'ng-show="status">លេខសម្ងាត់ មិនត្រូវគ្នា</span>
 					                </div>
 					              </div>
 					              <!-- /.box-body -->
 				        </div>
 				        <div class="modal-footer">
-					         <input type="submit" class="btn btn-primary" value='SAVE' ng-disabled="myForm.$invalid" />
+					         <input type="submit" class="btn btn-primary" value='រក្សាទុក' ng-disabled="myForm.$invalid" />
 					    </div>
 					    </form>
 				      </div>
@@ -214,11 +210,11 @@
 				if('${sessionScope.SessionUser}' != '')
 					$scope.uid = '${sessionScope.SessionUser.id}';
 							
-				$scope.row = 9;
+				$scope.row = 15;
 
-				$scope.page = 1;
+				$scope.page = 0;
 				
-				$scope.loadingStatus = false;
+				$scope.loadingStatus = true;
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
 				
@@ -285,15 +281,18 @@
 	            }
 				
 				//initialize news data
-				$scope.initializeNews = function(){
+				$scope.loadNews = function(){
+					$scope.page += 1;
+					console.log($scope.page+','+$scope.row+','+ $scope.uid);
 					$http({
                         method: "GET",
-                        url: $scope.baseurl + "api/article/savelist/" + $scope.uid
+                        url: $scope.baseurl + "api/article/savelist/" + $scope.uid + "/" + $scope.row + "/" + $scope.page
                     })
                     .success(function (response) {
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
                     		$scope.articles.push(data);
                     	});
+                    	$scope.loadingStatus = false;
 				    });
 				};
 				
@@ -310,11 +309,10 @@
                     	});
 				    });
 				};
-				$scope.initializeNews();
+				$scope.loadNews();
 				$scope.loadCategories();
 				
 				$scope.removeNews = function(nid){
-					
 					$http({
                         method: "DELETE",
                         url: $scope.baseurl + "api/article/savelist/" + nid + "/" + $scope.uid
@@ -326,8 +324,6 @@
                     			return;
                     		}
                     	});
-                    	
-              
 				    });
 				};
 
@@ -339,7 +335,8 @@
                     windowBottom = windowHeight + window.pageYOffset;
 
                     if (windowBottom >= docHeight) {
-                    	
+                    	console.log($scope.page);
+                    	$scope.$apply($scope.loadNews());
                     }
      	        });
      	    	

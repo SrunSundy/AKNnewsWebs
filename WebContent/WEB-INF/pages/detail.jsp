@@ -8,7 +8,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<title>AKN |ទំព័រ អានព័ត៌មាន</title>
+		<title>AKN | អានព័ត៌មាន</title>
 		
 		<link href="${pageContext.request.contextPath }/resources/images/logo/akn.png" rel="shortcut icon">
 			
@@ -164,6 +164,8 @@
                     	
                     	$scope.article = response.NEWS;
                    		$scope.article.content = $sce.trustAsHtml($scope.article.content);
+                   		
+                   		$window.document.title = $scope.article.title;
                    		
 				    });
 				};
