@@ -1,0 +1,42 @@
+.a-container{
+	width:1080px !important;
+	top:10px;
+}
+.a-body{
+	width:80%;
+	left:0px;
+	margin-right:0px;
+}
+.a-left-side, .a-body, .a-right-side{
+	
+}
+.a-nav{
+	min-height:150px;
+	position:static;
+}
+.a-left-side{
+	top:0px;
+	position:relative;
+	width:19%;
+	left:0px;
+	margin-right:1%;
+}
+
+.nav-category{
+	float:none;
+	width:1088px;
+	top:112px;
+	right:0px;
+	margin:0 auto;
+}
+.nav-search{
+	left:-21%;
+	position:relative;
+	right:21%;
+	float:right;
+}
+.nav-category li{
+	font-size:18px;
+	padding:5px 20px;
+	
+}
