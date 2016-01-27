@@ -35,12 +35,6 @@
 		
 		<div class="main-container">
 		 
-		    <%-- Session User  
-			    <c:out value="${sessionScope.SessionUser.id }"></c:out>
-			    <c:out value="${sessionScope.SessionUser.username }"></c:out>
-			    <c:out value="${sessionScope.SessionUser.image }"></c:out>
-			    <c:out value="${sessionScope.SessionUser.enabled }"></c:out> 
-			--%>
 			<jsp:include page="include/header.jsp"></jsp:include>
 
 			<div class="a-container">
@@ -149,11 +143,11 @@
 		</div><!--/end main container  -->
 		
 		
-		<script>
-			/* $(document).ready(function(){
-				$("#category${cid}").addClass("active");
-			}); */
-		</script>
+		<!-- <script>
+			$(document).ready(function(){
+				alert("${sessionScope.SessionUser.id}");
+			}); 
+		</script> -->
 		<script>
 			var app = angular.module('myApp', []);
 			
@@ -173,9 +167,12 @@
 				$scope.navCategory = [];
 				$scope.sites = [];
 				
-				$scope.uid = 5;
+				$scope.uid = 0;
+				
+				if("${sessionScope.SessionUser}" != '')
+					$scope.uid = "${sessionScope.SessionUser.id}"; 
+				
 				$scope.row = 9;
-
 				$scope.sid = 0;
 				$scope.cid = "${cid}";
 				$scope.page = 0;
@@ -341,6 +338,10 @@
 				}; 
 				
 				$scope.saveNews = function(nid){
+					if($scope.uid==0){
+						alert('Not login yet..!\nPlease login to save this news..!');
+						return;
+					}
 					$http({
 						method: "POST",
                         url: $scope.baseurl + "api/article/savelist",
@@ -452,7 +453,7 @@
 				
 			    if(secondsPast < 60){
 			      var second = parseInt(secondsPast);
-			      return  second+ ' វិនាទីមុន';
+			      return 'ប៉ុន្មាន វិនាទីមុន';
 			    }
 			    if(secondsPast < 3600){
 			      var minute = parseInt(secondsPast/60);
