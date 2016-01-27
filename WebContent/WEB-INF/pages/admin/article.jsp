@@ -52,6 +52,23 @@ button.ownweb{
 	float:left;
 	margin-right:3px;
 }
+i.statustrue{
+	font-size: 23px;
+	color: #4CAF50;
+	cursor: pointer;
+}
+i.statustrue:hover{
+	color:#388E3C;
+}
+
+i.statusfalse{
+	font-size: 26px;
+	color: #F44336;
+	cursor: pointer;
+}
+i.statusfalse:hover{
+	color:#D32F2F;
+}
 
 
 </style> 
@@ -180,8 +197,8 @@ button.ownweb{
                       <td >{{convertTimeago(article.date) | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
                       <td><span class="label label-danger">{{article.category.name }}</span></td>
-                      <td ng-show="article.status == true">T</td>
-                      <td ng-show="article.status == false">F</td>
+                      <td ng-show="article.status == true"><i ng-click="toggleStatus(article.id)" id="statrue" class="fa fa-check-square statustrue"></i></td>
+                      <td ng-show="article.status == false"><i ng-click="toggleStatus(article.id)" id="stafalse" class="fa fa-times-circle statusfalse"></i></td>
                       <td ng-show="article.site.id == 6">
 	                      <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
 	                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/> 
@@ -268,6 +285,23 @@ button.ownweb{
 		
 		$scope.Totalrecord = 0;
 
+		$scope.toggleStatus = function(nid){
+			$("#stafalse").attr("class","sssssssssssssssssssssss");
+			$("img").attr("width","500");
+			$http({
+                method: "PATCH",
+                url: domain + "api/article/toggle/"+nid,
+                headers: {
+                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
+                }
+            })
+            .success(function (response) {
+            	$("#stafalse").attr("class","sssssssssssssssssssssss");
+            
+            	alert(response.MESSAGE);
+		    });
+		}
+		
 		$scope.gotoSite = function(url){
 			alert(url);
 			location.href = url;

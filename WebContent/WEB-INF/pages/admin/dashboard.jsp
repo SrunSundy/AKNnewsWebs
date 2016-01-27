@@ -544,62 +544,6 @@ button.ownweb{
 		$scope.percentofthebnews = ($scope.numofthebnews*$scope.totalnews)/100;;
 		$scope.percentofsabaynews=0;
 		$scope.percentofmulkulkarnews =0;
-		
-		
-		//$scope.totalnews = $scope.getNumberofNews(0);
-	/* 	$scope.numofthebnews = 	$scope.getNumberofNews(5);
-		$scope.numofsabaynews= 	$scope.getNumberofNews(1);
-		$scope.numofmulkulkarnews = 	$scope.getNumberofNews(12); */
-		
-	
-		/* $scope.getNumberofSite();
-		$scope.getNumofSabayNews(); */
-		//$scope.getNumofMulkulkarNews():
-		
-		/* $scope.getNumberofNews = function(){
-			$http({
-				method : "GET",
-				url : domain+"api/article/record/0/0/-1/"
-				
-			}).success(function(response){
-				
-				if(response.TOTAL_RECORDS == 0){
-            		console.log('no news..!');   		
-            	}
-				$scope.numberofnews = response.TOTAL_RECORDS;
-			});
-		}
-	
-		$scope.getNumofSabayNews = function(){
-			$http({
-				method : "GET",
-				url : domain+"api/article/record/0/1/-1/"
-				
-			}).success(function(response){
-				
-				if(response.TOTAL_RECORDS == 0){
-            		console.log('no news..!');   		
-            	}
-				$scope.numofsabaynews = response.TOTAL_RECORDS;
-			});
-		};
-		$scope.getNumofMulkulkarNews = function(){
-			$http({
-				method : "GET",
-				url : domain+"api/article/record/0/12/-1/"
-				
-			}).success(function(response){
-				
-				if(response.TOTAL_RECORDS == 0){
-            		console.log('no news..!');   		
-            	}
-				$scope.numofmulkulkarnews = response.TOTAL_RECORDS;
-			});
-		}; */
-		
-		
-		
-		
 		//timeago
 		$scope.convertTimeago = function(time){
 			
