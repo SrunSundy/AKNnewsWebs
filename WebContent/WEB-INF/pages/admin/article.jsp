@@ -197,8 +197,8 @@ i.statusfalse:hover{
                       <td >{{convertTimeago(article.date) | date:'EEEE, d MMM y'}}</td>
                       <td>{{article.hit }}</td>
                       <td><span class="label label-danger">{{article.category.name }}</span></td>
-                      <td ng-show="article.status == true"><i ng-click="toggleStatus(article.id)" id="statrue" class="fa fa-check-square statustrue"></i></td>
-                      <td ng-show="article.status == false"><i ng-click="toggleStatus(article.id)" id="stafalse" class="fa fa-times-circle statusfalse"></i></td>
+                      <td ng-if="article.status == true"><i ng-click="toggleStatusTrue(article.id)"  id="{{ 'n'+ article.id }}" class="fa fa-check-square statustrue"></i></td>
+                      <td ng-if="article.status == false"><i ng-click="toggleStatusFalse(article.id)" id="{{ 'd'+ article.id }}" class="fa fa-times-circle statusfalse"></i></td>
                       <td ng-show="article.site.id == 6">
 	                      <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
 	                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/> 
@@ -286,21 +286,38 @@ i.statusfalse:hover{
 		$scope.Totalrecord = 0;
 
 		$scope.toggleStatus = function(nid){
-			$("#stafalse").attr("class","sssssssssssssssssssssss");
-			$("img").attr("width","500");
-			$http({
+			
+			return $http({
                 method: "PATCH",
                 url: domain + "api/article/toggle/"+nid,
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 }
-            })
-            .success(function (response) {
-            	$("#stafalse").attr("class","sssssssssssssssssssssss");
+            });/* .success(function (response) {
+          
+            		angular.element("#n"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
+            		alert(response.MESSAGE);
             
-            	alert(response.MESSAGE);
-		    });
-		}
+            		angular.element("#d"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
+    	        	alert(response.MESSAGE);
+            
+        		
+        	
+        		
+	    	}); */
+		};
+		  $scope.toggleStatusTrue = function(nid){
+			$scope.toggleStatus(nid).success(function (response) {
+        		angular.element("#n"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
+        		alert(response.MESSAGE);
+	    	});
+		};
+		$scope.toggleStatusFalse = function(nid){
+			$scope.toggleStatus(nid).success(function(response){
+				angular.element("#d"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
+	        	alert(response.MESSAGE);
+			});
+		}  
 		
 		$scope.gotoSite = function(url){
 			alert(url);
