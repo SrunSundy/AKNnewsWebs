@@ -28,7 +28,7 @@
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="http://localhost:8080/AKNnews/resources/images/${sessionScope.SessionUser.image}" class="img-circle" alt="User Image">
+                    <img src="http://localhost:8080/AKNnews/resources/images/user/${sessionScope.SessionUser.image}" class="img-circle" alt="User Image">
                     <p>
                       ${sessionScope.SessionUser.username}
                       <small>Admin</small>
