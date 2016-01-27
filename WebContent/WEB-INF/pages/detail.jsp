@@ -101,8 +101,8 @@
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
-		<!-- <div id="hrd_memo_pess" style=></div> 
-		<script src='http://192.168.178.123:8080/HRD_MEMO/resources/js/hrdmemoplugin.js'></script> -->
+		<div id="hrd_memo_pess" style=></div> 
+		<script src='http://192.168.178.123:8080/HRD_MEMO/resources/js/hrdmemoplugin.js'></script>
 		
 		
 		<script>
