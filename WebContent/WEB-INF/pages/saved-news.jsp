@@ -81,7 +81,7 @@
 					
 						<div class="clear"></div>
 						<div class="timeline-block">
-							<h3><i class="fa fa-bookmark"></i> Today Saved</h3>
+							<h3><i class="fa fa-bookmark"></i> ព័ត៌មានដែលបានរក្សាទុក</h3>
 						</div>
 						<div class="article-block" ng-repeat="article in articles">
 							<div class="article-block-b1">
@@ -188,18 +188,19 @@
 				 </div><!--end modal  -->
 				 
 			</div><!--/end a-container  -->
-			
 		</div><!--/end main container  -->
 		
 		<script>
 			
 			var app = angular.module('myApp', []);
 			
-			app.controller('myCtrl', function($scope, $window, $http){
+			app.controller('myCtrl', function($scope, $window, $http, $location){
 				
-				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=                                                          ' ;
+				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
-				$scope.baseurl = "http://localhost:8080/AKNnews/";
+				$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+				$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+				$scope.baseurl = $scope.domain + "/AKNnews/";
 				
 				$scope.articles = [];
 				$scope.categories = [];
@@ -208,15 +209,14 @@
 				$scope.navCategory = [];
 				$scope.sites = [];
 				
-				$scope.uid = ${uid};
+				$scope.uid = 0;
+				
+				if('${sessionScope.SessionUser}' != '')
+					$scope.uid = '${sessionScope.SessionUser.id}';
+							
 				$scope.row = 9;
 
-				$scope.sid = 0;
-				$scope.cid = 0;
 				$scope.page = 1;
-				
-				$scope.key = "";
-				$scope.isSearch = false;
 				
 				$scope.loadingStatus = false;
 				$scope.userprofileStatus = false;
@@ -250,7 +250,7 @@
 							}
 						).success(function(response){						
 							console.log( response ); 
-							$scope.reset_image();
+							$window.location.href = $location.absUrl();
 						}).error(function(response){
 							console.log( response ); 
 						});	  
@@ -282,11 +282,6 @@
 	 		    	$scope.userpwd = {id:null,oldpass:'',newpass:''};
 	 		    	$scope.conpwd = null;
 	                $scope.myForm.$setPristine(); //reset Form
-	            }
-				
-				//reset form image
-	 		    $scope.reset_image = function(){
-	 		    	document.forms["frm"].reset();
 	            }
 				
 				//initialize news data
@@ -332,8 +327,7 @@
                     		}
                     	});
                     	
-                    	/* $scope.articles = [];
-                    	$scope.$apply($scope.initializeNews()); */
+              
 				    });
 				};
 
