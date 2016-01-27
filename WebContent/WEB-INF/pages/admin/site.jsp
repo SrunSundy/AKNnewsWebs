@@ -84,9 +84,9 @@
 			          <input type="text" ng-model="site.url" name="url" placeholder="Enter site url" required ng-minlength="3" class='form-control'/>
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.required">This is a required field</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.minlength">Minimum length required is 3</span>
-			              <span class='error' ng-show="myForm.$dirty && myForm.url.$invalid">This field is invalid </span><br/>   
+			              <span class='error' ng-show="myForm.$dirty && myForm.url.$invalid">This field is invalid </span>  
 			         <h4>BASEPATH</h4>     
-			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/>
+			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/><br/>
 			          <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 			          class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
 			      	</form>
@@ -345,31 +345,6 @@
 		    
 		});
 		</script>
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
          	
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->

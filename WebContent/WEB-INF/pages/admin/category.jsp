@@ -73,7 +73,7 @@
 			          
 			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 3</span>
-			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/><br/>
+			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/>
 			          
 			          <input type="submit" value="{{!category.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 			          class="{{!category.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
