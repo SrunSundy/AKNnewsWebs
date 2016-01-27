@@ -18,7 +18,12 @@
             <li class="header">MAIN NAVIGATION</li>
           
           	<li><a href="${pageContext.request.contextPath }/admin/"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
-          	 
+          	<li><a href="${pageContext.request.contextPath }/admin/site/"><i class="fa fa-dashboard"></i><span>Site Management</span></a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/sitedetail/"><i class="fa fa-dashboard"></i><span>Sitedetail Management</span></a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/scrap/"><i class="fa fa-dashboard"></i><span>Scrap Management</span></a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/testscrap/"><i class="fa fa-dashboard"></i><span>test Management</span></a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/category/"><i class="fa fa-dashboard"></i><span>Category Management</span></a></li>
+            
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-pie-chart"></i>
@@ -33,9 +38,7 @@
             </li>
            
             <li><a href="${pageContext.request.contextPath }/admin/user/"><i class="fa fa-dashboard"></i><span>User Managment</span></a></li>
-            <li><a href="${pageContext.request.contextPath }/admin/site/"><i class="fa fa-dashboard"></i><span>Site Management</span></a></li>
-            <li><a href="${pageContext.request.contextPath }/admin/sitedetail/"><i class="fa fa-dashboard"></i><span>Sitedetail Management</span></a></li>
-            
+          
           </ul>
        
         </section>
