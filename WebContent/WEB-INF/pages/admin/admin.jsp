@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -70,10 +72,6 @@ i.action:hover {
 	margin-left: -45px;
 }
 
-.img-circle {
-	border-radius: 0%;
-}
-
 .widget-user .widget-user-image>img {
 	width: 167px;
 	height: auto;
@@ -109,7 +107,7 @@ i.action:hover {
 			
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="box">
+					<div class="box" style="overflow: hidden;"><br/><br/>
 
 						<div class="col-md-12">
 							<div class="nav-tabs-custom">
@@ -128,7 +126,7 @@ i.action:hover {
 										<!-- Post -->
 										<div class="post">
 											<div class="user-block">
-												 <img class="img-circle" src="http://localhost:8080/AKNnews/resources/images/user/${sessionScope.SessionUser.image}" alt="User Avatar" >
+												 <img  src="http://localhost:8080/AKNnews/resources/images/user/${sessionScope.SessionUser.image}" alt="User Avatar" >
 												<span class="username"><a>${sessionScope.SessionUser.username}</a></span> 
 												<span class="description">Admin</span>
 												<span class="description">${sessionScope.SessionUser.email}</span> 
@@ -136,7 +134,6 @@ i.action:hover {
 											<!-- /.user-block -->
 										</div>
 										<!-- /.post -->
-
 									</div>
 									<!-- /.tab-pane -->
 									<div class="tab-pane" id="chpicture">
@@ -193,7 +190,7 @@ i.action:hover {
 											</div>
 											<div class="form-group">
 												<div class="col-sm-offset-2 col-sm-10">
-													<button type="submit" class="btn btn-danger">Submit</button>
+													<button type="submit" class="btn btn-primary">Submit</button>
 												</div>
 											</div>
 										</form>
@@ -209,6 +206,7 @@ i.action:hover {
 													<input type="text" name="uname" ng-model="user.username"
 														placeholder="Enter user name" required ng-minlength="3"
 														class='form-control' />
+														<span>Update Name Will Effect After Will Re Login</span>
 													<!--Agular Validation Form  -->
 													<span ng-show="myForm.$dirty && myForm.uname.$error.required"
 														class="err">This is a required field</span> <span
@@ -338,14 +336,25 @@ i.action:hover {
 											console.log(response);
 										});
 							}
+							
+		                /*      $scope.refereshsession=function(id){		             
+		                    	 $http.get(
+											$scope.domain + 'api/user/getuser/'+id).success(
+											function(response) {
+												console.log(response.DATA);
+											}).error(function(response) {
+										console.log(response);
+									}); 
+		                     } */
+							
 							//Function for update user infor 
 							$scope.submit = function() {								
 								$http.put(
 											$scope.domain + 'api/user/update/',
 											$scope.user).success(
 											function(response) {
-												console.log(response);
-												alert(response.MESSAGE);								
+												alert(response.MESSAGE);
+												
 											}).error(function(response) {
 										console.log(response);
 									}); 
@@ -353,13 +362,14 @@ i.action:hover {
 								}
 							
 							//Function for update user infor 
-							$scope.submitpss = function() {								
+							$scope.submitpss = function() {	
 								$http.put(
 											$scope.domain + '/api/user/changepwd',
 											$scope.chpass).success(
 											function(response) {
 												console.log(response);
 												alert(response.MESSAGE);
+												window.location.replace("${pageContext.request.contextPath }/login");
 											}).error(function(response) {
 										console.log(response);
 									}); 
@@ -367,6 +377,7 @@ i.action:hover {
 								}
 
 						});
+	
 	</script>
 </body>
 </html>
