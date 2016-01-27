@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = "/admin")
 public class AdminController {
 	
+	
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String adminDashbord() {
+
 		return "admin/dashboard";
+
 	}
      
 	@RequestMapping(value="/article" )
@@ -25,13 +29,17 @@ public class AdminController {
 		model.addAttribute("newsid", 0);
 		return  "admin/insertarticle";
 	}
-	@RequestMapping(value="/updatearticle" )
-	public String toUpdate(ModelMap model){
+
+	
+	@RequestMapping(value="/updatearticle")
+	public String toUpdateArticle(ModelMap model){
 		
 		model.addAttribute("newsid", 0);
 		return  "admin/updatearticle";
 	}
+	
 	@RequestMapping(value="/updatearticle" , method = RequestMethod.POST)
+
 	public String toUpdateArticle(ModelMap model,@RequestParam("newsid") int id,@RequestParam("newscate") String cate){
 		
 		model.addAttribute("newsid", id);
