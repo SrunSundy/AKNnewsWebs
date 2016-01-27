@@ -77,7 +77,7 @@ body {
 	box-shadow: 0px 0px 3px #AD1827;
 	-moz-box-shadow: 0px 0px 3px #AD1827;
 	-webkit-box-shadow: 0px 0px 3px #AD1827;
-	z-index: 100000;
+	z-index: 10;
 }
 
 .a-logo{
@@ -180,7 +180,7 @@ i.fa.fa-bookmark, i.fa.fa-bookmark-o{
 	/*fixed */
 	position: relative;
 	left: 20%;
-	z-index: 4000;
+	z-index: 5;
 }
 
 .a-right-side {
@@ -557,12 +557,6 @@ span.slogo{
 }
 
 
-.footer{
-	display:block;
-	min-height:100px;
-	max-height:100px;
-	background-color:red;
-	position:relative;
-	bottom:0px;		
+div#user-profile ul li:first-child{
+	text-transform:capitalize;
 }
-
