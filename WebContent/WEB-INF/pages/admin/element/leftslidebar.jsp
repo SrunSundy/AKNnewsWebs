@@ -21,7 +21,7 @@
           	<li><a href="${pageContext.request.contextPath }/admin/site/"><i class="fa fa-dashboard"></i><span>Site Management</span></a></li>
             <li><a href="${pageContext.request.contextPath }/admin/sitedetail/"><i class="fa fa-dashboard"></i><span>Sitedetail Management</span></a></li>
             <li><a href="${pageContext.request.contextPath }/admin/scrap/"><i class="fa fa-dashboard"></i><span>Scrap Management</span></a></li>
-            <li><a href="${pageContext.request.contextPath }/admin/testscrap/"><i class="fa fa-dashboard"></i><span>test Management</span></a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/testscrap/"><i class="fa fa-dashboard"></i><span>Scrap Selector</span></a></li>
             <li><a href="${pageContext.request.contextPath }/admin/category/"><i class="fa fa-dashboard"></i><span>Category Management</span></a></li>
             
             <li class="treeview">
