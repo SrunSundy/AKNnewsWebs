@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
@@ -11,10 +11,11 @@
 <%-- 
 	<jsp:include page="import/header.jsp"></jsp:include> --%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
 <!-- Font Awesome -->
-
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
 
 
 <!-- Select2 -->
@@ -61,214 +62,286 @@ i.action {
 i.action:hover {
 	color: #F44336;
 }
-.err{
-	color:red;
+
+.err {
+	color: red;
 }
+
 .modal-body {
-	overflow:hidden;
+	overflow: hidden;
 }
 </style>
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="myCtrl">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="myApp"
+	ng-controller="myCtrl">
+	
 	<div class="wrapper">
-		<header class="main-header"> 
+		<header class="main-header">
 			<jsp:include page="element/topheader.jsp"></jsp:include>
-		 </header>
-		 
+		</header>
+
 		<jsp:include page="element/leftslidebar.jsp"></jsp:include>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>
-				AKN ADMIN DASHBORD
-			</h1>
-			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-				<li class="active">User Management</li>
-			</ol>
+				<h1>AKN ADMIN DASHBORD</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+					<li class="active">User Management</li>
+				</ol>
 			</section>
 
 			<!-- Main content -->
 			<section class="content">
-			
-			
-          <!--model for form insert new user and update user name  -->  
-          <!-- Modal ADD -->
-		  <div class="modal fade" id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
-		    <div class="modal-dialog">
-		      <!-- Modal content-->
-		      <div class="modal-content">
-		        
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal" ng-click='reset()'>&times;</button>
-		          <h4 class="modal-title">{{!user.id ? 'ADD NEW'  : 'UPDATE' }}</h4>
-		        </div>
-		        
-		        <div class="modal-body">
-					<form ng-submit="submit()" name="myForm">	 
-					  <input type="hidden" ng-model="user.id" name="id" ng-disabled=true />
-					  <h4>Name</h4>
-			          <input type="text" ng-model="user.username" name="uname" placeholder="Enter user name" required ng-minlength="3" class='form-control'/>
-			              <!--Agular Validation Form  -->
-			              <span ng-show="myForm.$dirty && myForm.uname.$error.required" class="err">This is a required field</span>
-			              <span ng-show="myForm.$dirty && myForm.uname.$error.minlength" class="err">Minimum length required is 3</span>
-			              <span ng-show="myForm.$dirty && myForm.uname.$invalid" class="err">This field is invalid </span><br/><br/>
-			          
-			          <!--Use For Control Condition for form register user or form update user  -->
-			          <span ng-if="user.id ==''">
-			         
-				          <h4>Email</h4>  
-				          <input type="email" ng-model="user.email" name="email" placeholder="Enter email" required  class='form-control'/>
-				              
-				              <!--Agular Validation Form  -->
-				              <span ng-show="myForm.$dirty && myForm.email.$error.required" class="err">This is a required field</span>
-				              <span ng-show="myForm.$dirty && myForm.email.$error.email" class="err">email format form</span>
-				              <span ng-show="myForm.$dirty && myForm.email.$invalid" class="err">This field is invalid </span><br/><br/>    
-				        
-				         <h4>Password</h4>     
-				         <input type="password" ng-model="user.password" name="password" placeholder="Enter site password" required ng-minlength="5" class='form-control'/>
-				              <!--Agular Validation Form  -->
-				              <span ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
-				              <span ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 5</span>
-				              <span ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/><br/>
-				       
-			          </span>
-			          
-			          <input type="submit" value="{{!user.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
-			          class="{{!user.id ? 'btn btn-success pull-right'  : 'btn btn-primary pull-right' }}" />
-			          
-			      	</form>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		  <!--End Modal for register and update user -->
-             
-          <!-- Modal View -->
-		  <div class="modal fade" id="myUpload" role="dialog" data-keyboard="false" data-backdrop="static">
-		    <div class="modal-dialog">
-		    
-		      <!-- Modal content-->
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal" ng-click='reset()'>&times;</button>
-		          <h4 class="modal-title">UPLOAD PROFILE</h4>
-		        </div>
-		        <div class="modal-body">
-		        
-					<form id="frmupload" name="frm" ng-submit='changeProfile()' enctype="multipart/form-data">
-						<input type="hidden" value='{{user.id}}' required name="id" id="id"/> 
-						<input type="file" name="file" id="file" required class="form-control"/><br/>
-						<input type="submit" value='upload' ng-disabled="frm.$invalid" class="btn btn-primary" />
-					</form>
-		        </div>
-		      </div>
-		    </div>
-		  </div>  
-		  <!--End Modal for upload image  -->
-             
-          
-           <!-- Main Data Table Show -->   
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box">
-						<div class="box-header">
-						    
-						    <!-- Button For pop up form for register user -->
-							<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-users"></i></button>
-							
-							<div class="box-tools">
-								<form>
-								    <!-- Search Box -->
-									<div class="input-group" style="width: 150px;">
-										<input id="searchbox" type="text" name="table_search"
-											class="form-control input-sm pull-right" placeholder="Search"
-											ng-model="searchkey">
-										<div class="input-group-btn">
-											<button class="btn btn-sm btn-default"
-												ng-click="searchUser(searchkey)">
-												<i class="fa fa-search"></i>
-											</button>
-										</div>
 
-									</div>
+
+				<!--model for form insert new user  -->
+				<!-- Modal ADD -->
+				<div class="modal fade" id="myAdd" role="dialog"
+					data-keyboard="false" data-backdrop="static">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									ng-click='reset()'>&times;</button>
+								<h4 class="modal-title">ADD NEW</h4>
+							</div>
+
+							<div class="modal-body">
+								<form ng-submit="submit()" name="myForm">					
+									<h4>Name</h4>
+									<input type="text" ng-model="user.username" name="uname"
+										placeholder="Enter user name" required ng-minlength="3"
+										class='form-control' />
+									<!--Agular Validation Form  -->
+									<span ng-show="myForm.$dirty && myForm.uname.$error.required"
+										class="err">This is a required field</span> <span
+										ng-show="myForm.$dirty && myForm.uname.$error.minlength"
+										class="err">Minimum length required is 3</span> <span
+										ng-show="myForm.$dirty && myForm.uname.$invalid" class="err">This
+										field is invalid </span><br />
+									<br />
+
+									<!--Use For Control Condition for form register user or form update user  -->
+										<h4>Email</h4> <input type="email" ng-model="user.email"
+										name="email" placeholder="Enter email" required
+										class='form-control' /> <!--Agular Validation Form  --> <span
+										ng-show="myForm.$dirty && myForm.email.$error.required"
+										class="err">This is a required field</span> <span
+										ng-show="myForm.$dirty && myForm.email.$error.email"
+										class="err">email format form</span> <span
+										ng-show="myForm.$dirty && myForm.email.$invalid" class="err">This
+											field is invalid </span><br />
+									<br />
+
+										<h4>Password</h4> <input type="password"
+										ng-model="user.password" name="password"
+										placeholder="Enter site password" required ng-minlength="5"
+										class='form-control' /> <!--Agular Validation Form  --> <span
+										ng-show="myForm.$dirty && myForm.uname.$error.required" class="err">This
+											is a required field</span> <span
+										ng-show="myForm.$dirty && myForm.uname.$error.minlength" class="err">Minimum
+											length required is 5</span> <span
+										ng-show="myForm.$dirty && myForm.uname.$invalid" class="err">This
+											field is invalid </span><br />
+									<br />
+
+								       <input type="submit" value="Add"
+										ng-disabled="myForm.$invalid"
+										class="btn btn-success pull-right" />
+
 								</form>
 							</div>
 						</div>
-						<!-- /.box-header -->
+					</div>
+				</div>
+				<!--End Modal for register  -->
+				
+                <!--model for form update user name  -->
+				<!-- Modal ADD -->
+				<div class="modal fade" id="myupdate" role="dialog"
+					data-keyboard="false" data-backdrop="static">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
 
-						<!-- row option to show data -->
-						<div class="div-filter col-md-12">
-							<div class="row">
-								<div class="box-footer clearfix col-md-3">
-									<ul class="pagination pagination-sm no-margin pull-left">
-										<li>
-											<select id="setrow" class="form-control select3"
-												ng-options="item as item.label for item in items track by item.id"
-												ng-model="selected" ng-change="changeRow(selected)">
-	
-											</select> <!-- /.form-group -->
-										</li>
-
-									</ul>
-
-								</div>
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									ng-click='reset()'>&times;</button>
+								<h4 class="modal-title">UPDATE</h4>
 							</div>
-							<!-- row -->
-						</div>
-						<!-- Show Result Of Total Record -->
-						<div class="col-md-12">
-							<h4 class="box-title" style="margin-right: 10px;">
-								<i>Result:</i> <small>{{Totalrecord}} records</small>
-							</h4>
-						</div>
-						
-						<!-- Data Table -->
-						<div class="box-body table-responsive no-padding col-md-12">
-							<table class="table table-hover">
-								<tr>
-									<th>ID</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>Profile</th>
-									<th>Status</th>
-									<th>Action</th>
-								</tr>
 
-								<!-- For Loop Data Respon by Server in angular -->
-								<tr ng-repeat="user in users">
-									<td>{{user.id }}</td>
-									<td>{{ user.username }}</td>
-									<td>{{ user.email }}</td>
-									<td><img class='logo-style'
-										src='{{domain}}/resources/images/{{ user.image }}'
-										class="img-circle" data-toggle="modal" data-target="#myUpload" ng-click='findUserById(user.id)'/></td>
-									<td ng-show="user.enabled == true"><button ng-click='chnageUserStatus(user.id)'><i class="fa fa-fw fa-check"></i></button></td>
-                                    <td ng-show="user.enabled == false"><button ng-click='chnageUserStatus(user.id)'><i class="fa fa-fw fa-close"></i></button></td>
-									<td>
-										<button ng-click='findUserById(user.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
-									</td>
-								</tr>
-							</table>
-						</div>
-						<!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<div ng-hide="!users.length" id="display"></div>
+							<div class="modal-body">
+								<form ng-submit="submitupdate()" name="myForm1">
+									<input type="hidden" ng-model="user.id" name="id"
+										ng-disabled=true />
+									<h4>Name</h4>
+									<input type="text" ng-model="user.username" name="uname"
+										placeholder="Enter user name" required ng-minlength="3"
+										class='form-control' />
+									<!--Agular Validation Form  -->
+									<span ng-show="myForm1.$dirty && myForm1.uname.$error.required"
+										class="err">This is a required field</span> <span
+										ng-show="myForm1.$dirty && myForm1.uname.$error.minlength"
+										class="err">Minimum length required is 3</span> <span
+										ng-show="myForm1.$dirty && myForm1.uname.$invalid" class="err">This
+										field is invalid </span><br />
+									<br />
+						
+									    <input type="submit" value="Update"
+										ng-disabled="myForm1.$invalid"
+										class="btn btn-primary pull-right" />
+
+								</form>
+							</div>
 						</div>
 					</div>
-					<!-- /.box -->
 				</div>
+				<!--End Modal for update user -->
+				<!-- Modal View -->
+				<div class="modal fade" id="myUpload" role="dialog"
+					data-keyboard="false" data-backdrop="static">
+					<div class="modal-dialog">
 
-			</div>
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									ng-click='reset()'>&times;</button>
+								<h4 class="modal-title">UPLOAD PROFILE</h4>
+							</div>
+							<div class="modal-body">
+
+								<form id="frmupload" name="frm" ng-submit='changeProfile()'
+									enctype="multipart/form-data">
+									<input type="hidden" value='{{user.id}}' required name="id"
+										id="id" /> <input type="file" name="file" id="file" required
+										class="form-control" /><br /> <input type="submit"
+										value='upload' ng-disabled="frm.$invalid"
+										class="btn btn-primary" />
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--End Modal for upload image  -->
+
+
+				<!-- Main Data Table Show -->
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box">
+							<div class="box-header">
+
+								<!-- Button For pop up form for register user -->
+								<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">
+									<i class="fa fa-users"></i>
+								</button>
+
+								<div class="box-tools">
+									<form>
+										<!-- Search Box -->
+										<div class="input-group" style="width: 150px;">
+											<input id="searchbox" type="text" name="table_search"
+												class="form-control input-sm pull-right"
+												placeholder="Search" ng-model="searchkey">
+											<div class="input-group-btn">
+												<button class="btn btn-sm btn-default"
+													ng-click="searchUser(searchkey)">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+
+										</div>
+									</form>
+								</div>
+							</div>
+							<!-- /.box-header -->
+
+							<!-- row option to show data -->
+							<div class="div-filter col-md-12">
+								<div class="row">
+									<div class="box-footer clearfix col-md-3">
+										<ul class="pagination pagination-sm no-margin pull-left">
+											<li><select id="setrow" class="form-control select3"
+												ng-options="item as item.label for item in items track by item.id"
+												ng-model="selected" ng-change="changeRow(selected)">
+
+											</select> <!-- /.form-group --></li>
+
+										</ul>
+
+									</div>
+								</div>
+								<!-- row -->
+							</div>
+							<!-- Show Result Of Total Record -->
+							<div class="col-md-12">
+								<h4 class="box-title" style="margin-right: 10px;">
+									<i>Result:</i> <small>{{Totalrecord}} records</small>
+								</h4>
+							</div>
+
+							<!-- Data Table -->
+							<div class="box-body table-responsive no-padding col-md-12">
+								<table class="table table-hover">
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+										<th>Email</th>
+										<th>Profile</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+
+									<!-- For Loop Data Respon by Server in angular -->
+									<tr ng-repeat="user in users">
+										<td>{{user.id }}</td>
+										<td>{{ user.username }}</td>
+										<td>{{ user.email }}</td>
+										<td><img class='logo-style'
+											src='{{domain}}/resources/images/user/{{ user.image }}'
+											class="img-circle" data-toggle="modal"
+											data-target="#myUpload" ng-click='findUserById(user.id)' /></td>
+										<td ng-show="user.enabled == true"><button
+												ng-click='chnageUserStatus(user.id)'>
+												<i class="fa fa-fw fa-check"></i>
+											</button></td>
+										<td ng-show="user.enabled == false"><button
+												ng-click='chnageUserStatus(user.id)'>
+												<i class="fa fa-fw fa-close"></i>
+											</button></td>
+										<td>
+											<button ng-click='findUserById(user.id)'
+												class='btn btn-primary' data-toggle="modal"
+												data-target="#myupdate">
+												<i class="fa fa-edit"></i>
+											</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<!-- /.box-body -->
+							<div class="box-footer clearfix">
+								<div ng-hide="!users.length" id="display"></div>
+							</div>
+						</div>
+						<!-- /.box -->
+					</div>
+
+				</div>
 			</section>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
 
-		<footer class="main-footer"> <jsp:include page="element/footer.jsp"></jsp:include></footer>
+		<footer class="main-footer">
+			<jsp:include page="element/footer.jsp"></jsp:include></footer>
 
 		<jsp:include page="element/rightslidebar.jsp"></jsp:include>
 		<!-- Add the sidebar's background. This div must be placed
@@ -322,46 +395,42 @@ i.action:hover {
 	</script>
 	<script>
 		var app = angular.module('myApp', []);
-		app.controller('myCtrl',function($scope, $http) {
- 							//Variable for Configuration
- 							
+	        app.controller('myCtrl',function($scope, $http) {
+							//Variable for Configuration
+
 							$scope.domain = "http://localhost:8080/AKNnews/";
-							
- 							$scope.imagepath="";
- 							
+
+
 							//for set header with http wehn request 
 							$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
 
 							//for store user for user to search and get user for update 
 							$scope.users = {};
-
-							//user when edit user
-							$scope.user = {
-								id :'',
-								username :'',
-								image : ''
-							};
-
+					
+							$scope.usersupdate={};
 							//for clear user object after edit
 							$scope.reset = function() {
 								$scope.user = {
-									id :'',
+									id:'',
 									username : '',
+									email:'',
+									password:'',
 									image : ''
 								};
-							
+
 							}
-							
-                            //use for pagination
+
+							//use for pagination
 							$scope.row = 15;
-							$scope.page =1;
+							$scope.page = 1;
 							$scope.triggerpage = 0;
 
 							//Function find user in angular for update user
 							$scope.findUserById = function(id) {
 								for (var i = 0; i < $scope.users.length; i++) {
 									if ($scope.users[i].id == id) {
-										$scope.user = angular.copy($scope.users[i]);
+										$scope.user = angular
+												.copy($scope.users[i]);
 										break;
 									}
 								}
@@ -370,19 +439,22 @@ i.action:hover {
 							//Funotion for list to table
 							$scope.listUser = function(page) {
 								var key;
-								if ($scope.searchkey == ''|| $scope.searchkey == null) {
+								if ($scope.searchkey == ''
+										|| $scope.searchkey == null) {
 									key = "*";
 								} else {
 									key = $scope.searchkey;
 								}
 								$scope.triggerpage++;
-								
+
 								$http
-										.get($scope.domain + 'api/user/'
+										.get(
+												$scope.domain + 'api/user/'
 														+ page + '/'
 														+ $scope.row + '/'
 														+ key)
-										.success(function(response) {
+										.success(
+												function(response) {
 													$scope.users = response.DATA;
 													$scope.Totalrecord = response.TOTALRECORD;
 													//set page to bootpage
@@ -401,8 +473,8 @@ i.action:hover {
 										});
 							}
 							
-							
-						    //Function bootpage Pagination 
+
+							//Function bootpage Pagination 
 							$scope.loadpagination = function() {
 
 								$('#display').bootpag({
@@ -418,8 +490,11 @@ i.action:hover {
 									prevClass : 'prev',
 									lastClass : 'last',
 									firstClass : 'first'
-								}).on("page",function(event, /* page number here */num) {
-											$scope.page=num;
+								}).on(
+										"page",
+										function(event, /* page number here */
+												num) {
+											$scope.page = num;
 											$scope.listUser(num);
 										});
 							};
@@ -428,7 +503,7 @@ i.action:hover {
 							$scope.searchUser = function() {
 								$scope.listUser(1);
 							}
-                            
+
 							//Function for change row option
 							$scope.changeRow = function(row) {
 								$("#setrow").blur();
@@ -441,69 +516,86 @@ i.action:hover {
 								$scope.listUser(1);
 
 							};
-							
+
 							//Function  for change user status
-							$scope.chnageUserStatus= function(id){
-								$http.patch($scope.domain + 'api/user/toggle/'+id)
-								.success(function(response) {
-									$scope.listUser($scope.page);	
-								});
+							$scope.chnageUserStatus = function(id) {
+								$http
+										.patch(
+												$scope.domain
+														+ 'api/user/toggle/'
+														+ id)
+										.success(function(response) {
+											$scope.listUser($scope.page);
+										});
 							}
 							
+
 							//Function for submit and update user infor 
-							$scope.submit = function(){
+							$scope.submit = function() {
 								//insert user infor
-								if ( $scope.user.id ==''){
-										$http.post($scope.domain+'api/user/',$scope.user).success(function(response){	
-											 console.log(response);
-											 alert(response.MESSAGE);    
-											 $scope.listUser(1);
-								  	     }).error(function(response){
-											     console.log( response ); 
-									     });	 
-								//update user infor
-						    	}else{ 
-							    		
-							    		$http.put($scope.domain+'api/user/update/',$scope.user).success(function(response){	
-											 console.log(response);
-											 alert(response.MESSAGE);    
-											 $scope.listUser(1);
-								  	     }).error(function(response){
-											     console.log( response ); 
-									     });	
-						    		
-						    	}
-												          
-					                
+									console.log($scope.user);
+									$http.post($scope.domain + 'api/user/',
+											$scope.user).success(
+											function(response) {
+												console.log(response);
+												alert(response.MESSAGE);
+												$("#myAdd").modal('hide');
+												$scope.listUser(1);
+											}).error(function(response) {
+										console.log(response);
+									});	
 							}
+							$scope.submitupdate = function() {
+								//update user infor
+								$scope.usersupdate={
+									id: $scope.user.id,
+							        username:$scope.user.username
+							      };
+							$http.put(
+										$scope.domain + 'api/user/update/',
+										$scope.usersupdate).success(
+										function(response) {
+											console.log(response);
+											alert(response.MESSAGE);
+											$( "#foo" ).trigger( "click" );
+											$("#myupdate").modal('hide');
+											$scope.listUser(1);
+										}).error(function(response) {
+									console.log(response);
+								}); 
+							}
+						
 							
 							//Function for upload user image profile
-						    $scope.changeProfile = function(){
-						    	//for get data from form format formdata (use to include image)
-								var form_data = new FormData(document.getElementById('frmupload'));
-						    	
-				  			    $http.post(
-				  			    		$scope.domain+'api/user/editupload'
-										,form_data
-										,{
-											transformRequest : angular.identity,
-											headers: {
-								            'Accept': 'application/json;odata=verbose',
-								            'Content-Type' : undefined
-								       		 }
-										}
-									).success(function(response){						
-										alert(response.MESSAGE);    
-										$scope.listUser($scope.page);
-									}).error(function(response){
-										console.log( response ); 
-									});	   
-						    } 
-							
+							$scope.changeProfile = function() {
+								//for get data from form format formdata (use to include image)
+								var form_data = new FormData(document
+										.getElementById('frmupload'));
+
+								$http
+										.post(
+												$scope.domain
+														+ 'api/user/editupload',
+												form_data,
+												{
+													transformRequest : angular.identity,
+													headers : {
+														'Accept' : 'application/json;odata=verbose',
+														'Content-Type' : undefined
+													}
+												}).success(function(response) {
+											alert(response.MESSAGE);
+											$("#myUpload").modal('hide');
+											$scope.listUser($scope.page);
+										}).error(function(response) {
+											console.log(response);
+										});
+							}
+
 							//call funtion list user first time load page 
 							$scope.listUser(1);
-							
-                            //initialize value to select box
+
+							//initialize value to select box
 							$scope.items = [ {
 								id : 1,
 								label : '15',
@@ -517,12 +609,11 @@ i.action:hover {
 								id : 4,
 								label : '100',
 							} ];
-                            
-                            //set defualt select value of combo box
+
+							//set defualt select value of combo box
 							$scope.selected = $scope.items[0];
 
 						});
 	</script>
-
 </body>
 </html>

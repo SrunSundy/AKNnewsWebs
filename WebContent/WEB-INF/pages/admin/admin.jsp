@@ -83,12 +83,6 @@ i.action:hover {
 .description-block {
 	text-align: left;
 }
-.user-block img {
-    width: 150px;
-    float: left;
-    height:150px;
-    margin-right: 2%;
-}
 </style>
 
 </head>
@@ -117,7 +111,7 @@ i.action:hover {
 				<div class="col-xs-12">
 					<div class="box">
 
-						<div class="col-md-12" style="margin-top: 10px;">
+						<div class="col-md-12">
 							<div class="nav-tabs-custom">
 								<ul class="nav nav-tabs">
 									<li class="active"><a href="#profile" data-toggle="tab"
@@ -134,7 +128,7 @@ i.action:hover {
 										<!-- Post -->
 										<div class="post">
 											<div class="user-block">
-												 <img class="img-circle" src="http://localhost:8080/AKNnews/resources/images/${sessionScope.SessionUser.image}" alt="User Avatar" >
+												 <img class="img-circle" src="http://localhost:8080/AKNnews/resources/images/user/${sessionScope.SessionUser.image}" alt="User Avatar" >
 												<span class="username"><a>${sessionScope.SessionUser.username}</a></span> 
 												<span class="description">Admin</span>
 												<span class="description">${sessionScope.SessionUser.email}</span> 
