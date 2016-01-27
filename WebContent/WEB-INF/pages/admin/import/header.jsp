@@ -1,3 +1,4 @@
+	<link href="${pageContext.request.contextPath }/resources/images/logo/akn.png" rel="shortcut icon">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
   	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css">
