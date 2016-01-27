@@ -1,5 +1,7 @@
 package com.spring.akn.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,10 +32,13 @@ public class MainController {
 		model.addAttribute("id", id);
 		return  "detail";
 	}
-	
-	@RequestMapping(value={"/{uid}/saved"})
-	public String savedPage(ModelMap model, @PathVariable("uid") int uid){
-		model.addAttribute("uid", uid);
+		
+	@RequestMapping(value="/user/profile")
+	public String savedPage(ModelMap model, Principal principal){
+		
+		if(principal == null)
+			return "login";
+		
 		return "saved-news";
 	}
 
