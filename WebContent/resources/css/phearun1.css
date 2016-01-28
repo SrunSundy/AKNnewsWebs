@@ -564,3 +564,16 @@ span.slogo{
 div#user-profile ul li:first-child{
 	text-transform:capitalize;
 }
+.a-left-side{
+	left:20%;
+}
+.nav-search{
+	left:20%;
+}
+.nav-category{
+	right:20%;
+}
+.a-right-side{
+	right:20%;
+}
+

@@ -1,5 +1,5 @@
 .a-container{
-	width:1080px !important;
+	width:1080px;
 	top:10px;
 }
 .a-body{
@@ -22,7 +22,7 @@
 .nav-category{
 	float:none;
 	width:1080px;
-	top:77px;
+	top:70px;
 	right:0px;
 	left:0px;
 	margin:0 auto;

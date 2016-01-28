@@ -1,21 +1,38 @@
 /************************* start responsive here **************************/
-@media screen and (max-width: 1317px) {
+@media screen and (max-width: 1780px) {
+		.a-left-side, .nav-search{
+			left:15%;
+		}
+		.nav-category, .a-right-side{
+			right: 15%;
+		}
+		
+}
+@media screen and (max-width: 1520px) {
+		.a-left-side, .nav-search{
+			left:10%;
+		}
+		.nav-category, .a-right-side{
+			right: 10%;
+		}
+		
+}
+@media screen and (max-width: 1340px) {
 		.a-left-side, .nav-search{
 			left:5%;
 		}
-		.nav-category{
+		.nav-category, .a-right-side{
 			right: 5%;
 		}
 		
 }
-@media screen and (max-width: 1185px) {
+@media screen and (max-width: 1195px) {
 		.a-left-side, .nav-search{
 			left:1%;
 		}
-		.nav-category{
+		.nav-category, .a-right-side{
 			right: 1%;
 		}
-		
 }
 @media screen and (max-width: 1096px) {
 		.a-left-side{
