@@ -104,7 +104,7 @@
 						  <ul class="products-list product-list-in-box">
 							<li class="item" ng-repeat="pnews in popnews">
 							  <div class="product-img">
-								<img ng-src="http://localhost:8080/AKNnews/resources/images/logo/{{pnews.site.logo }}" alt="Product Image">
+								<img ng-src="{{baseurl}} resources/images/logo/{{pnews.site.logo }}" alt="News Image">
 							  </div>
 							  <div class="product-info">
 								<a href="javascript::;" class="product-title">{{pnews.site.name}}<span class="label label-warning pull-right"> {{pnews.hit}} views</span></a>
@@ -137,7 +137,7 @@
 						  <ul class="products-list product-list-in-box">
 							<li class="item" ng-repeat="akn in aknnews">
 							  <div class="product-img">
-								<img src="${pageContext.request.contextPath }/resources/images/logo/akn.png" alt="Product Image">
+								<img ng-src="{{baseurl}} resources/images/logo/{{akn.site.logo }}" alt="AKN logo Image">
 							  </div>
 							  <div class="product-info">
 								<a href="javascript::;" class="product-title">{{akn.site.name}} <span class="label label-warning pull-right">{{convertTimeago(akn.date) | date:'EEEE, d MMM y'}}</span></a>
@@ -237,7 +237,7 @@
                       <ul class="users-list clearfix">
                       
                         <li ng-repeat="listuser in listusers">
-                          <img style="width:100px;height:100px;" src="http://localhost:8080/AKNnews/resources/images/user/{{listuser.image}}" alt="User Image">
+                          <img style="width:100px;height:100px;" src="{{baseurl}}resources/images/user/{{listuser.image}}" alt="User Image">
                           <a class="users-list-name" href="#">{{listuser.username}}</a>
                           <span class="users-list-date">{{listuser.register_date}}</span>
                         </li>
@@ -265,7 +265,7 @@
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
                         <li ng-repeat="listadmin in listadmins">
-                         <img style="width:100px;height:100px;" src="http://localhost:8080/AKNnews/resources/images/user/{{listadmin.image}}" alt="User Image">
+                         <img style="width:100px;height:100px;" src="{{baseurl}}resources/images/user/{{listadmin.image}}" alt="User Image">
                           <a class="users-list-name" href="#">{{listadmin.username}}</a>
                           <span class="users-list-date">{{listadmin.register_date}}</span>
                         </li>
