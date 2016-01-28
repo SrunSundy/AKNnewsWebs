@@ -8,29 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard | AKNnews</title>
     <!-- Tell the browser to be responsive to screen width -->
-<<<<<<< .mine
 
 	<jsp:include page="import/header.jsp"></jsp:include>
-	
-	<%--  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
-  
-   
-    <!-- Select2 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-           <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
-	  --%>
-<style>
-=======
->>>>>>> .r202
-
-	<jsp:include page="import/header.jsp"></jsp:include> 
 
                 
   </head>
@@ -98,7 +77,7 @@
                 <span class="info-box-icon bg-yellow"><i class="fa fa-user-plus"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">NEW USER</span>
-                  <span class="info-box-number">2,000</span>
+                  <span class="info-box-number">2</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -125,7 +104,7 @@
 						  <ul class="products-list product-list-in-box">
 							<li class="item" ng-repeat="pnews in popnews">
 							  <div class="product-img">
-								<img ng-src="https://pbs.twimg.com/profile_images/459634395222011904/kpJJCmI6.png" alt="Product Image">
+								<img ng-src="http://localhost:8080/AKNnews/resources/images/logo/{{pnews.site.logo }}" alt="Product Image">
 							  </div>
 							  <div class="product-info">
 								<a href="javascript::;" class="product-title">{{pnews.site.name}}<span class="label label-warning pull-right"> {{pnews.hit}} views</span></a>
@@ -186,7 +165,7 @@
 							<div class="progress-bar" ng-style="{width: percentofaknnews + '%'}"></div>
 						  </div>
 						  <span class="progress-description">
-							{{percentofaknnews | number}} % Increase in 30 Days
+							{{percentofaknnews | number}} % out of the whole News
 						  </span>
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
@@ -199,7 +178,7 @@
 							<div class="progress-bar" ng-style="{width: percentofsabaynews + '%'}"></div>
 						  </div>
 						  <span class="progress-description">
-							{{percentofsabaynews  | number }} % Increase in 30 Days
+							{{percentofsabaynews  | number }} % out of the whole News
 						  </span>
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
@@ -212,7 +191,7 @@
 							<div class="progress-bar" ng-style="{width: percentofthebnews + '%'}"></div>
 						  </div>
 						  <span class="progress-description">
-							{{percentofthebnews | number}}% Increase in 30 Days
+							{{percentofthebnews | number}}% out of the whole News
 						  </span>
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
@@ -225,7 +204,7 @@
 							<div class="progress-bar" ng-style="{width: percentofmulkulkarnews + '%'}"></div>
 						  </div>
 						  <span class="progress-description">
-							{{percentofmulkulkarnews | number}}% Increase in 30 Days
+							{{percentofmulkulkarnews | number}}% out of the whole News
 						  </span>
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
@@ -258,7 +237,7 @@
                       <ul class="users-list clearfix">
                       
                         <li ng-repeat="listuser in listusers">
-                          <img src="http://localhost:8080/AKNnews/resources/images/user/{{listuser.image}}" alt="User Image">
+                          <img style="width:100px;height:100px;" src="http://localhost:8080/AKNnews/resources/images/user/{{listuser.image}}" alt="User Image">
                           <a class="users-list-name" href="#">{{listuser.username}}</a>
                           <span class="users-list-date">{{listuser.register_date}}</span>
                         </li>
@@ -286,7 +265,7 @@
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
                         <li ng-repeat="listadmin in listadmins">
-                         <img src="http://localhost:8080/AKNnews/resources/images/user/{{listadmin.image}}" alt="User Image">
+                         <img style="width:100px;height:100px;" src="http://localhost:8080/AKNnews/resources/images/user/{{listadmin.image}}" alt="User Image">
                           <a class="users-list-name" href="#">{{listadmin.username}}</a>
                           <span class="users-list-date">{{listadmin.register_date}}</span>
                         </li>
@@ -458,10 +437,6 @@
 		$scope.getNumberofSite();
 		$scope.getUserInfo();
 
-		$scope.percentofaknnews = ($scope.numofaknnews*$scope.totalnews)/100;
-		$scope.percentofthebnews = ($scope.numofthebnews*$scope.totalnews)/100;;
-		$scope.percentofsabaynews=0;
-		$scope.percentofmulkulkarnews =0;
 		//timeago
 		$scope.convertTimeago = function(time){
 			
