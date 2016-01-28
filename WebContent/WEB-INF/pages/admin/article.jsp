@@ -101,12 +101,7 @@
 	                    </select> 
 	                   </div>
 	                    
-	                  <!--   <select id="filtersite" class="form-control select2 "  ng-model="fsite"
-	                    ng-change="filterSite(fsite)" >
-	                    	<option ng-repeat="site in sites" value="{{site.id}}" style="background-image=URL" data-image="/AKNnewsWebs/resources/images/logo/sabay.jpg">{{site.name}}</option>
-	                    </select>  -->
-	                   
-	                     
+	                 
 	                </div>
 	                
 	             </div><!-- row -->
@@ -132,7 +127,7 @@
                     </tr>
                    
                    <tr  ng-repeat="article in articles">	
-                      <td><img class='logo-style' ng-src='http://localhost:8080/AKNnews/resources/images/logo/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
+                      <td><img class='logo-style' ng-src='{{baseurl}}/resources/images/logo/{{article.site.logo }}'  class="img-circle" title='{{article.site.name}}'/></td>
                       <td>{{article.id }}</td>
                       <td>{{mySplit(article.title)}}</td>
                       <td >{{convertTimeago(article.date) | date:'EEEE, d MMM y'}}</td>
@@ -189,10 +184,17 @@
   <script>
  
 	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $http){
+	app.controller('myCtrl', function($scope, $http,$location){
 		
-		var domain = "http://localhost:8080/AKNnews/";
+	
+		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 
+		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+
+		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+		$scope.baseurl = $scope.domain + "/AKNnews/";
+		
+		
 		$scope.categories = [];
 		$scope.sites = [];
 		
@@ -209,36 +211,20 @@
 		$scope.Totalrecord = 0;
 
 		$scope.toggleStatus = function(nid){
-			
 			return $http({
                 method: "PATCH",
-                url: domain + "api/article/toggle/"+nid,
-                headers: {
-                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                }
-            });/* .success(function (response) {
-          
-            		angular.element("#n"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
-            		alert(response.MESSAGE);
-            
-            		angular.element("#d"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
-    	        	alert(response.MESSAGE);
-            
-        		
-        	
-        		
-	    	}); */
+                url: $scope.baseurl + "api/article/toggle/"+nid,
+            });
 		};
 		$scope.toggleStatusTrue = function(nid){
 			$scope.toggleStatus(nid).success(function (response) {
 				$scope.statustrue++;
-				//alert($scope.statustrue);
 				if($scope.statustrue%2==0){
 					angular.element("#t"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
+					alert(response.MESSAGE);
 					return;
 				}
 				angular.element("#t"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
-				
         		alert(response.MESSAGE);
 	    	});
 		};
@@ -248,27 +234,24 @@
 				alert($scope.statusfalse);
 				if($scope.statusfalse%2==0){
 					angular.element("#f"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
+					alert(response.MESSAGE);
 					return;
 				}
-				 
 				angular.element("#f"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
 	        	alert(response.MESSAGE);
 			});
 		}  
 		
 		$scope.gotoSite = function(url){
-			alert(url);
-			location.href = url;
+			
+			 window.open( url,'_blank');
 		}
 		$scope.listSearchArticles = function(key){
 			$scope.triggerpage++;
 			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": -1};
 			$http({
                 method: "POST",
-                url: domain + "api/article/search/",
-                headers: {
-                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                },
+                url: $scope.baseurl + "api/article/search/",
                 data : JSON.stringify(json),
             })
             .success(function (response) {
@@ -302,17 +285,12 @@
 			$scope.triggerpage++;
 			$http({
                 method: "GET",
-                url: domain + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/-1/",
-                headers: {
-                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                } 
+                url: $scope.baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/-1/"
             })
-            .success(function (response) {
-            	
+            .success(function (response) { 	
             	if(response.RESPONSE_DATA.length == 0){
             		console.log('no article..!');              		
             	}
-    	    	
 	    		$scope.Totalrecord = response.TOTAL_RECORDS;
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
@@ -324,12 +302,10 @@
 		};
 		
 		$scope.listCategories = function(){
+			
 			$http({
                 method: "GET",
-                url: domain + "api/article/category/news/",
-                headers: {
-                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                }
+                url: $scope.baseurl + "api/article/category/news/"
             })
             .success(function (response) {
             	$scope.categories.push({
@@ -345,17 +321,13 @@
 		$scope.listSites = function(){			
 			$http({
                 method: "GET",
-                url: domain + "api/article/site/",
-                headers: {
-                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                }
+                url: $scope.baseurl + "api/article/site/"
             })
             .success(function (response) {
             	$scope.sites.push({
             		id : "0" , name:"NO FILTER" ,
             	 });
             	angular.forEach(response.DATA, function(data, key) {
-            	
            		  $scope.sites.push(data);
 		    	});
             	$scope.fsite = $scope.sites[0];  	
