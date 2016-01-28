@@ -30,7 +30,7 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color.css"/>
 	    
-	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-style.css"/>
+	    <%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-style.css"/> --%>
 	    
 	    
 	</head>

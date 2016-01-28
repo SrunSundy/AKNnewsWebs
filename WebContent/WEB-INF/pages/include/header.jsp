@@ -58,10 +58,3 @@
 		<i class="fa fa-bars"></i>
 	</div>
 </div>
-
- <%-- Session User  
-			    <c:out value="${sessionScope.SessionUser.id }"></c:out>
-			    <c:out value="${sessionScope.SessionUser.username }"></c:out>
-			    <c:out value="${sessionScope.SessionUser.image }"></c:out>
-			    <c:out value="${sessionScope.SessionUser.enabled }"></c:out> 
-			--%>

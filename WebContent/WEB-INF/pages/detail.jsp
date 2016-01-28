@@ -101,8 +101,8 @@
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
-		<div id="hrd_memo_pess" style=></div> 
-		<script src='http://192.168.178.123:8080/HRD_MEMO/resources/js/hrdmemoplugin.js'></script>
+		<!-- <div id="hrd_memo_pess" style=></div> 
+		<script src='http://192.168.178.123:8080/HRD_MEMO/resources/js/hrdmemoplugin.js'></script> -->
 		
 		
 		<script>
@@ -124,12 +124,9 @@
 				$scope.navCategory = [];
 				$scope.sites = [];
 				
-				$scope.uid = 5;
-				$scope.row = 9;
-
-				$scope.sid = 0;
-				$scope.cid = 0;
-				$scope.page = 1;
+				$scope.uid = 0;
+				if('${sessionScope.SessionUser}'!= '')
+					$scope.uid = "${sessionScope.SessionUser.id}";
 				
 				$scope.nid = "${id}";
 				
@@ -172,7 +169,10 @@
 				$scope.initializeNews();
 				
 				$scope.saveNews = function(nid){
-					
+					if($scope.uid==0){
+						alert('Please login to save this news..!');
+						return;
+					}
 					$http({
 						method: "POST",
                         url: $scope.baseurl + "api/article/savelist",
@@ -199,6 +199,12 @@
 					templateSelection: formatState
 				});
 				
+				$scope.toggleShowProfile = function(){
+					if($scope.userprofileStatus == false)
+						$scope.userprofileStatus = true;
+					else
+						$scope.userprofileStatus = false;
+				};
 		});
 			
 		</script>
