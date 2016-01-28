@@ -22,7 +22,6 @@
   
    </style>
    
-   <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
    
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -180,7 +179,23 @@
 
 		
 		</div>
-
+		
+		        </section><!-- /.content -->
+	      </div><!-- /.content-wrapper -->
+			
+			<footer class="main-footer">
+		      <jsp:include page="element/footer.jsp"></jsp:include>
+			</footer>
+	    
+	    <jsp:include page="element/rightslidebar.jsp"></jsp:include>
+	      <!-- Add the sidebar's background. This div must be placed
+	           immediately after the control sidebar -->
+	      <div class="control-sidebar-bg"></div>
+	
+	    </div><!-- ./wrapper -->
+	
+	  <jsp:include page="import/footer.jsp"></jsp:include>
+	  
 		<script>
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope,$http,$location) {
@@ -309,48 +324,5 @@
 		    
 		});
 		</script>
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-         	
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-		
-		<footer class="main-footer">
-	      <jsp:include page="element/footer.jsp"></jsp:include>
-		</footer>
-    
-    <jsp:include page="element/rightslidebar.jsp"></jsp:include>
-      <!-- Add the sidebar's background. This div must be placed
-           immediately after the control sidebar -->
-      <div class="control-sidebar-bg"></div>
-
-    </div><!-- ./wrapper -->
-
-  <jsp:include page="import/footer.jsp"></jsp:include>
-  
-  
   </body>
 </html>

@@ -29,7 +29,6 @@
   
    </style>
    
-   <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
    
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -96,6 +95,42 @@
 		      </div>
 		    </div>
 		  </div>
+		  
+		  
+		  		  <!-- Modal Struce -->
+		  <div class="modal fade " id="myStruct" role="dialog" data-keyboard="false" data-backdrop="static">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" ng-click='reset()'>&times;</button>
+		          <h4 class="modal-title">{{!site.id ? 'ADD NEW'  : 'UPDATE' }}</h4>
+		        </div>
+		        <div class="modal-body">
+					<form ng-submit="submit()" name="myForm">
+					<input type="hidden" ng-model="site.id" name="id" ng-disabled=true />
+					  <h4>Name</h4>
+			          <input type="text" ng-model="site.name" name="uname" placeholder="Enter site name" required ng-minlength="3" class='form-control'/>
+			          
+			          <h4>URL</h4>  
+			          <input type="text" ng-model="site.url" name="url" placeholder="Enter site url" required ng-minlength="3" class='form-control'/>
+			          
+			         <h4>BASEPATH</h4>     
+			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/><br/>
+			         
+			          <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
+			          class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
+			      	</form>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()' >Close</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  
+		  
 		  		  <!-- Modal View -->
 		  <div class="modal fade" id="myView" role="dialog" data-keyboard="false" data-backdrop="static">
 		    <div class="modal-dialog">
@@ -200,7 +235,7 @@
 							</td>
 							<td> {{st.basepath}}</td>
 							<td> 
-								<!-- <button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-warning' data-toggle="modal" data-target="#myAdd">STRUCTURE SCRAP</button> -->
+								<button ng-click='findsitedetailById(st.s_id)' class='btn btn-warning' data-toggle="modal" data-target="#myStruct">STRUCTURE SCRAP</button>
 								<button ng-click='findsiteById(st.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
 								<button ng-click='findsiteById(st.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
 								<button ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
@@ -211,7 +246,21 @@
 			</div>
 		</div>
 		</div>
-
+		        </section><!-- /.content -->
+	      </div><!-- /.content-wrapper -->
+			
+			<footer class="main-footer">
+		      <jsp:include page="element/footer.jsp"></jsp:include>
+			</footer>
+	    
+	    <jsp:include page="element/rightslidebar.jsp"></jsp:include>
+	      <!-- Add the sidebar's background. This div must be placed
+	           immediately after the control sidebar -->
+	      <div class="control-sidebar-bg"></div>
+	
+	    </div><!-- ./wrapper -->
+	
+	  <jsp:include page="import/footer.jsp"></jsp:include>
 		<script>
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope,$http,$location) {
@@ -351,7 +400,7 @@
 		    
 		    // scraping structure  //http://localhost:8080/AKNnews/api/scrap/structure/
 		    
-/* 		    var urlstrcture = 'http://localhost:8080/AKNnews/api/'
+ 		    var urlstrcture = 'http://localhost:8080/AKNnews/api/'
 		    $scope.structure_list = {};
 		    $scope.structure = {};
 		    
@@ -367,36 +416,19 @@
 					});	 
 		    }
 		    
-		    $scope.findStructureById = function(id){
+ 		    $scope.findStructureById = function(id){
+ 		    	alert('1');
 		    	for(var i=0;i<$scope.structure_list.length;i++){
-		    		if ( $scope.structure_list[i] == id){
+		    		if ( $scope.structure_list[i].id == id){
 		    			console.log( $scope.structure_list[i] );
 		    			return true;
 		    		}
 		    	}
-		    }
+		    } 
 		    
-		    $scope.liststructure(); */
+		    $scope.liststructure(); 
 		    
 		});
 		</script>
-         	
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-		
-		<footer class="main-footer">
-	      <jsp:include page="element/footer.jsp"></jsp:include>
-		</footer>
-    
-    <jsp:include page="element/rightslidebar.jsp"></jsp:include>
-      <!-- Add the sidebar's background. This div must be placed
-           immediately after the control sidebar -->
-      <div class="control-sidebar-bg"></div>
-
-    </div><!-- ./wrapper -->
-
-  <jsp:include page="import/footer.jsp"></jsp:include>
-  
-  
   </body>
 </html>
