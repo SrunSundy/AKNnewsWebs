@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="a-nav">
 	<div class="nav-search">
 		<i class="fa fa-search"></i>
 		<input type="text" name="searchkey" placeholder="ស្វែងរកព័ត៌មាន" ng-model="key"/>
-		<!-- <button onclick="location.href='search/'">ស្វែងរក</button> -->
-		<a href="${pageContext.request.contextPath}/search?key={{key}}">ស្វែងរក</a>
+		<button ng-click="searchArticles()">ស្វែងរក</button>
+		<%-- <a class="color" href="${pageContext.request.contextPath}/search?key={{key}}">ស្វែងរក</a> --%>
 	</div>
 	<div class="nav-category">
 		<ul>
-			<li><a href="${pageContext.request.contextPath }"><i class="fa fa-home"></i>ទំព័រដើម</a></li>
-			<li ng-repeat="category in navCategory"><a href="${pageContext.request.contextPath}/{{category.id}}/category" ng-bind="category.name"></a></li>
+			<li class="bg-old"><a href="${pageContext.request.contextPath }"><i class="fa fa-home"></i>ទំព័រដើម</a></li>
+			<li class="bg-old" ng-repeat="category in navCategory"><a href="${pageContext.request.contextPath}/{{category.id}}/category" ng-bind="category.name"></a></li>
 		</ul>
 		<div class="user-profile" ng-click="toggleShowProfile()">
 			<c:choose>
@@ -50,7 +51,7 @@
 		</div>
 	</div>
 	<div class="phone-menu" ng-if="phoneMenuStatus">
-		<ul>
+		<ul​​>
 			<li ng-repeat="category in categories"><a href="${pageContext.request.contextPath}/{{category.id}}/category"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></a></li>
 		</ul>
 	</div>

@@ -19,12 +19,14 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/detail.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/detail-responsive.css"/>
+
 		<!-- select2 -->
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
 	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
 	    
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color-library.css"/>
-	     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
+	  	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animation.css"/>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		<div id="fb-root"></div>
@@ -45,7 +47,7 @@
 			<div class="a-container">
 				<div class="a-row">
 					<div class="a-left-side">
-						<ul class="a-source">
+						<ul class="a-source border-t1px">
 							<select ng-model="site" ng-change="articleSite(site)">
 								<option ng-value="0" id="domain.png">គេហទំព័រ</option>
 								<option ng-value="{{site.id}}" ng-repeat="site in sites" id="{{site.logo}}" ng-bind="site.name"></option>
@@ -60,6 +62,7 @@
 					<div class="a-body">
 						
 						<div class="detail-content">
+
 							<div class="article-title border-t1px">
 								<h2 ng-bind="article.title"></h2>
 								<div class="article-save color">
@@ -99,6 +102,10 @@
 					
 				</div><!--/end a-row  -->
 				
+				<div class="msg-alert"​ ng-if="showAlert">
+					<p>សូម <a href="${pageContext.request.contextPath }/login">Login</a> ដើម្បីរក្សាទុកពត៌មាននេះ..!</p>
+				</div>
+				
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
@@ -109,7 +116,7 @@
 		<script>
 			var app = angular.module('myApp', []);
 			
-			app.controller('myCtrl', function($scope, $window, $http, $sce, $location){
+			app.controller('myCtrl', function($scope, $window, $http, $sce, $location, $timeout){
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 				
@@ -134,7 +141,7 @@
 				$scope.loadingStatus = true;
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
-			
+				$scope.showAlert = false;
 				
 				//initialize news data
 				$scope.initializeNews = function(){
@@ -171,7 +178,8 @@
 				
 				$scope.saveNews = function(nid){
 					if($scope.uid==0){
-						alert('Please login to save this news..!');
+						$scope.showAlert = true;
+						$timeout(function(){ $scope.showAlert = false; },3000);
 						return;
 					}
 					$http({
@@ -206,6 +214,10 @@
 					else
 						$scope.userprofileStatus = false;
 				};
+				
+				$scope.searchArticles = function(){
+					location.href = $scope.webbaseurl + "search?key=" + window.encodeURIComponent($scope.key).replace(/%/g,"@");
+				}; 
 		});
 			
 		</script>

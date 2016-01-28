@@ -355,6 +355,10 @@
 						$scope.phoneMenuStatus = false;
 				};
 				
+				$scope.searchArticles = function(){
+					location.href = $scope.webbaseurl + "search?key=" + window.encodeURIComponent($scope.key).replace(/%/g,"@");
+				}; 
+				
 		});
 		</script>
 	</body>

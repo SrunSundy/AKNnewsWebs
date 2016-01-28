@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,15 +23,14 @@
 
 	    <script src="${pageContext.request.contextPath }/resources/owl-carousel/owl.carousel.js"></script>
 	    
-	    <!-- select2 -->
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
 	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
 	    
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
-	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color.css"/>
-	    
+
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color-library.css"/>
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animation.css"/>
+
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		
@@ -42,21 +41,21 @@
 			<div class="a-container">
 				<div class="a-row">
 					<div class="a-left-side">
-						<ul class="a-source">
+						<ul class="a-source border-t1px">
 							<select ng-model="site" ng-change="articleSite(site)">
 								<option ng-value="0" id="domain.png">គេហទំព័រ</option>
 								<option ng-value="{{site.id}}" ng-repeat="site in sites" id="{{site.logo}}" ng-bind="site.name"></option>
 							</select>
 						</ul>
 						<ul class="a-category">
-							<li><i class="fa fa-tags"></i>ប្រភេទ</li>
+							<li class="bg-color"><i class="fa fa-tags"></i>ប្រភេទ</li>
 							<li ng-repeat="category in categories" ng-click="articleCategory(category.id)" id="category{{category.id}}" value="{{category.id}}"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></li>
 						</ul>
 					</div><!--/end a-left-side  -->
 					
 					<div class="a-body">
 						<div class="slide-show">
-							<div class="popular-news">
+							<div class="popular-news border-t1px">
 								<div class="slide-image">
 									<data-owl-carousel class="owl-carousel" data-options="{navigation: false,singleItem:true, autoPlay:true}">
       									<div owl-carousel-item="" ng-repeat="pop in populars" class="item">
@@ -75,7 +74,7 @@
 								<div id="sright" class="button-right"></div>
 							</div>
 							<div class="popular-news-b1">
-								<div class="top-1" ng-repeat="top in top2">
+								<div class="top-1 border-t1px" ng-repeat="top in top2">
 									<div class="top-image">
 										<img ng-src="{{top.image}}" ng-if="top.site.id!=6"/>
 										<img ng-src="{{baseurl}}resources/images/news/{{top.image}}" ng-if="top.site.id==6"/>
@@ -90,12 +89,12 @@
 						</div>
 						<div class="article-block" ng-repeat="article in articles">
 							<div class="article-block-b1">
-								<div class="article-item">
+								<div class="article-item border-t1px">
 									<div class="article-info">
 										<img ng-src="{{baseurl}}resources/images/{{article.site.logo}}"/>
-										<p ng-bind="article.site.name | uppercase"></p>
+										<p class="color" ng-bind="article.site.name | uppercase"></p>
 										
-										<div class="saved">
+										<div class="saved color">
 											<i ng-if="article.saved==false" ng-click="saveNews(article.id)" id="{{article.id}}" title="ចុចទីនេះដើម្បីរក្សាទុកព័ត៌មាន" class="fa fa-bookmark-o"></i>
 											<i ng-if="article.saved==true" title="ព័ត៌មានបានរក្សាទុកហើយ" class="fa fa-bookmark"></i>
 										</div>
@@ -130,7 +129,7 @@
 					
 					
 					<!--dynamic color  -->
-					<div class="d-color">
+					<!-- <div class="d-color">
 						<ul>
 							<li class="brown"></li>
 							<li class="blue"></li>
@@ -138,9 +137,9 @@
 							<li class="red"></li>
 							<li class="gray"></li>
 						</ul>	
-					</div>
+					</div> -->
 					
-					<div class="msg-alert"​ ng-show="showAlert">
+					<div class="msg-alert"​ ng-if="showAlert">
 						<p>សូម <a href="${pageContext.request.contextPath }/login">Login</a> ដើម្បីរក្សាទុកពត៌មាននេះ..!</p>
 					</div>
 					
@@ -149,7 +148,6 @@
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
-		
 		
 		<!-- <script>
 			$(document).ready(function(){
@@ -185,7 +183,10 @@
 				$scope.cid = "${cid}";
 				$scope.page = 0;
 				
-				$scope.key = "${key}";
+				$scope.key = window.decodeURIComponent("${key}");
+				
+				/* if($scope.key!='')
+					$location.path('/search').search('key='+$scope.key); */
 				
 				$scope.isSearch = false;
 				
@@ -338,23 +339,14 @@
 				};
 				
 				$scope.searchArticles = function(){
-					//$location.path('search').search('key='+$scope.key);
-					$scope.page = 0;
-					$scope.cid = 0;
-					$scope.sid = 0;
-					$scope.articles = [];
-					$scope.isSearch = true;
-					$scope.loadSearchArticles();
+					location.href = $scope.webbaseurl + "search?key=" + window.encodeURIComponent($scope.key).replace(/%/g,"@");
 				}; 
+				
 				
 				$scope.saveNews = function(nid){
 					if($scope.uid==0){
 						$scope.showAlert = true;
-						$timeout(function(){
-							$scope.showAlert = false;
-						},3000);
-						
-						//alert('Not login yet..!\nPlease login to save this news..!');
+						$timeout(function(){ $scope.showAlert = false; },3000);
 						return;
 					}
 					$http({
@@ -459,7 +451,7 @@
 		        }
 		        return "";
 		    }
-		}); */
+		}) */
 		
 		.filter('timeAgo', function($filter){
 			return function(time){
