@@ -246,7 +246,8 @@
 		    		$scope.updatesitedetail();
 		    		$scope.reset();
 		    	}
-                console.log('Form is submitted with following user', $scope.sitedetail);                
+		    	$scope.reset();
+		    	angular.element('#myAdd').modal('hide');
 		    }
 		    
  		    $scope.findsitedetailById = function(s_id, c_id){

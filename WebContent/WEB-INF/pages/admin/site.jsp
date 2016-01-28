@@ -97,40 +97,6 @@
 		  </div>
 		  
 		  
-		  		  <!-- Modal Struce -->
-		  <div class="modal fade " id="myStruct" role="dialog" data-keyboard="false" data-backdrop="static">
-		    <div class="modal-dialog">
-		    
-		      <!-- Modal content-->
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal" ng-click='reset()'>&times;</button>
-		          <h4 class="modal-title">{{!site.id ? 'ADD NEW'  : 'UPDATE' }}</h4>
-		        </div>
-		        <div class="modal-body">
-					<form ng-submit="submit()" name="myForm">
-					<input type="hidden" ng-model="site.id" name="id" ng-disabled=true />
-					  <h4>Name</h4>
-			          <input type="text" ng-model="site.name" name="uname" placeholder="Enter site name" required ng-minlength="3" class='form-control'/>
-			          
-			          <h4>URL</h4>  
-			          <input type="text" ng-model="site.url" name="url" placeholder="Enter site url" required ng-minlength="3" class='form-control'/>
-			          
-			         <h4>BASEPATH</h4>     
-			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/><br/>
-			         
-			          <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
-			          class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
-			      	</form>
-		        </div>
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='reset()' >Close</button>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		  
-		  
 		  		  <!-- Modal View -->
 		  <div class="modal fade" id="myView" role="dialog" data-keyboard="false" data-backdrop="static">
 		    <div class="modal-dialog">
@@ -155,8 +121,28 @@
 			          		<td><img class="img" style='width:100px;height:100px'  src='{{domain}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
 			          	</tr>
 			      	    <tr>
-			          		<th>BASEPATH</th>
-			          		<td>{{ site.basepath }}</td>
+			          		<th class='active' colspan='2'><center> SITE SELECTOR  </center></th>
+			          	</tr>
+			          	
+			          	<tr>
+			          		<th>ROW SELECTOR</th>
+			          		<td>{{ structure.rowsSelector }}</td>
+			          	</tr>
+			          	<tr>
+			          		<th>TITLE SELECTOR</th>
+			          		<td>{{ structure.titleSelector }}</td>
+			          	</tr>
+			          	<tr>
+			          		<th>IMAGE SELECTOR</th>
+			          		<td>{{ structure.imageSelector }}</td>
+			          	</tr>
+			          	<tr>
+			          		<th>LINK SELECTOR</th>
+			          		<td>{{ structure.linkSelector }}</td>
+			          	</tr>
+			          	<tr>
+			          		<th>CONTENT SELECTOR</th>
+			          		<td>{{ structure.contentSelector }}</td>
 			          	</tr>
 		          	</table>
 		        </div>
@@ -211,9 +197,52 @@
 		      </div>
 		    </div>
 		  </div>
+		  
+					<!-- Modal Struce -->
+		  <div class="modal fade " id="myStruct" role="dialog" data-keyboard="false" data-backdrop="static">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" ng-click='resetStruct()'>&times;</button>
+		          <h4 class="modal-title">{{!structure.id ? 'ADD NEW'  : 'UPDATE' }}</h4>
+		        </div>
+		        <div class="modal-body">
+					<form ng-submit="submitStruct()" name="myFormStruc">
+					<input type="hidden" ng-model="structure.id" name="id" ng-disabled=true />
+					  <h4>ROW SELECTOR</h4>
+			          <input type="text" ng-model="structure.imageSelector" name="imageSelector" placeholder="Enter site name" required  class='form-control'/>
+			          
+			          <h4>TITLE SELECTOR</h4>  
+			          <input type="text" ng-model="structure.linkSelector" name="linkSelector" placeholder="Enter site url" required  class='form-control'/>
+			          
+			         <h4>IMAGE SELECTOR</h4>     
+			         <input type="text" ng-model="structure.titleSelector" name="titleSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
+		
+			         <h4>LINK SELECTOR</h4>     
+			         <input type="text" ng-model="structure.contentSelector" name="contentSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
+
+			         <h4>CONTENT SELECTOR</h4>     
+			         <input type="text" ng-model="structure.rowsSelector" name="rowsSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
+			         			         		         
+			          <input type="submit" value="{{!structure.id ? 'Add'  : 'Update' }}" ng-disabled="myFormStruc.$invalid" 
+			          class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
+			      	</form>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click='resetStruct()' >Close</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div> 
+		  
 		<div>
 			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-plus"></i></button> <br/><br/>
 		</div>
+		
+
+		
 		<div>
 			<div class="box">
 				<div class="box-body table-responsive no-padding">
@@ -235,7 +264,7 @@
 							</td>
 							<td> {{st.basepath}}</td>
 							<td> 
-								<button ng-click='findsitedetailById(st.s_id)' class='btn btn-warning' data-toggle="modal" data-target="#myStruct">STRUCTURE SCRAP</button>
+								<button ng-click='findStructureById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myStruct"><i class="fa fa-file-code-o"></i></button>
 								<button ng-click='findsiteById(st.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
 								<button ng-click='findsiteById(st.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
 								<button ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
@@ -274,15 +303,15 @@
 		    $scope.submit = function() {
 		    	if ( $scope.site.id == null){
 		    		$scope.insertsite();
-		    		$scope.reset();
 		    	}else{
 		    		$scope.updatesite();
-		    		$scope.reset();
 		    	}
-                console.log('Form is submitted with following user', $scope.site);
+		    	$scope.reset();
+		    	angular.element('#myAdd').modal('hide');
 		    }
 		    
  		    $scope.findsiteById = function(id){
+ 		    	$scope.findStructureById(id);
                 console.log('id to be edited', id);
                 for(var i = 0; i < $scope.site_list.length; i++){
                     if( $scope.site_list[i].id === id) {
@@ -320,10 +349,7 @@
 		    $scope.listsite();
 		    
 		    $scope.insertsite = function(){
-		    	alert('site');
 		    	console.log('site', $scope.site);
-		    	//console.log( $scope.findStructureById( $scope.site.id ) );
-		    	
  			    $http.post(
 						$scope.domain+'api/article/site/'
 						,$scope.site
@@ -356,7 +382,10 @@
 		    }  
 		    
 		    $scope.detetesite = function(id){
-			    $http.delete(
+		    	alert(id);
+		    	$scope.deleteStructure(id);
+		    	
+ 			    $http.delete(
 						$scope.domain+'api/article/site/'+id
 						,config
 					).success(function(response){						
@@ -372,6 +401,7 @@
 					}).error(function(response){
 						console.log( response ); 
 					});	  
+			     
 		    }  
 		    
 		    $scope.changeLogo = function(){
@@ -400,30 +430,106 @@
 		    
 		    // scraping structure  //http://localhost:8080/AKNnews/api/scrap/structure/
 		    
- 		    var urlstrcture = 'http://localhost:8080/AKNnews/api/'
+ 		    //var urlstrcture = 'http://localhost:8080/AKNnews/api/'
 		    $scope.structure_list = {};
-		    $scope.structure = {};
+		    $scope.strucTmpId = null;
+		    
+		    $scope.structure = {id:null,siteId:null, imageSelector:'',linkSelector:'',titleSelector:'',contentSelector:'',rowsSelector:''};
 		    
 		    $scope.liststructure = function(){
 			    $http.get(
-			    		urlstrcture+'scrap/structure/'
+			    		$scope.domain+'api/scrap/structure/'
 						,config
 					).success(function(response){
 						$scope.structure_list = response.RESPONSE_DATA;
 						console.log( $scope.structure_list );
+						
 					}).error(function(response){
 						console.log(response);
 					});	 
 		    }
 		    
  		    $scope.findStructureById = function(id){
- 		    	alert('1');
+ 		        console.log(id);
+ 		        $scope.strucTmpId = id;
 		    	for(var i=0;i<$scope.structure_list.length;i++){
 		    		if ( $scope.structure_list[i].id == id){
-		    			console.log( $scope.structure_list[i] );
+		    			//console.log( $scope.structure_list[i] );
+		    			$scope.structure = {
+		    					id:$scope.structure_list[i].id, 
+		    					imageSelector:$scope.structure_list[i].imageSelector,
+		    					linkSelector:$scope.structure_list[i].linkSelector,
+		    					titleSelector:$scope.structure_list[i].titleSelector,
+		    					contentSelector:$scope.structure_list[i].contentSelector,
+		    					rowsSelector:$scope.structure_list[i].rowsSelector
+		    				};
+		    			 
+		    			 //$scope.sturcture = angular.compy($scope.structure_list[i]);
+		    			console.log( $scope.structure );
+		    			
 		    			return true;
 		    		}
 		    	}
+		    }
+ 		    
+ 		    $scope.resetStruct = function(){
+ 		    	$scope.structure = {id:null,siteId:null, imageSelector:'',linkSelector:'',titleSelector:'',contentSelector:'',rowsSelector:''};
+ 		    	$scope.strucTmpId = null;
+                $scope.myFormStruc.$setPristine(); //reset Form
+            }
+ 		    
+ 		    $scope.submitStruct = function(){
+ 		    	if ( $scope.structure.id == null ){
+ 		    		$scope.structure.siteId = $scope.strucTmpId;
+ 		    		console.log($scope.structure);
+ 		    		$scope.insertStructure();
+ 		    		$scope.resetStruct();
+ 		    	}else{
+ 		    		$scope.structure.siteId = $scope.strucTmpId;
+ 		    		console.log($scope.structure);
+ 		    		$scope.updateStructure();
+ 		    		$scope.resetStruct();
+ 		    	}
+ 		    	
+ 		    	angular.element('#myStruct').modal('hide');
+ 		    }
+ 		    
+		    $scope.updateStructure = function(){
+		    	$http.put(
+						$scope.domain+'api/scrap/structure/'
+						,$scope.structure
+						,config
+					).success(function(response){						
+						console.log( response );
+						$scope.liststructure();
+					}).error(function(response){
+						console.log( response ); 
+					});	  
+		    } 
+		    
+		    $scope.insertStructure = function(){
+		    	$http.post(
+						$scope.domain+'api/scrap/structure/'
+						,$scope.structure
+						,config
+					).success(function(response){						
+						console.log( response );
+						$scope.liststructure();
+					}).error(function(response){
+						console.log( response ); 
+					});	  
+		    }  
+		    
+		    $scope.deleteStructure = function(id){
+		    	$http.delete(
+						$scope.domain+'api/scrap/structure/'+id
+						,config
+					).success(function(response){						
+						console.log( response );
+						$scope.liststructure();
+					}).error(function(response){
+						console.log( response ); 
+					});	  
 		    } 
 		    
 		    $scope.liststructure(); 

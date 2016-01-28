@@ -210,11 +210,11 @@
 		    $scope.submit = function() {
 		    	if ( $scope.category.id == null){
 		    		$scope.insertCategory();
-		    		$scope.reset();
 		    	}else{
 		    		$scope.updateCategory();
-		    		$scope.reset();
 		    	}
+		    	$scope.reset();
+		    	angular.element('#myAdd').modal('hide');
 		    }
 		    
  		    $scope.findCategoryById = function(id){
