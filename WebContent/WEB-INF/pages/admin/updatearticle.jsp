@@ -31,7 +31,7 @@
             <li class="active">Article Management</li>
           </ol>
         </section>
-
+		<data-dirty-tracking>
         <!-- Main content -->
         <section class="content">
           <div class="row">
@@ -236,7 +236,7 @@
             
           </div><!-- ./row -->
         </section><!-- /.content -->
-        
+        </data-dirty-tracking>
         
       </div><!-- /.content-wrapper -->
      <footer class="main-footer">
@@ -270,7 +270,20 @@
 
      
       });
-     
+      /* function goodbye(e) {
+    	    if(!e) e = window.event;
+    	    //e.cancelBubble is supported by IE - this will kill the bubbling process.
+    	    e.cancelBubble = true;
+    	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+
+    	    //e.stopPropagation works in Firefox.
+    	    if (e.stopPropagation) {
+    	        e.stopPropagation();
+    	        e.preventDefault();
+    	    }
+    	}
+    	window.onbeforeunload=goodbye;  */
+
      
      
     </script>
@@ -306,9 +319,6 @@
 		
 		$scope.hasNewsId = function(){
 			if($scope.newid < 1) location.href="${pageContext.request.contextPath }/admin/article";
-			else{
-				
-			}
 		}
 		
 		$scope.hasNewsId();
@@ -526,7 +536,7 @@
 					};
 				 var formData = new FormData();
 			    
-			     alert(file+" "+$scope.showthumbnail);
+			    
 			     formData.append("file", file);
 			     formData.append("json",JSON.stringify(json));//important: convert to JSON!
 			     $http({
@@ -537,13 +547,13 @@
 			        
 			      }).success(function(response) {
 				        console.log('Request finished', response);
-				        alert(response.MESSAGE);
+				        alert("UPDATE SUCCESS");
 				     
 				  }); 
 			
 		};
 		
-		
+	
 		
 		
 		$scope.displayBox = function(){
@@ -556,7 +566,36 @@
 		
 	
 
-	});
+	}).directive('dirtyTracking', [function () {
+	    return {
+	        restrict: 'A',
+	        link: function ($scope, $element, $attrs) {
+	            function isDirty() {
+	                var formObj = $scope[$element.attr('name')];
+	                return formObj && formObj.$pristine === false;
+	            }
+
+	            function areYouSurePrompt() {
+	                if (isDirty()) {
+	                    return 'You have unsaved changes. Are you sure you want to leave this page?';
+	                }
+	            }
+
+	            window.addEventListener('beforeunload', areYouSurePrompt);
+
+	            $element.bind("$destroy", function () {
+	                window.removeEventListener('beforeunload', areYouSurePrompt);
+	            });
+
+	            $scope.$on('$locationChangeStart', function (event) {
+	                var prompt = areYouSurePrompt();
+	                if (!event.defaultPrevented && prompt && !confirm(prompt)) {
+	                    event.preventDefault();
+	                }
+	            });
+	        }
+	    };
+	}]);
   
     
     </script>
