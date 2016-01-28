@@ -8,6 +8,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard | AKNnews</title>
     <!-- Tell the browser to be responsive to screen width -->
+<<<<<<< .mine
+
+	<jsp:include page="import/header.jsp"></jsp:include>
+	
+	<%--  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
+  
+   
+    <!-- Select2 -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+           <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
+	  --%>
+<style>
+=======
+>>>>>>> .r202
 
 	<jsp:include page="import/header.jsp"></jsp:include> 
 
@@ -68,7 +89,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">USER</span>
-                  <span class="info-box-number">760</span>
+                  <span class="info-box-number">{{totalusers}}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -236,41 +257,12 @@
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
                       
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user8-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Norman</a>
-                          <span class="users-list-date">Yesterday</span>
+                        <li ng-repeat="listuser in listusers">
+                          <img src="http://localhost:8080/AKNnews/resources/images/user/{{listuser.image}}" alt="User Image">
+                          <a class="users-list-name" href="#">{{listuser.username}}</a>
+                          <span class="users-list-date">{{listuser.register_date}}</span>
                         </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user7-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Jane</a>
-                          <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user6-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">John</a>
-                          <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user2-160x160.jpg" alt="User Image">
-                          <a class="${pageContext.request.contextPath }/resources/users-list-name" href="#">Alexander</a>
-                          <span class="users-list-date">13 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user5-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Sarah</a>
-                          <span class="users-list-date">14 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user4-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Nora</a>
-                          <span class="users-list-date">15 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user3-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Nadia</a>
-                          <span class="users-list-date">15 Jan</span>
-                        </li>
+                        
                       </ul><!-- /.users-list -->
                     </div><!-- /.box-body -->
                     <div class="box-footer text-center">
@@ -293,45 +285,10 @@
                     </div><!-- /.box-header -->
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user1-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Alexander Pierce</a>
-                          <span class="users-list-date">Today</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user8-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Norman</a>
-                          <span class="users-list-date">Yesterday</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user7-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Jane</a>
-                          <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user6-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">John</a>
-                          <span class="users-list-date">12 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user2-160x160.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Alexander</a>
-                          <span class="users-list-date">13 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user5-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Sarah</a>
-                          <span class="users-list-date">14 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user4-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Nora</a>
-                          <span class="users-list-date">15 Jan</span>
-                        </li>
-                        <li>
-                          <img src="${pageContext.request.contextPath }/resources/dist/img/user3-128x128.jpg" alt="User Image">
-                          <a class="users-list-name" href="#">Nadia</a>
-                          <span class="users-list-date">15 Jan</span>
+                        <li ng-repeat="listadmin in listadmins">
+                         <img src="http://localhost:8080/AKNnews/resources/images/user/{{listadmin.image}}" alt="User Image">
+                          <a class="users-list-name" href="#">{{listadmin.username}}</a>
+                          <span class="users-list-date">{{listadmin.register_date}}</span>
                         </li>
                       </ul><!-- /.users-list -->
                     </div><!-- /.box-body -->
@@ -380,6 +337,10 @@
 		$scope.numofmulkulkarnews =0;
 		$scope.totalnews=0;
 		
+		$scope.totalusers=0;
+		$scope.listusers={};
+		$scope.listadmins={};
+		
 	
 		$scope.getNumberofSite = function(){
 			$http({
@@ -394,6 +355,7 @@
 				$scope.numberofsite = response.DATA;
 			});
 		};	
+		
 		$scope.loadPopNews = function(){
 			$http({
 				method : "GET",
@@ -454,12 +416,14 @@
     			$scope.numofsabaynews = response1.TOTAL_RECORDS;
     			$scope.percentofsabaynews =($scope.numofsabaynews * 100)/$scope.totalnews;
     		});
+        	
         	//thebnews
     		$scope.getNumberofNews(5).success(function(response2){
     			if(response2.TOTAL_RECORDS == 0) console.log('no news..!');   		
     			$scope.numofthebnews = response2.TOTAL_RECORDS;
     			$scope.percentofthebnews =($scope.numofthebnews * 100)/$scope.totalnews;
     		});
+        	
     		//mulkulkar
     		$scope.getNumberofNews(12).success(function(response3){
     			if(response3.TOTAL_RECORDS == 0) console.log('no news..!');  
@@ -470,11 +434,29 @@
 		});
 		
 		
+		$scope.getUserInfo=function(){
+			$http({
+				method : "GET",
+				url : domain+"api/user/adminuserinfo"
+				
+			}).success(function(response){
+				
+				if(response.TOTALRECORD.length == 0){
+            		console.log('no user info..!');  
+            		return;
+            	}
+				$scope.totalusers=response.TOTALRECORD;
+				$scope.listusers=response.LISTUSER;
+				$scope.listadmins=response.LISTADMIN;
+			});
+		}
+		
+		
 		
 		$scope.loadAKNNews();
 		$scope.loadPopNews();
 		$scope.getNumberofSite();
-		
+		$scope.getUserInfo();
 
 		$scope.percentofaknnews = ($scope.numofaknnews*$scope.totalnews)/100;
 		$scope.percentofthebnews = ($scope.numofthebnews*$scope.totalnews)/100;;
