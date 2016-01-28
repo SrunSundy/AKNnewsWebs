@@ -144,7 +144,7 @@
 	                      		 <input type="hidden" name="newscate" ng-value="'{{article.category.name}}'"/>
 	                       		<button type="submit" class="fa fa-pencil-square-o action ownweb btn btn-primary" ></button>
 	                      </form>
-	                      <button type="button" class="fa fa-share action ownweb btn btn-success" ng-click="gotoSite(${pageContext.request.contextPath }/article.url)" ></button>
+	                      <button type="button" class="fa fa-share action ownweb btn btn-success" ng-click="gotoSiteOwn(article.url)" ></button>
                       </td>
                       <td ng-show="article.site.id != 6"><button type="button" class="fa fa-share action btn btn-success" ng-click="gotoSite(article.url)" ></button></td>
                     </tr>
@@ -246,6 +246,11 @@
 			
 			 window.open( url,'_blank');
 		}
+		$scope.gotoSiteOwn = function(url){
+			
+			 window.open($scope.webbaseurl +url,'_blank');
+		}
+		
 		$scope.listSearchArticles = function(key){
 			$scope.triggerpage++;
 			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": -1};

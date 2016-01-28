@@ -157,7 +157,7 @@
 				
 				<div class="col-md-4">
 						<div class="info-box bg-green">
-						<span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
+						<span class="info-box-icon"><i class="fa fa-sitemap"></i></span>
 						<div class="info-box-content">
 						  <span class="info-box-text">AKN NEWS</span>
 						  <span class="info-box-number">{{numofaknnews }}</span>
@@ -170,7 +170,7 @@
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
 					  <div class="info-box bg-red">
-						<span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
+						<span class="info-box-icon"><i class="fa fa-sitemap"></i></span>
 						<div class="info-box-content">
 						  <span class="info-box-text">SABAY NEWS</span>
 						  <span class="info-box-number">{{numofsabaynews }}</span>
@@ -183,7 +183,7 @@
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
 					  <div class="info-box bg-yellow">
-						<span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+						<span class="info-box-icon"><i class="fa fa-sitemap"></i></span>
 						<div class="info-box-content">
 						  <span class="info-box-text">THEBNEWS</span>
 						  <span class="info-box-number">{{numofthebnews }}</span>
@@ -196,7 +196,7 @@
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
 					  <div class="info-box bg-aqua">
-						<span class="info-box-icon"><i class="ion-ios-chatbubble-outline"></i></span>
+						<span class="info-box-icon"><i class="fa fa-sitemap"></i></span>
 						<div class="info-box-content">
 						  <span class="info-box-text">MULKULKAR</span>
 						  <span class="info-box-number">{{numofmulkulkarnews }}</span>
@@ -301,11 +301,17 @@
   <script>
  
 	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $http){
+	app.controller('myCtrl', function($scope, $http ,$location){
 	
-		var domain = "http://localhost:8080/AKNnews/";
 		//for set header with http wehn request 
 		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
+		
+		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+
+		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+		$scope.baseurl = $scope.domain + "/AKNnews/";
+		
+		
 		
 		$scope.popnews = [];
 		$scope.aknnews = [];
@@ -324,7 +330,7 @@
 		$scope.getNumberofSite = function(){
 			$http({
 				method : "GET",
-				url : domain+"api/article/site/record"
+				url : $scope.baseurl+"api/article/site/record"
 				
 			}).success(function(response){
 				
@@ -338,7 +344,7 @@
 		$scope.loadPopNews = function(){
 			$http({
 				method : "GET",
-				url : domain+"api/article/popular/0/30/4"
+				url : $scope.baseurl+"api/article/popular/0/30/4"
 				
 			}).success(function(response){
 				
@@ -357,7 +363,7 @@
 		$scope.loadAKNNews = function(){
 			$http({
 				method : "GET",
-				url : domain+"api/article/1/4/0/6/-1/"
+				url : $scope.baseurl+"api/article/1/4/0/6/-1/"
 				
 			}).success(function(response){
 				
@@ -375,7 +381,7 @@
 		$scope.getNumberofNews = function(sid){
 			return $http({
 				method : "GET",
-				url : domain+"api/article/record/0/"+sid+"/-1/"
+				url : $scope.baseurl+"api/article/record/0/"+sid+"/-1/"
 			});
 		};
 		//ALL news
@@ -416,7 +422,7 @@
 		$scope.getUserInfo=function(){
 			$http({
 				method : "GET",
-				url : domain+"api/user/adminuserinfo"
+				url : $scope.baseurl+"api/user/adminuserinfo"
 				
 			}).success(function(response){
 				

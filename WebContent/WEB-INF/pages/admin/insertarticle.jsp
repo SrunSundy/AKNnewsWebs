@@ -157,29 +157,20 @@
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http){
 		
-		var domain = "http://localhost:8080/AKNnews/";
+
+		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+
+		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+		$scope.baseurl = $scope.domain + "/AKNnews/";
 
 		$scope.categories = [];
-		
-	 	/*$scope.triggerimage = 0;
-		$scope.image = "NO IMAGE"; 
-		
-		 */
-		/* $scope.processActionNews = function(){
-			if($("#newsid").val()!= 0){
-				$scope.processupdateNews();
-			}
-			else{
-				$scope.processInsertNews();
-			}
-		}; */
 		
 		
 		 $scope.listCategories = function(){
 			
 			$http({
                 method: "GET",
-                url: domain + "api/article/category/news/",
+                url: $scope.baseurl + "api/article/category/news/",
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 }
@@ -209,7 +200,7 @@
 		     formData.append("file", file);
 		     formData.append("json",JSON.stringify(json));//important: convert to JSON!
 		     $http({
-		    		  url: domain + "api/article/",
+		    		  url: $scope.baseurl + "api/article/",
 		        method: 'POST',
 		        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
 		        data: formData,
@@ -221,89 +212,8 @@
 			  }); 
 		};
 		
-		
-		
-		/* $scope.listDataToForm = function(){
-			
-			var newsid = $("#newsid").val();
-			alert(newsid);
-			$http({
-                method: "GET",
-                url: domain + "api/article/detail/"+newsid,
-                headers: {
-                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
-                }
-            })
-            .success(function (response) {
-            	
-            	
-            	$scope.news = response.RESPONSE_DATA;
-            	alert($scope.news.category.id);
-            	$scope.title = $scope.news.title;
-            	$scope.description = $scope.news.description;
-            	alert($scope.news.image);
-            	$scope.image = $scope.news.image;
-            	$("#thum").html("<img src="+domain+"resources/images/"+$scope.news.image+" />");
-            	alert($scope.news.content);
-            	CKEDITOR.instances["editor1"].setData($scope.news.content);
-            	$scope.fcate = $scope.news.category.id;    
-           		
-		    });
-			
-		}; */
-	
-	/* 	
-		$scope.processupdateNews = function(){
-			alert($("#newsid").val());
-		 alert($scope.triggerimage);
-		 alert( $scope.fcate.id);
-			alert($scope.image +  "     " +$scope.title+"   "+$scope.description+"  "+CKEDITOR.instances.editor1.getData());
-			var json={
-					"category":{
-						"id" : $scope.fcate.id
-					},
-					"title" :  $scope.title,
-					"description" : $scope.description,
-					"content": CKEDITOR.instances.editor1.getData()
-				};
-			 var formData = new FormData();
-			  var file = $('#newsthumbnail')[0].files[0];
-			     alert(file);
-		     formData.append("file", file);
-		    formData.append("json",JSON.stringify(json));//important: convert to JSON!
-		     $http({
-		    		  url: domain + "api/article/",
-		        method: 'PUT',
-		        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
-		        data: formData
-		        
-		      }).success(function(response) {
-			        console.log('Request finished', response);
-			        alert(response.MESSAGE);
-			     
-			  }); 
-		};
-		
-		$scope.runListDataToForm = function(){
-			if($("#newsid").val()!= 0){
-				$scope.listDataToForm();
-				$("#btnaction").html("Update");
-			}
-		};
-
-
-		$scope.updateNews = function(){
-			alert($("#newsid").val());
-			alert($scope.triggerimage);
-			alert($scope.image); 
-		};
-
- */
-
-		
-		
 		 $scope.listCategories();
- /*	$scope.runListDataToForm(); */
+
 		
 		
 

@@ -277,9 +277,12 @@
     
     <script>
 	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $http){
+	app.controller('myCtrl', function($scope, $http,$location){
 		
-		var domain = "http://localhost:8080/AKNnews/";
+		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+
+		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+		$scope.baseurl = $scope.domain + "/AKNnews/";
 		
 		$scope.newid = $("#newsid").val();
 		$scope.newcate = $("#newscate").val();
@@ -317,7 +320,7 @@
 		$scope.processLoadCategories = function(){
 			$http({
                 method: "GET",
-                url: domain + "api/article/category/news/",
+                url: $scope.baseurl + "api/article/category/news/",
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 }
@@ -345,7 +348,7 @@
 		$scope.processLoadTitle = function(){
 			$http({
                 method: "GET",
-                url: domain + "api/article/title/"+$scope.newid,
+                url: $scope.baseurl + "api/article/title/"+$scope.newid,
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 }
@@ -370,7 +373,7 @@
 		$scope.processLoadDescription = function(){
 			$http({
                 method: "GET",
-                url: domain + "api/article/description/"+$scope.newid,
+                url: $scope.baseurl + "api/article/description/"+$scope.newid,
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 }
@@ -394,7 +397,7 @@
 			
 			$http({
                 method: "GET",
-                url: domain + "api/article/image/"+$scope.newid,
+                url: $scope.baseurl + "api/article/image/"+$scope.newid,
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 }
@@ -402,7 +405,7 @@
             .success(function (response) {
             	$scope.thumbtrigger=1;
             	$scope.showthumbnail = response.RESPONSE_DATA;	
-            	$("#thum").html("<img src="+domain+"resources/images/news/"+$scope.showthumbnail+" />");
+            	$("#thum").html("<img src="+$scope.baseurl +"resources/images/news/"+$scope.showthumbnail+" />");
             	
 		    });
 		};
@@ -419,7 +422,7 @@
 		$scope.processLoadContent = function(){
 			$http({
                 method: "GET",
-                url: domain + "api/article/content/"+$scope.newid,
+                url: $scope.baseurl + "api/article/content/"+$scope.newid,
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 }
@@ -443,7 +446,7 @@
 			var json = {"category":{"id" : $scope.fcate.id},"id" : $scope.newid};
 			$http({
                 method: "PUT",
-                url: domain + "api/article/newscategory/",
+                url: $scope.baseurl + "api/article/newscategory/",
                 headers: {
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 },
@@ -458,7 +461,7 @@
 			var json = {"title": $scope.title,"id" : $scope.newid};
 			$http({
 	              method: "PUT",
-	              url: domain + "api/article/title/",
+	              url: $scope.baseurl + "api/article/title/",
 	              headers: {
 	                  'Authorization': 'Basic YXBpOmFrbm5ld3M='
 	              },
@@ -475,7 +478,7 @@
 				};
 				$http({
 	                method: "PUT",
-	                url: domain + "api/article/description/",
+	                url: $scope.baseurl + "api/article/description/",
 	                headers: {
 	                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
 	                },
@@ -493,7 +496,7 @@
 				};
 				$http({
 	                method: "PUT",
-	                url: domain + "api/article/content/",
+	                url: $scope.baseurl + "api/article/content/",
 	                headers: {
 	                     'Authorization': 'Basic YXBpOmFrbm5ld3M='
 	                },
@@ -527,7 +530,7 @@
 			     formData.append("file", file);
 			     formData.append("json",JSON.stringify(json));//important: convert to JSON!
 			     $http({
-			    		  url: domain + "api/article/image/",
+			    		  url: $scope.baseurl + "api/article/image/",
 			        method: 'POST',
 			        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
 			        data: formData,
