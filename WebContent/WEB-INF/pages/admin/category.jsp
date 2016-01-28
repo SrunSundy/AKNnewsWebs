@@ -183,11 +183,16 @@
 
 		<script>
 		var app = angular.module('myApp', []);
-		app.controller('myCtrl', function($scope,$http) {
-		    $scope.category={id:null,name:''};		 
+		app.controller('myCtrl', function($scope,$http,$location) {
+		    	 
+		    
+			$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+			
+			$scope.domain =  $scope.weburl  + "/AKNnews/";
+			
+			$scope.category={id:null,name:''};	
 		    
 		    $scope.submit = function() {
-		    	//alert( $scope.category.id );
 		    	if ( $scope.category.id == null){
 		    		$scope.insertCategory();
 		    		$scope.reset();
@@ -195,9 +200,6 @@
 		    		$scope.updateCategory();
 		    		$scope.reset();
 		    	}
-                console.log('Form is submitted with following user', $scope.category);
-                
-                
 		    }
 		    
  		    $scope.findCategoryById = function(id){
@@ -217,7 +219,6 @@
             }
 		    
 		    $scope.category_list = {};
-		    var url = 'http://localhost:8080/AKNnews/api/';
 		    
 		    var config = {headers: {
 	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
@@ -227,7 +228,7 @@
 		    $scope.listCategory = function(){
 		    	////alert("list");
 			    $http.get(
-						url+'article/category/'
+						$scope.domain+'api/article/category/'
 						,config
 					).success(function(response){
 						$scope.category_list = response.DATA;
@@ -243,7 +244,7 @@
 		    	//alert("insert");
 		    	console.log('category', $scope.category);
 			    $http.post(
-						url+'article/category/'
+						$scope.domain+'api/article/category/'
 						,$scope.category
 						,config
 					).success(function(response){						
@@ -261,7 +262,7 @@
 		    	//alert("update");
 		    	console.log('category', $scope.category);
 			    $http.put(
-						url+'article/category/'
+						$scope.domain+'api/article/category/'
 						,$scope.category
 						,config
 					).success(function(response){						
@@ -277,7 +278,7 @@
 		    $scope.deteteCategory = function(id){
 		    	////alert("delete");
 			    $http.delete(
-						url+'article/category/'+id
+						$scope.domain+'api/article/category/'+id
 						,config
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
@@ -293,7 +294,7 @@
 		    $scope.menuCategory = function(id){
 		    	//alert("menu");
 			    $http.patch(
-						url+'article/category/toggle/'+id
+						$scope.domain+'api/article/category/toggle/'+id
 						,''
 						,config
 					).success(function(response){						

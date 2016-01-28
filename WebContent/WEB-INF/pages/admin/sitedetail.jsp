@@ -214,7 +214,12 @@
 
 		<script>
 		var app = angular.module('myApp', []);
-		app.controller('myCtrl', function($scope,$http) {
+		app.controller('myCtrl', function($scope,$http,$location) {
+			
+			$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+			
+			$scope.domain =  $scope.weburl  + "/AKNnews/";
+			
 			$scope.id=null;
 		    $scope.sitedetail={c_id:'',s_id:'',url:'',status:''};		 
 		    
@@ -248,7 +253,6 @@
             }
 		    
 		    $scope.sitedetail_list = {};
-		    var url = 'http://localhost:8080/AKNnews/api/';
 		    
 		    var config = {headers: {
 	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
@@ -257,7 +261,7 @@
 	    	};
 		    $scope.listsitedetail = function(){
 			    $http.get(
-						url+'article/scrapurl/'
+						$scope.domain+'api/article/scrapurl/'
 						,config
 					).success(function(response){
 						$scope.sitedetail_list = response.DATA;
@@ -274,7 +278,7 @@
 		    $scope.insertsitedetail = function(){
  		    	console.log('sitedetail', $scope.sitedetail);
  			    $http.post(
-						url+'article/scrapurl/'
+						$scope.domain+'/api/article/scrapurl/'
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
@@ -292,7 +296,7 @@
 		    $scope.updatesitedetail = function(){
 		    	console.log('sitedetail', $scope.sitedetail);
  			    $http.put(
-						url+'article/scrapurl/'
+						$scope.domain+'api/article/scrapurl/'
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
@@ -308,7 +312,7 @@
 		    
 		    $scope.detetesitedetail = function(s_id,c_id){
 			    $http.delete(
-						url+'article/scrapurl/'+s_id+'/'+c_id
+						$scope.domain+'api/article/scrapurl/'+s_id+'/'+c_id
 						,config
 					).success(function(response){						
 						$scope.listsitedetail();
@@ -327,7 +331,7 @@
 		    
 		    $scope.statusSiteDetail = function(s_id, c_id){
 			    $http.patch(
-						url+'article/scrapurl/toggle/'+s_id+'/'+c_id
+						$scope.domain+'api/article/scrapurl/toggle/'+s_id+'/'+c_id
 						,''
 						,config
 					).success(function(response){						
@@ -346,7 +350,7 @@
 		    
 		    $scope.listcategory = function(){
 			    $http.get(
-						url+'article/category/'
+						$scope.domain+'api/article/category/'
 						,config
 					).success(function(response){
 						$scope.category_list = response.DATA;
@@ -360,7 +364,7 @@
 		    
 		    $scope.listsite = function(){
 			    $http.get(
-						url+'article/site/'
+						$scope.domain+'api/article/site/'
 						,config
 					).success(function(response){
 						$scope.site_list = response.DATA;

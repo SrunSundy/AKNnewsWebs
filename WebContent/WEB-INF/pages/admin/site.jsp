@@ -55,15 +55,14 @@
           </ol>
         </section>
 
-        <!-- Main content -->
+
         <!-- Main content -->
         
         <section class="content">         	          
 		<div ng-app="myApp" ng-controller="myCtrl" >
-		<c:set var="base_url" value="http://localhost:8080/AKNnews/resources/images/logo/"/>
 		
 		  <!-- Modal ADD -->
-		  <div class="modal fade" id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
+		  <div class="modal fade " id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
 		    <div class="modal-dialog">
 		    
 		      <!-- Modal content-->
@@ -118,7 +117,7 @@
 			          	</tr>
 			          	<tr>
 			          		<th>LOGO</th>
-			          		<td><img class="img"  src='${base_url}{{site.logo}}' data-toggle="modal"/></td>
+			          		<td><img class="img" style='width:100px;height:100px'  src='{{domain}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
 			          	</tr>
 			      	    <tr>
 			          		<th>BASEPATH</th>
@@ -178,7 +177,7 @@
 		    </div>
 		  </div>
 		<div>
-			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">ADD NEW</button> <br/><br/>
+			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-plus"></i></button> <br/><br/>
 		</div>
 		<div>
 			<div class="box">
@@ -194,16 +193,17 @@
 						</tr>
 						<tr ng-repeat="st in site_list">
 							<td> {{st.id}}</td>
-							<td> {{st.name}}</td>
+							<td> <button class='btn btn-xs btn-danger'>{{st.name}}</button></td>
 							<td> {{st.url}}</td>
-							<td> <img class="img"  src='${base_url}{{st.logo}}' data-toggle="modal" data-target="#myUpload" ng-click='findsiteById(st.id)' />  
+							<td> <img class="img"  src='{{domain}}resources/images/logo/{{st.logo}}' data-toggle="modal" data-target="#myUpload" ng-click='findsiteById(st.id)' />  
 								 <!-- <button ng-click='findsiteById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myUpload">change logo</button> -->
 							</td>
 							<td> {{st.basepath}}</td>
 							<td> 
-								<button ng-click='findsiteById(st.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete">DELETE</button>
-								<button ng-click='findsiteById(st.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd">UPDATE</button>
-								<button ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView">VIEW</button>
+								<!-- <button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-warning' data-toggle="modal" data-target="#myAdd">STRUCTURE SCRAP</button> -->
+								<button ng-click='findsiteById(st.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
+								<button ng-click='findsiteById(st.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
+								<button ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
 							 </td>	
 						</tr>
 					</table>
@@ -214,11 +214,15 @@
 
 		<script>
 		var app = angular.module('myApp', []);
-		app.controller('myCtrl', function($scope,$http) {
+		app.controller('myCtrl', function($scope,$http,$location) {
+			
+			$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+			
+			$scope.domain =  $scope.weburl  + "/AKNnews/";
+			
 		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'' };		 
 		    
 		    $scope.submit = function() {
-		    	//alert( $scope.site.id );
 		    	if ( $scope.site.id == null){
 		    		$scope.insertsite();
 		    		$scope.reset();
@@ -227,8 +231,6 @@
 		    		$scope.reset();
 		    	}
                 console.log('Form is submitted with following user', $scope.site);
-                
-                
 		    }
 		    
  		    $scope.findsiteById = function(id){
@@ -248,7 +250,6 @@
             }
 		    
 		    $scope.site_list = {};
-		    var url = 'http://localhost:8080/AKNnews/api/';
 		    
 		    var config = {headers: {
 	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
@@ -256,9 +257,8 @@
 	       		 }
 	    	};
 		    $scope.listsite = function(){
-		    	////alert("list");
 			    $http.get(
-						url+'article/site/'
+						$scope.domain+'api/article/site/'
 						,config
 					).success(function(response){
 						$scope.site_list = response.DATA;
@@ -271,32 +271,35 @@
 		    $scope.listsite();
 		    
 		    $scope.insertsite = function(){
-		    	//alert("insert");
+		    	alert('site');
 		    	console.log('site', $scope.site);
-			    $http.post(
-						url+'article/site/'
+		    	//console.log( $scope.findStructureById( $scope.site.id ) );
+		    	
+ 			    $http.post(
+						$scope.domain+'api/article/site/'
 						,$scope.site
 						,config
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
+						alert(response.MESSAGE);
 						console.log( response ); 						
-						console.log( $scope.site_list );
+						console.log( $scope.site_list ); 
 					}).error(function(response){
 						console.log( response ); 
-					});	 
+					});	  
 		    }
 		    
 		    
 		    $scope.updatesite = function(){
-		    	//alert("update");
 		    	console.log('site', $scope.site);
 			    $http.put(
-						url+'article/site/'
+						$scope.domain+'api/article/site/'
 						,$scope.site
 						,config
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
-						console.log( response ); 						
+						console.log( response ); 	
+						alert(response.MESSAGE);
 						console.log( $scope.site_list );
 					}).error(function(response){
 						console.log( response ); 
@@ -304,13 +307,16 @@
 		    }  
 		    
 		    $scope.detetesite = function(id){
-		    	////alert("delete");
 			    $http.delete(
-						url+'article/site/'+id
+						$scope.domain+'api/article/site/'+id
 						,config
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
-						alert(response);
+						if (response.STATUS == 404){
+							alert(response.MESSAGE +' site exit news');
+						}else{
+							alert(response.MESSAGE);
+						}
 						console.log( response ); 						
 						console.log( $scope.site_list );
 						$scope.reset();
@@ -322,7 +328,7 @@
 		    $scope.changeLogo = function(){
 		    	var form_data = new FormData(document.getElementById('frmupload'));                     		    	
   			    $http.post(
-						url+'article/site/upload'
+						$scope.domain+'api/article/site/upload'
 						,form_data
 						,{
 							transformRequest : angular.identity,
@@ -334,7 +340,8 @@
 						}
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
-						console.log( response ); 	
+						console.log( response ); 
+						alert(response.MESSAGE);
 						console.log($scope.site);
 						console.log( $scope.site_list );
 					}).error(function(response){
@@ -342,6 +349,34 @@
 					});	   
 		    } 
 		    
+		    // scraping structure  //http://localhost:8080/AKNnews/api/scrap/structure/
+		    
+/* 		    var urlstrcture = 'http://localhost:8080/AKNnews/api/'
+		    $scope.structure_list = {};
+		    $scope.structure = {};
+		    
+		    $scope.liststructure = function(){
+			    $http.get(
+			    		urlstrcture+'scrap/structure/'
+						,config
+					).success(function(response){
+						$scope.structure_list = response.RESPONSE_DATA;
+						console.log( $scope.structure_list );
+					}).error(function(response){
+						console.log(response);
+					});	 
+		    }
+		    
+		    $scope.findStructureById = function(id){
+		    	for(var i=0;i<$scope.structure_list.length;i++){
+		    		if ( $scope.structure_list[i] == id){
+		    			console.log( $scope.structure_list[i] );
+		    			return true;
+		    		}
+		    	}
+		    }
+		    
+		    $scope.liststructure(); */
 		    
 		});
 		</script>

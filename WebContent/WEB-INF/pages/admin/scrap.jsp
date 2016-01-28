@@ -34,19 +34,9 @@
        			visibility: show;
        		}
        		
-       	  .ng-required{
+       	  .error{
 	   	  	color:red;
 	   	  }
-	      .ng-invalid {
-	          color: red;
-	      }
-	      .ng-dirty.ng-invalid-required {
-	          color: red;
-	      }
-	      ng-dirty.ng-invalid-minlength {
-	          color: red;
-	      }
-       		
        		
        </style>
   </head>
@@ -84,22 +74,18 @@
 				                		<div class="col-md-12">
 				                		     <div class="input-group">
 						                     	 <span class="input-group-addon">Web Site</span>
-							                     
-									        	   <!-- <h4>SOURCE NAME</h4> -->
-									        	   
 												    <select name="s_select" id="s_select" ng-model="id" required class='form-control'>
 												      <option value="">---Please select---</option>
-												      <option ng-repeat="site in site_list" value="{{site.id}}">{{site.name}}</option>
+												      <option ng-repeat="site in site_list" value="{{site.id}}" ng-hide="{{site.name=='AKNnews'}}">{{site.name}}</option>
 												    </select>
 						                  	 </div><br>
 						                 </div>
 				                	</div>
 				                	<div class="col-md-12">
 					                	<div class="col-md-10">
-					                	 	<span ng-show="myForm.$dirty && myForm.s_select.$error.required">This is a required field</span>
+					                	 	<span class='error' ng-show="myForm.$dirty && myForm.s_select.$error.required">This is a required field</span>
 					                	</div>
 				                		<div class="col-md-2">
-				                		<!-- 	<button style="width:100%" class="btn btn-default" ng-disabled="myForm.$invalid">Scrap</button> -->
 				                			<input style="width:100%" type="submit" value="SCRAP" ng-disabled="myForm.$invalid" class="btn btn-success" />
 				                		</div>
 				                	</div>
@@ -151,9 +137,12 @@
     </script>
     <script>
 	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $http){
+	app.controller('myCtrl', function($scope, $http, $location){
 		
-		var domain = "http://localhost:8080/AKNnews/";
+		$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+		
+		$scope.domain =  $scope.weburl  + "/AKNnews/";
+		
 		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
 		
 		angular.element(".select2").select2();
@@ -163,7 +152,7 @@
 		$scope.site_list = {};
 	    $scope.listsite = function(){
 		    $http.get(
-		    		domain+'api/article/site/'					
+		    		$scope.domain+'api/article/site/'					
 				).success(function(response){
 					$scope.site_list = response.DATA;
 					console.log( $scope.site_list );
@@ -176,7 +165,7 @@
 	    	angular.element( "#load" ).removeClass( 'dis' );
 	    	angular.element( "#load" ).addClass( 'sh' );
   		    $http.get(
-		    		domain+'api/scrap/site/'+$scope.id
+  		    		$scope.domain+'api/scrap/site/'+$scope.id
 				).success(function(response){
 					$scope.effected = response.CONTENT;
 					console.log( response );
@@ -186,17 +175,7 @@
 					console.log( response );
 				});	 
 	    }
-	    
-/* 		$scope.reset = function(){
- 			$scope.id=null;
- 			$scope.effected = null;
- 		   	//$scope.sitedetail={c_id:'',s_id:'',url:'',status:''};	
-            $scope.myForm.$setPristine(); //reset Form
-        } */
-	    
 	    $scope.listsite();
-	    
-		
 	});
   
     

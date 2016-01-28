@@ -29,7 +29,7 @@
               </a>
               <ul class="treeview-menu">
                	<li><a href="${pageContext.request.contextPath }/admin/site/"><i class="fa fa-circle-o"></i><span>Site Management</span></a></li>
-            	<li><a href="${pageContext.request.contextPath }/admin/sitedetail/"><i class="fa fa-circle-o"></i><span>Sitedetail Management</span></a></li>
+            	<li><a href="${pageContext.request.contextPath }/admin/sitedetail/"><i class="fa fa-circle-o"></i><span>Scrap Url Management</span></a></li>
            
               </ul>
             </li>
