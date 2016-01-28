@@ -1,0 +1,9 @@
+/* Chrome, Safari, Opera */
+@-webkit-keyframes msgalert {
+    0%{left:50%;}5%{left:49.7%;}20%{left:50%;}15%{left:49.7%;}20%{left:50%;}25%{left:49.7%;}30%{left:50%;}35{left:49.7%;}40%{left:50%;}45%{left:49.7%;}50%{left:50%;}55%{left:49.7%;}60%{left:50%;}65%{left:49.7%;}70%{left:50%;}75%{left:49.7%;}80%{left:50%;}85%{left:49.9%;}90{left:50%;}95%{left:49.9%;}100%{left:50%;}
+}
+
+/* Standard syntax */
+@keyframes msgalert {
+	 0%{left:50%;}5%{left:49.7%;}20%{left:50%;}15%{left:49.7%;}20%{left:50%;}25%{left:49.7%;}30%{left:50%;}35{left:49.7%;}40%{left:50%;}45%{left:49.7%;}50%{left:50%;}55%{left:49.7%;}60%{left:50%;}65%{left:49.7%;}70%{left:50%;}75%{left:49.7%;}80%{left:50%;}85%{left:49.9%;}90{left:50%;}95%{left:49.9%;}100%{left:50%;}
+}
