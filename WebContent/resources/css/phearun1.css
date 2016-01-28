@@ -25,6 +25,7 @@ body {
 
 .a-nav, ul.a-category li:first-child, ul.a-popular li:first-child, .a-category li:first-child:hover, .a-source{
 	background-color:#AD1827;
+	
 }
 
 .nav-search button{
@@ -576,4 +577,32 @@ div#user-profile ul li:first-child{
 .a-right-side{
 	right:20%;
 }
+
+.msg-alert{
+	position:fixed;
+	bottom:50%;
+	left:50%;
+	min-width:100px;
+	min-height:20px;
+	background-color:rgba(0, 166, 90, 0.72);	
+	color:#fff;
+	z-index:50;
+	box-shadow: 0 0px 10px 0 rgb(218, 218, 218),0 0px 15px 0 rgba(0,0,0,0.19);
+	
+	-webkit-animation-name: msgalert; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+    animation-name: msgalert;
+    animation-duration: 1s;
+	
+}
+.msg-alert{
+	padding:10px 30px;
+}
+.msg-alert a{
+	color:#fff;
+}
+.msg-alert a:hover{
+	text-decoration:underline;
+}
+
 
