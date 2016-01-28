@@ -8,29 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>AdminLTE 2 | Dashboard</title>
 <!-- Tell the browser to be responsive to screen width -->
-<%-- 
-	<jsp:include page="import/header.jsp"></jsp:include> --%>
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
-
-
-<!-- Select2 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css">
-<!-- Theme style -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
-
+<jsp:include page="import/header.jsp"></jsp:include>
 <style>
 ul.pagination li.active a {
 	background: #F44336;
@@ -350,55 +328,15 @@ i.action:hover {
 	</div>
 	<!-- ./wrapper -->
 
-	<%--  <jsp:include page="import/footer.jsp"></jsp:include> --%>
-
-
-	<!-- jQuery 2.1.4 -->
-	<script
-		src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
-	<!-- Bootstrap 3.3.5 -->
-	<script
-		src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
-	<!-- Select2 -->
-	<script
-		src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
-	<!-- InputMask -->
-	<script
-		src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/resources/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-
-
-	<!-- SlimScroll 1.3.0 -->
-	<script
-		src="${pageContext.request.contextPath }/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-	<!-- FastClick -->
-	<script
-		src="${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js"></script>
-	<!-- AdminLTE App -->
-	<script
-		src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script
-		src="${pageContext.request.contextPath }/resources/js/jquery.bootpag.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
-	<script>
-		$(function() {
-			//Initialize Select2 Elements
-			$(".select2").select2();
-		});
-	</script>
+	 <jsp:include page="import/footer.jsp"></jsp:include>
 	<script>
 		var app = angular.module('myApp', []);
-	        app.controller('myCtrl',function($scope, $http) {
+	        app.controller('myCtrl',function($scope, $http ,$location) {
 							//Variable for Configuration
-
-							$scope.domain = "http://localhost:8080/AKNnews/";
+                           
+							$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+				
+							$scope.domain =  $scope.weburl  + "/AKNnews/";
 
 
 							//for set header with http wehn request 
