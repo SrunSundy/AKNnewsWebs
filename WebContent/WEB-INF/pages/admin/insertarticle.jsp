@@ -196,14 +196,14 @@
 				};
 			 var formData = new FormData();
 		     var file = $('#newsthumbnail')[0].files[0];
-		     alert(file);
+		    
 		     formData.append("file", file);
 		     formData.append("json",JSON.stringify(json));//important: convert to JSON!
 		     $http({
-		    		  url: $scope.baseurl + "api/article/",
-		        method: 'POST',
-		        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
-		        data: formData,
+		    		  	url: $scope.baseurl + "api/article/",
+				        method: 'POST',
+				        headers: {'Content-Type': undefined , 'Authorization': 'Basic YXBpOmFrbm5ld3M='},
+				        data: formData,
 		        
 		      }).success(function(response) {
 			        console.log('Request finished', response);
