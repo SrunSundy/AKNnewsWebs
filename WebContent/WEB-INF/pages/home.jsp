@@ -31,7 +31,7 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color.css"/>
 	    
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color-library.css"/>
-	    
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animation.css"/>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
 		
@@ -140,6 +140,10 @@
 						</ul>	
 					</div>
 					
+					<div class="msg-alert"​ ng-show="showAlert">
+						<p>សូម <a href="${pageContext.request.contextPath }/login">Login</a> ដើម្បីរក្សាទុកពត៌មាននេះ..!</p>
+					</div>
+					
 				</div><!--/end a-row  -->
 				
 			</div><!--/end a-container  -->
@@ -155,7 +159,7 @@
 		<script>
 			var app = angular.module('myApp', []);
 			
-			app.controller('myCtrl', function($scope, $window, $http, $location){
+			app.controller('myCtrl', function($scope, $window, $http, $location, $timeout){
 				
 				$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 
@@ -189,7 +193,9 @@
 				$scope.loadingStatus = true;
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
-		
+				$scope.showAlert = false;
+				
+				
 				$scope.makeActive = function(cid){
 					angular.element(".a-category li").removeClass("active");
 					angular.element("#category"+cid).addClass("active");
@@ -343,7 +349,12 @@
 				
 				$scope.saveNews = function(nid){
 					if($scope.uid==0){
-						alert('Not login yet..!\nPlease login to save this news..!');
+						$scope.showAlert = true;
+						$timeout(function(){
+							$scope.showAlert = false;
+						},3000);
+						
+						//alert('Not login yet..!\nPlease login to save this news..!');
 						return;
 					}
 					$http({
