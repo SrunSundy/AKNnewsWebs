@@ -23,6 +23,7 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
 	    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
 	    
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color-library.css"/>
 	     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
@@ -59,20 +60,20 @@
 					<div class="a-body">
 						
 						<div class="detail-content">
-							<div class="article-title">
+							<div class="article-title border-t1px">
 								<h2 ng-bind="article.title"></h2>
-								<div class="article-save">
+								<div class="article-save color">
 									<i ng-if="article.saved==false" id="news{{article.id}}" ng-click="saveNews(article.id)" title="ចុចទីនេះដើម្បីរក្សាទុកព័ត៌មាន" class="fa fa-bookmark-o"></i>
 									<i ng-if="article.saved==true" title="ព័ត៌មានបានរក្សាទុកហើយ" class="fa fa-bookmark"></i>
 								</div>
 								<p ng-bind="article.date | date:'EEEE, d MMM y'"></p>
 							</div>
-							<div class="article-content" ng-bind-html="article.content"></div>
+							<div class="article-content border-t1px" ng-bind-html="article.content"></div>
 							
 							<div class="article-share">
 								<div class="fb-like" data-href="{{webbaseurl}}detail/${id }" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>	
 							</div>
-							<div class="article-comment">
+							<div class="article-comment border-t1px">
 								<div class="fb-comments" data-href="{{webbaseurl}}detail/${id }" data-width="100%" data-numposts="5"></div>
 							</div>
 						</div>
