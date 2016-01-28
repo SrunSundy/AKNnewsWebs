@@ -80,15 +80,15 @@
 		        <div class="modal-body">
 		        	  <form name="myForm" ng-submit='submit()' ><!-- ng-click='submit()' -->
 		        	   <h4>SITE NAME</h4>
-					    <select name="s_select" id="s_select" ng-model="sitedetail.s_id" required class='form-control'>
+					    <select name="s_select" id="s_select" ng-options="site.id as site.name for site in site_list" ng-model="sitedetail.s_id" required class='form-control'>
 					      <option value="">---Please select---</option>
-					      <option ng-repeat="site in site_list" value="{{site.id}}">{{site.name}}</option>
+					      <option ng-repeat="site in site_list" value="{{site.id}}" selected="{{(site.id == sitedetail.s_id)? 'selected': '' }}">{{site.name}}</option>
 					    </select>
 					    <span class='error' ng-show="myForm.$dirty && myForm.s_select.$error.required">This is a required field</span>
 					    <h4>CATEGORY NAME</h4>
-					    <select name="c_select" id="c_select" ng-model="sitedetail.c_id" required class='form-control'>
+					    <select name="c_select" id="c_select" ng-options="category.id as category.name for category in category_list"  ng-model="sitedetail.c_id" required class='form-control'>
 					      <option value="">---Please select---</option>
-					      <option ng-repeat="cate in category_list" value="{{cate.id}}" >{{cate.name}}</option>
+					      <option ng-repeat="cate in category_list" value="{{cate.id}}" selected="{{(cate.id == sitedetail.c_id)? 'selected': '' }}">{{cate.name}}</option>
 					    </select>
 					    <span class='error' ng-show="myForm.$dirty && myForm.c_select.$error.required">This is a required field</span>
 					    <h4>URL</h4>
@@ -170,7 +170,7 @@
 		    </div>
 		  </div>
 		<div>
-			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">ADD NEW</button> <br/><br/>
+			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-plus"></i></button> <br/><br/>
 		</div>
 		
 		<div>
@@ -195,10 +195,10 @@
 						         <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.s_id,cat.c_id)" ng-if="cat.status == false " />		
 							</td>
 							<td> 
-							<!-- <button ng-click='findsitedetailById(cat.s_id,cat.c_id)'>test</button> -->
-								<button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete">DELETE</button>
-								<button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd">UPDATE</button>
-								<button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-info' data-toggle="modal" data-target="#myView">VIEW</button>
+								
+								<button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
+								<button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
+								<button ng-click='findsitedetailById(cat.s_id,cat.c_id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
 							 </td>	
 						</tr>
 					 
@@ -291,7 +291,7 @@
 		    
 		    $scope.updatesitedetail = function(){
 		    	console.log('sitedetail', $scope.sitedetail);
-			    $http.put(
+ 			    $http.put(
 						url+'article/scrapurl/'
 						,$scope.sitedetail
 						,config
@@ -303,7 +303,7 @@
 					}).error(function(response){
 						alert('update exit site and categoy exist fail! try again!');
 						console.log( response ); 
-					});	  
+					});	   
 		    }  
 		    
 		    $scope.detetesitedetail = function(s_id,c_id){
@@ -343,6 +343,7 @@
 		    	Drop down category and site
 		    */
 		    $scope.category_list = {};
+		    
 		    $scope.listcategory = function(){
 			    $http.get(
 						url+'article/category/'
@@ -354,7 +355,9 @@
 						$scope.category_list = response;
 					});	 
 		    }
+		    
 		    $scope.site_list = {};
+		    
 		    $scope.listsite = function(){
 			    $http.get(
 						url+'article/site/'
@@ -382,6 +385,11 @@
 		    		}
 		    	}
 		    }
+		   	
+/*  		    $scope.selectCategory = function(id){
+		    	//for (var i=0;i<$scope.category_list.length)
+		    	alert(id);
+		    }  */
 		    
 		    $scope.listcategory();
 		    $scope.listsite();

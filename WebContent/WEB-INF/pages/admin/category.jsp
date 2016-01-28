@@ -144,7 +144,7 @@
 		  
 
 		<div>
-			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd">ADD NEW</button> <br/><br/>
+			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-plus"></i></button> <br/><br/>
 		</div>
 		
 		<div>
@@ -159,15 +159,15 @@
 						</tr>
 						<tr ng-repeat="cat in category_list">
 							<td> {{cat.id}}</td>
-							<td> {{cat.name}}</td>
+							<td> <button class='btn btn-xs btn-warning'>{{cat.name}}</button></td>
 							<td> 							
 								 <input type="checkbox"  value={{cat.menu}} ng-click="menuCategory(cat.id)" checked ng-if="cat.menu == true " />
 						         <input type="checkbox" value={{cat.menu}} ng-click="menuCategory(cat.id,cat.status)" ng-if="cat.menu == false " />						               
 							</td>
 							<td> 
-								<button ng-click='findCategoryById(cat.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete">DELETE</button>
-								<button ng-click='findCategoryById(cat.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd">UPDATE</button>
-								<button ng-click='findCategoryById(cat.id)' class='btn btn-info' data-toggle="modal" data-target="#myView">VIEW</button>
+								<button ng-click='findCategoryById(cat.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
+								<button ng-click='findCategoryById(cat.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
+								<button ng-click='findCategoryById(cat.id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
 							 </td>	
 						</tr>
 					 
@@ -248,7 +248,8 @@
 						,config
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
-						console.log( response ); 						
+						console.log( response ); 	
+						alert(response.MESSAGE);
 						console.log( $scope.category_list );
 					}).error(function(response){
 						console.log( response ); 
@@ -265,7 +266,8 @@
 						,config
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
-						console.log( response ); 						
+						console.log( response ); 
+						alert(response.MESSAGE);
 						console.log( $scope.category_list );
 					}).error(function(response){
 						console.log( response ); 
@@ -279,7 +281,8 @@
 						,config
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
-						console.log( response ); 						
+						console.log( response ); 	
+						alert(response.MESSAGE);
 						console.log( $scope.category_list );
 						$scope.reset();
 					}).error(function(response){
