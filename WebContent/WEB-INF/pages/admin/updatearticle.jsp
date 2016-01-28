@@ -503,7 +503,7 @@
 	                data : JSON.stringify(json)
 	            })
 	            .success(function (response) {
-	            	alert(1);
+	            	alert("UPDATE SUCCESS");
 			    });
 		};
 		

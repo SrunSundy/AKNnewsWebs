@@ -218,19 +218,20 @@
 		};
 		$scope.toggleStatusTrue = function(nid){
 			$scope.toggleStatus(nid).success(function (response) {
-				$scope.statustrue++;
+				/* $scope.statustrue++;
 				if($scope.statustrue%2==0){
 					angular.element("#t"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
 					alert(response.MESSAGE);
 					return;
 				}
 				angular.element("#t"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
-        		alert(response.MESSAGE);
+        		alert(response.MESSAGE); */
+        		$scope.listArticles();
 	    	});
 		};
 		$scope.toggleStatusFalse = function(nid){
 			$scope.toggleStatus(nid).success(function(response){
-				 $scope.statusfalse++;
+				/*  $scope.statusfalse++;
 				alert($scope.statusfalse);
 				if($scope.statusfalse%2==0){
 					angular.element("#f"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
@@ -238,7 +239,8 @@
 					return;
 				}
 				angular.element("#f"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
-	        	alert(response.MESSAGE);
+	        	alert(response.MESSAGE); */
+				$scope.listArticles();
 			});
 		}  
 		

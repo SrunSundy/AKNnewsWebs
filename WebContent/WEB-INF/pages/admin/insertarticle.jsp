@@ -155,7 +155,7 @@
     
     <script>
 	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope, $http){
+	app.controller('myCtrl', function($scope, $http,$location){
 		
 
 		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
@@ -196,7 +196,10 @@
 				};
 			 var formData = new FormData();
 		     var file = $('#newsthumbnail')[0].files[0];
-		    
+		     if(typeof file === 'undefined'){
+				 alert("Please Select New Image to Update");
+					return;
+			};
 		     formData.append("file", file);
 		     formData.append("json",JSON.stringify(json));//important: convert to JSON!
 		     $http({
