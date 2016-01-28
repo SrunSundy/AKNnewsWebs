@@ -137,8 +137,9 @@
     </script>
     <script>
 	var app = angular.module('myApp', []);
+	
 	app.controller('myCtrl', function($scope, $http, $location){
-		
+
 		$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
 		
 		$scope.domain =  $scope.weburl  + "/AKNnews/";
