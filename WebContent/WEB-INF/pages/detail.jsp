@@ -3,18 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app="myApp" ng-controller="myCtrl">
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<title>AKN | អានព័ត៌មាន</title>
+		<title ng-bind="article.title"></title>
 		
 		<link href="${pageContext.request.contextPath }/resources/images/logo/akn.png" rel="shortcut icon">
 			
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/detail.css"/>
@@ -28,7 +29,7 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
 	  	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animation.css"/>
 	</head>
-	<body ng-app="myApp" ng-controller="myCtrl">
+	<body>
 		<div id="fb-root"></div>
 		<script>
 			(function(d, s, id) {
@@ -47,15 +48,9 @@
 			<div class="a-container">
 				<div class="a-row">
 					<div class="a-left-side">
-						<ul class="a-source border-t1px">
-							<select ng-model="site" ng-change="articleSite(site)">
-								<option ng-value="0" id="domain.png">គេហទំព័រ</option>
-								<option ng-value="{{site.id}}" ng-repeat="site in sites" id="{{site.logo}}" ng-bind="site.name"></option>
-							</select>
-						</ul>
 						<ul class="a-category">
 							<li><i class="fa fa-tags"></i>ប្រភេទ</li>
-							<li ng-repeat="category in categories" ng-click="articleCategory(category.id)" id="category{{category.id}}" value="{{category.id}}"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></li>
+							<li ng-repeat="category in categories" id="category{{category.id}}" value="{{category.id}}"><a href="${pageContext.request.contextPath }/{{category.id}}/category"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></a></li>
 						</ul>
 					</div><!--/end a-left-side  -->
 					
@@ -105,6 +100,8 @@
 				<div class="msg-alert"​ ng-if="showAlert">
 					<p>សូម <a href="${pageContext.request.contextPath }/login">Login</a> ដើម្បីរក្សាទុកពត៌មាននេះ..!</p>
 				</div>
+				
+				<jsp:include page="include/menu.jsp"></jsp:include>
 				
 			</div><!--/end a-container  -->
 			
@@ -170,7 +167,7 @@
                     	$scope.article = response.NEWS;
                    		$scope.article.content = $sce.trustAsHtml($scope.article.content);
                    		
-                   		$window.document.title = $scope.article.title;
+                   		/* $window.document.title = $scope.article.title; */
                    		
 				    });
 				};
@@ -203,16 +200,27 @@
 	  				return $state;
 				};
 	 
+				//initialize select2
 				angular.element("select").select2({
 	  				templateResult: formatState,
 					templateSelection: formatState
 				});
 				
+				// toggle show profile menu
 				$scope.toggleShowProfile = function(){
 					if($scope.userprofileStatus == false)
 						$scope.userprofileStatus = true;
 					else
 						$scope.userprofileStatus = false;
+				};
+				
+				//toggle phone menu
+				$scope.togglePhoneMenu = function(){
+					
+					if($scope.phoneMenuStatus == false)
+						$scope.phoneMenuStatus = true;
+					else
+						$scope.phoneMenuStatus = false;
 				};
 				
 				$scope.searchArticles = function(){
