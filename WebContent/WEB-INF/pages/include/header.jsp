@@ -11,8 +11,8 @@
 	</div>
 	<div class="nav-category">
 		<ul>
-			<li class="bg-old"><a href="${pageContext.request.contextPath }"><i class="fa fa-home"></i>ទំព័រដើម</a></li>
-			<li class="bg-old" ng-repeat="category in navCategory"><a href="${pageContext.request.contextPath}/{{category.id}}/category" ng-bind="category.name"></a></li>
+			<li><a href="${pageContext.request.contextPath }"><i class="fa fa-home"></i>ទំព័រដើម</a></li>
+			<li ng-repeat="category in navCategory"><a href="${pageContext.request.contextPath}/{{category.id}}/category" ng-bind="category.name"></a></li>
 		</ul>
 		<div class="user-profile" ng-click="toggleShowProfile()">
 			<c:choose>
@@ -47,14 +47,13 @@
 					</ul>
 				</c:otherwise>
 			</c:choose>
-			
 		</div>
 	</div>
-	<div class="phone-menu" ng-if="phoneMenuStatus">
+	<%-- <div class="phone-menu" ng-if="phoneMenuStatus">
 		<ul​​>
 			<li ng-repeat="category in categories"><a href="${pageContext.request.contextPath}/{{category.id}}/category"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></a></li>
 		</ul>
-	</div>
+	</div> --%>
 	<div class="phone-menu-icon" ng-click="togglePhoneMenu()">
 		<i class="fa fa-bars"></i>
 	</div>
