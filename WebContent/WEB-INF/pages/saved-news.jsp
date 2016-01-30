@@ -12,12 +12,17 @@
 		
 		<link href="${pageContext.request.contextPath }/resources/images/logo/akn.png" rel="shortcut icon">
 			
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+		<script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+		
 		<script src="${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
 		
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
 		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
+		
+		
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/phearun1-override.css"/>
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/responsive1.css"/>
@@ -28,6 +33,7 @@
 	    
 	    
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/override-color.css"/>
+	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animation.css"/>
 	     
 	    <style>
 	    	 .modal{
@@ -93,7 +99,7 @@
 											<a href="{{article.url}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
-											<p><a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank">{{article.title}}</a></p>
+											<p><a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
 										</div>
 									</div>
 								</div>
@@ -183,6 +189,8 @@
 				    </div>
 				 </div><!--end modal  -->
 				 
+				 <jsp:include page="include/menu.jsp"></jsp:include>
+				 
 			</div><!--/end a-container  -->
 		</div><!--/end main container  -->
 		
@@ -201,7 +209,6 @@
 				$scope.articles = [];
 				$scope.categories = [];
 				$scope.populars = [];
-				$scope.top2 = [];
 				$scope.navCategory = [];
 				$scope.sites = [];
 				
@@ -230,7 +237,7 @@
 						return;
 					}
 					$scope.status = false;
-				}
+				};
 				//upload image 
 				$scope.uploadImage = function(){
 			    	var form_data = new FormData(document.getElementById('frmupload'));                  
@@ -250,7 +257,7 @@
 						}).error(function(response){
 							console.log( response ); 
 						});	  
-				}
+				};
 				
 				//change password
 				$scope.changePassword = function(){
@@ -271,16 +278,16 @@
 						}).error(function(response){
 							console.log( response ); 
 						});	 
-				}
+				};
 				
 				//reset form change password
 	 		    $scope.reset = function(){
 	 		    	$scope.userpwd = {id:null,oldpass:'',newpass:''};
 	 		    	$scope.conpwd = null;
 	                $scope.myForm.$setPristine(); //reset Form
-	            }
+	            };
 				
-				//initialize news data
+				/* //initialize news data */
 				$scope.loadNews = function(){
 					$scope.page += 1;
 					console.log($scope.page+','+$scope.row+','+ $scope.uid);
@@ -289,10 +296,16 @@
                         url: $scope.baseurl + "api/article/savelist/" + $scope.uid + "/" + $scope.row + "/" + $scope.page
                     })
                     .success(function (response) {
+                    	if(response.RESPONSE_DATA.length==0){
+                    		$scope.loadingStatus = false;
+                    		return;
+                    	}
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
                     		$scope.articles.push(data);
+                    		console.log("ID : " + data.id);
                     	});
-                    	$scope.loadingStatus = false;
+                    	console.log("Length : " + $scope.articles.length);
+                    	
 				    });
 				};
 				
@@ -348,7 +361,6 @@
 				};
 				
 				$scope.togglePhoneMenu = function(){
-					
 					if($scope.phoneMenuStatus == false)
 						$scope.phoneMenuStatus = true;
 					else
