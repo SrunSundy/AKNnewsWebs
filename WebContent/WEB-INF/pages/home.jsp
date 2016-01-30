@@ -91,7 +91,7 @@
 							<div class="article-block-b1">
 								<div class="article-item">
 									<div class="article-info">
-										<img ng-src="{{baseurl}}resources/images/{{article.site.logo}}"/>
+										<img ng-src="{{baseurl}}resources/images/logo/{{article.site.logo}}"/>
 										<p class="color" ng-bind="article.site.name | uppercase"></p>
 										
 										<div class="saved color">
@@ -426,7 +426,7 @@
 				function formatState (state) {
 	 				if (!state.id) { return state.text; }
 					
-	  				var $state = angular.element('<span class="slogo"><img src="'+$scope.baseurl+'resources/images/'+state.element.id+'" class="img-flag" /> ' + state.text + '</span>');
+	  				var $state = angular.element('<span class="slogo"><img src="'+$scope.baseurl+'resources/images/logo/'+state.element.id+'" class="img-flag" /> ' + state.text + '</span>');
 	  				return $state;
 				};
 	 
