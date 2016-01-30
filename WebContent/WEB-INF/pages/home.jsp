@@ -40,22 +40,20 @@
 
 			<div class="a-container">
 				<div class="a-row">
-					<div class="a-left-side">
-						<ul class="a-source border-t1px">
-							<select ng-model="site" ng-change="articleSite(site)">
-								<option ng-value="0" id="domain.png">គេហទំព័រ</option>
-								<option ng-value="{{site.id}}" ng-repeat="site in sites" id="{{site.logo}}" ng-bind="site.name"></option>
-							</select>
-						</ul>
-						<ul class="a-category">
-							<li class="bg-color"><i class="fa fa-tags"></i>ប្រភេទ</li>
-							<li ng-repeat="category in categories" ng-click="articleCategory(category.id)" id="category{{category.id}}" value="{{category.id}}"><i class="fa fa-angle-down"></i><span ng-bind="category.name"></span></li>
-						</ul>
-					</div><!--/end a-left-side  -->
+				
+					<!--left side bar  -->
+					<jsp:include page="include/leftside.jsp"></jsp:include>
+					<!--/left side bar -->
 					
 					<div class="a-body">
-						<div class="slide-show">
-							<div class="popular-news border-t1px">
+					
+						<div class="category-name border-t1px" ng-if="cid!=0">
+							<p><i class="fa fa-tag"></i><span ng-bind="categoryName"></span></p>
+						</div>
+						
+						<!--slide show  -->
+						<div class="slide-show" ng-if="cid==0">
+							<div class="popular-news">
 								<div class="slide-image">
 									<data-owl-carousel class="owl-carousel" data-options="{navigation: false,singleItem:true, autoPlay:true}">
       									<div owl-carousel-item="" ng-repeat="pop in populars" class="item">
@@ -74,7 +72,7 @@
 								<div id="sright" class="button-right"></div>
 							</div>
 							<div class="popular-news-b1">
-								<div class="top-1 border-t1px" ng-repeat="top in top2">
+								<div class="top-1" ng-repeat="top in top2">
 									<div class="top-image">
 										<img ng-src="{{top.image}}" ng-if="top.site.id!=6"/>
 										<img ng-src="{{baseurl}}resources/images/news/{{top.image}}" ng-if="top.site.id==6"/>
@@ -86,10 +84,12 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div><!--/slide show -->
+						
+						<!--article item block  -->
 						<div class="article-block" ng-repeat="article in articles">
 							<div class="article-block-b1">
-								<div class="article-item border-t1px">
+								<div class="article-item">
 									<div class="article-info">
 										<img ng-src="{{baseurl}}resources/images/{{article.site.logo}}"/>
 										<p class="color" ng-bind="article.site.name | uppercase"></p>
@@ -114,16 +114,17 @@
 									</div>
 									<div class="article-action">
 										<div class="action">
-											<small><span ng-bind="article.hit | number"></span> Views</small>
+											<small>បានមើល​ <span ng-bind="article.hit | number"></span></small>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</div><!--/article item block  -->
+						
 						<div class="clear"></div>
 						<div class="loading">
 							<img ng-show="loadingStatus" src="${pageContext.request.contextPath}/resources/images/loading.gif"/>
-							<p ng-show="!loadingStatus">អស់ព័ត៌មាន...</p>
+							<p ng-show="!loadingStatus">មិនមានព័ត៌មាន...</p>
 						</div>
 					</div><!--/end a-body  -->
 					
@@ -143,17 +144,27 @@
 						<p>សូម <a href="${pageContext.request.contextPath }/login">Login</a> ដើម្បីរក្សាទុកពត៌មាននេះ..!</p>
 					</div>
 					
+					<jsp:include page="include/menu.jsp"></jsp:include>
+					
 				</div><!--/end a-row  -->
 				
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
 		
-		<!-- <script>
+		<script>
 			$(document).ready(function(){
-				alert("${sessionScope.SessionUser.id}");
+				//get carousel instance data and store it in variable owl
+				var owl = $(".owl-carousel");
+				  
+				$("#sleft").click(function(){
+					owl.trigger('owl.prev');
+				});
+				$("#sright").click(function(){
+					owl.trigger('owl.next');
+				});
 			}); 
-		</script> -->
+		</script>
 		<script>
 			var app = angular.module('myApp', []);
 			
@@ -185,9 +196,9 @@
 				
 				$scope.key = window.decodeURIComponent("${key}");
 				
-				/* if($scope.key!='')
+				/*if($scope.key!='')
 					$location.path('/search').search('key='+$scope.key); */
-				
+					
 				$scope.isSearch = false;
 				
 				$scope.isNoNews = false;
@@ -195,12 +206,15 @@
 				$scope.userprofileStatus = false;
 				$scope.phoneMenuStatus = false;
 				$scope.showAlert = false;
-				
+				$scope.slideStatus = false;
 				
 				$scope.makeActive = function(cid){
 					angular.element(".a-category li").removeClass("active");
 					angular.element("#category"+cid).addClass("active");
 				};
+				
+				if($scope.cid!=0)
+					$scope.slideStatus = true;
 				
 				$scope.loadSearchArticles = function(){
 					$scope.isSearch = true;
@@ -221,16 +235,24 @@
                     	if(response.RESPONSE_DATA.length == 0){
                     		console.log('no more article..!');
                     		$scope.loadingStatus = false;
+                    		$scope.isNoNews = true;
 							return;                    		
                     	}
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.articles.push(data);
 				    	});
-                    	
-                    	$scope.loadingStatus = false;
 				    });
 				};
 				
+				//find categoryname by id
+				$scope.getCategoryNameById = function(array){
+					angular.forEach(array, function(category, index){
+						if(category.id==$scope.cid){
+							$scope.categoryName = category.name;
+							return;
+						}
+					});
+				};
 				
 				//initialize news data
 				$scope.initializeNews = function(){
@@ -254,14 +276,16 @@
                    			if(data.menu==true)
                    			 	$scope.navCategory.push(data);
 				    	});
+                    	$scope.getCategoryNameById($scope.categories);
                     	
                     	angular.forEach(response.SITE, function(data, key) {
 				    		$scope.sites.push(data);
                     	});
                     	
                     	angular.forEach(response.POPULAR, function(data, key) {
-                    		$scope.populars.push(data);
-                    		if(key<2)
+                    		if(key<8)
+                    			$scope.populars.push(data);
+                    		else
                     			$scope.top2.push(data);
 				    	});
 				    });
@@ -286,12 +310,10 @@
                     	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.articles.push(data);
                     	});
-                    	$scope.isNoNews = true;
-                    	$scope.loadingStatus = false;
 				    });
 				};
 				
-				
+				// bind to srcoll event to load more news
 				angular.element($window).bind("scroll", function() {
                     var windowHeight = "innerHeight" in window ? window.innerHeight: document.documentElement.offsetHeight;
                     var body = document.body, html = document.documentElement;
@@ -299,10 +321,13 @@
                     windowBottom = windowHeight + window.pageYOffset;
 
                     if (windowBottom >= docHeight) {
+                    	console.log("Is No News = ", $scope.isNoNews);
+                    	if($scope.isNoNews)  //if there is no news don't let it load more
+                    		return;
                     	
                     	$scope.loadingStatus = true;
                     	
-                    	if($scope.isSearch==false){
+                    	if($scope.isSearch==false){ //if not search, use this function
                     		$scope.$apply($scope.loadArticles());
 							console.log("loading article, page="+$scope.page);                    		
                     	}
@@ -313,6 +338,7 @@
                     }
      	        });
      	    	
+				// list news by category
 				$scope.articleCategory = function(cid){
 					
 					$scope.page = 0;
@@ -324,10 +350,15 @@
 					$scope.loadArticles();
 					
 					$scope.phoneMenuStatus = false;
-					
+					$scope.isNoNews = false;
+					$scope.isSearch = false;
 					$scope.makeActive(cid);
+					
+					//get category name by id 
+					$scope.getCategoryNameById($scope.categories);
 				};
 				
+				// list news by website
 				$scope.articleSite = function(sid){
 					$scope.page = 0;
 					$scope.cid = $scope.cid;
@@ -335,14 +366,17 @@
 					$scope.key = "";
 					$scope.articles = [];
 					
+					$scope.isNoNews = false;
+					$scope.isSearch = false;
 					$scope.loadArticles();
 				};
 				
+				// when search news is triger
 				$scope.searchArticles = function(){
 					location.href = $scope.webbaseurl + "search?key=" + window.encodeURIComponent($scope.key).replace(/%/g,"@");
 				}; 
 				
-				
+				// save news for later read
 				$scope.saveNews = function(nid){
 					if($scope.uid==0){
 						$scope.showAlert = true;
@@ -362,6 +396,7 @@
 				    });	
 				};
 				
+				// update views when news has been read
 				$scope.readNews = function(nid){
 					$http({
 						method: "PATCH",
@@ -387,17 +422,6 @@
 						$scope.phoneMenuStatus = false;
 				};
 				
-				//get carousel instance data and store it in variable owl
-				var owl = angular.element(".owl-carousel");
-				  
-				angular.element("#sleft").click(function(){
-					 owl.trigger('owl.prev');
-				});
-				angular.element("#sright").click(function(){
-					 owl.trigger('owl.next');
-				}); 
-				 
-				
 				//site dropdown image
 				function formatState (state) {
 	 				if (!state.id) { return state.text; }
@@ -406,12 +430,25 @@
 	  				return $state;
 				};
 	 
+				//initialize select 2
 				angular.element("select").select2({
 	  				templateResult: formatState,
 					templateSelection: formatState
 				});
 				
-		}).directive("owlCarousel", function() {
+				/* //get carousel instance data and store it in variable owl
+				var owl = angular.element(".owl-carousel");
+				  
+				angular.element("#sleft").click(function(){
+					alert(1);
+					owl.trigger('owl.prev');
+				});
+				angular.element("#sright").click(function(){
+					alert(2);
+					owl.trigger('owl.next');
+				}); */
+		})
+		.directive("owlCarousel", function() {
 			    return {
 			        restrict: 'E',
 			        transclude: false,
@@ -430,7 +467,8 @@
 			            };
 			        }
 			    };
-		}).directive('owlCarouselItem', [function() {
+		})
+		.directive('owlCarouselItem', [function() {
 			    return {
 			        restrict: 'A',
 			        transclude: false,
@@ -442,24 +480,12 @@
 			        }
 			    };
 		}])
-		
-		/* .filter('encodeURIComponent', function() {
-		    return function(input) {
-		        if(input) {
-		        	console.log(window.encodeURIComponent(input));
-		            return window.encodeURIComponent(input); 
-		        }
-		        return "";
-		    }
-		}) */
-		
 		.filter('timeAgo', function($filter){
 			return function(time){
 				var now = new Date(),
 			    secondsPast = (now.getTime() - time) / 1000;
 				
 			    if(secondsPast < 60){
-			      var second = parseInt(secondsPast);
 			      return 'ប៉ុន្មាន វិនាទីមុន';
 			    }
 			    if(secondsPast < 3600){
@@ -479,10 +505,10 @@
 			    if(secondsPast >= 691200){//over 8 days
 			    	return $filter('date')(time, 'EEEE, d MMM y');
 			    }
-			}
+			};
 		});
-		
 		</script>
+		
 		<!-- <script src="http://192.168.178.186:8080/HRD_MEMO/resources/admin/js/memo.min.js" defer></script> -->
 	</body>
 </html>
