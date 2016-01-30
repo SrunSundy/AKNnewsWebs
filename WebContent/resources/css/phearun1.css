@@ -485,7 +485,7 @@ a, a:hover, a:active {
 .top-title{
 	position:relative;
 	background-color:rgba(1, 1, 1, 0.4);
-	top:-60px;
+	top:-100px;
 	margin-right:5px;
 	min-height:55px;
 	max-height:55px;
