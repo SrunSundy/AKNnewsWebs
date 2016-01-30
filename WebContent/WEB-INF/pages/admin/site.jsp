@@ -212,19 +212,19 @@
 					<form ng-submit="submitStruct()" name="myFormStruc">
 					<input type="hidden" ng-model="structure.id" name="id" ng-disabled=true />
 					  <h4>ROW SELECTOR</h4>
-			          <input type="text" ng-model="structure.imageSelector" name="imageSelector" placeholder="Enter site name" required  class='form-control'/>
+			          <input type="text" ng-model="structure.rowsSelector" name="rowsSelector" placeholder="Enter site name" required  class='form-control'/>
 			          
 			          <h4>TITLE SELECTOR</h4>  
-			          <input type="text" ng-model="structure.linkSelector" name="linkSelector" placeholder="Enter site url" required  class='form-control'/>
+			          <input type="text" ng-model="structure.titleSelector" name="titleSelector" placeholder="Enter site url" required  class='form-control'/>
 			          
 			         <h4>IMAGE SELECTOR</h4>     
-			         <input type="text" ng-model="structure.titleSelector" name="titleSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
+			         <input type="text" ng-model="structure.imageSelector" name="imageSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
 		
 			         <h4>LINK SELECTOR</h4>     
-			         <input type="text" ng-model="structure.contentSelector" name="contentSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
+			         <input type="text" ng-model="structure.linkSelector" name="linkSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
 
 			         <h4>CONTENT SELECTOR</h4>     
-			         <input type="text" ng-model="structure.rowsSelector" name="rowsSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
+			         <input type="text" ng-model="structure.contentSelector" name="contentSelector" placeholder="Enter site basepath" required  class='form-control'/><br/>
 			         			         		         
 			          <input type="submit" value="{{!structure.id ? 'Add'  : 'Update' }}" ng-disabled="myFormStruc.$invalid" 
 			          class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
