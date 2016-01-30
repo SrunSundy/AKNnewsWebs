@@ -1,21 +1,19 @@
 .a-nav, ul.a-category li:first-child, ul.a-popular li:first-child, .a-category li:first-child:hover, .a-source{
 	background-color:#00a65a;
 }
-.nav-category li:hover, .phone-menu li:hover{
-	background-color:rgba(1, 119, 66, 0.21);
+.phone-menu li:hover{
+	background-color:rgba(0, 166, 90, 0.85) !important;
+}
+.nav-category li:hover{
+	background-color: rgba(10, 140, 81, 0.85);	
 }
 .nav-category li{
 	background-color:rgba(1, 119, 66, 0.38);
 }
 
 .user-profile-info ul li, .phone-menu ul li{
-	background-color: rgba(0, 166, 90, 0.71);
+	background-color: rgba(0, 166, 90, 0.85);
 }
-
-/*article date background*/
-/* .article-info small{
-	background-color:rgba(0, 166, 90, 0.71);
-} */
 
 /*nav border bottom */
 .a-nav{

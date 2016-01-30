@@ -73,6 +73,9 @@
 		.phone-menu{
 			left:0%;
 		}
+		.side-menu{
+			left:0px;
+		}
 }
 
 @media screen and (max-width: 850px) {

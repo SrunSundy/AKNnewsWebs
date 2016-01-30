@@ -7,3 +7,21 @@
 @keyframes msgalert {
 	 0%{right:1%;}5%{right:1.2%;}20%{right:1%;}15%{right:1.2%;}20%{right:1%;}25%{right:1.2%;}30%{right:1%;}35{right:1.2%;}40%{right:1%;}45%{right:1.2%;}50%{right:1%;}55%{right:1.2%;}60%{right:1%;}65%{right:1.2%;}70%{right:1%;}75%{right:1.2%;}80%{right:1%;}85%{right:1.2%;}90{right:1%;}95%{right:1.2%;}100%{right:1%;}
 }
+
+@keyframes phoneMenu{
+	from{
+		left:-200px;
+	}
+	to{
+		left:0px;
+	}
+}
+
+@-webkit-keyframes phoneMenu{
+	from{
+		left:-200px;
+	}
+	to{
+		left:0px;
+	}
+}

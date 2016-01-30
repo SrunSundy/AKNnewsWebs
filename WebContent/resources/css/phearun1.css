@@ -77,7 +77,7 @@ body {
 	box-shadow: 0px 0px 3px #AD1827;
 	-moz-box-shadow: 0px 0px 3px #AD1827;
 	-webkit-box-shadow: 0px 0px 3px #AD1827;
-	z-index: 10;
+	z-index: 100;
 }
 
 .a-logo{
@@ -261,6 +261,9 @@ ul.a-category li:hover{
 .article-image img {
 	width: 100%;
 }
+.article-image img:hover{
+	width:100.5%;
+}
 
 .article-desc {
 	padding: 5px;
@@ -388,7 +391,7 @@ a, a:hover, a:active {
 	display:block;
 	position:absolute;
 	right:0px;
-	margin-top:3px;
+	margin-top:11px;
 }
 
 .user-profile-info ul, .phone-menu ul{
@@ -530,7 +533,7 @@ span.slogo{
 	font-family: Hanuman;
 }
 
-.popular-news, .top-1, .article-item, ul.a-category, .a-source, .loading, .article-title, .article-content, .article-comment, .a-right-side{
+.popular-news, .top-1, .article-item, ul.a-category, .a-source, .loading, .article-title, .article-content, .article-comment, .a-right-side, .category-name{
 	/* box-shadow: 0 0px 10px 0 rgba(0,0,0,0.2),0 0px 15px 0 rgba(0,0,0,0.19); */
 	box-shadow: 0 0px 10px 0 rgb(218, 218, 218),0 0px 15px 0 rgba(0,0,0,0.19);
 }
@@ -605,4 +608,59 @@ div#user-profile ul li:first-child{
 	text-decoration:underline;
 }
 
+.category-name{
+	color:#00a65a;
+	margin-left:5px;
+	margin-right:5px;
+	margin-bottom:10px;
+	background-color:#fff;
+	padding:3px 5px 2px 5px;	
+}
 
+/* side menu slide */
+.side-menu{
+	box-shadow: 0 0px 10px 0 rgb(218, 218, 218),0 0px 15px 0 rgba(0,0,0,0.19);
+	position:fixed;
+	left:-1000px;
+	/* min-height:calc(100% - 50px); */
+	z-index:2000;
+	background-color:rgba(0, 166, 90, 0.77);
+	color:#fff; 
+	top:0px;
+	min-height:100%;
+	-webkit-animation-name: phoneMenu; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+    animation-name: phoneMenu;
+    animation-duration: 1s;
+}
+.side-menu p{
+	padding:10px;
+	background-color:#009451;
+	border-bottom:1px solid #DADADA;
+	font-size:15px;
+}
+
+.side-menu ul{
+	display:block;
+	list-style-type:none;
+	/* max-height:300px;
+	overflow-y:scroll; */
+}
+.side-menu ul li{
+	border-bottom:1px solid #DADADA;
+	padding: 5px 70px 5px 30px;
+	background-color:rgba(0, 166, 90, 0.59);
+	cursor:pointer;
+	color:#fff;
+}
+.side-menu ul li:last-child{
+	border-bottom:none;
+}
+.side-menu ul li:hover{
+	background-color: rgba(10, 140, 81, 0.85);
+}
+.side-menu a{
+	color:#fff;
+}
+
+/* end side menu slide */
