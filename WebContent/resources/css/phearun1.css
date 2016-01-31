@@ -218,6 +218,10 @@ ul.a-category li:hover{
 	border-left:2px solid #00a65a;
 }
 
+ul.a-category li:first-child:hover{
+	border-left:0px;
+}
+
 .a-category li:not(first-child), .a-source li:not(first-child) {
 	padding: 7px 10px 7px 30px;
 	border-bottom: 1px solid #dadada;
@@ -260,9 +264,6 @@ ul.a-category li:hover{
 
 .article-image img {
 	width: 100%;
-}
-.article-image img:hover{
-	width:100.5%;
 }
 
 .article-desc {
@@ -502,23 +503,31 @@ a, a:hover, a:active {
 }
 
 .button-left{
-	position:absolute;
-	cursor:pointer;
-	min-height:50px;
-	width:50px;
-	left:1.5%;
-	top:140px;
 	background:url('../images/left.png');
+	border-top-right-radius:2px;
+	border-bottom-right-radius:2px;
 }
 .button-right{
+	right:34%;
+	background:url('../images/right.png');
+	border-top-left-radius:2px;
+	border-bottom-left-radius:2px;
+}
+.button-left, .button-right{
 	cursor:pointer;
 	position:absolute;
 	min-height:50px;
-	width:50px;
-	right:35%;
-	top:140px;
-	background:url('../images/right.png');
+	width:30px;
+	top:calc(330px / 2 - 25px);
+	background-repeat:no-repeat;
+	background-size:30px 50px;
+	background-color:rgba(218, 218, 218, 0.52);
 }
+.button-left:hover, .button-right:hover{
+	background-color:rgba(218, 218, 218, 0.68);
+}
+
+
 .slide-image{
 	max-height:330px;
 	overflow:hidden;

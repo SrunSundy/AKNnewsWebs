@@ -23,5 +23,12 @@ ul.a-category{
 	color:rgba(173, 24, 39, 0.79);
 }
 .a-body{
-	border:1px solid rgb(0, 166, 90);
+	border:1px solid rgba(254, 254, 254, 0.42);
+}
+h3{
+	font-size:20px;
+	margin-bottom:5px !important;
+}
+.a-body img{
+	padding:5px!important;
 }
