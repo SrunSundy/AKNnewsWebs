@@ -482,11 +482,13 @@ a, a:hover, a:active {
 	margin-bottom:10px;
 	overflow:hidden;
 }
-
+.top-image{
+	margin-top:-55px;
+}
 .top-title{
 	position:relative;
 	background-color:rgba(1, 1, 1, 0.4);
-	top:-100px;
+	top:106px;
 	margin-right:5px;
 	min-height:55px;
 	max-height:55px;
