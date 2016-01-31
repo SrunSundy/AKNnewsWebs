@@ -129,7 +129,7 @@
 			          	</tr>
 			          	<tr>
 			          		<th>URL</th>
-			          		<td>{{ sitedetail.url }}</td>
+			          		<td>{{ sitedetail.url | limitTo:50}}</td>
 			          	</tr>
 			          	<tr>
 			          		<th>STATUS</th>
@@ -178,17 +178,17 @@
 					<table class="table table-condensed table-hover">
 						<tr>
 							<th> ID </th>
-							<th> SITE </th>
+							<th> WEBSITE </th>
 							<th> CATEGORY </th>	
-							<th> URL </th>
-							<th> STATUS </th>	
+							<th> SCRAP_URL </th>
+							<th> ALLOW_SCRAP </th>	
 							<th> ACTION </th>							
 						</tr>
 						<tr ng-repeat="cat in sitedetail_list" >
 							<td> {{$index+1}} </td>
 							<td> <button class='btn btn-xs btn-danger'>{{ siteName(cat.s_id) }}</button></td>
 							<td> <button class='btn btn-xs btn-warning'>{{ categoryName(cat.c_id) }}</button></td>
-							<td> {{cat.url}}</td>
+							<td> {{cat.url | limitTo:50}}</td>
 							<td> 
 								 <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.s_id,cat.c_id)" checked ng-if="cat.status == true " />
 						         <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.s_id,cat.c_id)" ng-if="cat.status == false " />		
