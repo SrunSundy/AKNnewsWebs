@@ -197,8 +197,8 @@
 			 var formData = new FormData();
 		     var file = $('#newsthumbnail')[0].files[0];
 		     if(typeof file === 'undefined'){
-				 alert("Please Select New Image to Update");
-					return;
+				 swal("Please Select Image to insert", "", "info");
+				return;
 			};
 		     formData.append("file", file);
 		     formData.append("json",JSON.stringify(json));//important: convert to JSON!
@@ -210,16 +210,14 @@
 		        
 		      }).success(function(response) {
 			        console.log('Request finished', response);
-			        alert(response.MESSAGE);
-			     
-			  }); 
+			        swal(response.MESSAGE, "", "success");
+		      }).error(function (response) {
+					swal("Fail to insert news", "", "error");
+		      });
+			 
 		};
 		
 		 $scope.listCategories();
-
-		
-		
-
 	});
   
     

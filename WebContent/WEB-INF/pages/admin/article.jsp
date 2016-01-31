@@ -227,6 +227,9 @@
 				angular.element("#t"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
         		alert(response.MESSAGE); */
         		$scope.listArticles();
+        		swal("News has been disabled successfully", "", "success");
+	    	}).error(function (response) {
+				swal("Fail to disable", "", "error");
 	    	});
 		};
 		$scope.toggleStatusFalse = function(nid){
@@ -241,7 +244,10 @@
 				angular.element("#f"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
 	        	alert(response.MESSAGE); */
 				$scope.listArticles();
-			});
+			swal("News has been enabled successfully", "", "success");
+	    	}).error(function (response) {
+				swal("Fail to enable", "", "error");
+	    	});
 		}  
 		
 		$scope.gotoSite = function(url){

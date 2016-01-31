@@ -31,7 +31,7 @@
             <li class="active">Article Management</li>
           </ol>
         </section>
-		<data-dirty-tracking>
+	
         <!-- Main content -->
         <section class="content">
           <div class="row">
@@ -236,7 +236,7 @@
             
           </div><!-- ./row -->
         </section><!-- /.content -->
-        </data-dirty-tracking>
+       
         
       </div><!-- /.content-wrapper -->
      <footer class="main-footer">
@@ -270,7 +270,7 @@
 
      
       });
-      /* function goodbye(e) {
+      function goodbye(e) {
     	    if(!e) e = window.event;
     	    //e.cancelBubble is supported by IE - this will kill the bubbling process.
     	    e.cancelBubble = true;
@@ -282,7 +282,7 @@
     	        e.preventDefault();
     	    }
     	}
-    	window.onbeforeunload=goodbye;  */
+    	window.onbeforeunload=goodbye;  
 
      
      
@@ -461,9 +461,11 @@
                      'Authorization': 'Basic YXBpOmFrbm5ld3M='
                 },
                 data : JSON.stringify(json)
-            })
-            .success(function (response) {
+            }).success(function (response) {
             	$scope.showcate = $scope.fcate.name;
+            	 swal("Category has been updated ", "", "success");
+		    }).error(function (response) {
+				swal("Fail to update", "", "error");
 		    });
 		};
 		
@@ -478,7 +480,10 @@
 	              data : JSON.stringify(json)
 	        }).success(function (response) {
 	            $scope.processLoadTitle();
-			});
+	            swal("Title has been updated ", "", "success");
+		    }).error(function (response) {
+				swal("Fail to update", "", "error");
+		    });
 		};
 		
 		$scope.updateDescription = function(){
@@ -496,6 +501,9 @@
 	            })
 	            .success(function (response) {
 	            	$scope.processLoadDescription();
+	            	swal("Description has been updated ", "", "success");
+			    }).error(function (response) {
+					swal("Fail to update", "", "error");
 			    });
 		};
 		
@@ -513,7 +521,9 @@
 	                data : JSON.stringify(json)
 	            })
 	            .success(function (response) {
-	            	alert("UPDATE SUCCESS");
+	            	swal("Content has been updated ", "", "success");
+			    }).error(function (response) {
+					swal("Fail to update", "", "error");
 			    });
 		};
 		
@@ -528,7 +538,7 @@
 			};
 			 var file = $('#newsthumbnail')[0].files[0];
 			 if(typeof file === 'undefined'){
-				 alert("Please Select New Image to Update");
+				 swal("Please Select Image to update", "", "info");
 					return;
 			};
 				var json={
@@ -547,9 +557,10 @@
 			        
 			      }).success(function(response) {
 				        console.log('Request finished', response);
-				        alert("UPDATE SUCCESS");
-				     
-				  }); 
+				        swal("Thumbnail has been updated ", "", "success");
+				    }).error(function (response) {
+						swal("Fail to update", "", "error");
+				    });
 			
 		};
 		
@@ -566,36 +577,7 @@
 		
 	
 
-	}).directive('dirtyTracking', [function () {
-	    return {
-	        restrict: 'A',
-	        link: function ($scope, $element, $attrs) {
-	            function isDirty() {
-	                var formObj = $scope[$element.attr('name')];
-	                return formObj && formObj.$pristine === false;
-	            }
-
-	            function areYouSurePrompt() {
-	                if (isDirty()) {
-	                    return 'You have unsaved changes. Are you sure you want to leave this page?';
-	                }
-	            }
-
-	            window.addEventListener('beforeunload', areYouSurePrompt);
-
-	            $element.bind("$destroy", function () {
-	                window.removeEventListener('beforeunload', areYouSurePrompt);
-	            });
-
-	            $scope.$on('$locationChangeStart', function (event) {
-	                var prompt = areYouSurePrompt();
-	                if (!event.defaultPrevented && prompt && !confirm(prompt)) {
-	                    event.preventDefault();
-	                }
-	            });
-	        }
-	    };
-	}]);
+	});
   
     
     </script>
