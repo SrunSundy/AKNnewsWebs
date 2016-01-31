@@ -85,11 +85,14 @@
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.minlength">Minimum length required is 3</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$invalid">This field is invalid </span>  
 			         
-			         <h4>IMAGE PREFIX PATH</h4>     
+			         <h4>Prefix Path(image)</h4>     
 			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/>
 			         
-			         <h4>IMAGE PREFIX ATTR</h4>
-			         <input type="text" ng-model="site.prefixImg" name="prefixImg" placeholder="Enter site prefix img attribute" class='form-control'/><br/>
+			         <h4>Prefix Attribute(image)</h4>
+			         <input type="text" ng-model="site.prefixImg" name="prefixImg" placeholder="Enter site prefix img attribute" class='form-control'/>
+			         
+			         <h4>Prefix Path(link)</h4>
+			         <input type="text" ng-model="site.prefixLink" name="prefixLink" placeholder="Enter site prefix link" class='form-control'/><br/>
 			          
 			         <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 			         class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
@@ -116,7 +119,7 @@
 		        <div class="modal-body">
 					<table class="table " >	
 			          	<tr>
-			          		<th style="border-top: none !important; ">NAME</th>
+			          		<th style="border-top: none !important; ">Name</th>
 			          		<td style="border-top: none !important; ">{{ site.name }}</td>
 			          	</tr>
 			            <tr>
@@ -124,15 +127,19 @@
 			          		<td>{{ site.url }}</td>
 			          	</tr>
 			          	<tr ng-if="site.basepath!=''">
-			          		<th>IMAGE PREFIX PATH</th>
+			          		<th>Prefix Path(image)</th>
 			          		<td>{{ site.basepath}}</td>
 			          	</tr>
 			          	<tr ng-if="site.prefixImg!=''">
-			          		<th>IMAGE PREFIX ATTR</th>
+			          		<th>Prefix Attribute(image)</th>
 			          		<td>{{ site.prefixImg}}</td>
 			          	</tr>
+			          	<tr ng-if="site.prefixLink!=''">
+			          		<th>Prefix Path(link)</th>
+			          		<td>{{ site.prefixLink}}</td>
+			          	</tr>
 			          	<tr>
-			          		<th> LOGO</th>
+			          		<th> Logo</th>
 			          		<td><img class="img" style='width:100px;height:100px'  src='{{domain}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
 			          	</tr>
 			      	    <tr>
@@ -140,23 +147,23 @@
 			          	</tr>
 			          	
 			          	<tr>
-			          		<th>ROW SELECTOR</th>
+			          		<th>Row Selector</th>
 			          		<td>{{ structure.rowsSelector }}</td>
 			          	</tr>
 			          	<tr>
-			          		<th>TITLE SELECTOR</th>
+			          		<th>Title Selector</th>
 			          		<td>{{ structure.titleSelector }}</td>
 			          	</tr>
 			          	<tr>
-			          		<th>IMAGE SELECTOR</th>
+			          		<th>Image Selector</th>
 			          		<td>{{ structure.imageSelector }}</td>
 			          	</tr>
 			          	<tr>
-			          		<th>LINK SELECTOR</th>
+			          		<th>Link Selector</th>
 			          		<td>{{ structure.linkSelector }}</td>
 			          	</tr>
 			          	<tr>
-			          		<th>CONTENT SELECTOR</th>
+			          		<th>Content Selector</th>
 			          		<td>{{ structure.contentSelector }}</td>
 			          	</tr>
 		          	</table>
@@ -267,8 +274,9 @@
 							<th> NAME </th>
 							<th> URL </th>	
 							<th> LOGO </th>	
-							<th> IMAGE PREFIX PATH </th>	
-							<th> IMAGE PREFIX ATTR </th>
+							<th> PREFIX PATH(IMAGE)</th>	
+							<th> PREFIX ATTR(IMAGE) </th>
+							<th> PREFIX PATH(LINK)</th>
 							<th> ACTION </th>							
 						</tr>
 						<tr ng-repeat="st in site_list">
@@ -280,6 +288,7 @@
 							</td>
 							<td> {{st.basepath}}</td>
 							<td> {{st.prefixImg}}</td>
+							<td> {{st.prefixLink}}</td>
 							<td> 
 								<button title="view this site" ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
 								<button title="add or edit structure of this website" ng-click='findStructureById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myStruct"><i class="fa fa-file-code-o"></i></button>
@@ -315,7 +324,7 @@
 			
 			$scope.domain =  $scope.weburl  + "/AKNnews/";
 			
-		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'', prefixImg:''};		 
+		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'', prefixImg:'', prefixLink:''};		 
 		    
 		    $scope.submit = function() {
 		    	if ( $scope.site.id == null){
@@ -340,7 +349,7 @@
             } ;
 		    
  		    $scope.reset = function(){
- 		    	$scope.site={id:null,name:'',url:'',logo:'',basepath:'',prefixImg:'' };	
+ 		    	$scope.site={id:null,name:'',url:'',logo:'',basepath:'',prefixImg:'',prefixLink:'' };	
                 $scope.myForm.$setPristine(); //reset Form
             };
 		    
