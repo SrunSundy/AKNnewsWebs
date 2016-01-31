@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app="myApp" ng-controller="myCtrl">
 <head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<title>AKN ព័ត៌មាន | ទំព័រដើម</title>
+		<title ng-bind="categoryName"></title>
 		
 		<link href="${pageContext.request.contextPath }/resources/images/logo/akn.png" rel="shortcut icon">
 			
@@ -32,7 +32,7 @@
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animation.css"/>
 
 	</head>
-	<body ng-app="myApp" ng-controller="myCtrl">
+	<body>
 		
 		<div class="main-container">
 		 
@@ -73,15 +73,15 @@
 							</div>
 							<div class="popular-news-b1">
 								<div class="top-1" ng-repeat="top in top2">
+									<div class="top-title">
+										<p><a href="{{top.url}}" ng-click="readNews(top.id)" ng-if="top.site.id!=6" target="_blank" ng-bind="top.title"></a></p>
+										<p><a href="{{webbaseurl}}detail/{{top.id}}" ng-click="readNews(top.id)" ng-if="top.site.id==6" target="_blank" ng-bind="top.title"></a></p>
+									</div>
 									<div class="top-image">
 										<img ng-src="{{top.image}}" ng-if="top.site.id!=6"/>
 										<img ng-src="{{baseurl}}resources/images/news/{{top.image}}" ng-if="top.site.id==6"/>
 									</div>
-									<div class="top-title">
-										<p><a href="{{top.url}}" ng-click="readNews(top.id)" ng-if="top.site.id!=6" target="_blank" ng-bind="top.title"></a></p>
-										<p><a href="{{webbaseurl}}detail/{{top.id}}" ng-click="readNews(top.id)" ng-if="top.site.id==6" target="_blank" ng-bind="top.title"></a></p>
-										
-									</div>
+									
 								</div>
 							</div>
 						</div><!--/slide show -->
@@ -213,6 +213,10 @@
 					angular.element("#category"+cid).addClass("active");
 				};
 				
+				var aknPrefix = "AKN ព័ត៌មាន | ";
+				
+				$scope.categoryName = aknPrefix + "ទំព័រដើម";
+				
 				if($scope.cid!=0)
 					$scope.slideStatus = true;
 				
@@ -246,9 +250,11 @@
 				
 				//find categoryname by id
 				$scope.getCategoryNameById = function(array){
+					if($scope.cid==0)
+						return;
 					angular.forEach(array, function(category, index){
 						if(category.id==$scope.cid){
-							$scope.categoryName = category.name;
+							$scope.categoryName = aknPrefix + category.name;
 							return;
 						}
 					});
