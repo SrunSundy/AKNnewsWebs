@@ -8,7 +8,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>site | ADMIN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Website | ADMIN</title>
     <!-- Tell the browser to be responsive to screen width -->
 
 	<jsp:include page="import/header.jsp"></jsp:include>
@@ -83,10 +84,16 @@
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.required">This is a required field</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$error.minlength">Minimum length required is 3</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.url.$invalid">This field is invalid </span>  
-			         <h4>BASEPATH</h4>     
-			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/><br/>
-			          <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
-			          class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
+			         
+			         <h4>IMAGE PREFIX PATH</h4>     
+			         <input type="text" ng-model="site.basepath" name="basepath" placeholder="Enter site basepath" class='form-control'/>
+			         
+			         <h4>IMAGE PREFIX ATTR</h4>
+			         <input type="text" ng-model="site.prefixImg" name="prefixImg" placeholder="Enter site prefix img attribute" class='form-control'/><br/>
+			          
+			         <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
+			         class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
+			          
 			      	</form>
 		        </div>
 		        <div class="modal-footer">
@@ -119,6 +126,14 @@
 			          	<tr>
 			          		<th>LOGO</th>
 			          		<td><img class="img" style='width:100px;height:100px'  src='{{domain}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
+			          	</tr>
+			          	<tr ng-if="site.basepath!=''">
+			          		<th>IMAGE PREFIX PATH</th>
+			          		<td>{{ site.basepath}}</td>
+			          	</tr>
+			          	<tr ng-if="site.prefixImg!=''">
+			          		<th>IMAGE PREFIX ATTR</th>
+			          		<td>{{ site.prefixImg}}</td>
 			          	</tr>
 			      	    <tr>
 			          		<th class='active' colspan='2'><center> SITE SELECTOR  </center></th>
@@ -252,7 +267,8 @@
 							<th> NAME </th>
 							<th> URL </th>	
 							<th> LOGO </th>	
-							<th> BASEPATH </th>	
+							<th> IMAGE PREFIX PATH </th>	
+							<th> IMAGE PREFIX ATTR </th>
 							<th> ACTION </th>							
 						</tr>
 						<tr ng-repeat="st in site_list">
@@ -263,6 +279,7 @@
 								 <!-- <button ng-click='findsiteById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myUpload">change logo</button> -->
 							</td>
 							<td> {{st.basepath}}</td>
+							<td> {{st.prefixImg}}</td>
 							<td> 
 								<button ng-click='findStructureById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myStruct"><i class="fa fa-file-code-o"></i></button>
 								<button ng-click='findsiteById(st.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
@@ -298,7 +315,7 @@
 			
 			$scope.domain =  $scope.weburl  + "/AKNnews/";
 			
-		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'' };		 
+		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'', prefixImg:''};		 
 		    
 		    $scope.submit = function() {
 		    	if ( $scope.site.id == null){
@@ -308,7 +325,7 @@
 		    	}
 		    	$scope.reset();
 		    	angular.element('#myAdd').modal('hide');
-		    }
+		    };
 		    
  		    $scope.findsiteById = function(id){
  		    	$scope.findStructureById(id);
@@ -320,12 +337,12 @@
                        break;
                     }
                 }
-            } 
+            } ;
 		    
  		    $scope.reset = function(){
- 		    	$scope.site={id:null,name:'',url:'',logo:'',basepath:'' };	
+ 		    	$scope.site={id:null,name:'',url:'',logo:'',basepath:'',prefixImg:'' };	
                 $scope.myForm.$setPristine(); //reset Form
-            }
+            };
 		    
 		    $scope.site_list = {};
 		    
@@ -344,7 +361,7 @@
 					}).error(function(response){
 						$scope.site_list = response;
 					});	 
-		    }
+		    };
 		    
 		    $scope.listsite();
 		    
@@ -362,7 +379,7 @@
 					}).error(function(response){
 						console.log( response ); 
 					});	  
-		    }
+		    };
 		    
 		    
 		    $scope.updatesite = function(){
@@ -379,7 +396,7 @@
 					}).error(function(response){
 						console.log( response ); 
 					});	  
-		    }  
+		    }; 
 		    
 		    $scope.detetesite = function(id){
 		    	alert(id);
@@ -402,7 +419,7 @@
 						console.log( response ); 
 					});	  
 			     
-		    }  
+		    }; 
 		    
 		    $scope.changeLogo = function(){
 		    	var form_data = new FormData(document.getElementById('frmupload'));                     		    	
@@ -426,7 +443,7 @@
 					}).error(function(response){
 						console.log( response ); 
 					});	   
-		    } 
+		    };
 		    
 		    // scraping structure  //http://localhost:8080/AKNnews/api/scrap/structure/
 		    
@@ -447,7 +464,7 @@
 					}).error(function(response){
 						console.log(response);
 					});	 
-		    }
+		    };
 		    
  		    $scope.findStructureById = function(id){
  		        console.log(id);
@@ -470,13 +487,13 @@
 		    			return true;
 		    		}
 		    	}
-		    }
+		    };
  		    
  		    $scope.resetStruct = function(){
  		    	$scope.structure = {id:null,siteId:null, imageSelector:'',linkSelector:'',titleSelector:'',contentSelector:'',rowsSelector:''};
  		    	$scope.strucTmpId = null;
                 $scope.myFormStruc.$setPristine(); //reset Form
-            }
+            };
  		    
  		    $scope.submitStruct = function(){
  		    	if ( $scope.structure.id == null ){
@@ -492,7 +509,7 @@
  		    	}
  		    	
  		    	angular.element('#myStruct').modal('hide');
- 		    }
+ 		    };
  		    
 		    $scope.updateStructure = function(){
 		    	$http.put(
@@ -505,7 +522,7 @@
 					}).error(function(response){
 						console.log( response ); 
 					});	  
-		    } 
+		    };
 		    
 		    $scope.insertStructure = function(){
 		    	$http.post(
@@ -518,7 +535,7 @@
 					}).error(function(response){
 						console.log( response ); 
 					});	  
-		    }  
+		    };  
 		    
 		    $scope.deleteStructure = function(id){
 		    	$http.delete(
@@ -530,7 +547,7 @@
 					}).error(function(response){
 						console.log( response ); 
 					});	  
-		    } 
+		    }; 
 		    
 		    $scope.liststructure(); 
 		    

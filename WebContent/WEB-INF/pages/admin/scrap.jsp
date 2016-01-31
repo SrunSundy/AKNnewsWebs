@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
   <head>
     	<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<title>Admin AKN | Scrap</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    	<title>Admin AKN | Scrap News From Website</title>
 
 	 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -27,13 +28,6 @@
     	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
        
        <style>
-       		.dis {
-       			visibility: hidden;
-       		}
-       		.sh{
-       			visibility: show;
-       		}
-       		
        	  .error{
 	   	  	color:red;
 	   	  }
@@ -75,7 +69,7 @@
 				                		     <div class="input-group">
 						                     	 <span class="input-group-addon">Web Site</span>
 												    <select name="s_select" id="s_select" ng-model="id" required class='form-control'>
-												      <option value="">---Please select---</option>
+												      <option value="">Choose Website</option>
 												      <option ng-repeat="site in site_list" value="{{site.id}}" ng-hide="{{site.name=='AKNnews'}}">{{site.name}}</option>
 												    </select>
 						                  	 </div><br>
@@ -91,8 +85,7 @@
 				                	</div>
 								</form>
 								<center >
-									<img class='dis' id='load' src='${pageContext.request.contextPath }/resources/images/loading.gif'/>
-									<h4 >Effected News : {{effected}}</h4>
+									<img ng-if="loadingStatus" src='${pageContext.request.contextPath }/resources/images/loading.gif'/>
 								</center>
 				                </div><!-- /.box-body -->
 				              </div><!-- /.box -->
@@ -147,6 +140,9 @@
 		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
 		
 		angular.element(".select2").select2();
+		
+		$scope.loadingStatus = false;
+		
 		$scope.show_loading = true;
 		$scope.id = null;
 		$scope.effected = null;
@@ -160,22 +156,22 @@
 				}).error(function(response){
 					$scope.site_list = response;
 				});	 
-	    }
+	    };
 	    
 	    $scope.scrapSite = function(){
-	    	angular.element( "#load" ).removeClass( 'dis' );
-	    	angular.element( "#load" ).addClass( 'sh' );
+	    	$scope.loadingStatus = true;
+	    	
   		    $http.get(
   		    		$scope.domain+'api/scrap/site/'+$scope.id
 				).success(function(response){
-					$scope.effected = response.CONTENT;
-					console.log( response );
-			    	angular.element( "#load" ).removeClass( 'sh' );
-			    	angular.element( "#load" ).addClass( 'dis' );
+					alert(response.CONTENT + " Row(s) Affected..!");
+					$scope.loadingStatus = false;
+					
 				}).error(function(response){
 					console.log( response );
 				});	 
-	    }
+	    };
+	    
 	    $scope.listsite();
 	});
   
