@@ -23,6 +23,7 @@
     <!-- Bootstrap WYSIHTML5 -->
     <script src="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     
-     <script src="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/sweetalert/sweetalert.min.js"></script>
     
     

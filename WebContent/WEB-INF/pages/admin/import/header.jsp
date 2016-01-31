@@ -12,3 +12,4 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">   
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">  
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/sweetalert/sweetalert.css">  
