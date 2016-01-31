@@ -38,7 +38,7 @@
 	    <style>
 	    	 .modal{
 	    		z-index:100000;
-	    		margin-top:100px;
+	    		/* margin-top:100px; */
 	    	} 
 	    	.modal-content{
 	    		border-radius:0px;
@@ -52,7 +52,6 @@
 	    	}
 	    	h3{
 	    		margin-top:0px;
-	    		margin-bottom:10px;
 	    	}
 	    	.error{
 	    		color:red;
