@@ -6,6 +6,7 @@
   <head>
     	<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1" />
     	<title>Admin AKN | Scrap</title>
 
 	 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
@@ -47,7 +48,7 @@
       	  <div class="content-wrapper">
         		<!-- Content Header (Page header) -->
 		        <section class="content-header">
-			          <h1>Scraping Management <small>Version 2.0</small></h1>
+			          <h1>Test Scrap Management <small>Version 2.0</small></h1>
 			          <ol class="breadcrumb">
 			            	<li><a href="#"><i class="fa fa-dashboard"></i> Scrap </a></li>
 			            	<li class="active">Article Management</li>
@@ -90,7 +91,7 @@
 							                </div>
 							                
 							                <div class="form-group">
-							                  	<label for="prefixImg">IMAGE PREFIX</label>
+							                  	<label for="prefixImg">PREFIX ATTRIBUTE ( IMAGE )</label>
 							                  	<input type="text" id="prefixImg" class="form-control" placeholder="Enter Prefix Image" ng-model="prefixImg">
 							                </div>
 							                
@@ -99,9 +100,12 @@
 						              	<div class="box-footer">						              		
 						                	<button type="submit" style="width:10%" class="btn btn-default pull-right">TEST</button>
 						              	</div>
+						              	<center >
+											<img ng-if="loadingStatus" src='${pageContext.request.contextPath }/resources/images/loading.gif'/>
+										</center>
 						              
 						            </form>
-						            <div class="box">
+						            <div class="box" ng-if="doneScrap">
 						            	<textarea class="form-control" rows="3" placeholder="RESPONSE_DATA" style="margin-top: 0px; margin-bottom: 0px; height: 150px;">{{ testResponse | json}}</textarea>
 						            </div> 
 					          </div>
@@ -128,8 +132,12 @@
 						                	<button type="submit" style="width:10%" class="btn btn-default pull-right">TEST</button>
 						              	</div>
 						              	
+						              	<center >
+											<img ng-if="contentLoadingStatus" src='${pageContext.request.contextPath }/resources/images/loading.gif'/>
+										</center>
+						              	
 						            </form>
-						            <div class="box">
+						            <div class="box" ng-if="doneScrapContent">
 						            	<textarea class="form-control" rows="3" placeholder="RESPONSE_DATA" style="margin-top: 0px; margin-bottom: 0px; height: 150px;">{{contentResponse}}</textarea>
 						            </div>
 						      </div> 
@@ -180,6 +188,12 @@
 		
 		angular.element(".select2").select2();
 		
+		$scope.loadingStatus = false;
+		$scope.contentLoadingStatus = false;
+		$scope.doneScrap = false;
+		$scope.doneScrapContent = false;
+		
+		
 		$scope.url = "";
 		$scope.titleSelector = "";
 		$scope.imageSelector = "";
@@ -189,9 +203,10 @@
 		$scope.prefixImg = "";
 		
 		$scope.submit = function($event){
-			 
+			
 			 $event.preventDefault();
-			 
+			 $scope.doneScrap = false;
+			 $scope.loadingStatus=true;
 			 $http({
 				 method: "POST",
                  url: $scope.baseurl + "api/scrap/test",
@@ -205,12 +220,16 @@
                  }
              })
              .success(function (response) {
+             	$scope.loadingStatus = false;
+             	$scope.doneScrap = true;
              	$scope.testResponse = response.RESPONSE_DATA;
-			 });
+			 }); 
 		};
 		
 		$scope.contentSubmit = function($event){
 			 $event.preventDefault();
+			 $scope.doneScrapContent = false;
+			 $scope.contentLoadingStatus = true;
 			 $http({
 				 method: "POST",
                 url: $scope.baseurl + "api/scrap/content",
@@ -220,6 +239,8 @@
                 }
             })
             .success(function (response) {
+            	$scope.contentLoadingStatus = false;
+            	$scope.doneScrapContent = true;
             	$scope.contentResponse = response.CONTENT;
 			 });
 		};
