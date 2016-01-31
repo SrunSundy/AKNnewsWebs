@@ -120,12 +120,8 @@
 			          		<td style="border-top: none !important; ">{{ site.name }}</td>
 			          	</tr>
 			            <tr>
-			          		<th>URL</th>
+			          		<th> URL</th>
 			          		<td>{{ site.url }}</td>
-			          	</tr>
-			          	<tr>
-			          		<th>LOGO</th>
-			          		<td><img class="img" style='width:100px;height:100px'  src='{{domain}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
 			          	</tr>
 			          	<tr ng-if="site.basepath!=''">
 			          		<th>IMAGE PREFIX PATH</th>
@@ -134,6 +130,10 @@
 			          	<tr ng-if="site.prefixImg!=''">
 			          		<th>IMAGE PREFIX ATTR</th>
 			          		<td>{{ site.prefixImg}}</td>
+			          	</tr>
+			          	<tr>
+			          		<th> LOGO</th>
+			          		<td><img class="img" style='width:100px;height:100px'  src='{{domain}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
 			          	</tr>
 			      	    <tr>
 			          		<th class='active' colspan='2'><center> SITE SELECTOR  </center></th>
@@ -281,10 +281,10 @@
 							<td> {{st.basepath}}</td>
 							<td> {{st.prefixImg}}</td>
 							<td> 
-								<button ng-click='findStructureById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myStruct"><i class="fa fa-file-code-o"></i></button>
-								<button ng-click='findsiteById(st.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
-								<button ng-click='findsiteById(st.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
-								<button ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
+								<button title="view this site" ng-click='findsiteById(st.id)' class='btn btn-info' data-toggle="modal" data-target="#myView"><i class="fa fa-eye"></i></button>
+								<button title="add or edit structure of this website" ng-click='findStructureById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myStruct"><i class="fa fa-file-code-o"></i></button>
+								<button title="edit this website" ng-click='findsiteById(st.id)' class='btn btn-primary' data-toggle="modal" data-target="#myAdd"><i class="fa fa-edit"></i></button>
+								<button title="delete this website" ng-click='findsiteById(st.id)' class='btn btn-danger' data-toggle="modal" data-target="#myDelete"><i class="fa fa-times"></i></button>
 							 </td>	
 						</tr>
 					</table>
