@@ -5,7 +5,7 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="http://localhost:8080/AKNnews/resources/images/user/${sessionScope.SessionUser.image}" class="img-circle" alt="User Image">
+              <img src="{{baseurl}}/resources/images/user/${sessionScope.SessionUser.image}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
               <p>${sessionScope.SessionUser.username}</p>

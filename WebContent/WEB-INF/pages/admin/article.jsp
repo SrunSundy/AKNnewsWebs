@@ -119,7 +119,7 @@
                       <th>View</th>
                       <th>Category</th>
                       <th>Status</th>
-                      <th>Action</th>
+                      <th style="width:10%">Action</th>
                     </tr>
                    
                     <tr ng-hide="articles.length">

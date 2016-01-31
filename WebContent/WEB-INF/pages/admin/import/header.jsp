@@ -1,3 +1,4 @@
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link href="${pageContext.request.contextPath }/resources/images/logo/akn.png" rel="shortcut icon">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
@@ -13,3 +14,4 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">   
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css">  
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/sweetalert/sweetalert.css">  
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/setting.css">
