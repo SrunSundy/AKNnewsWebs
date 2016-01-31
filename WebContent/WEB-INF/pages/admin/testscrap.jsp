@@ -89,6 +89,11 @@
 							                  	<input type="text" id="linkSelector" class="form-control" placeholder="Enter Link Selector" required ng-model="linkSelector">
 							                </div>
 							                
+							                <div class="form-group">
+							                  	<label for="prefixImg">IMAGE PREFIX</label>
+							                  	<input type="text" id="prefixImg" class="form-control" placeholder="Enter Prefix Image" ng-model="prefixImg">
+							                </div>
+							                
 							            </div><!-- /.box-body -->
 						              
 						              	<div class="box-footer">						              		
@@ -181,10 +186,12 @@
 		$scope.linkSelector = "";
 		$scope.contentSelector = "";
 		$scope.rowSelector = "";
+		$scope.prefixImg = "";
 		
 		$scope.submit = function($event){
 			 
 			 $event.preventDefault();
+			 
 			 $http({
 				 method: "POST",
                  url: $scope.baseurl + "api/scrap/test",
@@ -193,7 +200,8 @@
                 	 rowsSelector: $scope.rowSelector,
                 	 titleSelector: $scope.titleSelector,
                 	 imageSelector: $scope.imageSelector,
-                	 linkSelector: $scope.linkSelector
+                	 linkSelector: $scope.linkSelector,
+                	 prefixImg: $scope.prefixImg
                  }
              })
              .success(function (response) {
