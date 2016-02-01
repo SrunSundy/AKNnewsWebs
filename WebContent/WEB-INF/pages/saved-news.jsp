@@ -167,20 +167,20 @@
 					                </div>
 					                <div class="form-group">
 					                  	<label for="newpasswd">លេខសម្ងាត់ថ្មី</label>
-					                  	<input type="password" class="form-control"  name='newpwd' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី" required ng-minlength="5" ng-model='userpwd.newpass'/>
+					                  	<input type="password" class="form-control"  name='newpwd' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី" required ng-minlength="5" ng-model='userpwd.newpass' ng-change='checkPassword()' />
 			             		   		  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$error.minlength">លេខសម្ងាត់ ត្រូវមានយ៉ាងតិច ៥ ខ្ទង់</span>
 					                </div>
 					                <div class="form-group">
 					                  	<label for="confirmpasswd">បញ្ជាក់ លេខសម្ងាត់ថ្មី </label>
-					                  	<input type="password" class="form-control" name='newpwd2' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី ម្តងទៀត" required ng-minlength="5" ng-model='conpwd' compare-to="userpwd.newpass" ng-change='checkPassword()'/>
+					                  	<input type="password" class="form-control" name='newpwd2' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី ម្តងទៀត" required ng-minlength="5" ng-model='conpwd' ng-change='checkPassword()'/>
 			             		   		 <!--  <span class='error'ng-show="myForm.$dirty && myForm.newpwd2.$error.minlength">លេខសម្ងាត់ ត្រូវមានយ៉ាងតិច ៥ ខ្ទង់</span> -->
-			            				  <span class='error'ng-show="status">លេខសម្ងាត់ មិនត្រូវគ្នា</span>
+			            				  <span class='error'ng-show="statusShow">លេខសម្ងាត់ មិនត្រូវគ្នា</span>
 					                </div>
 					              </div>
 					              <!-- /.box-body -->
 				        </div>
 				        <div class="modal-footer">
-					         <input type="submit" class="btn btn-primary" value='រក្សាទុក' ng-disabled="myForm.$invalid" />
+					         <input type="submit" class="btn btn-primary" value='រក្សាទុក' ng-disabled="myForm.$invalid || status == false " />
 					    </div>
 					    </form>
 				      </div>
@@ -210,7 +210,7 @@
 				$scope.populars = [];
 				$scope.navCategory = [];
 				$scope.sites = [];
-				
+				//$scope.pstatus = false;
 				$scope.uid = 0;
 				
 				if('${sessionScope.SessionUser}' != '')
@@ -228,14 +228,17 @@
 				$scope.userpwd = {id:null,oldpass:'',newpass:''};
 				$scope.conpwd = null;
 				$scope.status = false;
+				$scope.statusShow = false;
 				
 				//check password 
 				$scope.checkPassword = function(){
 					if ($scope.conpwd != $scope.userpwd.newpass){
-						$scope.status = true;
+						$scope.status = false;
+						$scope.statusShow = true;
 						return;
 					}
-					$scope.status = false;
+					$scope.statusShow = false;
+					$scope.status = true;
 				};
 				//upload image 
 				$scope.uploadImage = function(){
@@ -260,11 +263,7 @@
 				
 				//change password
 				$scope.changePassword = function(){
-					if ($scope.conpwd != $scope.userpwd.newpass){
-						$scope.status = true;
-						return;
-					} 
-					$scope.status = false;
+
 					$scope.userpwd.id = $scope.uid;
 					console.log($scope.userpwd);
  	  			    $http.put(
@@ -276,7 +275,7 @@
 							$scope.reset();
 						}).error(function(response){
 							console.log( response ); 
-						});	 
+						});	
 				};
 				
 				//reset form change password
