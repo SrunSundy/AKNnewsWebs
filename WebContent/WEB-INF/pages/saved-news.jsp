@@ -95,7 +95,7 @@
 										<div class="remove-icon"​ ng-click="removeNews(article.id)"><i class="fa fa-trash" title="លុបព័ត៌មានចេញ"></i></div>
 										<div class="article-image">
 											<a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{article.image}}"/></a>
-											<a href="{{article.url}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/{{article.image}}"/></a>
+											<a href="{{article.url}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/news/{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
 											<p><a href="{{article.url}}" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
