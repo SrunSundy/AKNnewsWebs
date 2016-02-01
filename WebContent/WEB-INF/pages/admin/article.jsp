@@ -104,7 +104,7 @@
 	                 	<div class="input-group">
 			                  <span class="input-group-addon">Status</span>
 			                  <select   id="filterstatus" class=" form-control" style="width: 100%"  ng-options="setstatus as setstatus.label for setstatus in setstatuses track by setstatus.id" ng-model="fstatus"
-			                    ng-change="" >
+			                    ng-change="listArticleWithStatusFilter(fstatus)" >
 			                  </select> 
 	                   	  </div>
 	                 </div>
@@ -195,7 +195,7 @@
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http,$location){
 		
-	
+		
 		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
 
 		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
@@ -211,7 +211,7 @@
 		$scope.sid = 0;
 		$scope.cid = 0;
 		$scope.page = 1;
-		$scope.useridforstatus = 0;
+		$scope.useridforstatus = -1;
 		
 		$scope.statustrue =0;
 		$scope.statusfalse =0;
@@ -253,8 +253,11 @@
 		};
 		
 		$scope.listSearchArticles = function(key){
+			 //NOTE: userid=0 mean list news with true status 
+            //	  userid=-1 mean list news with all status
+            //      userid=-2 mean list news with false status
 			$scope.triggerpage++;
-			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": -1};
+			json ={"key": $scope.searchkey,"page": $scope.page,"row": $scope.row,"cid": $scope.cid,"sid": $scope.sid,"uid": $scope.useridforstatus};
 			$http({
                 method: "POST",
                 url: $scope.baseurl + "api/article/search/",
@@ -291,7 +294,10 @@
 			$scope.triggerpage++;
 			$http({
                 method: "GET",
-                url: $scope.baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/-1/"
+              //NOTE: userid=0 mean list news with true status 
+              //	  userid=-1 mean list news with all status
+              //      userid=-2 mean list news with false status
+                url: $scope.baseurl + "api/article/"+$scope.page+"/"+$scope.row+"/"+$scope.cid+"/"+$scope.sid+"/"+$scope.useridforstatus+"/"
             })
             .success(function (response) { 	
             	if(response.RESPONSE_DATA.length == 0){
@@ -399,8 +405,11 @@
 			$scope.listArticles();
 		};
 		
-		$scope.listArticleWithStatusFilter = function(){
-			
+		$scope.listArticleWithStatusFilter = function(status){
+			$scope.page = 1;
+			$('#display').bootpag({page : '1' });
+			$scope.useridforstatus = status.value;
+			$scope.listArticles();
 		}
 	
 		//for set row value
@@ -408,7 +417,7 @@
 		$scope.selected = $scope.items[0];
 		
 		//set status value
-		$scope.setstatuses = [{id: 1,label: 'All status',},{id: 2,label: 'True',},{id: 3,label: 'false',}];
+		$scope.setstatuses = [{id: 1,label: 'All status',value : -1},{id: 2,label: 'True', value : 0 },{id: 3,label: 'false', value : -2}];
 		$scope.fstatus = $scope.setstatuses[0];
 		
 		//timeago
