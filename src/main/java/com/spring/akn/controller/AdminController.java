@@ -86,5 +86,10 @@ public class AdminController {
 	public String toSiteDetail() {
 		return "admin/sitedetail";
 	}
+	
+	@RequestMapping(value ="/setting")
+	public String toSetting() {
+		return "admin/setting";
+	}
 
 }
