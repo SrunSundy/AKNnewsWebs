@@ -21,9 +21,9 @@ public class MainController {
 	
 	@RequestMapping(value="/search")
 	public String searchPage(ModelMap model, @RequestParam("key") String key){
-		System.out.println(key);
+		System.err.println("------------------------->>>>>>>>>>>key: "+key);
 		model.addAttribute("cid", 0);
-		model.addAttribute("key", key);
+		model.addAttribute("key", key.replaceAll("@", "%"));
 		return "home";
 	}
 	
