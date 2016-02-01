@@ -1,0 +1,157 @@
+div.wrapper-cover{
+	height: 370px;
+}
+div.background-cover{
+	height:310px;
+	/*background: #232937;*/
+	background: url('../images/setbg.jpg');
+	background-size: 100% 310px;
+	
+}
+div.header-err{
+	background-color:#E53935;
+	text-align:center;
+}
+div.header-err h5{
+	color:white;
+	font-weight: bold;
+}
+div.footer-err{
+	height: 150px;
+
+	
+}
+h5.update-profile-string{
+	position: absolute;
+	top: 120px;
+	left: 50px;
+	color:white;
+	display:none;
+	font-weight: bold;
+}
+div.change-img{
+	width: 170px;
+	height: 70px;
+	background: black;
+	position: absolute;
+	bottom: -2px;
+	opacity: 0.8;
+	display: none;
+	left: -1px;
+	
+}
+div.box-img:hover div.change-img,div.box-img:hover h5.update-profile-string{
+	display:block;
+}
+div.box-background{
+	height:310px;
+}
+div.box-space{
+	height: 130px;
+	position:relative
+}
+div.wrapper-btn{
+	position:absolute;
+	top: 60px;
+	left: 0;
+}
+div.btn-upload{
+	background:#424242;
+	width: 150px;
+	border: 1px solid white;
+	
+}
+div.btn-upload:hover{
+	background:#212121;
+	border: 1px solid white;
+}
+div.box-img{
+	width: 170px;
+	height: 180px;
+	background: white;
+	border: 1px solid #E0E0E0;
+	border-radius: 3px;
+	position: relative;
+	cursor: pointer;
+}
+img.profile-image{
+	width: 160px;
+	margin-top: 4px;
+	height: 170px;
+}
+div.box-setting-menu{
+	background:white;
+	height:60px;
+	border: 1px solid #E0E0E0;
+}
+i.icon-camera{
+	color: white;
+	font-size: 30px;
+	transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+	opacity: 0.7;
+	
+}
+
+div.box-img:hover i.icon-camera{
+	font-size: 25px;
+	opacity: 1;
+}
+
+.fileUpload {
+    position: absolute;
+	bottom: 0;
+    overflow: hidden;
+    margin: 10px;
+	left: 0;
+	
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+h4.general-setting{
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+div.text-general,div.save-btn{
+	float:left;
+
+}
+input.invalidInput::-webkit-input-placeholder { 
+	color: #F44336 !important;
+	font-style:italic;
+}
+textarea.invalidInput::-webkit-input-placeholder { 
+	color: #F44336 !important;
+	font-style:italic;
+}
+input.invalidInput::-moz-input-placeholder { 
+	color: #F44336 !important;
+	font-style:italic;
+}
+textarea.invalidInput::-moz-input-placeholder { 
+	color: #F44336 !important;
+	font-style:italic;
+}
+div.errmessage{
+	height: 40px;
+	background:#F44336;
+	display:none;
+}
+i.setting{
+	margin-right:10px;
+}
+.text-err{
+	color:white;
+	text-align:center;
+}
