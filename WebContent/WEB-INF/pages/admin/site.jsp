@@ -451,7 +451,9 @@
 						console.log( $scope.site_list );
 					}).error(function(response){
 						console.log( response ); 
-					});	   
+					});	 
+  			    document.frm.reset();
+  			  	angular.element('#myUpload').modal('hide');
 		    };
 		    
 		    // scraping structure  //http://localhost:8080/AKNnews/api/scrap/structure/
@@ -480,7 +482,6 @@
  		        $scope.strucTmpId = id;
 		    	for(var i=0;i<$scope.structure_list.length;i++){
 		    		if ( $scope.structure_list[i].id == id){
-		    			//console.log( $scope.structure_list[i] );
 		    			$scope.structure = {
 		    					id:$scope.structure_list[i].id, 
 		    					imageSelector:$scope.structure_list[i].imageSelector,
@@ -489,8 +490,6 @@
 		    					contentSelector:$scope.structure_list[i].contentSelector,
 		    					rowsSelector:$scope.structure_list[i].rowsSelector
 		    				};
-		    			 
-		    			 //$scope.sturcture = angular.compy($scope.structure_list[i]);
 		    			console.log( $scope.structure );
 		    			
 		    			return true;
