@@ -77,9 +77,7 @@
 	                  
 	                </div>
 	                 
-	                 <div class="col-md-3">
-	                 	
-	                 </div>
+	               <div class="box-footer clearfix col-md-1"></div>
 	                
 	                 <div class="box-footer clearfix col-md-3">
 	                 	<div class="input-group">
@@ -93,21 +91,32 @@
 	                   
 	                </div>
 	                
-	                 <div class="box-footer clearfix col-md-3">
-	                 <div class="input-group">
-		                    <span class="input-group-addon">Site</span>
-	                  <select   id="filtersite" class=" select2 " style="width: 100%"  ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
-	                    ng-change="filterSite(fsite)" >
-	                    </select> 
-	                   </div>
-	                    
-	                 
+	                <div class="box-footer clearfix col-md-3">
+		                 <div class="input-group">
+			                  <span class="input-group-addon">Site</span>
+			                  <select   id="filtersite" class=" select2 " style="width: 100%"  ng-options="site as site.name for site in sites track by site.id" ng-model="fsite"
+			                    ng-change="filterSite(fsite)" >
+			                  </select> 
+	                   	  </div>	                 
 	                </div>
+	                
+	                  <div class="box-footer clearfix col-md-2">
+	                 	<div class="input-group">
+			                  <span class="input-group-addon">Status</span>
+			                  <select   id="filterstatus" class=" form-control" style="width: 100%"  ng-options="setstatus as setstatus.label for setstatus in setstatuses track by setstatus.id" ng-model="fstatus"
+			                    ng-change="" >
+			                  </select> 
+	                   	  </div>
+	                 </div>
+	                
 	                
 	             </div><!-- row -->
                </div>
                <div class="col-md-12">
-               		 <h4 class="box-title" style="margin-right: 10px;" ><i>Result:</i> <small>{{Totalrecord}} records</small></h4>
+               		<div class="div-resultdetail tog">
+               			<h4 class="box-title" style="margin-right: 10px;" ><i>Result:</i> <small>{{Totalrecord}} records</small></h4>
+               		</div> 
+               		
                </div>
                 <div class="box-body table-responsive no-padding col-md-12">
                   <table class="table table-hover">
@@ -202,9 +211,12 @@
 		$scope.sid = 0;
 		$scope.cid = 0;
 		$scope.page = 1;
+		$scope.useridforstatus = 0;
 		
 		$scope.statustrue =0;
 		$scope.statusfalse =0;
+		
+		
 		
 		$scope.triggerpage = 0;
 		
@@ -218,14 +230,6 @@
 		};
 		$scope.toggleStatusTrue = function(nid){
 			$scope.toggleStatus(nid).success(function (response) {
-				/* $scope.statustrue++;
-				if($scope.statustrue%2==0){
-					angular.element("#t"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
-					alert(response.MESSAGE);
-					return;
-				}
-				angular.element("#t"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
-        		alert(response.MESSAGE); */
         		$scope.listArticles();
         		swal("News has been disabled successfully", "", "success");
 	    	}).error(function (response) {
@@ -234,30 +238,19 @@
 		};
 		$scope.toggleStatusFalse = function(nid){
 			$scope.toggleStatus(nid).success(function(response){
-				/*  $scope.statusfalse++;
-				alert($scope.statusfalse);
-				if($scope.statusfalse%2==0){
-					angular.element("#f"+nid).removeClass("fa-check-square statustrue").addClass("fa-times-circle statusfalse");
-					alert(response.MESSAGE);
-					return;
-				}
-				angular.element("#f"+nid).removeClass("fa-times-circle statusfalse").addClass("fa-check-square statustrue");
-	        	alert(response.MESSAGE); */
 				$scope.listArticles();
 			swal("News has been enabled successfully", "", "success");
 	    	}).error(function (response) {
 				swal("Fail to enable", "", "error");
 	    	});
-		}  
+		};
 		
 		$scope.gotoSite = function(url){
-			
 			 window.open( url,'_blank');
-		}
+		};
 		$scope.gotoSiteOwn = function(url){
-			
 			 window.open($scope.webbaseurl +url,'_blank');
-		}
+		};
 		
 		$scope.listSearchArticles = function(key){
 			$scope.triggerpage++;
@@ -404,11 +397,19 @@
 			$('#display').bootpag({page : '1' });
 			$scope.sid = site.id;
 			$scope.listArticles();
+		};
+		
+		$scope.listArticleWithStatusFilter = function(){
+			
 		}
 	
-
+		//for set row value
 		$scope.items = [{id: 1,label: '15',},{id: 2,label: '30',},{id:3,label: '50',}, {id: 4,label: '100',}];
 		$scope.selected = $scope.items[0];
+		
+		//set status value
+		$scope.setstatuses = [{id: 1,label: 'All status',},{id: 2,label: 'True',},{id: 3,label: 'false',}];
+		$scope.fstatus = $scope.setstatuses[0];
 		
 		//timeago
 		$scope.convertTimeago = function(time){
