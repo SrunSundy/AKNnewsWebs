@@ -31,16 +31,23 @@ h5.update-profile-string{
 }
 div.change-img{
 	width: 170px;
-	height: 70px;
+	height: 0px;
 	background: black;
 	position: absolute;
 	bottom: -2px;
 	opacity: 0.8;
-	display: none;
 	left: -1px;
+	transition: all 0.1s cubic-bezier(0.64, 0.09, 0.08, 1);
+
+	-moz-transition: all 0.1s cubic-bezier(0.64, 0.09, 0.08, 1);
+
+	-o-transition: all 0.1s cubic-bezier(0.64, 0.09, 0.08, 1);
+
 	
 }
 div.box-img:hover div.change-img,div.box-img:hover h5.update-profile-string{
+	
+	height: 70px;
 	display:block;
 }
 div.box-background{
