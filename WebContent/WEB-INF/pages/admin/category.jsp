@@ -18,13 +18,11 @@
    	  	color:red;
    	  }
 
- 
-  
    </style>
    
    
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-mini"   ng-app="myApp" ng-controller="myCtrl" >
     <div class="wrapper">
     
       <header class="main-header">
@@ -51,7 +49,7 @@
         <!-- Main content -->
         
         <section class="content">         	          
-		<div ng-app="myApp" ng-controller="myCtrl" >
+		<div>
 
 		
 		  <!-- Modal ADD -->

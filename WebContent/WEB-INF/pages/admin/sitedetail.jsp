@@ -30,10 +30,20 @@
       .error{
       	color:red;
       }
+      .img{
+      	width: 30px;
+      	height: 30px;
+      }
+      
+      .imgx{
+      	width: 100px;
+      	height: 100px;
+      }
  
-  
+  	
    </style>
-   
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/iCheck/all.css">
+   <script src="${pageContext.request.contextPath }/resources/plugins/iCheck/icheck.min.js"></script> --%>
    
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
@@ -120,8 +130,8 @@
 		        <div class="modal-body">
 					<table class="table " >	
 			            <tr>
-			          		<th style="border-top: none !important; ">SITE NAME</th>
-			          		<td style="border-top: none !important; ">{{ siteName(sitedetail.s_id) }}</td>
+			          		<th style="border-top: none !important; ">WEBSITE</th>
+			          		<td style="border-top: none !important; "><img class="imgx"  src="{{domain}}resources/images/logo/{{ siteLogo(sitedetail.s_id)}}" /></td>
 			          	</tr>
 			          	<tr>
 			          		<th>CATEGORY NAME</th>
@@ -171,9 +181,52 @@
 		<div>
 			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-plus"></i></button> <br/><br/>
 		</div>
-		
+
+
+	                    
+	     
+
+
+<!-- 	        
+	        
+	        		        	 
+
+					    <span class='error' ng-show="myForm.$dirty && myForm.s_select.$error.required">This is a required field</span>
+					    <h4>CATEGORY NAME</h4>
+ -->
+	        
 		<div>
 			<div class="box">
+				<div class='div-filter col-md-12'>
+					<div class='box-footer clearfix col-md-2'>
+						<select  id="setrow" class="form-control select3" ng-options="item as item.label for item in items track by item.id" ng-model="selected"
+		           		 ng-change="changeRow(selected)" >   </select>
+					</div>
+					<div class='col-md-4'>
+					
+					</div>
+					<div class='box-footer clearfix col-md-3'>
+						<div class="input-group">
+							<span class="input-group-addon">Web Site</span>
+							<select name="s_select" id="s_select" ng-options="site.id as site.name for site in site_list" ng-model="sitedetail.s_id" required class='form-control' ng-change='filterSite(sitedetail.s_id)'>
+						      <option value="">---Please select---</option>
+						      <option ng-repeat="site in site_list" value="{{site.id}}">{{site.name}}
+						      		<!-- <img class="img"  src="{{domain}}resources/images/logo/{{ siteLogo(site.id)}}" /> -->
+						      </option>
+						    </select>
+					</div>
+					</div>
+					<div class='box-footer clearfix col-md-3'>
+						<div class="input-group">
+						<span class="input-group-addon">Category</span>
+							<select name="c_select" id="c_select" ng-options="category.id as category.name for category in category_list"  ng-model="sitedetail.c_id" required class='form-control' ng-change='filterCategory(sitedetail.c_id)'>
+						      <option value="">---Please select---</option>
+						      <option ng-repeat="cate in category_list" value="{{cate.id}}" >{{cate.name}}</option>
+						    </select>
+				    	</div>
+					</div>
+				</div>
+				<div style='clear:both'></div>
 				<div class="box-body table-responsive no-padding">
 					<table class="table table-condensed table-hover">
 						<tr>
@@ -186,7 +239,9 @@
 						</tr>
 						<tr ng-repeat="cat in sitedetail_list" >
 							<td> {{$index+1}} </td>
-							<td> <button class='btn btn-xs btn-danger'>{{ siteName(cat.s_id) }}</button></td>
+							<td> 
+								 <img class="img" src="{{domain}}resources/images/logo/{{ siteLogo(cat.s_id)}}" />
+							</td>
 							<td> <button class='btn btn-xs btn-warning'>{{ categoryName(cat.c_id) }}</button></td>
 							<td> {{cat.url | limitTo:50}}</td>
 							<td> 
@@ -203,10 +258,14 @@
 					 
 					</table>
 				</div>
-				
+				<div class="box-footer clearfix">
+                 <div ng-hide="!sitedetail_list.length" id="display"></div>
+                </div>
 			</div>
 			
 		</div>
+		
+
 
 		
 		</div>
@@ -236,7 +295,10 @@
 			$scope.domain =  $scope.weburl  + "/AKNnews/";
 			
 			$scope.id=null;
-		    $scope.sitedetail={c_id:'',s_id:'',url:'',status:''};		 
+			
+		    $scope.sitedetail={c_id:'',s_id:'',url:'',status:''};	
+		    
+		    $scope.sitedetail_list = {};
 		    
 		    $scope.submit = function() {
 		    	if ( $scope.id == null){
@@ -268,7 +330,7 @@
                 $scope.myForm.$setPristine(); //reset Form
             }
 		    
-		    $scope.sitedetail_list = {};
+		    
 		    
 		    var config = {headers: {
 	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
@@ -289,7 +351,6 @@
 					});	 
 		    }
 		    
-		    $scope.listsitedetail();
 		    
 		    $scope.insertsitedetail = function(){
  		    	console.log('sitedetail', $scope.sitedetail);
@@ -298,7 +359,7 @@
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
-						$scope.listsitedetail();
+						$scope.listSiteDetailPage(1);
 						console.log( response ); 		
 						alert(response.MESSAGE);
 						console.log( $scope.sitedetail_list );
@@ -316,7 +377,7 @@
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
-						$scope.listsitedetail();
+						$scope.listSiteDetailPage(1);
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
 						alert(response.MESSAGE);
@@ -331,7 +392,7 @@
 						$scope.domain+'api/article/scrapurl/'+s_id+'/'+c_id
 						,config
 					).success(function(response){						
-						$scope.listsitedetail();
+						$scope.listSiteDetailPage(1);
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
 						if ( response.STATUS == 404){
@@ -351,7 +412,7 @@
 						,''
 						,config
 					).success(function(response){						
-						$scope.listsitedetail();
+						$scope.listSiteDetailPage(1);
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
 					}).error(function(response){
@@ -405,14 +466,127 @@
 		    		}
 		    	}
 		    }
-		   	
-/*  		    $scope.selectCategory = function(id){
-		    	//for (var i=0;i<$scope.category_list.length)
-		    	alert(id);
-		    }  */
 		    
+		    $scope.siteLogo = function(id){		    	
+		    	for(var i=0 ;i< $scope.site_list.length;i++){
+		    		if ( $scope.site_list[i].id === id){
+		    			return $scope.site_list[i].logo;
+		    		}
+		    	}
+		    }
+		   	
 		    $scope.listcategory();
 		    $scope.listsite();
+		    
+		    //boot page
+		    
+		    //use for pagination
+							$scope.row = 5;
+							$scope.page = 1;
+							$scope.triggerpage = 0;
+							$scope.Totalrecord = 0;
+							
+							$scope.items = [{id: 1,label: '5'},{id: 2,label: '10'},{id:3,label: '20'}, {id: 4,label: '50'}];
+							$scope.selected = $scope.items[0]; 
+							
+							$scope.changeRow = function(row) {
+								$("#setrow").blur();
+								$scope.page = 1;
+								$('#display').bootpag({page : '1' });
+								$scope.row = row.label;
+								console.log($scope.row);
+								$scope.listSiteDetailPage(1);
+							};
+							
+							$scope.filterSite = function(site){
+ 								$("#filtersite").blur();
+								$scope.page = 1;
+								$('#display').bootpag({page : '1' });
+								//$scope.sid = site.id;
+								$scope.listSiteDetailPage(1);
+								console.log(site);
+							}
+							
+							$scope.filterCategory = function(cate){
+ 								$("#filtercate").blur();
+								$scope.page = 1;
+								$('#display').bootpag({page : '1' });
+								//$scope.cid = cate.id;
+								$scope.listSiteDetailPage(1);
+								console.log(cate);
+							};
+
+							//Funotion for list to table
+							$scope.listSiteDetailPage = function(page) {
+								
+								$scope.triggerpage++;
+								var s_id = ($scope.sitedetail.s_id=='' || $scope.sitedetail.s_id == null)? 0 : $scope.sitedetail.s_id;
+								var c_id = ($scope.sitedetail.c_id=='' || $scope.sitedetail.c_id == null)? 0 : $scope.sitedetail.c_id;
+								
+								$scope.page = page;
+								$http
+										.get(
+												$scope.domain + 'api/article/scrapurl/page/'
+														+ $scope.row + '/'
+														+ $scope.page + '/'
+														+ s_id + '/'
+														+ c_id + '/' ,
+												config )
+										.success(
+												function(response) {
+													$scope.sitedetail_list = response.DATA;
+													console.log(response);
+													
+													$scope.Totalrecord = ( s_id == 0 && c_id == 0 )? response.TOTALRECORD : response.DATA.length;
+													//set page to bootpage
+													$('#display')
+															.bootpag(
+																	{
+																		total : Math.ceil($scope.Totalrecord/ $scope.row)
+																	});
+													//for protect bootpage run only one time
+													if ($scope.triggerpage > 1) {
+														return;
+													}
+													$scope.loadpagination();
+												}).error(function(response) {
+											console.log(response);
+										});
+							}
+		    
+			//Function bootpage Pagination 
+			$scope.loadpagination = function() {
+
+				$('#display').bootpag({
+					maxVisible : 5,
+					leaps : true,
+					firstLastUse : true,
+					first : '&#8592;',
+					last : '&#8594;',
+					wrapClass : 'pagination',
+					activeClass : 'active',
+					disabledClass : 'disabled',
+					nextClass : 'next',
+					prevClass : 'prev',
+					lastClass : 'last',
+					firstClass : 'first'
+				}).on(
+						"page",
+						function(event, /* page number here */
+								num) {
+							$scope.page = num;
+							console.log('num is : '+ num);
+							$scope.listSiteDetailPage(num);
+						});
+			};
+			
+			
+			$scope.listSiteDetailPage(1);
+ 			
+
+			
+
+			
 		    
 		    
 		});
