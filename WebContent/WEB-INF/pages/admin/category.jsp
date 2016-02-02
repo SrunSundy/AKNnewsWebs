@@ -73,10 +73,9 @@
 					<input type="hidden" ng-model="category.id" name="id" ng-disabled=true />
 					  <h4>Name</h4>
 			          <input type="text" ng-model="category.name" name="uname" placeholder="Enter category name" required ng-minlength="3" class='form-control'/>
-			          
-			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.required">This is a required field</span>
 			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$error.minlength">Minimum length required is 3</span>
-			              <span class='error' ng-show="myForm.$dirty && myForm.uname.$invalid">This field is invalid </span><br/>
+			          <h4>INDEX RANGE</h4>
+			          <input type="number" ng-model="category.index" required class='form-control'/><br/>
 			          
 			          <input type="submit" value="{{!category.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 			          class="{{!category.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
@@ -106,6 +105,10 @@
 			          	<tr>
 			          		<th style="border-top: none !important; ">NAME</th>
 			          		<td style="border-top: none !important; ">{{ category.name }}</td>
+			          	</tr>
+			          	<tr>
+			          		<th>INDEX</th>
+			          		<td>{{ category.index }}</td>
 			          	</tr>
 			            <tr>
 			          		<th>IS_MENU</th>
@@ -158,11 +161,13 @@
 							<th> ID </th>
 							<th> NAME </th>
 							<th> MENU </th>	
+							<th> ORDER  </th>	
 							<th> ACTION </th>							
 						</tr>
 						<tr ng-repeat="cat in category_list">
 							<td> {{cat.id}}</td>
 							<td> <button class='btn btn-xs btn-warning'>{{cat.name}}</button></td>
+							<td> <button class='btn btn-xs btn-default'>{{cat.index}}</button></td>
 							<td> 							
 								 <input type="checkbox"  value={{cat.menu}} ng-click="menuCategory(cat.id)" checked ng-if="cat.menu == true " />
 						         <input type="checkbox" value={{cat.menu}} ng-click="menuCategory(cat.id,cat.status)" ng-if="cat.menu == false " />						               

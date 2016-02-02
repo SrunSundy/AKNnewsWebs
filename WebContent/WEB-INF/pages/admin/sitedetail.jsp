@@ -168,7 +168,7 @@
 		        	<center>
 						<h4> Delete this sitedetail ?</h4>
 						<button type="button" class="btn btn-info" data-dismiss="modal" ng-click='reset()'>NO</button>					
-						<button ng-click='detetesitedetail(sitedetail.s_id,sitedetail.c_id)' class='btn btn-danger' data-dismiss="modal">YES</button>
+						<button ng-click='detetesitedetail(sitedetail.cid)' class='btn btn-danger' data-dismiss="modal">YES</button>
 					</center>					
 		        </div>
 		        <div class="modal-footer">
@@ -245,8 +245,8 @@
 							<td> <button class='btn btn-xs btn-warning'>{{ categoryName(cat.c_id) }}</button></td>
 							<td> {{cat.url | limitTo:50}}</td>
 							<td> 
-								 <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.s_id,cat.c_id)" checked ng-if="cat.status == true " />
-						         <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.s_id,cat.c_id)" ng-if="cat.status == false " />		
+								 <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.cid )" checked ng-if="cat.status == true " />
+						         <input type="checkbox" value={{cat.status}} ng-click="statusSiteDetail(cat.cid )" ng-if="cat.status == false " />		
 							</td>
 							<td> 
 								
@@ -296,7 +296,7 @@
 			
 			$scope.id=null;
 			
-		    $scope.sitedetail={c_id:'',s_id:'',url:'',status:''};	
+		    $scope.sitedetail={cid:null,c_id:'',s_id:'',url:'',status:''};	
 		    
 		    $scope.sitedetail_list = {};
 		    
@@ -355,7 +355,7 @@
 		    $scope.insertsitedetail = function(){
  		    	console.log('sitedetail', $scope.sitedetail);
  			    $http.post(
-						$scope.domain+'/api/article/scrapurl/'
+						$scope.domain+'api/article/scrapurl/'
 						,$scope.sitedetail
 						,config
 					).success(function(response){						
@@ -394,9 +394,9 @@
 					});	   
 		    }  
 		    
-		    $scope.detetesitedetail = function(s_id,c_id){
+		    $scope.detetesitedetail = function(cid){
 			    $http.delete(
-						$scope.domain+'api/article/scrapurl/'+s_id+'/'+c_id
+						$scope.domain+'api/article/scrapurl/'+cid
 						,config
 					).success(function(response){						
 						
@@ -416,9 +416,9 @@
 					});	  
 		    }  
 		    
-		    $scope.statusSiteDetail = function(s_id, c_id){
+		    $scope.statusSiteDetail = function(s_id){
 			    $http.patch(
-						$scope.domain+'api/article/scrapurl/toggle/'+s_id+'/'+c_id
+						$scope.domain+'api/article/scrapurl/toggle/'+s_id
 						,''
 						,config
 					).success(function(response){						
@@ -497,12 +497,12 @@
 		    //boot page
 		    
 		    //use for pagination
-							$scope.row = 5;
+							$scope.row = 10;
 							$scope.page = 1;
 							$scope.triggerpage = 0;
 							$scope.Totalrecord = 0;
 							
-							$scope.items = [{id: 1,label: '5'},{id: 2,label: '10'},{id:3,label: '20'}, {id: 4,label: '50'}];
+							$scope.items = [{id: 1,label: '10'},{id: 2,label: '20'},{id:3,label: '30'}, {id: 4,label: '50'}];
 							$scope.selected = $scope.items[0]; 
 							
 							$scope.changeRow = function(row) {
