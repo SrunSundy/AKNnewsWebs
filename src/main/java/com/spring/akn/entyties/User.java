@@ -1,6 +1,7 @@
 package com.spring.akn.entyties;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,25 +14,29 @@ public class User implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	
+	private int userId;
 	private String username;
 	private String email;
 	private String password;
-	private String image;
-	private boolean enabled;
+	private String gender;
+	private String registerDate;
+	private String userImageUrl;
+	private boolean userStatus;
 	
 	//customize user detail service filed
 	private List<Role> roles;
 	private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
-	
-	
-	public int getId() {
-		return id;
+
+    
+    
+    public int getUserId() {
+		return userId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public String getUsername() {
 		return username;
@@ -51,28 +56,42 @@ public class User implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getImage() {
-		return image;
+	
+	public String getGender() {
+		return gender;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public boolean isEnabled() {
-		return enabled;
+	public String getRegisterDate() {
+		return registerDate;
 	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setRegisterDate(String registerDate) {
+		this.registerDate = registerDate;
 	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return roles;
+	public String getUserImageUrl() {
+		return userImageUrl;
+	}
+	public void setUserImageUrl(String userImageUrl) {
+		this.userImageUrl = userImageUrl;
+	}
+	public boolean isUserStatus() {
+		return userStatus;
+	}
+	public void setUserStatus(boolean userStatus) {
+		this.userStatus = userStatus;
 	}
 	public List<Role> getRoles() {
 		return roles;
 	}
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+    
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return roles;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
@@ -89,5 +108,14 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return credentialsNonExpired;
 	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return userStatus;
+	}
+	
+	
+	
+
 
 }

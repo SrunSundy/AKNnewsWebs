@@ -26,9 +26,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 			throws IOException, ServletException {
 			
 			//for get user principle for get user id
-		    User user = (User) auth.getPrincipal();
-			System.out.println("User ID:"+user.getId());
-			
+		    User user = (User) auth.getPrincipal();  
             //create and store session to browser
 	        HttpSession session = request.getSession(true);    
 	        session.setAttribute("SessionUser", user);  
@@ -53,9 +51,12 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
 			roles.add(authority.getAuthority());
 			System.out.println("Extract Role: " + authority.getAuthority());
 		}
-		if (roles.contains("ROLE_ADMIN")) {
+		
+		System.out.println("ROLES  "+ roles);
+		
+		if (roles.contains("ROLE_Admin")) {
 			return "admin";
-		}else if (roles.contains("ROLE_USER")) {
+		}else if (roles.contains("ROLE_Employee")) {
 			return "";
 		}else{
 			return "accessDenied";
