@@ -184,10 +184,10 @@
 				$scope.navCategory = [];
 				$scope.sites = [];
 				
-				$scope.uid = 0;
+				$scope.uid =0;
 				
 				if("${sessionScope.SessionUser}" != '')
-					$scope.uid = "${sessionScope.SessionUser.id}"; 
+					$scope.uid = "${sessionScope.SessionUser.userId}"; 
 				
 				$scope.row = 9;
 				$scope.sid = 0;

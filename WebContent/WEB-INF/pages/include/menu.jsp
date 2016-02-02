@@ -20,7 +20,7 @@
 				</ul>
 			</c:when>
 			<c:otherwise>
-				<c:set value="${sessionScope.SessionUser.id }" var="uid"></c:set>
+				<c:set value="${sessionScope.SessionUser.userId}" var="uid"></c:set>
 				<ul class="profile-after-login">
 					<li><i class="fa fa-user"></i>សូស្តី! ${sessionScope.SessionUser.username }</li>
 					<li><i class="fa fa-user-secret"></i><a href="${pageContext.request.contextPath }/admin">គ្រប់គ្រងព័ត៌មាន</a></li>
