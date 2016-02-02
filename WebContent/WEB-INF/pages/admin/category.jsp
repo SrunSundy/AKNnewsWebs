@@ -17,6 +17,12 @@
    	  .error{
    	  	color:red;
    	  }
+   	  
+    	  .alert-success {
+	    color: #31708F;
+	    background-color: #D9EDF7;
+	    border-color: #BCE8F1;
+	} 
 
    </style>
    
@@ -254,7 +260,6 @@
 		    $scope.listCategory();
 		    
 		    $scope.insertCategory = function(){
-		    	//alert("insert");
 		    	console.log('category', $scope.category);
 			    $http.post(
 						$scope.domain+'api/article/category/'
@@ -263,7 +268,12 @@
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
 						console.log( response ); 	
-						alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
+						
 						console.log( $scope.category_list );
 					}).error(function(response){
 						console.log( response ); 
@@ -280,8 +290,11 @@
 						,config
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
-						console.log( response ); 
-						alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 						console.log( $scope.category_list );
 					}).error(function(response){
 						console.log( response ); 
@@ -289,14 +302,16 @@
 		    }  
 		    
 		    $scope.deteteCategory = function(id){
-		    	////alert("delete");
 			    $http.delete(
 						$scope.domain+'api/article/category/'+id
 						,config
 					).success(function(response){						
 						$scope.category_list  = $scope.listCategory();
-						console.log( response ); 	
-						alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 						console.log( $scope.category_list );
 						$scope.reset();
 					}).error(function(response){
@@ -305,13 +320,17 @@
 		    }  
 		    
 		    $scope.menuCategory = function(id){
-		    	//alert("menu");
 			    $http.patch(
 						$scope.domain+'api/article/category/toggle/'+id
 						,''
 						,config
 					).success(function(response){						
 						//$scope.category_list  = $scope.listCategory();
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 						console.log( response ); 						
 						console.log( $scope.category_list );
 					}).error(function(response){

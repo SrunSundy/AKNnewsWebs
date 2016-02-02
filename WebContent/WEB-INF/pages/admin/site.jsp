@@ -382,7 +382,11 @@
 						,config
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
-						alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 						console.log( response ); 						
 						console.log( $scope.site_list ); 
 					}).error(function(response){
@@ -400,7 +404,11 @@
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
 						console.log( response ); 	
-						alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 						console.log( $scope.site_list );
 					}).error(function(response){
 						console.log( response ); 
@@ -408,7 +416,7 @@
 		    }; 
 		    
 		    $scope.detetesite = function(id){
-		    	alert(id);
+		    	
 		    	$scope.deleteStructure(id);
 		    	
  			    $http.delete(
@@ -416,10 +424,10 @@
 						,config
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
-						if (response.STATUS == 404){
-							alert(response.MESSAGE +' site exit news');
-						}else{
-							alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
 						}
 						console.log( response ); 						
 						console.log( $scope.site_list );
@@ -446,7 +454,11 @@
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
 						console.log( response ); 
-						alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 						console.log($scope.site);
 						console.log( $scope.site_list );
 					}).error(function(response){
@@ -471,6 +483,7 @@
 					).success(function(response){
 						$scope.structure_list = response.RESPONSE_DATA;
 						console.log( $scope.structure_list );
+						
 						
 					}).error(function(response){
 						console.log(response);
@@ -527,6 +540,11 @@
 					).success(function(response){						
 						console.log( response );
 						$scope.liststructure();
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 					}).error(function(response){
 						console.log( response ); 
 					});	  
@@ -540,6 +558,11 @@
 					).success(function(response){						
 						console.log( response );
 						$scope.liststructure();
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 					}).error(function(response){
 						console.log( response ); 
 					});	  

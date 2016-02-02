@@ -361,8 +361,11 @@
 					).success(function(response){						
 						$scope.listSiteDetailPage(1);
 						console.log( response ); 		
-						alert(response.MESSAGE);
-						console.log( $scope.sitedetail_list );
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 					}).error(function(response){
 						alert('add exit site and categoy exist fail! try again!');
 						console.log( response ); 
@@ -380,7 +383,11 @@
 						$scope.listSiteDetailPage(1);
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
-						alert(response.MESSAGE);
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 					}).error(function(response){
 						alert('update exit site and categoy exist fail! try again!');
 						console.log( response ); 
@@ -392,15 +399,18 @@
 						$scope.domain+'api/article/scrapurl/'+s_id+'/'+c_id
 						,config
 					).success(function(response){						
-						$scope.listSiteDetailPage(1);
+						
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
-						if ( response.STATUS == 404){
-							alert(response.MESSAGE + '     STATUS TRUE!');
-						}else{
-							alert(response.MESSAGE);
+						
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+							$scope.reset();
 						}
-						$scope.reset();
+						$scope.listSiteDetailPage(1);
+						
 					}).error(function(response){
 						console.log( response ); 
 					});	  
@@ -415,6 +425,12 @@
 						//$scope.listSiteDetailPage(1);
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
+						
+						if ( response.STATUS == 404 ){
+							swal( response.MESSAGE , "", "error");
+						}else {
+							swal( response.MESSAGE , "", "success");
+						}
 					}).error(function(response){
 						console.log( response ); 
 					});	  
