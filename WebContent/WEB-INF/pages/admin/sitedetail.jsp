@@ -208,7 +208,7 @@
 					<div class='box-footer clearfix col-md-3'>
 						<div class="input-group">
 							<span class="input-group-addon">Web Site</span>
-							<select name="s_select" id="s_select" ng-options="site.id as site.name for site in site_list" ng-model="sitedetail.s_id" required class='form-control' ng-change='filterSite(sitedetail.s_id)'>
+							<select name="s_select" id="s_select"  ng-model="sitedetailx.s_id" required class='form-control' ng-change='filterSite(sitedetailx.s_id)'>
 						      <option value="">---Please select---</option>
 						      <option ng-repeat="site in site_list" value="{{site.id}}">{{site.name}}
 						      		<!-- <img class="img"  src="{{domain}}resources/images/logo/{{ siteLogo(site.id)}}" /> -->
@@ -219,7 +219,7 @@
 					<div class='box-footer clearfix col-md-3'>
 						<div class="input-group">
 						<span class="input-group-addon">Category</span>
-							<select name="c_select" id="c_select" ng-options="category.id as category.name for category in category_list"  ng-model="sitedetail.c_id" required class='form-control' ng-change='filterCategory(sitedetail.c_id)'>
+							<select name="c_select" id="c_select"  ng-model="sitedetailx.c_id" required class='form-control' ng-change='filterCategory(sitedetailx.c_id)'>
 						      <option value="">---Please select---</option>
 						      <option ng-repeat="cate in category_list" value="{{cate.id}}" >{{cate.name}}</option>
 						    </select>
@@ -238,7 +238,7 @@
 							<th> ACTION </th>							
 						</tr>
 						<tr ng-repeat="cat in sitedetail_list" >
-							<td> {{$index+1}} </td>
+							<td> {{ cat.cid }} </td>
 							<td> 
 								 <img class="img" src="{{domain}}resources/images/logo/{{ siteLogo(cat.s_id)}}" />
 							</td>
@@ -297,6 +297,7 @@
 			$scope.id=null;
 			
 		    $scope.sitedetail={cid:null,c_id:'',s_id:'',url:'',status:''};	
+		    $scope.sitedetailx={cid:null, c_id:'',s_id:'',url:'',status:''};	
 		    
 		    $scope.sitedetail_list = {};
 		    
@@ -326,7 +327,8 @@
 		    
  		    $scope.reset = function(){
  		    	$scope.id=null;
- 		    	$scope.sitedetail={c_id:'',s_id:'',url:'',status:''};	
+ 		    	$scope.sitedetail={cid:null, c_id:'',s_id:'',url:'',status:''};	
+ 		    	$scope.sitedetailx={cid:null, c_id:'',s_id:'',url:'',status:''};	
                 $scope.myForm.$setPristine(); //reset Form
             }
 		    
@@ -407,9 +409,10 @@
 							swal( response.MESSAGE , "", "error");
 						}else {
 							swal( response.MESSAGE , "", "success");
+							$scope.listSiteDetailPage(1);
 							$scope.reset();
 						}
-						$scope.listSiteDetailPage(1);
+						
 						
 					}).error(function(response){
 						console.log( response ); 
@@ -536,8 +539,8 @@
 							$scope.listSiteDetailPage = function(page) {
 								
 								$scope.triggerpage++;
-								var s_id = ($scope.sitedetail.s_id=='' || $scope.sitedetail.s_id == null)? 0 : $scope.sitedetail.s_id;
-								var c_id = ($scope.sitedetail.c_id=='' || $scope.sitedetail.c_id == null)? 0 : $scope.sitedetail.c_id;
+								var s_id = ($scope.sitedetailx.s_id=='' || $scope.sitedetailx.s_id == null)? 0 : $scope.sitedetailx.s_id;
+								var c_id = ($scope.sitedetailx.c_id=='' || $scope.sitedetailx.c_id == null)? 0 : $scope.sitedetailx.c_id;
 								
 								$scope.page = page;
 								$http
