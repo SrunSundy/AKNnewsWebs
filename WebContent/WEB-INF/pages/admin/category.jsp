@@ -311,7 +311,7 @@
 						,''
 						,config
 					).success(function(response){						
-						$scope.category_list  = $scope.listCategory();
+						//$scope.category_list  = $scope.listCategory();
 						console.log( response ); 						
 						console.log( $scope.category_list );
 					}).error(function(response){

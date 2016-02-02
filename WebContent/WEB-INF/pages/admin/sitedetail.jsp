@@ -412,7 +412,7 @@
 						,''
 						,config
 					).success(function(response){						
-						$scope.listSiteDetailPage(1);
+						//$scope.listSiteDetailPage(1);
 						console.log( response ); 						
 						console.log( $scope.sitedetail_list );
 					}).error(function(response){
