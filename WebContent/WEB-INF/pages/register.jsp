@@ -81,20 +81,21 @@ input[type="email"]{
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Password</label>
-			                        	<input type="password" ng-model="user.password" required ng-minlength="5" name="password" placeholder="Password..." class="form-password form-control">
+			                        	<input type="password" ng-model="user.password" required ng-minlength="5" name="password" placeholder="Password..." class="form-password form-control" ng-change='checkPassword()'>
 			                        	<!--Agular Validation Form  -->
 										<span ng-show="myForm.$dirty && myForm.password.$error.required" class="err">This is a required field</span>
 										<span ng-show="myForm.$dirty && myForm.password.$error.minlength" class="err">Minimum length required is 3</span>
 									    <span ng-show="myForm.$dirty && myForm.password.$invalid" class="err">This field is invalid </span><br />		
 			                        </div>
-			                      <!--    <div class="form-group">
+			                         <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Confirm Password</label>
-			                        	<input type="password" ng-model='conpwd' required ng-minlength="5" name="confirmpassword" placeholder="Confirm Password..." class="form-password form-control">			                    		                   
+			                        	<input type="password" ng-model='conpwd' required ng-minlength="5" name="confirmpassword" placeholder="Confirm Password..." class="form-password form-control" ng-change='checkPassword()'>			                    		                   
 			                        	<span ng-show="myForm.$dirty && myForm.confirmpassword.$error.required" class="err">This is a required field</span>
 										<span ng-show="myForm.$dirty && myForm.confirmpassword.$error.minlength" class="err">Minimum length required is 3</span>
-									    <span ng-show="myForm.$dirty && myForm.confirmpassword.$invalid" class="err">This field is invalid </span><br />	
-			                        </div> -->
-			                        <button type="submit" class="btn" ng-disabled="myForm.$invalid">Register</button>
+									    <span ng-show="myForm.$dirty && myForm.confirmpassword.$invalid" class="err">This field is invalid </span><br />
+									    <span class='error'ng-show="statusShow">Password Not Match</span>	
+			                        </div>
+			                        <button type="submit" class="btn" ng-disabled="myForm.$invalid || status == false ">Register</button>
 			                    </form>
 		                    </div>
                         </div>
@@ -117,6 +118,11 @@ input[type="email"]{
 	
 				$scope.domain =  $scope.weburl  + "/AKNnews/";
 				
+				$scope.conpwd = null;
+				$scope.status = false;
+				$scope.statusShow = false;
+				
+				
 	        	$scope.user={};
 				//submit register user information
 				$scope.submit=function(){
@@ -129,6 +135,18 @@ input[type="email"]{
 						console.log(response);
 					});	
 				}
+				
+				
+				//check password 
+				$scope.checkPassword = function(){
+					if ($scope.conpwd != $scope.user.password){
+						$scope.status = false;
+						$scope.statusShow = true;
+						return;
+					}
+					$scope.statusShow = false;
+					$scope.status = true;
+				};
 				
 	        });
 </script>
