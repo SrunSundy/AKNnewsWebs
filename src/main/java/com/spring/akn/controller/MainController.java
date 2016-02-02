@@ -13,6 +13,7 @@ public class MainController {
 
 	
 	@RequestMapping(value={"/", "/home"})
+
 	public String homePage(ModelMap model){
 		//set default category for loading news
 		model.addAttribute("cid", 0);
@@ -52,5 +53,11 @@ public class MainController {
 	public String loginPage(){
 		return  "login";
 	}
+	
+	@RequestMapping(value="/signup")
+	public String signupPage(){
+		return  "register";
+	}
+	
 
 }
