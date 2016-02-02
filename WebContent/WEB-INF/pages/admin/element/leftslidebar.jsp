@@ -42,7 +42,7 @@
               </a>
               <ul class="treeview-menu">
                	 <li><a href="${pageContext.request.contextPath }/admin/scrap/"><i class="fa fa-circle-o"></i><span>Scrap Management</span></a></li>
-           		 <li><a href="${pageContext.request.contextPath }/admin/testscrap/"><i class="fa fa-circle-o"></i><span>Scrap Selector</span></a></li>
+           		 <li><a href="${pageContext.request.contextPath }/admin/testscrap/"><i class="fa fa-circle-o"></i><span>Scrap Selector Testing</span></a></li>
               </ul>
             </li>
             
