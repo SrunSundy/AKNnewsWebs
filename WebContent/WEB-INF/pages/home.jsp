@@ -104,8 +104,8 @@
 									</div>
 									<div class="article-components">
 										<div class="article-image">
-											<a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{article.image}}"/></a>
-											<a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/news/{{article.image}}"/></a>
+											<a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank"><img typeof="foaf:Image" ng-src="{{article.image}}"/></a>
+											<a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img typeof="foaf:Image" ng-src="{{baseurl}}resources/images/news/{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
 											<p><a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
@@ -140,7 +140,7 @@
 						</ul>	
 					</div> -->
 					
-					<div class="msg-alert"​ ng-if="showAlert">
+					<div class="msg-alert"​ id='msg'>
 						<p>សូម <a href="${pageContext.request.contextPath }/login">Login</a> ដើម្បីរក្សាទុកពត៌មាននេះ..!</p>
 					</div>
 					
@@ -260,6 +260,21 @@
 					});
 				};
 				
+				$scope.toggle = function(elementName, status){
+					if(status)
+						angular.element(elementName).addClass('show');
+					else
+						angular.element(elementName).addClass('hide');
+				};
+				
+				$scope.addClass = function(elementName, className){
+					angular.element(elementName).addClass(className);
+				};
+				
+				$scope.removeClass = function(elementName, className){
+					angular.element(elementName).removeClass(className);
+				};
+				
 				//initialize news data
 				$scope.initializeNews = function(){
 					$http({
@@ -366,8 +381,9 @@
 				
 				// list news by website
 				$scope.articleSite = function(sid){
+					$scope.removeClass(".a-category li", "active");
 					$scope.page = 0;
-					$scope.cid = $scope.cid;
+					$scope.cid = 0;
 					$scope.sid = sid;
 					$scope.key = "";
 					$scope.articles = [];
@@ -385,8 +401,8 @@
 				// save news for later read
 				$scope.saveNews = function(nid){
 					if($scope.uid==0){
-						$scope.showAlert = true;
-						$timeout(function(){ $scope.showAlert = false; },3000);
+						$scope.toggle('#msg',true);
+						$timeout(function(){ $scope.toggle('#msg',false); },3000);
 						return;
 					}
 					$http({
@@ -421,11 +437,10 @@
 				};
 				
 				$scope.togglePhoneMenu = function(){
-					
 					if($scope.phoneMenuStatus == false)
 						$scope.phoneMenuStatus = true;
 					else
-						$scope.phoneMenuStatus = false;
+						$scope.phoneMenuStatus = false; 
 				};
 				
 				//site dropdown image
@@ -515,6 +530,6 @@
 		});
 		</script>
 		
-		<!-- <script src="http://192.168.178.186:8080/HRD_MEMO/resources/admin/js/memo.min.js" defer></script> -->
+		<script src="http://192.168.178.186:8080/HRD_MEMO/resources/admin/js/memo.min.js" defer></script>
 	</body>
 </html>

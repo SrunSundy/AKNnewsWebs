@@ -106,8 +106,8 @@
 			</div><!--/end a-container  -->
 			
 		</div><!--/end main container  -->
-		<!-- <div id="hrd_memo_pess" style=></div> 
-		<script src='http://192.168.178.123:8080/HRD_MEMO/resources/js/hrdmemoplugin.js'></script> -->
+		<div id="hrd_memo_pess" style=></div> 
+		<script src='http://192.168.178.186:8080/HRD_MEMO/resources/js/hrdmemoplugin.js'></script>
 		
 		
 		<script>
@@ -131,7 +131,7 @@
 				
 				$scope.uid = 0;
 				if('${sessionScope.SessionUser}'!= '')
-					$scope.uid = "${sessionScope.SessionUser.id}";
+					$scope.uid = "${sessionScope.SessionUser.userId}";
 				
 				$scope.nid = "${id}";
 				
