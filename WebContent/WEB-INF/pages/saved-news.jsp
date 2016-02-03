@@ -75,10 +75,10 @@
 						</ul>
 						<ul class="a-category">
 							<li><i class="fa fa-clock-o"></i>ព័ត៌មាន តាមកាលបរិច្ជេទ</li>
-							<li><i class="fa fa-angle-down"></i>ថ្ងៃនេះ</li>
-							<li><i class="fa fa-angle-down"></i>សប្តាហ៍នេះ</li>
-							<li><i class="fa fa-angle-down"></i>ខែនេះ</li>
-							<li><i class="fa fa-angle-down"></i>ពីមុនៗ</li>
+							<li ng-click="newsShcedule(1)"><i class="fa fa-angle-down"></i>ថ្ងៃនេះ</li>
+							<li ng-click="newsShcedule(7)"><i class="fa fa-angle-down"></i>សប្តាហ៍នេះ</li>
+							<li ng-click="newsShcedule(30)"><i class="fa fa-angle-down"></i>ខែនេះ</li>
+							<li ng-click="newsShcedule(31)"><i class="fa fa-angle-down"></i>ពីមុនៗ</li>
 						</ul>
 					</div><!--/end a-left-side  -->
 					
@@ -214,10 +214,11 @@
 				$scope.uid = 0;
 				
 				if('${sessionScope.SessionUser}' != '')
-					$scope.uid = '${sessionScope.SessionUser.id}';
+					$scope.uid = '${sessionScope.SessionUser.userId}';
 							
 				$scope.row = 15;
 
+				$scope.day = 0;
 				$scope.page = 0;
 				
 				$scope.loadingStatus = true;
@@ -291,7 +292,7 @@
 					console.log($scope.page+','+$scope.row+','+ $scope.uid);
 					$http({
                         method: "GET",
-                        url: $scope.baseurl + "api/article/savelist/" + $scope.uid + "/" + $scope.row + "/" + $scope.page
+                        url: $scope.baseurl + "api/article/savelist/" + $scope.uid + "/" + $scope.row + "/" + $scope.page + "/" + $scope.day
                     })
                     .success(function (response) {
                     	if(response.RESPONSE_DATA.length==0){
@@ -338,7 +339,14 @@
 				    });
 				};
 
-
+				$scope.newsShcedule = function(day){
+					$scope.page=0;
+					
+					$scope.day = day;
+					$scope.articles = [];
+					$scope.loadNews();
+				};
+				
 				angular.element($window).bind("scroll", function() {
                     var windowHeight = "innerHeight" in window ? window.innerHeight: document.documentElement.offsetHeight;
                     var body = document.body, html = document.documentElement;
