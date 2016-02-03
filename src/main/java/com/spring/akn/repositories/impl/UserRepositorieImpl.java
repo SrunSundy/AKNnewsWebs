@@ -37,8 +37,11 @@ public class UserRepositorieImpl implements UserRespositories {
 			FrmLogin frmLogin = new FrmLogin();
 			frmLogin.setEmail(email);
 			HttpEntity<Object> request = new HttpEntity<Object>(frmLogin, headers);
-			ResponseEntity<Map> response = restTemplate.exchange("http://192.168.178.6:8080/KAAPI/api/authentication/weblogin",
-					HttpMethod.POST, request, Map.class);
+			/*ResponseEntity<Map> response = restTemplate.exchange("http://192.168.178.6:8080/KAAPI/api/authentication/weblogin",
+					HttpMethod.POST, request, Map.class);*/
+			ResponseEntity<Map> response = restTemplate.exchange("http://api.khmeracademy.org/api/authentication/weblogin",
+			HttpMethod.POST, request, Map.class);
+			
 			Map<String, Object> map = (HashMap<String, Object>) response.getBody();
 	
 			if (map.get("USER") != null) {
@@ -52,6 +55,7 @@ public class UserRepositorieImpl implements UserRespositories {
 				u.setEmail((String)userMap.get("email"));
 				u.setPassword((String)userMap.get("password"));
 				u.setGender((String)userMap.get("gender"));
+				u.setUserImageUrl((String)userMap.get("userImageUrl"));
 				u.setRegisterDate((String)userMap.get("registerDate"));
 				u.setUserStatus((boolean)userMap.get("userStatus"));
            
