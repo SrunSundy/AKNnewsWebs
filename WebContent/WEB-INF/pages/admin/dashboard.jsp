@@ -327,121 +327,38 @@
 		$scope.listadmins={};
 		
 	
-		$scope.getNumberofSite = function(){
+		$scope.loadDashboardInfo = function(){
 			$http({
 				method : "GET",
-				url : $scope.baseurl+"api/article/site/record"
+				url : $scope.baseurl+"api/article/dashboard"
 				
 			}).success(function(response){
-				
-				if(response.DATA == 0){
-            		console.log('no site..!');   		
-            	}
-				$scope.numberofsite = response.DATA;
-			});
-		};	
-		
-		$scope.loadPopNews = function(){
-			$http({
-				method : "GET",
-				url : $scope.baseurl+"api/article/popular/0/30/4"
-				
-			}).success(function(response){
-				
-				if(response.RESPONSE_DATA.length == 0){
-            		console.log('no news..!');   
-            	
-            	}
-				
-				angular.forEach(response.RESPONSE_DATA, function(data, key) {
+				angular.forEach(response.POP_NEWS, function(data, key) {
 	           		  $scope.popnews.push(data);
 			   });
-				//$scope.numberofnews = response.TOTAL_RECORDS;
-			});
-		};
-		
-		$scope.loadAKNNews = function(){
-			$http({
-				method : "GET",
-				url : $scope.baseurl+"api/article/1/4/0/6/-1/"
-				
-			}).success(function(response){
-				
-				if(response.RESPONSE_DATA.length == 0){
-            		console.log('no news..!');   		
-            	}
-				
-				angular.forEach(response.RESPONSE_DATA, function(data, key) {
+				angular.forEach(response.AKNLIST_NEWS, function(data, key) {
 	           		  $scope.aknnews.push(data);
 			   });
-				//$scope.numberofnews = response.TOTAL_RECORDS;
-			});
-		};
-		
-		$scope.getNumberofNews = function(sid){
-			return $http({
-				method : "GET",
-				url : $scope.baseurl+"api/article/record/0/"+sid+"/-1/"
-			});
-		};
-		//ALL news
-		$scope.getNumberofNews(0).success(function(response){
-			if(response.TOTAL_RECORDS == 0) console.log('no news..!');   		
-        	$scope.totalnews = response.TOTAL_RECORDS;
-        	//akn news
-        	$scope.getNumberofNews(6).success(function(response6){
-    			if(response6.TOTAL_RECORDS == 0) console.log('no news..!');   		
-    			$scope.numofaknnews = response6.TOTAL_RECORDS;
-    			$scope.percentofaknnews =($scope.numofaknnews * 100)/$scope.totalnews;
-    		});
-        	
-        	//sabay news
-        	$scope.getNumberofNews(1).success(function(response1){
-    			if(response1.TOTAL_RECORDS == 0) console.log('no news..!');   		
-    			$scope.numofsabaynews = response1.TOTAL_RECORDS;
-    			$scope.percentofsabaynews =($scope.numofsabaynews * 100)/$scope.totalnews;
-    		});
-        	
-        	//thebnews
-    		$scope.getNumberofNews(5).success(function(response2){
-    			if(response2.TOTAL_RECORDS == 0) console.log('no news..!');   		
-    			$scope.numofthebnews = response2.TOTAL_RECORDS;
-    			$scope.percentofthebnews =($scope.numofthebnews * 100)/$scope.totalnews;
-    		});
-        	
-    		//mulkulkar
-    		$scope.getNumberofNews(12).success(function(response3){
-    			if(response3.TOTAL_RECORDS == 0) console.log('no news..!');  
-    			$scope.numofmulkulkarnews = response3.TOTAL_RECORDS;
-    			$scope.percentofmulkulkarnews =($scope.numofmulkulkarnews * 100)/$scope.totalnews;
-    		});
-    		
-		});
-		
-		
-		$scope.getUserInfo=function(){
-			$http({
-				method : "GET",
-				url : $scope.baseurl+"api/user/adminuserinfo"
 				
-			}).success(function(response){
+			    $scope.numofaknnews =response.AKN_NEWS;
+				$scope.numofthebnews =response.BNEWS_NEWS;
+				$scope.numofsabaynews=response.SABAY_NEWS;
+				$scope.numofmulkulkarnews =response.MUL_NEWS;
+				$scope.totalnews= response.TOTAL_NEWS;
+				$scope.numberofsite = response.NUM_SITE;
 				
-				if(response.TOTALRECORD.length == 0){
-            		console.log('no user info..!');  
-            		return;
-            	}
+				$scope.percentofaknnews =($scope.numofaknnews * 100)/$scope.totalnews;
+				$scope.percentofsabaynews =($scope.numofsabaynews * 100)/$scope.totalnews;
+				$scope.percentofthebnews =($scope.numofthebnews * 100)/$scope.totalnews;
+				$scope.percentofmulkulkarnews =($scope.numofmulkulkarnews * 100)/$scope.totalnews;
+				
+				
 				$scope.totalusers=response.TOTALRECORD;
 				$scope.listusers=response.LISTUSER;
 				$scope.listadmins=response.LISTADMIN;
 			});
 		}
-		
-		
-		
-		$scope.loadAKNNews();
-		$scope.loadPopNews();
-		$scope.getNumberofSite();
-		$scope.getUserInfo();
+		$scope.loadDashboardInfo();
 
 		//timeago
 		$scope.convertTimeago = function(time){
