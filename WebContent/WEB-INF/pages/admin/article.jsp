@@ -342,9 +342,7 @@
 		
 		$scope.statustrue =0;
 		$scope.statusfalse =0;
-		
-		
-		
+				
 		$scope.triggerpage = 0;
 		
 		$scope.Totalrecord = 0;

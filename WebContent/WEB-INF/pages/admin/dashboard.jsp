@@ -107,7 +107,9 @@
 								<img ng-src="{{baseurl}} resources/images/logo/{{pnews.site.logo }}" alt="News Image">
 							  </div>
 							  <div class="product-info">
-								<a href="javascript::;" class="product-title">{{pnews.site.name}}<span class="label label-warning pull-right"> {{pnews.hit}} views</span></a>
+								<a ng-show="{{pnews.site.id != 6 }}" href="{{pnews.url}}" target="_blank" class="product-title">{{pnews.site.name}}<span class="label label-warning pull-right"> {{pnews.hit}} views</span></a>
+								<a ng-show="{{pnews.site.id == 6 }}" href="{{webbaseurl + pnews.url}}" target="_blank" class="product-title">{{pnews.site.name}} <span class="label label-warning pull-right">{{pnews.hit}} views</span></a>
+								
 								<span class="product-description">
 								  {{pnews.title}}
 								</span>
@@ -140,7 +142,8 @@
 								<img ng-src="{{baseurl}} resources/images/logo/{{akn.site.logo }}" alt="AKN logo Image">
 							  </div>
 							  <div class="product-info">
-								<a href="javascript::;" class="product-title">{{akn.site.name}} <span class="label label-warning pull-right">{{convertTimeago(akn.date) | date:'EEEE, d MMM y'}}</span></a>
+								<a href="{{webbaseurl + akn.url}}" target="_blank" class="product-title">{{akn.site.name}} <span class="label label-warning pull-right">{{convertTimeago(akn.date) | date:'EEEE, d MMM y'}}</span></a>
+								
 								<span class="product-description">
 								  {{akn.title}}
 								</span>

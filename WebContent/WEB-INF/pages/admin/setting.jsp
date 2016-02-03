@@ -50,7 +50,7 @@
 											<!--load image-->
 											<div  class="box-img" id="img-box">
 											
-												 <img  src="{{baseurl}}/resources/images/user/${sessionScope.SessionUser.image}" alt="User Avatar" class="profile-image" id="profile-image">
+												 <img  src="http://api.khmeracademy.org/resources/upload/file/${sessionScope.SessionUser.userImageUrl}" alt="User Avatar" class="profile-image" id="profile-image">
 												<div id="img-change" class="change-img"></div>
 												<div class="fileUpload">
 													<span><i class="fa fa-camera icon-camera"></i></span>
@@ -87,7 +87,7 @@
 														<div class="col-md-12">
 															<div class="post">
 																<div class="user-block">
-																	 <img style="border-radius:100%" src="{{baseurl}}/resources/images/user/${sessionScope.SessionUser.image}" alt="User Avatar" >
+																	 <img style="border-radius:100%" src="http://api.khmeracademy.org/resources/upload/file/${sessionScope.SessionUser.userImageUrl}" alt="User Avatar" >
 																	<span class="username"><a>${sessionScope.SessionUser.username}</a></span> 
 																	<span class="description">Admin</span>
 																	<span class="description">${sessionScope.SessionUser.email}</span> 
@@ -224,115 +224,39 @@
    <jsp:include page="import/footer.jsp"></jsp:include> 
   
 
- 
-    
-  	<script>
-  	
-  	/* document.getElementById("picField").onchange=function(evt) {
-		var tgt = evt.target || window.event.srcElement,
-			files = tgt.files;
-		var fileUpload = document.getElementById("picField");
-		//validation on size image
-		if (typeof (fileUpload.files) != "undefined") {
-			var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
-			if(size>3024){
-				alert("file is too big");
-				return;
-			}
-		} else {
-			alert("This browser does not support HTML5.");
-		}
-		// FileReader support
-		if (FileReader && files && files.length) {
-			var fr = new FileReader();
-			fr.onload = function () {
-				var userid ="<c:out value='${sessionScope.SessionUser.id}'></c:out>";
-				var data1;
-			    data1 = new FormData();
-			    data1.append('file', $('#picField')[0].files[0]);
-			    data1.append("id",userid);
-			   // data1.append(stuidjs);
-				$.ajax({
-					url : "http://localhost:8080/AKNnews/api/user/editupload",
-					type : "POST",
-					cache: false,
-					contentType: false,
-					processData: false,
-					data : data1,
-					headers :{
-						 'Authorization': 'Basic YXBpOmFrbm5ld3M=',
-						 'Accept' : 'application/json;odata=verbose',
-						'Content-Type' : undefined
-					},
-					success:function(data){
-						
-						if(data==true){
-							swal("Your Profile image has been updated successfully", "", "success")
-						}else{
-							swal("Error", "Profile upload fail", "Error");
-						}
-					}
-				});
-				
-				
-				document.getElementById("profile-image").src = fr.result;
-			}
-			fr.readAsDataURL(files[0]);
-		}
-		// Not supported
-		else {
-			// fallback -- perhaps submit the input to an iframe and temporarily store
-			// them on the server until the user's session ends.
-		}
-	} */
-  	</script>
 	<script>
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl',function($scope, $http,  $location,$window) {
-							//Variable for Configuration			
-		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
-		
+		//for set header with http wehn request 
+		/*  $http.defaults.headers.common.Authorization = 'Basic S0FBUEkhQCMkOiFAIyRLQUFQSQ==';
+		 
+		 */
+		 
 		$scope.domain = $location.protocol() + "://"+ $location.host() + ":" + $location.port();
 		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
 	    $scope.baseurl = $scope.domain + "/AKNnews/";
 		
 	    //user when edit user
 		$scope.user = {
-	    		id : '${sessionScope.SessionUser.id}',
+	    		id : '${sessionScope.SessionUser.userId}',
 				username : ''
 		};
 		$scope.chpass = {
-				id : '${sessionScope.SessionUser.id}',
+				id : '${sessionScope.SessionUser.userId}',
 				newpass : '',
 				oldpass : ''
 		};
-		//for set header with http wehn request 
-		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
+	
 
 		//Function for upload user image profile
 		$scope.updateProfile = function(evt){
-			var tgt = evt.target || window.event.srcElement,
-			files = tgt.files;
-			var fileUpload = document.getElementById("picField");
-			//validation on size image
-			if (typeof (fileUpload.files) != "undefined") {
-				var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
-				if(size>3024){
-					swal("File is too big", "NOTE: image must be less than 3MB", "error");
-					return;
-				}
-			} else {
-				swal("This browser does not support HTML5.","", "error");
-			}
-			// FileReader support
-			if (FileReader && files && files.length) {
-				var fr = new FileReader();
-				fr.onload = function () {
-					var userid ="<c:out value='${sessionScope.SessionUser.id}'></c:out>";
+	
+					var userid ="<c:out value='${sessionScope.SessionUser.userId}'></c:out>";
 					var data1;
 				    data1 = new FormData();
 				    data1.append('file', $('#picField')[0].files[0]);
-				    data1.append("id",userid);
+				    data1.append("url",userid);
+				    data1.append("filename",userid);
 				    
 				    //confirmed alert
 				    swal({   title: "Are you sure?",   
@@ -347,12 +271,15 @@
 				    	  function(isConfirm){   
 				    		  if (isConfirm) {     
 				    			  $http({
-						    		  	url: $scope.baseurl + "api/user/editupload",
+						    		  	url: "http://api.khmeracademy.org/api/uploadfile/update",
 								        method: 'POST',
-								        headers: {'Content-Type': undefined },
+								        headers: {
+								        	'Content-Type': undefined ,
+								        	"Authorization":"Basic S0FBUEkhQCMkOiFAIyRLQUFQSQ=="},
 								        data: data1,
 						        
 								     }).success(function(response) {
+								    	 
 									        console.log('Request finished', response);
 											document.getElementById("profile-image").src = fr.result;
 									        $window.location.reload();
@@ -364,14 +291,7 @@
 				    		} 
 				    });
 				    
-				}
-				fr.readAsDataURL(files[0]);
-			}
-			// Not supported
-			else {
-				// fallback -- perhaps submit the input to an iframe and temporarily store
-				// them on the server until the user's session ends.
-			}
+				
 		};
 		//Function for update user infor 
 		$scope.submit = function() {
