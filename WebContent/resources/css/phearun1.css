@@ -558,6 +558,8 @@ span.slogo{
 	
 }
 .select2-dropdown{
+	max-height:500px;
+	overflow-y:scroll;
 	border:1px solid #dadada !important;
 	border-bottom-left-radius:0px !important;
 	border-bottom-right-radius:0px !important;
@@ -593,6 +595,7 @@ div#user-profile ul li:first-child{
 }
 
 .msg-alert{
+	display:none;
 	position:fixed;
 	bottom:1%;
 	right:1%;
@@ -608,6 +611,12 @@ div#user-profile ul li:first-child{
     animation-name: msgalert;
     animation-duration: 1s;
 	
+}
+.show{
+	display:block;
+}
+.hide{
+	display:none;
 }
 .msg-alert{
 	padding:10px 30px;
@@ -630,6 +639,7 @@ div#user-profile ul li:first-child{
 
 /* side menu slide */
 .side-menu{
+	
 	box-shadow: 0 0px 10px 0 rgb(218, 218, 218),0 0px 15px 0 rgba(0,0,0,0.19);
 	position:fixed;
 	left:-1000px;
@@ -652,7 +662,6 @@ div#user-profile ul li:first-child{
 }
 
 .side-menu ul{
-	display:block;
 	list-style-type:none;
 	/* max-height:300px;
 	overflow-y:scroll; */
