@@ -30,7 +30,7 @@
 
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/color-library.css"/>
 	    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animation.css"/>
-
+	    
 	</head>
 	<body>
 		
@@ -91,8 +91,8 @@
 							<div class="article-block-b1">
 								<div class="article-item">
 									<div class="article-info">
-										<img ng-src="{{baseurl}}resources/images/logo/{{article.site.logo}}"/>
-										<p class="color" ng-bind="article.site.name | uppercase"></p>
+										<a href="{{article.site.url}}" target="_blank"><img ng-src="{{baseurl}}resources/images/logo/{{article.site.logo}}"/></a>
+										<p><a class="color" href="{{article.site.url}}" target="_blank" ng-bind="article.site.name | uppercase"></a></p>
 										
 										<div class="saved color">
 											<i ng-if="article.saved==false" ng-click="saveNews(article.id)" id="{{article.id}}" title="ចុចទីនេះដើម្បីរក្សាទុកព័ត៌មាន" class="fa fa-bookmark-o"></i>
@@ -105,10 +105,10 @@
 									<div class="article-components">
 										<div class="article-image">
 											<a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank"><img typeof="foaf:Image" ng-src="{{article.image}}"/></a>
-											<a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img typeof="foaf:Image" ng-src="{{baseurl}}resources/images/news/{{article.image}}"/></a>
+											<a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank"><img ng-src="{{baseurl}}resources/images/news/{{article.image}}"/></a>
 										</div>
 										<div class="article-desc">
-											<p><a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
+											<p title="{{article.title}}"><a href="{{article.url}}" ng-if="article.site.id!=6" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
 											<p><a href="{{webbaseurl}}detail/{{article.id}}" ng-if="article.site.id==6" ng-click="readNews(article.id)" target="_blank" ng-bind="article.title"></a></p>
 										</div>
 									</div>
@@ -154,6 +154,9 @@
 		
 		<script>
 			$(document).ready(function(){
+					
+
+
 				//get carousel instance data and store it in variable owl
 				var owl = $(".owl-carousel");
 				  
@@ -530,6 +533,6 @@
 		});
 		</script>
 		
-		<script src="http://192.168.178.186:8080/HRD_MEMO/resources/admin/js/memo.min.js" defer></script>
+		<!-- <script src="http://192.168.178.186:8080/HRD_MEMO/resources/admin/js/memo.min.js" defer></script> -->
 	</body>
 </html>
