@@ -5,7 +5,7 @@
         <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="http://api.khmeracademy.org/resources/upload/file/${sessionScope.SessionUser.userImageUrl}" class="img-circle" alt="User Image">
+              <img src="http://api.khmeracademy.org/resources/upload/file/${sessionScope.SessionUser.userImageUrl}" style="width:40px;height:40px;" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
               <p>${sessionScope.SessionUser.username}</p>
