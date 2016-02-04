@@ -219,7 +219,7 @@
 						  <span class="info-box-text">OTHER NEWS</span>
 						  <span class="info-box-number">{{othernews }}</span>
 						  <div class="progress">
-							<div class="progress-bar" ng-style="{width: percentofmulkulkarnews + '%'}"></div>
+							<div class="progress-bar" ng-style="{width: othernews + '%'}"></div>
 						  </div>
 						  <span class="progress-description">
 							{{percentofothernews | number}}% out of the whole News
