@@ -67,8 +67,8 @@
               <div class="info-box">
                 <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">USER</span>
-                  <span class="info-box-number">{{totalusers}}</span>
+                  <span class="info-box-text">CATEGORIES</span>
+                  <span class="info-box-number">{{totalcate}}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -345,9 +345,7 @@
 		$scope.othernews =0;
 		$scope.totalnews=0;
 		
-		$scope.totalusers=0;
-		$scope.listusers={};
-		$scope.listadmins={};
+		$scope.totalcate = 0;
 		
 	
 		$scope.loadDashboardInfo = function(){
@@ -371,6 +369,7 @@
 				$scope.numberofsite = response.NUM_SITE;	
 				$scope.numoftopsitenews = $scope.numofaknnews+$scope.numofthebnews+$scope.numofsabaynews+$scope.numofmulkulkarnews;
 				$scope.othernews = $scope.totalnews - $scope.numoftopsitenews;
+				$scope.totalcate = response.NUM_CATE;
 				
 				$scope.percentofaknnews =($scope.numofaknnews * 100)/$scope.totalnews;
 				$scope.percentofsabaynews =($scope.numofsabaynews * 100)/$scope.totalnews;
@@ -378,9 +377,6 @@
 				$scope.percentofmulkulkarnews =($scope.numofmulkulkarnews * 100)/$scope.totalnews;
 				$scope.percentofothernews =($scope.othernews * 100)/$scope.totalnews;
 				
-				$scope.totalusers=response.TOTALRECORD;
-				$scope.listusers=response.LISTUSER;
-				$scope.listadmins=response.LISTADMIN;
 			});
 		}
 		$scope.loadDashboardInfo();
