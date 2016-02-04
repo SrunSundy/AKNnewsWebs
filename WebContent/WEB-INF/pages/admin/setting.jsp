@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ArticleMangement | AKNnews</title>
+    <title>Setting | AKNnews</title>
     <!-- Tell the browser to be responsive to screen width -->
 
 	 <jsp:include page="import/header.jsp"></jsp:include> 
