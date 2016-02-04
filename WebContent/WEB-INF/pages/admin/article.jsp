@@ -94,7 +94,7 @@
 					                  </ul>					                  
 					                </div>
 				                 
-				               		<div class="box-footer clearfix col-md-1"></div>
+				               		<div class="box-footer clearfix col-md-3"></div>
 				                
 				              
 					                <div class="box-footer clearfix col-md-3">
@@ -115,24 +115,34 @@
 					                   	 </div>	                 
 					                </div>
 				                
-				                    <div class="box-footer clearfix col-md-2">
-				                 	   <div class="input-group">
+				                  <!--   <div class="box-footer clearfix col-md-1">
+				                 	    <div class="input-group">
 						                  <span class="input-group-addon">Status</span>
 						                  <select   id="filterstatus" class=" form-control" style="width: 100%"  ng-options="setstatus as setstatus.label for setstatus in setstatuses track by setstatus.id" ng-model="fstatus"
 						                    ng-change="listArticleWithStatusFilter(fstatus)" >
 						                  </select> 
 				                   	   </div>
-				                    </div>
+				                   	  
+				                    </div> -->
 				                </div><!-- row -->
 			               </div>
 			               
 			               <div class="col-md-12">
-			               		<div class="div-resultdetail tog">
+			               		<div style="float:left;width:50%" class="div-resultdetail tog">
 			               			<h4 class="box-title" style="margin-right: 10px;" ><i>Result:</i> <small>{{Totalrecord}} records</small></h4>
-			               		</div> 			               		
+			               		</div> 
+			               		<div  style="float:left;width:50%;">
+			               			  <div class="box-tools pull-right" style="float:right" data-toggle="tooltip" title="Status">
+					                    <div class="btn-group" data-toggle="btn-toggle" >
+					                       <button type="button" class="btn btn-default btn-sm active" ng-click="listArticleWithStatusFilter(-1)"><i class="fa fa-square text-white"></i></button>
+					                      <button type="button" class="btn btn-default btn-sm" ng-click="listArticleWithStatusFilter(0)"><i class="fa fa-square text-green"></i></button>
+					                      <button type="button" class="btn btn-default btn-sm" ng-click="listArticleWithStatusFilter(-2)"><i class="fa fa-square text-red"></i></button>
+					                    </div>
+					                  </div>
+			               		</div>               		
 			               </div>
 			               
-		                   <div class="box-body table-responsive no-padding col-md-12">
+		                   <div class="box-body table-responsive no-padding col-md-12" style="clear:both">
 			                  <table class="table table-hover">			                  
 			                    <tr>
 			                      <th>Source</th>
@@ -142,7 +152,7 @@
 			                      <th>View</th>
 			                      <th>Category</th>
 			                      <th>Status</th>
-			                      <th>Currently Saved</th>
+			                      <!-- <th>Currently Saved</th> -->
 			                      <th style="width:10%">Action</th>
 			                    </tr>
 			                   
@@ -159,7 +169,8 @@
 			                      <td><span class="label label-danger">{{article.category.name }}</span></td>			                      
 			                      <td ng-if="article.status == true"><i ng-click="toggleStatusTrue(article.id)"  id="{{ 't'+ article.id }}" class="fa fa-check-square statustrue"></i></td>
 			                      <td ng-if="article.status == false"><i ng-click="toggleStatusFalse(article.id)" id="{{ 'f'+ article.id }}" class="fa fa-times-circle statusfalse"></i></td>
-			                      <td align="center"><span ng-click="showPplSaved(article.id,article.title,article.site.logo,article.site.name)" data-toggle="modal" data-target="#showPeople">10</span></td>		                    
+			                      <!-- <td align="center"><span ng-click="showPplSaved(article.id,article.title,article.site.logo,article.site.name)" data-toggle="modal" data-target="#showPeople">10</span></td>		                    
+			                      -->
 			                      <td ng-show="article.site.id == 6">
 				                      <form action="${pageContext.request.contextPath }/admin/updatearticle/" method="POST">
 				                      		 <input type="hidden" name="newsid" ng-value="{{article.id}}"/> 
@@ -182,10 +193,10 @@
           		</div>
           		
           		<!-- Modal Change Image -->
-				<div class="modal fade" id="showPeople" role="dialog" >
+				<!-- <div class="modal fade" id="showPeople" role="dialog" >
 				    <div class="modal-dialog">
 				    
-				      <!-- Modal content-->
+				      Modal content
 				      <div class="modal-content">
 				      <form id="frmupload" name="frm" ng-submit='uploadImage()' enctype="multipart/form-data">
 				        <div class="modal-header">
@@ -201,7 +212,7 @@
 										  {{newstitle}}
 										</span>
 									  </div>
-									</li><!-- /.item -->						
+									</li>/.item						
 						  		</ul>
 						  		<span class='people-who-save'>People Who save this</span>
 				          	</div>
@@ -214,86 +225,86 @@
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								<li class="item">
 								   <div class="product-img">
 										<img ng-src="{{baseurl}} resources/images/logo/{{newssitelogo }}" alt="News Image" class="site-logo-img">
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								
 								<li class="item">
 								   <div class="product-img">
 										see more
 								   </div>
 								  
-								</li><!-- /.item -->
+								</li>/.item
 								
 							  </ul>
-							</div><!-- /.box-body -->
+							</div>/.box-body
 				        </div>
-				        <!-- <div class="modal-footer">
+				        <div class="modal-footer">
 					        
-					    </div> -->
+					    </div>
 					    </form>
 				      </div>
 				      
 				    </div>
-				 </div><!--end modal  -->
+				 </div> --><!--end modal  -->
           		
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -542,9 +553,10 @@
 		};
 		
 		$scope.listArticleWithStatusFilter = function(status){
+			
 			$scope.page = 1;
 			$('#display').bootpag({page : '1' });
-			$scope.useridforstatus = status.value;
+			$scope.useridforstatus = status;
 			$scope.listArticles();
 		}
 	

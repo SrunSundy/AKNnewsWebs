@@ -228,9 +228,9 @@
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl',function($scope, $http,  $location,$window) {
 		//for set header with http wehn request 
-		/*  $http.defaults.headers.common.Authorization = 'Basic S0FBUEkhQCMkOiFAIyRLQUFQSQ==';
+		 $http.defaults.headers.common.Authorization = 'Basic S0FBUEkhQCMkOiFAIyRLQUFQSQ==';
 		 
-		 */
+		
 		 
 		$scope.domain = $location.protocol() + "://"+ $location.host() + ":" + $location.port();
 		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
@@ -275,7 +275,7 @@
 								        method: 'POST',
 								        headers: {
 								        	'Content-Type': undefined ,
-								        	"Authorization":"Basic S0FBUEkhQCMkOiFAIyRLQUFQSQ=="},
+								        },
 								        data: data1,
 						        
 								     }).success(function(response) {
