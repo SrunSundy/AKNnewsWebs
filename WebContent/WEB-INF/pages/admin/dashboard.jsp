@@ -211,6 +211,21 @@
 						  </span>
 						</div><!-- /.info-box-content -->
 					  </div><!-- /.info-box -->
+					  
+					  
+					   <div class="info-box bg-teal" >
+						<span class="info-box-icon"><i class="fa fa-sitemap" ></i></span>
+						<div class="info-box-content">
+						  <span class="info-box-text">OTHER NEWS</span>
+						  <span class="info-box-number">{{othernews }}</span>
+						  <div class="progress">
+							<div class="progress-bar" ng-style="{width: percentofmulkulkarnews + '%'}"></div>
+						  </div>
+						  <span class="progress-description">
+							{{percentofothernews | number}}% out of the whole News
+						  </span>
+						</div><!-- /.info-box-content -->
+					  </div><!-- /.info-box -->
 				</div>
 				
 				
@@ -221,12 +236,12 @@
             
             </div><!-- /.col -->
 			
-            <div class="col-md-12">
-              <!-- Info Boxes Style 2 -->
+          <!--   <div class="col-md-12">
+              Info Boxes Style 2
 				<div class="row">
 
                  <div class="col-md-6">
-                  <!-- USERS LIST -->
+                  USERS LIST
                   <div class="box box-danger">
                     <div class="box-header with-border">
                       <h3 class="box-title">Latest Members</h3>
@@ -235,7 +250,7 @@
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                       </div>
-                    </div><!-- /.box-header -->
+                    </div>/.box-header
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
                       
@@ -245,17 +260,17 @@
                           <span class="users-list-date">{{listuser.register_date}}</span>
                         </li>
                         
-                      </ul><!-- /.users-list -->
-                    </div><!-- /.box-body -->
+                      </ul>/.users-list
+                    </div>/.box-body
                     <div class="box-footer text-center">
                       <a href="javascript::" class="uppercase">View All Users</a>
-                    </div><!-- /.box-footer -->
-                  </div><!--/.box -->
-                </div><!-- /.col -->
+                    </div>/.box-footer
+                  </div>/.box
+                </div>/.col
 				
 				
 				    <div class="col-md-6">
-                  <!-- USERS LIST -->
+                  USERS LIST
                   <div class="box box-danger">
                     <div class="box-header with-border">
                       <h3 class="box-title">Latest Members</h3>
@@ -264,7 +279,7 @@
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                       </div>
-                    </div><!-- /.box-header -->
+                    </div>/.box-header
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
                         <li ng-repeat="listadmin in listadmins">
@@ -272,16 +287,20 @@
                           <a class="users-list-name" href="#">{{listadmin.username}}</a>
                           <span class="users-list-date">{{listadmin.register_date}}</span>
                         </li>
-                      </ul><!-- /.users-list -->
-                    </div><!-- /.box-body -->
+                      </ul>/.users-list
+                    </div>/.box-body
                     <div class="box-footer text-center">
                       <a href="javascript::" class="uppercase">View All Users</a>
-                    </div><!-- /.box-footer -->
-                  </div><!--/.box -->
-                </div><!-- /.col -->
+                    </div>/.box-footer
+                  </div>/.box
+                </div>/.col
 			</div>
            
-            </div><!-- /.col -->
+            </div> --><!-- /.col -->
+            
+            
+            
+            
           </div><!-- /.row -->
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -323,6 +342,7 @@
 		$scope.numofthebnews =0;
 		$scope.numofsabaynews=0;
 		$scope.numofmulkulkarnews =0;
+		$scope.othernews =0;
 		$scope.totalnews=0;
 		
 		$scope.totalusers=0;
@@ -348,13 +368,15 @@
 				$scope.numofsabaynews=response.SABAY_NEWS;
 				$scope.numofmulkulkarnews =response.MUL_NEWS;
 				$scope.totalnews= response.TOTAL_NEWS;
-				$scope.numberofsite = response.NUM_SITE;
+				$scope.numberofsite = response.NUM_SITE;	
+				$scope.numoftopsitenews = $scope.numofaknnews+$scope.numofthebnews+$scope.numofsabaynews+$scope.numofmulkulkarnews;
+				$scope.othernews = $scope.totalnews - $scope.numoftopsitenews;
 				
 				$scope.percentofaknnews =($scope.numofaknnews * 100)/$scope.totalnews;
 				$scope.percentofsabaynews =($scope.numofsabaynews * 100)/$scope.totalnews;
 				$scope.percentofthebnews =($scope.numofthebnews * 100)/$scope.totalnews;
 				$scope.percentofmulkulkarnews =($scope.numofmulkulkarnews * 100)/$scope.totalnews;
-				
+				$scope.percentofothernews =($scope.othernews * 100)/$scope.totalnews;
 				
 				$scope.totalusers=response.TOTALRECORD;
 				$scope.listusers=response.LISTUSER;
