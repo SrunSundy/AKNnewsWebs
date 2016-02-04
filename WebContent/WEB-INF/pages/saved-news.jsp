@@ -70,7 +70,7 @@
 						<ul class="a-category">
 							<li><i class="fa fa-user"></i>ព័ត៌មាន អ្នកប្រើប្រាស់</li>
 							<li><i class="fa fa-bookmark"></i> ព័ត៌មាន បានរក្សាទុក</li>
-							<li data-toggle="modal" data-target="#myUpload"><i class="fa fa-camera"></i>ប្តូរ រូបភាព</li>
+							<!-- <li data-toggle="modal" data-target="#myUpload"><i class="fa fa-camera"></i>ប្តូរ រូបភាព</li> -->
 							<li data-toggle="modal" data-target="#changePWD"><i class="fa fa-key"></i>ប្តូរ លេខសម្ងាត់</li>
 						</ul>
 						<ul class="a-category">
@@ -115,12 +115,12 @@
 					
 					
 				</div><!--/end a-row  -->
-				
-				<!-- Modal Change Image -->
+				<!-- 
+				Modal Change Image
 				<div class="modal fade" id="myUpload" role="dialog" >
 				    <div class="modal-dialog">
-				    
-				      <!-- Modal content-->
+				      
+				      Modal content
 				      <div class="modal-content">
 				      <form id="frmupload" name="frm" ng-submit='uploadImage()' enctype="multipart/form-data">
 				        <div class="modal-header">
@@ -130,7 +130,7 @@
 								<div class="fileinput fileinput-new" data-provides="fileinput">
 								  	<div class="fileinput-preview thumbnail " id="thum" data-trigger="fileinput" ></div>
 								  	<div>
-								  		 <input type="hidden" value='{{uid}}' required name="id" id="id"/> 
+								  		 <input type="hidden" value="" name="id" id="id"/> 
 								   		 <span class="btn btn-default btn-file"><span class="fileinput-new">ជ្រើសរើស រូបភាព</span>
 								   		 <span class="fileinput-exists">ផ្លាស់ប្តូរ</span>
 								   		 <input id="newsthumbnail" type="file" name="file" required  name="..." /></span>
@@ -145,7 +145,7 @@
 				      </div>
 				      
 				    </div>
-				 </div><!--end modal  -->
+				 </div>end modal  -->
 				 
 				<!-- Modal Change Password -->
 				<div class="modal fade" id="changePWD" role="dialog" >
@@ -162,12 +162,12 @@
 					                <div class="form-group">
 					                	<input type="hidden" value='{{uid}}' required name="id" id="id"/> 
 					                  	<label for="oldpasswd">លេខសម្ងាត់ចាស់</label>
-					                  	<input type="password" class="form-control" name='oldpwd' placeholder="បញ្ចូល លេខសម្ងាត់ចាស់" required ng-minlength="5" ng-model='userpwd.oldpass'/>
+					                  	<input type="password" class="form-control" name='oldpwd' placeholder="បញ្ចូល លេខសម្ងាត់ចាស់" required ng-minlength="5" ng-model='userpwd.oldPassword'/>
 							              <span class='error' ng-show="myForm.$dirty && myForm.oldpwd.$error.minlength">លេខសម្ងាត់ ត្រូវមានយ៉ាងតិច ៥ ខ្ទង់</span>
 					                </div>
 					                <div class="form-group">
 					                  	<label for="newpasswd">លេខសម្ងាត់ថ្មី</label>
-					                  	<input type="password" class="form-control"  name='newpwd' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី" required ng-minlength="5" ng-model='userpwd.newpass' ng-change='checkPassword()' />
+					                  	<input type="password" class="form-control"  name='newpwd' placeholder="បញ្ចូល លេខសម្ងាត់ថ្មី" required ng-minlength="5" ng-model='userpwd.newPassword' ng-change='checkPassword()' />
 			             		   		  <span class='error'ng-show="myForm.$dirty && myForm.newpwd.$error.minlength">លេខសម្ងាត់ ត្រូវមានយ៉ាងតិច ៥ ខ្ទង់</span>
 					                </div>
 					                <div class="form-group">
@@ -217,7 +217,6 @@
 					$scope.uid = '${sessionScope.SessionUser.userId}';
 							
 				$scope.row = 15;
-
 				$scope.day = 0;
 				$scope.page = 0;
 				
@@ -226,14 +225,14 @@
 				$scope.phoneMenuStatus = false;
 				
 				//user check password
-				$scope.userpwd = {id:null,oldpass:'',newpass:''};
+				$scope.userpwd = {userId:'',oldPassword:'',newPassword:''};
 				$scope.conpwd = null;
 				$scope.status = false;
 				$scope.statusShow = false;
 				
 				//check password 
 				$scope.checkPassword = function(){
-					if ($scope.conpwd != $scope.userpwd.newpass){
+					if ($scope.conpwd != $scope.userpwd.newPassword){
 						$scope.status = false;
 						$scope.statusShow = true;
 						return;
@@ -241,15 +240,17 @@
 					$scope.statusShow = false;
 					$scope.status = true;
 				};
-				//upload image 
+			/* 	//upload image 
 				$scope.uploadImage = function(){
 			    	var form_data = new FormData(document.getElementById('frmupload'));                  
- 	  			    $http.post(
+ 	  			  	alert('${sessionScope.SessionUser.userId});
+			           $http.post(
 							$scope.baseurl+'api/user/editupload'
 							,form_data
 							,{
 								transformRequest : angular.identity,
 								headers: {
+								'header': 'Basic YXBpOmFrbm5ld3M=' ,
 					            'Accept': 'application/json;odata=verbose',
 					            'Content-Type' : undefined
 					       		 }
@@ -259,15 +260,15 @@
 							$window.location.href = $location.absUrl();
 						}).error(function(response){
 							console.log( response ); 
-						});	  
-				};
-				
+						});	
+				}; 
+				*/
 				//change password
 				$scope.changePassword = function(){
 
-					$scope.userpwd.id = $scope.uid;
+					$scope.userpwd.userId = $scope.uid;
 					console.log($scope.userpwd);
- 	  			    $http.put(
+ 	  			    $http.post(
 							$scope.baseurl+'api/user/changepwd'
 							,$scope.userpwd
 						).success(function(response){						
@@ -281,12 +282,12 @@
 				
 				//reset form change password
 	 		    $scope.reset = function(){
-	 		    	$scope.userpwd = {id:null,oldpass:'',newpass:''};
+	 		    	$scope.userpwd = {userId:'',oldPassword:'',newPassword:''};
 	 		    	$scope.conpwd = null;
 	                $scope.myForm.$setPristine(); //reset Form
 	            };
 				
-				/* //initialize news data */
+	            /* //initialize news data */
 				$scope.loadNews = function(){
 					$scope.page += 1;
 					console.log($scope.page+','+$scope.row+','+ $scope.uid);
@@ -307,6 +308,7 @@
                     	
 				    });
 				};
+				
 				
 				$scope.loadCategories = function(){
 					$http({
