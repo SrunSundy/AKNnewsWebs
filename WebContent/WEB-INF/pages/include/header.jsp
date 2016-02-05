@@ -15,12 +15,13 @@
 			<li ng-repeat="category in navCategory"><a href="${pageContext.request.contextPath}/{{category.id}}/category" ng-bind="category.name"></a></li>
 		</ul>
 		<div class="user-profile" ng-click="toggleShowProfile()">
+		    <c:set var="UserImageUrl" value="http://api.khmeracademy.org/resources/upload/file/"/>
 			<c:choose>
 				<c:when test="${sessionScope.SessionUser == null || sessionScope.SessionUser == ''}">
 					<img src="${pageContext.request.contextPath}/resources/images/user/avatar.png"/>
 				</c:when>
 				<c:otherwise>
-					<img ng-src="{{baseurl}}resources/images/user/${sessionScope.SessionUser.userImageUrl}"/>
+					<img ng-src="${UserImageUrl}${sessionScope.SessionUser.userImageUrl}"/>
 				</c:otherwise>
 			</c:choose>
 			
@@ -41,7 +42,6 @@
 					<c:set value="${sessionScope.SessionUser.userId }" var="uid"></c:set>
 					<ul class="profile-after-login">
 						<li><i class="fa fa-user"></i>សូស្តី! ${sessionScope.SessionUser.username }</li>
-						<li><i class="fa fa-user-secret"></i><a href="${pageContext.request.contextPath }/admin">គ្រប់គ្រងព័ត៌មាន</a></li>
 						<li><i class="fa fa-bookmark"></i><a href="${pageContext.request.contextPath }/user/profile"> ព័ត៌មានបាន រក្សាទុក</a></li>
 						<li><i class="fa fa-sign-out"></i><a href="${pageContext.request.contextPath }/logout">ចាកចេញ</a></li>
 						<li><i class="fa fa-info-circle"></i><a href="${pageContext.request.contextPath }/about">អំពីយើង</a></li>
