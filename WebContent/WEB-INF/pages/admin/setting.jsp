@@ -17,6 +17,9 @@
 		font-weight: bold;
 		font-style : italic;
 	}
+	.nav-tabs-custom>.tab-content {
+    overflow: hidden;
+}
 </style>
    
   </head>
@@ -96,7 +99,7 @@
 															</div>
 														</div>
 														
-														<form class="form-horizontal" ng-submit="submit()" name="myForm">
+										<!-- 				<form class="form-horizontal" ng-submit="submit()" name="myForm">
 															<div class="form-group">
 																<div class="col-md-12"><div class="col-md-12">
 																	<label for="inputName" class="">Name</label>																
@@ -104,7 +107,7 @@
 																			placeholder="Enter user name" required ng-minlength="3"
 																			class='form-control' />
 																			<span style="font-style:italic;color:#BDBDBD;">Update Name will effect after you Re Login</span><br>
-																		<!--Agular Validation Form  -->
+																		Agular Validation Form 
 																	<span ng-show="myForm.$dirty && myForm.uname.$error.required"
 																			class="err">This is a required field</span> <span
 																			ng-show="myForm.$dirty && myForm.uname.$error.minlength"
@@ -118,7 +121,7 @@
 																	<input type="submit" value=" Update" ng-disabled="myForm.$invalid" class="btn btn-primary" />
 																</div></div>
 															</div>
-														</form>
+														</form> -->
 														<!-- /.post -->
 													</div>
 													<br>
@@ -127,7 +130,7 @@
 															<div class="form-group">
 																<div class="col-md-12"><div class="col-md-12">
 																	<label for="inputEmail" class="">Old Password</label>															
-															        <input type="password" ng-model="chpass.oldpass" name="oldpass"
+															        <input type="password" ng-model="chpass.oldPassword" name="oldpass"
 																			placeholder="Enter user name" required ng-minlength="3"
 																			class='form-control' />
 																		<!--Agular Validation Form  -->
@@ -142,7 +145,7 @@
 															<div class="form-group">
 																<div class="col-md-12"><div class="col-md-12">
 																	<label for="password" class="">New Password</label>																				
-																	<input type="password" ng-model="chpass.newpass" name="newpass"
+																	<input type="password" ng-model="chpass.newPassword" name="newpass"
 																			placeholder="Enter user name" required ng-minlength="3"
 																			class='form-control' />
 																		<!--Agular Validation Form  -->
@@ -228,7 +231,7 @@
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl',function($scope, $http,  $location,$window) {
 		//for set header with http wehn request 
-		 $http.defaults.headers.common.Authorization = 'Basic S0FBUEkhQCMkOiFAIyRLQUFQSQ==';
+		 $http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=';
 		 
 		
 		 
@@ -237,17 +240,17 @@
 	    $scope.baseurl = $scope.domain + "/AKNnews/";
 		
 	    //user when edit user
-		$scope.user = {
+	/* 	$scope.user = {
 				userId : '${sessionScope.SessionUser.userId}',
 				username : ''
-		};
+		}; */
 		$scope.chpass = {
 				userId : '${sessionScope.SessionUser.userId}',
 				newPassword : '',
 				oldPassword : ''
 		};
 	
-
+/* 
 		//Function for upload user image profile
 		$scope.updateProfile = function(evt){
 	
@@ -292,8 +295,8 @@
 				    });
 				    
 				
-		};
-		//Function for update user infor 
+		}; */
+	/* 	//Function for update user infor 
 		$scope.submit = function() {
 			$http.put($scope.baseurl + 'api/user/update/',$scope.user).success(function(response) {
 				alert(response.MESSAGE);
@@ -301,20 +304,25 @@
 				console.log(response);
 			});
 
-		};
+		}; */
 		//Function for update user infor 
 		$scope.submitpss = function() {
-			$http.put($scope.baseurl+ 'api/user/changepwd',$scope.chpass).success(function(response) {
+			
+				$http.post($scope.baseurl+ 'api/user/changepwd',$scope.chpass).success(function(response) {
 				console.log(response);
-				if(response.MESSAGE=="FAILD TO CHANGE PASSWORD"){
+				 if(response.MESSAGE=="FAILD TO CHANGE PASSWORD"){
 					swal("Fail to update password", "your old password might be wrong", "error");
 					return;
 				}
 				//swal("Fail to update password", "", "success");
-				window.location.replace("${pageContext.request.contextPath }/login");
+				swal("Success to update password", "your password have been update please login agani... ", "success");
+				setTimeout(function(){
+					window.location.replace("${pageContext.request.contextPath }/logout");
+				}, 2000);
+				
 			}).error(function(response) {
 				swal("Fail to update password", "your old password might be wrong", "error");
-			});
+			});  
 
 		}
 
