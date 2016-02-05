@@ -65,7 +65,7 @@
 
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+                <span class="info-box-icon bg-green"><i class="fa fa-pie-chart"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">CATEGORIES</span>
                   <span class="info-box-number">{{totalcate}}</span>
@@ -235,68 +235,34 @@
            
             
             </div><!-- /.col -->
-			
-          <!--   <div class="col-md-12">
-              Info Boxes Style 2
-				<div class="row">
+            
+            <div class="col-md-12" >   
+		          <div class="row">	   
+		            <div class="col-md-8">
+		              <!-- LINE CHART -->
+		           
+		              <!-- BAR CHART -->
+		              <div class="box box-success">
+		                <div class="box-header with-border">
+		                  <h3 class="box-title">NEWS Scrapping Statisitc</h3>
+		                 
+		                  <div class="box-tools pull-right">
+		                  	
+		                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+		                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+		                  </div>
+		                </div>
+		                <div class="box-body">
+		                  <div class="chart">
+		                    <canvas id="barChart" style="height:500px"></canvas>
+		                  </div>
+		                </div><!-- /.box-body -->
+		              </div><!-- /.box -->
+		
+		            </div><!-- /.col (RIGHT) -->
+		          </div><!-- /.row --> 
+            </div>
 
-                 <div class="col-md-6">
-                  USERS LIST
-                  <div class="box box-danger">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Latest Members</h3>
-                      <div class="box-tools pull-right">
-                        <span class="label label-danger">8 New Members</span>
-                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                      </div>
-                    </div>/.box-header
-                    <div class="box-body no-padding">
-                      <ul class="users-list clearfix">
-                      
-                        <li ng-repeat="listuser in listusers">
-                          <img style="width:100px;height:100px;" src="{{baseurl}}resources/images/user/{{listuser.image}}" alt="User Image">
-                          <a class="users-list-name" href="#">{{listuser.username}}</a>
-                          <span class="users-list-date">{{listuser.register_date}}</span>
-                        </li>
-                        
-                      </ul>/.users-list
-                    </div>/.box-body
-                    <div class="box-footer text-center">
-                      <a href="javascript::" class="uppercase">View All Users</a>
-                    </div>/.box-footer
-                  </div>/.box
-                </div>/.col
-				
-				
-				    <div class="col-md-6">
-                  USERS LIST
-                  <div class="box box-danger">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Latest Members</h3>
-                      <div class="box-tools pull-right">
-                        <span class="label label-danger">8 New Members</span>
-                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                      </div>
-                    </div>/.box-header
-                    <div class="box-body no-padding">
-                      <ul class="users-list clearfix">
-                        <li ng-repeat="listadmin in listadmins">
-                         <img style="width:100px;height:100px;" src="{{baseurl}}resources/images/user/{{listadmin.image}}" alt="User Image">
-                          <a class="users-list-name" href="#">{{listadmin.username}}</a>
-                          <span class="users-list-date">{{listadmin.register_date}}</span>
-                        </li>
-                      </ul>/.users-list
-                    </div>/.box-body
-                    <div class="box-footer text-center">
-                      <a href="javascript::" class="uppercase">View All Users</a>
-                    </div>/.box-footer
-                  </div>/.box
-                </div>/.col
-			</div>
-           
-            </div> --><!-- /.col -->
             
             
             
@@ -316,9 +282,9 @@
 
     </div><!-- ./wrapper -->
    <jsp:include page="import/footer.jsp"></jsp:include> 
- 
-   
-  
+  <script src="${pageContext.request.contextPath }/resources/plugins/chartjs/Chart.min.js"></script>
+
+
   
   <script>
  
@@ -347,6 +313,7 @@
 		
 		$scope.totalcate = 0;
 		
+		/* $scope.jan = 0; */
 	
 		$scope.loadDashboardInfo = function(){
 			$http({
@@ -379,6 +346,90 @@
 				
 			});
 		}
+		$scope.loadBarChartData = function(){
+			 $http({
+					method : "GET",
+					url : $scope.baseurl+"api/article/staticrecord/"
+					
+				}).success(function(response){
+					var jan=0,feb=0,mar=0,apr=0,may=0,jun=0,jul=0,aug=0,sep=0,oct=0,nov=0,dec=0;
+					
+					jan = response.TOTAL_RECORDS_JAN;
+					feb = response.TOTAL_RECORDS_FEB;
+					mar = response.TOTAL_RECORDS_MAR;
+					apr = response.TOTAL_RECORDS_APR;
+					may = response.TOTAL_RECORDS_MAY;
+					jun = response.TOTAL_RECORDS_JUN;
+					jul = response.TOTAL_RECORDS_JUL;
+					aug = response.TOTAL_RECORDS_AUG;
+					sep = response.TOTAL_RECORDS_SEP;
+					oct = response.TOTAL_RECORDS_OCT;
+					nov = response.TOTAL_RECORDS_NOV;
+					dec = response.TOTAL_RECORDS_DEC;
+					
+					$scope.loadBarChart(jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec);
+				
+				});
+		}
+		$scope.loadBarChartData();
+		$scope.loadBarChart = function(jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec){
+			
+			
+	        var areaChartData = {
+	          labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
+	          datasets: [
+	            {
+	              label: "Electronics",
+	              fillColor: "rgba(210, 214, 222, 1)",
+	              strokeColor: "rgba(210, 214, 222, 1)",
+	              pointColor: "rgba(210, 214, 222, 1)",
+	              pointStrokeColor: "#c1c7d1",
+	              pointHighlightFill: "#fff",
+	              pointHighlightStroke: "rgba(220,220,220,1)",
+	              data: [jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec]
+	            }
+	          ]
+	        };			
+	        //-------------
+	        //- BAR CHART -
+	        //-------------
+	        var barChartCanvas = $("#barChart").get(0).getContext("2d");
+	        var barChart = new Chart(barChartCanvas);
+	        var barChartData = areaChartData;
+	        barChartData.datasets[0].fillColor = "#009688";
+	        barChartData.datasets[0].strokeColor = "#009688";
+	        barChartData.datasets[0].pointColor = "#009688";
+	        var barChartOptions = {
+	          //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+	          scaleBeginAtZero: true,
+	          //Boolean - Whether grid lines are shown across the chart
+	          scaleShowGridLines: true,
+	          //String - Colour of the grid lines
+	          scaleGridLineColor: "rgba(0,0,0,.05)",
+	          //Number - Width of the grid lines
+	          scaleGridLineWidth: 1,
+	          //Boolean - Whether to show horizontal lines (except X axis)
+	          scaleShowHorizontalLines: true,
+	          //Boolean - Whether to show vertical lines (except Y axis)
+	          scaleShowVerticalLines: true,
+	          //Boolean - If there is a stroke on each bar
+	          barShowStroke: true,
+	          //Number - Pixel width of the bar stroke
+	          barStrokeWidth: 1,
+	          //Number - Spacing between each of the X value sets
+	          barValueSpacing: 5,
+	          //Number - Spacing between data sets within X values
+	          barDatasetSpacing: 1,
+	          //String - A legend template
+	         
+	          responsive: true,
+	          maintainAspectRatio: true
+	        };
+
+	        barChartOptions.datasetFill = false;
+	        barChart.Bar(barChartData, barChartOptions);
+	      }
+		
 		$scope.loadDashboardInfo();
 
 		//timeago
@@ -421,6 +472,10 @@
 		    	return time;
 		    }
 		}
+		
+	
+		
+		
 	});
   
   </script>

@@ -238,13 +238,13 @@
 		
 	    //user when edit user
 		$scope.user = {
-	    		id : '${sessionScope.SessionUser.userId}',
+				userId : '${sessionScope.SessionUser.userId}',
 				username : ''
 		};
 		$scope.chpass = {
-				id : '${sessionScope.SessionUser.userId}',
-				newpass : '',
-				oldpass : ''
+				userId : '${sessionScope.SessionUser.userId}',
+				newPassword : '',
+				oldPassword : ''
 		};
 	
 
@@ -284,7 +284,7 @@
 											document.getElementById("profile-image").src = fr.result;
 									        $window.location.reload();
 								     }).error(function (response) {
-											swal("Fail to insert news", "", "error");
+											swal("Fail to update profile", "", "error");
 								   });
 				    		} else {    
 				    			swal("Cancelled", "Your imaginary file is safe :)", "error");   
@@ -304,7 +304,7 @@
 		};
 		//Function for update user infor 
 		$scope.submitpss = function() {
-			$http.put($scope.baseurl+ '/api/user/changepwd',$scope.chpass).success(function(response) {
+			$http.put($scope.baseurl+ 'api/user/changepwd',$scope.chpass).success(function(response) {
 				console.log(response);
 				if(response.MESSAGE=="FAILD TO CHANGE PASSWORD"){
 					swal("Fail to update password", "your old password might be wrong", "error");
@@ -313,7 +313,7 @@
 				//swal("Fail to update password", "", "success");
 				window.location.replace("${pageContext.request.contextPath }/login");
 			}).error(function(response) {
-				console.log(response);
+				swal("Fail to update password", "your old password might be wrong", "error");
 			});
 
 		}
