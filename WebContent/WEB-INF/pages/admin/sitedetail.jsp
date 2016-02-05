@@ -64,7 +64,8 @@
             <!-- <small>Version 2.0</small> -->
           </h1>
           <ol class="breadcrumb">
-            <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li>Site Management</li>
             <li class="active">Scrap Url Management</li>
           </ol>
         </section>

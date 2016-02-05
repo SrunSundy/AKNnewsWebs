@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -8,10 +9,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ArticleMangement | AKNnews</title>
     <!-- Tell the browser to be responsive to screen width -->
-
-	 <jsp:include page="import/header.jsp"></jsp:include> 
-
-   
+	<jsp:include page="import/header.jsp"></jsp:include>
+       <style>
+       #thum{
+       width: 320px; height: 150px;
+       }
+       		@media (max-width: 1600px) {
+			  
+			   
+			    #thum{
+			     
+			    	width: 100%;
+			    	height: 100%;
+			    	
+			    }
+			}
+       </style>
   </head>
   <body class="hold-transition skin-blue sidebar-mini"  ng-app="myApp" ng-controller="myCtrl">
  <%--  <input type="hidden" id="newsid" ng-model="newsid" value="${newsid }"/> --%>
@@ -234,7 +247,19 @@
 		 $scope.listCategories();
 	});
   
-    
+		 function goodbye(e) {
+	   	    if(!e) e = window.event;
+	   	    //e.cancelBubble is supported by IE - this will kill the bubbling process.
+	   	    e.cancelBubble = true;
+	   	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+	
+	   	    //e.stopPropagation works in Firefox.
+	   	    if (e.stopPropagation) {
+	   	        e.stopPropagation();
+	   	        e.preventDefault();
+	   	    }
+	   	}
+	   	window.onbeforeunload=goodbye;  
     </script>
   
   </body>

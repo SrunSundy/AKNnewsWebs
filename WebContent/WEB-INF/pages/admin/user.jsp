@@ -283,7 +283,7 @@ i.action:hover {
 										<td>{{ user.username }}</td>
 										<td>{{ user.email }}</td>
 										<td><img class='logo-style'
-											src='{{domain}}/resources/images/user/{{ user.image }}'
+											src='{{baseurl}}/resources/images/user/{{ user.image }}'
 											class="img-circle" data-toggle="modal"
 											data-target="#myUpload" ng-click='findUserById(user.id)' /></td>
 										<td ng-show="user.enabled == true"><button
@@ -334,9 +334,10 @@ i.action:hover {
 	        app.controller('myCtrl',function($scope, $http ,$location) {
 							//Variable for Configuration
                            
-							$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
-				
-							$scope.domain =  $scope.weburl  + "/AKNnews/";
+							$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+
+							$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+							$scope.baseurl = $scope.domain + "/AKNnews/";
 
 
 							//for set header with http wehn request 
@@ -387,7 +388,7 @@ i.action:hover {
 
 								$http
 										.get(
-												$scope.domain + 'api/user/'
+												$scope.baseurl + 'api/user/'
 														+ page + '/'
 														+ $scope.row + '/'
 														+ key)
@@ -459,7 +460,7 @@ i.action:hover {
 							$scope.chnageUserStatus = function(id) {
 								$http
 										.patch(
-												$scope.domain
+												$scope.baseurl
 														+ 'api/user/toggle/'
 														+ id)
 										.success(function(response) {
@@ -472,7 +473,7 @@ i.action:hover {
 							$scope.submit = function() {
 								//insert user infor
 									console.log($scope.user);
-									$http.post($scope.domain + 'api/user/',
+									$http.post($scope.baseurl + 'api/user/',
 											$scope.user).success(
 											function(response) {
 												console.log(response);
@@ -490,7 +491,7 @@ i.action:hover {
 							        username:$scope.user.username
 							      };
 							$http.put(
-										$scope.domain + 'api/user/update/',
+										$scope.baseurl + 'api/user/update/',
 										$scope.usersupdate).success(
 										function(response) {
 											console.log(response);
@@ -512,7 +513,7 @@ i.action:hover {
 
 								$http
 										.post(
-												$scope.domain
+												$scope.baseurl
 														+ 'api/user/editupload',
 												form_data,
 												{
@@ -552,6 +553,19 @@ i.action:hover {
 							$scope.selected = $scope.items[0];
 
 						});
+				        function goodbye(e) {
+				      	    if(!e) e = window.event;
+				      	    //e.cancelBubble is supported by IE - this will kill the bubbling process.
+				      	    e.cancelBubble = true;
+				      	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+			
+				      	    //e.stopPropagation works in Firefox.
+				      	    if (e.stopPropagation) {
+				      	        e.stopPropagation();
+				      	        e.preventDefault();
+				      	    }
+				      	}
+				      	window.onbeforeunload=goodbye;  
 	</script>
 </body>
 </html>

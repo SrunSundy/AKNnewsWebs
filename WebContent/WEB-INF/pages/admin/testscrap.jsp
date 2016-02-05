@@ -9,28 +9,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1" />
     	<title>Admin AKN | Scrap</title>
 
-	 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css">
-    	<!-- Font Awesome -->
-    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/fontawesome/css/font-awesome.min.css">
-  
-   
-     	<!-- Select2 -->
-    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/select2/select2.min.css"> 
-	    <!-- Ionicons -->
-   		<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    	<!-- Theme style -->
-    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/AdminLTE.min.css">
-    	<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/dist/css/skins/_all-skins.min.css">
-    	<!-- bootstrap wysihtml5 - text editor -->
-    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">  
-    
-    	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
-    	
-    	<!-- jQuery 2.1.4 -->
-    	<script src="${pageContext.request.contextPath }/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    
-	    <script src= "${pageContext.request.contextPath }/resources/angularjs/angular.min.js"></script>
+	 	<jsp:include page="import/header.jsp"></jsp:include>
     
        
   </head>
@@ -51,7 +30,8 @@
 			          <h1>Test Scrap Management <small>Version 2.0</small></h1>
 			          <ol class="breadcrumb">
 			            	<li><a href="#"><i class="fa fa-dashboard"></i> Scrap </a></li>
-			            	<li class="active">Article Management</li>
+			            	<li>Scrap Management</li>
+			            	<li class="active">Scrap Selector Testing</li>
 			          </ol>
 		        </section>
 
@@ -156,31 +136,14 @@
       		<div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
   
-    <!-- Bootstrap 3.3.5 -->
-    <script src="${pageContext.request.contextPath }/resources/bootstrap/js/bootstrap.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath }/resources/plugins/select2/select2.full.min.js"></script>
-    <!-- FastClick -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/fastclick/fastclick.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="${pageContext.request.contextPath }/resources/dist/js/demo.js"></script>
-    <!-- CK Editor -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/ckeditor/ckeditor.js"></script>
-    <!-- Bootstrap WYSIHTML5 -->
-    <script src="${pageContext.request.contextPath }/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-    
-    <script src="${pageContext.request.contextPath }/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
-    
-    <script>
-    	
-    </script>
+
+    <jsp:include page="import/footer.jsp"></jsp:include>
     <script>
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope, $http, $location){
 		
 		$http.defaults.headers.common.Authorization = 'Basic YXBpOmFrbm5ld3M=' ;
+		
 		$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
 		
 		$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";

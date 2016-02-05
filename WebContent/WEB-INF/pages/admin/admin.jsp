@@ -240,9 +240,11 @@ i.action:hover {
 							//Variable for Configuration
 
 							
-							$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+							$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
 				
-							$scope.domain =  $scope.weburl  + "/AKNnews/";
+							$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
+							$scope.baseurl = $scope.domain + "/AKNnews/";
+							
 							
 							//user when edit user
 							$scope.user = {
@@ -267,7 +269,7 @@ i.action:hover {
 
 								$http
 										.post(
-												$scope.domain
+												$scope.baseurl
 														+ 'api/user/editupload',
 												form_data,
 												{
@@ -297,7 +299,7 @@ i.action:hover {
 							//Function for update user infor 
 							$scope.submit = function() {								
 								$http.put(
-											$scope.domain + 'api/user/update/',
+											$scope.baseurl + 'api/user/update/',
 											$scope.user).success(
 											function(response) {
 												alert(response.MESSAGE);
@@ -311,7 +313,7 @@ i.action:hover {
 							//Function for update user infor 
 							$scope.submitpss = function() {	
 								$http.put(
-											$scope.domain + '/api/user/changepwd',
+											$scope.baseurl + '/api/user/changepwd',
 											$scope.chpass).success(
 											function(response) {
 												console.log(response);
@@ -324,6 +326,19 @@ i.action:hover {
 								}
 
 						});
+					 function goodbye(e) {
+				      	    if(!e) e = window.event;
+				      	    //e.cancelBubble is supported by IE - this will kill the bubbling process.
+				      	    e.cancelBubble = true;
+				      	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+			
+				      	    //e.stopPropagation works in Firefox.
+				      	    if (e.stopPropagation) {
+				      	        e.stopPropagation();
+				      	        e.preventDefault();
+				      	    }
+				      	}
+				      	window.onbeforeunload=goodbye;  
 	
 	</script>
 </body>
