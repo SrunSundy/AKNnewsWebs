@@ -14,10 +14,9 @@
 
 	<jsp:include page="import/header.jsp"></jsp:include>
    <style>
-   i.ion{
-   		margin-top: 25px;
-   }
-	
+	   i.ion{
+	   		margin-top: 25px;
+	   }
 	  .error{
       	color:red;
       }
@@ -26,8 +25,6 @@
       	width: 30px;
       	height: 30px;
       }
- 
-  
    </style>
    
    
@@ -56,9 +53,7 @@
           </ol>
         </section>
 
-
         <!-- Main content -->
-        
         <section class="content">         	          
 		<div >
 		
@@ -97,7 +92,6 @@
 			          
 			         <input type="submit" value="{{!site.id ? 'Add'  : 'Update' }}" ng-disabled="myForm.$invalid" 
 			         class="{{!site.id ? 'btn btn-success'  : 'btn btn-primary' }}" />
-			          
 			      	</form>
 		        </div>
 		        <div class="modal-footer">
@@ -106,7 +100,6 @@
 		      </div>
 		    </div>
 		  </div>
-		  
 		  
 		  		  <!-- Modal View -->
 		  <div class="modal fade" id="myView" role="dialog" data-keyboard="false" data-backdrop="static">
@@ -146,7 +139,6 @@
 			      	    <tr>
 			          		<th class='active' colspan='2'><center> SITE SELECTOR  </center></th>
 			          	</tr>
-			          	
 			          	<tr>
 			          		<th>Row Selector</th>
 			          		<td>{{ structure.rowsSelector }}</td>
@@ -264,8 +256,6 @@
 			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-plus"></i></button> <br/><br/>
 		</div>
 		
-
-		
 		<div>
 			<div class="box">
 				<div class="box-body table-responsive no-padding">
@@ -313,7 +303,6 @@
 	      <!-- Add the sidebar's background. This div must be placed
 	           immediately after the control sidebar -->
 	      <div class="control-sidebar-bg"></div>
-	
 	    </div><!-- ./wrapper -->
 	
 	  <jsp:include page="import/footer.jsp"></jsp:include>
@@ -321,15 +310,36 @@
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope,$http,$location) {
 			
+			// web base url
+			$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+
 			$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
 
 			$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
-			
+
 			$scope.baseurl = $scope.domain + "/AKNnews/";
 			
-			
+			// parameter
+			// site on record
+		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'', prefixImg:'', prefixLink:''};		
+			// site all data
+		    $scope.site_list = {};
+			// all structure
+		    $scope.structure_list = {};
+			// temp id for structure
+		    $scope.strucTmpId = null;
+			// structure one record
+		    $scope.structure = {id:null,siteId:null, imageSelector:'',linkSelector:'',titleSelector:'',contentSelector:'',rowsSelector:''};
+			// http basic send header
+		    var config = {headers: {
+	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
+	            'Accept': 'application/json;odata=verbose'
+	       		 }
+	    	};
+			// site one object
 		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'', prefixImg:'', prefixLink:''};		 
 		    
+			// insert or update function
 		    $scope.submit = function() {
 		    	if ( $scope.site.id == null){
 		    		$scope.insertsite();
@@ -337,9 +347,11 @@
 		    		$scope.updatesite();
 		    	}
 		    	$scope.reset();
+		    	// close modal
 		    	angular.element('#myAdd').modal('hide');
 		    };
 		    
+		    // find source by id that exist in site_list
  		    $scope.findsiteById = function(id){
  		    	$scope.findStructureById(id);
                 console.log('id to be edited', id);
@@ -352,18 +364,13 @@
                 }
             } ;
 		    
+            // reset form and object site
  		    $scope.reset = function(){
  		    	$scope.site={id:null,name:'',url:'',logo:'',basepath:'',prefixImg:'',prefixLink:'' };	
                 $scope.myForm.$setPristine(); //reset Form
             };
-		    
-		    $scope.site_list = {};
-		    
-		    var config = {headers: {
-	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
-	            'Accept': 'application/json;odata=verbose'
-	       		 }
-	    	};
+
+            // list all object source
 		    $scope.listsite = function(){
 			    $http.get(
 						$scope.baseurl+'api/article/site/'
@@ -378,6 +385,7 @@
 		    
 		    $scope.listsite();
 		    
+		    // insert object source
 		    $scope.insertsite = function(){
 		    	console.log('site', $scope.site);
  			    $http.post(
@@ -385,20 +393,19 @@
 						,$scope.site
 						,config
 					).success(function(response){						
-						$scope.site_list  = $scope.listsite();
+						$scope.listsite();
 						if ( response.STATUS == 404 ){
 							swal( response.MESSAGE , "", "error");
 						}else {
 							swal( response.MESSAGE , "", "success");
 						}
-						console.log( response ); 						
 						console.log( $scope.site_list ); 
 					}).error(function(response){
 						console.log( response ); 
 					});	  
 		    };
 		    
-		    
+		    // update object site
 		    $scope.updatesite = function(){
 		    	console.log('site', $scope.site);
 			    $http.put(
@@ -406,8 +413,7 @@
 						,$scope.site
 						,config
 					).success(function(response){						
-						$scope.site_list  = $scope.listsite();
-						console.log( response ); 	
+						$scope.listsite();
 						if ( response.STATUS == 404 ){
 							swal( response.MESSAGE , "", "error");
 						}else {
@@ -419,8 +425,10 @@
 					});	  
 		    }; 
 		    
+		    // delete source by id
 		    $scope.detetesite = function(id){
 		    	
+		    	//delete structure
 		    	$scope.deleteStructure(id);
 		    	
  			    $http.delete(
@@ -433,15 +441,14 @@
 						}else {
 							swal( response.MESSAGE , "", "success");
 						}
-						console.log( response ); 						
 						console.log( $scope.site_list );
 						$scope.reset();
 					}).error(function(response){
 						console.log( response ); 
 					});	  
-			     
 		    }; 
 		    
+		    // change logo of source need source id
 		    $scope.changeLogo = function(){
 		    	var form_data = new FormData(document.getElementById('frmupload'));                     		    	
   			    $http.post(
@@ -469,17 +476,11 @@
 						console.log( response ); 
 					});	 
   			    document.frm.reset();
+  			    // close modal
   			  	angular.element('#myUpload').modal('hide');
 		    };
-		    
-		    // scraping structure  //http://localhost:8080/AKNnews/api/scrap/structure/
-		    
- 		    //var urlstrcture = 'http://localhost:8080/AKNnews/api/'
-		    $scope.structure_list = {};
-		    $scope.strucTmpId = null;
-		    
-		    $scope.structure = {id:null,siteId:null, imageSelector:'',linkSelector:'',titleSelector:'',contentSelector:'',rowsSelector:''};
-		    
+
+			// list all object structure
 		    $scope.liststructure = function(){
 			    $http.get(
 			    		$scope.baseurl+'api/scrap/structure/'
@@ -494,6 +495,7 @@
 					});	 
 		    };
 		    
+		    // get one object structure and paste in structure
  		    $scope.findStructureById = function(id){
  		        console.log(id);
  		        $scope.strucTmpId = id;
@@ -508,18 +510,19 @@
 		    					rowsSelector:$scope.structure_list[i].rowsSelector
 		    				};
 		    			console.log( $scope.structure );
-		    			
 		    			return true;
 		    		}
 		    	}
 		    };
  		    
+		    // reset form and struture
  		    $scope.resetStruct = function(){
  		    	$scope.structure = {id:null,siteId:null, imageSelector:'',linkSelector:'',titleSelector:'',contentSelector:'',rowsSelector:''};
  		    	$scope.strucTmpId = null;
                 $scope.myFormStruc.$setPristine(); //reset Form
             };
  		    
+            // add or update stucture
  		    $scope.submitStruct = function(){
  		    	if ( $scope.structure.id == null ){
  		    		$scope.structure.siteId = $scope.strucTmpId;
@@ -532,10 +535,10 @@
  		    		$scope.updateStructure();
  		    		$scope.resetStruct();
  		    	}
- 		    	
  		    	angular.element('#myStruct').modal('hide');
  		    };
- 		    
+			
+ 		    // update structure 
 		    $scope.updateStructure = function(){
 		    	$http.put(
 						$scope.baseurl+'api/scrap/structure/'
@@ -553,7 +556,8 @@
 						console.log( response ); 
 					});	  
 		    };
-		    
+			
+		    // insert structure
 		    $scope.insertStructure = function(){
 		    	$http.post(
 						$scope.baseurl+'api/scrap/structure/'
@@ -562,6 +566,7 @@
 					).success(function(response){						
 						console.log( response );
 						$scope.liststructure();
+						// sweet allert message
 						if ( response.STATUS == 404 ){
 							swal( response.MESSAGE , "", "error");
 						}else {
@@ -572,6 +577,7 @@
 					});	  
 		    };  
 		    
+		    // delete structure
 		    $scope.deleteStructure = function(id){
 		    	$http.delete(
 						$scope.baseurl+'api/scrap/structure/'+id
@@ -583,7 +589,6 @@
 						console.log( response ); 
 					});	  
 		    }; 
-		    
 		    $scope.liststructure(); 
 		    
 		});

@@ -52,11 +52,8 @@
         </section>
 
         <!-- Main content -->
-        <!-- Main content -->
-        
         <section class="content">         	          
 		<div>
-
 		
 		  <!-- Modal ADD -->
 		  <div class="modal fade" id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
@@ -148,7 +145,6 @@
 		    </div>
 		  </div>
 		  
-
 		<div>
 			<button class='btn btn-success' data-toggle="modal" data-target="#myAdd"><i class="fa fa-plus"></i></button> <br/><br/>
 		</div>
@@ -160,14 +156,14 @@
 						<tr>
 							<th> ID </th>
 							<th> NAME </th>
-							<th> MENU </th>	
-							<th> ORDER  </th>	
+							<th> ORDER </th>	
+							<th> STATUS  </th>	
 							<th> ACTION </th>							
 						</tr>
 						<tr ng-repeat="cat in category_list">
 							<td> {{cat.id}}</td>
 							<td> <button class='btn btn-xs btn-warning'>{{cat.name}}</button></td>
-							<td> <button class='btn btn-xs btn-default'>{{cat.index}}</button></td>
+							<td> <span class='text text-danger'> {{cat.index}} </span></td>
 							<td> 							
 								 <input type="checkbox"  value={{cat.menu}} ng-click="menuCategory(cat.id)" checked ng-if="cat.menu == true " />
 						         <input type="checkbox" value={{cat.menu}} ng-click="menuCategory(cat.id,cat.status)" ng-if="cat.menu == false " />						               
@@ -181,14 +177,11 @@
 					 
 					</table>
 				</div>
-				
 			</div>
-			
+		</div>
+		
 		</div>
 
-		
-		</div>
-		
 		        </section><!-- /.content -->
 	      </div><!-- /.content-wrapper -->
 			
@@ -209,13 +202,25 @@
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope,$http,$location) {
 		    	 
-		    
+		    // web base url 
 			$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
 			
 			$scope.domain =  $scope.weburl  + "/AKNnews/";
 			
+			// parameter 
+			
+			// all category
 			$scope.category={id:null,name:''};	
+			// one category
+			$scope.category_list = {};
+			// http basic send header
+		    var config = {headers: {
+	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
+	            'Accept': 'application/json;odata=verbose'
+	       		 }
+	    	};
 		    
+			// func update or insert category
 		    $scope.submit = function() {
 		    	if ( $scope.category.id == null){
 		    		$scope.insertCategory();
@@ -226,6 +231,7 @@
 		    	angular.element('#myAdd').modal('hide');
 		    }
 		    
+			// find cateogry exist in category_list by id
  		    $scope.findCategoryById = function(id){
                 console.log('id to be edited', id);
                 for(var i = 0; i < $scope.category_list.length; i++){
@@ -237,20 +243,14 @@
                 }
             } 
 		    
+			// reset form
  		    $scope.reset = function(){
  		    	$scope.category={id:null,name:''};
                 $scope.myForm.$setPristine(); //reset Form
             }
 		    
-		    $scope.category_list = {};
-		    
-		    var config = {headers: {
-	            'Authorization': 'Basic YXBpOmFrbm5ld3M=',
-	            'Accept': 'application/json;odata=verbose'
-	       		 }
-	    	};
+			// list all category
 		    $scope.listCategory = function(){
-		    	////alert("list");
 			    $http.get(
 						$scope.domain+'api/article/category/'
 						,config
@@ -264,6 +264,7 @@
 		    
 		    $scope.listCategory();
 		    
+		    // insert category
 		    $scope.insertCategory = function(){
 		    	console.log('category', $scope.category);
 			    $http.post(
@@ -278,16 +279,14 @@
 						}else {
 							swal( response.MESSAGE , "", "success");
 						}
-						
 						console.log( $scope.category_list );
 					}).error(function(response){
 						console.log( response ); 
 					});	 
 		    }
 		    
-		    
+		    // update category
 		    $scope.updateCategory = function(){
-		    	//alert("update");
 		    	console.log('category', $scope.category);
 			    $http.put(
 						$scope.domain+'api/article/category/'
@@ -306,6 +305,7 @@
 					});	  
 		    }  
 		    
+		    // delete category
 		    $scope.deteteCategory = function(id){
 			    $http.delete(
 						$scope.domain+'api/article/category/'+id
@@ -324,19 +324,18 @@
 					});	  
 		    }  
 		    
+		    // toggle category for show on top menu 
 		    $scope.menuCategory = function(id){
 			    $http.patch(
 						$scope.domain+'api/article/category/toggle/'+id
 						,''
 						,config
 					).success(function(response){						
-						//$scope.category_list  = $scope.listCategory();
 						if ( response.STATUS == 404 ){
 							swal( response.MESSAGE , "", "error");
 						}else {
 							swal( response.MESSAGE , "", "success");
 						}
-						console.log( response ); 						
 						console.log( $scope.category_list );
 					}).error(function(response){
 						console.log( response ); 
