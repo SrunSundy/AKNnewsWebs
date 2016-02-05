@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/form-elements.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/sweetalert.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.css">
 </head>
 <body>
     <!-- Top content -->
@@ -36,13 +36,13 @@
 			                    <form role="form" id="frmLogin" action="${pageContext.request.contextPath}/login" method="POST" class="login-form">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Username</label>
-			                        	<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
+			                        	<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username" style="border-radius: 0px !important;">
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Password</label>
-			                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
+			                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password" style="border-radius: 0px !important;">
 			                        </div>
-			                        <button type="submit" class="btn">Login</button>
+			                        <button type="submit" class="btn" style="border-radius: 0px !important;">Login</button>
 			                    </form>
 		                    </div>
                         </div>
@@ -55,7 +55,7 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="${pageContext.request.contextPath}/resources/assets/sweetalert-dev.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#frmLogin")
