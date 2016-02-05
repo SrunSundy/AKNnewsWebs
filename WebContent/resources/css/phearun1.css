@@ -547,6 +547,7 @@ span.slogo{
 .popular-news, .top-1, .article-item, ul.a-category, .a-source, .loading, .article-title, .article-content, .article-comment, .a-right-side, .category-name{
 	/* box-shadow: 0 0px 10px 0 rgba(0,0,0,0.2),0 0px 15px 0 rgba(0,0,0,0.19); */
 	box-shadow: 0 0px 10px 0 rgb(218, 218, 218),0 0px 15px 0 rgba(0,0,0,0.19);
+	word-break: break-all;
 }
 
 .select2-container--default .select2-selection--single{
