@@ -21,7 +21,6 @@
 			<c:otherwise>
 				<ul class="profile-after-login">
 					<li><i class="fa fa-user"></i>សូស្តី! ${sessionScope.SessionUser.username }</li>
-					<li><i class="fa fa-user-secret"></i><a href="${pageContext.request.contextPath }/admin">គ្រប់គ្រងព័ត៌មាន</a></li>
 					<li><i class="fa fa-bookmark"></i><a href="${pageContext.request.contextPath }/user/profile"> ព័ត៌មានបាន រក្សាទុក</a></li>
 					<li><i class="fa fa-sign-out"></i><a href="${pageContext.request.contextPath }/logout">ចាកចេញ</a></li>
 					<li><i class="fa fa-info-circle"></i><a href="${pageContext.request.contextPath }/about">អំពីយើង</a></li>
