@@ -1,8 +1,4 @@
 package com.spring.akn.controller;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +18,9 @@ public class AdminController {
 
 	}
      
-	@RequestMapping(value="/admininfo",method=RequestMethod.GET)
+	@RequestMapping(value="/setting",method=RequestMethod.GET)
 	public String adminInfor() {
-		return "admin/admin";
+		return "admin/setting";
 	}
 	
 	@RequestMapping(value="/article" )
@@ -55,11 +51,6 @@ public class AdminController {
 		System.err.println(id);
 		model.addAttribute("newscate", cate);
 		return  "admin/updatearticle";
-	}
-	
-	@RequestMapping(value ="/user")
-	public String toUser() {
-		return "admin/user";
 	}
 	
 	@RequestMapping(value ="/scrap")
