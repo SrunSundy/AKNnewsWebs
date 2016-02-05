@@ -32,7 +32,7 @@
    
    
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-mini" ng-app="myApp" ng-controller="myCtrl" >
     <div class="wrapper">
     
       <header class="main-header">
@@ -50,7 +50,8 @@
             <!-- <small>Version 2.0</small> -->
           </h1>
           <ol class="breadcrumb">
-            <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li> -->
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li>Site Management</li>
             <li class="active">Site Management</li>
           </ol>
         </section>
@@ -59,7 +60,7 @@
         <!-- Main content -->
         
         <section class="content">         	          
-		<div ng-app="myApp" ng-controller="myCtrl" >
+		<div >
 		
 		  <!-- Modal ADD -->
 		  <div class="modal fade " id="myAdd" role="dialog" data-keyboard="false" data-backdrop="static">
@@ -320,9 +321,12 @@
 		var app = angular.module('myApp', []);
 		app.controller('myCtrl', function($scope,$http,$location) {
 			
-			$scope.weburl = $location.protocol()+"://"+$location.host()+":"+$location.port();
+			$scope.domain = $location.protocol()+"://"+$location.host()+":"+$location.port();
+
+			$scope.webbaseurl = $scope.domain + "/AKNnewsWebs/";
 			
-			$scope.domain =  $scope.weburl  + "/AKNnews/";
+			$scope.baseurl = $scope.domain + "/AKNnews/";
+			
 			
 		    $scope.site={id:null,name:'',url:'',logo:'',basepath:'', prefixImg:'', prefixLink:''};		 
 		    
@@ -362,7 +366,7 @@
 	    	};
 		    $scope.listsite = function(){
 			    $http.get(
-						$scope.domain+'api/article/site/'
+						$scope.baseurl+'api/article/site/'
 						,config
 					).success(function(response){
 						$scope.site_list = response.DATA;
@@ -377,7 +381,7 @@
 		    $scope.insertsite = function(){
 		    	console.log('site', $scope.site);
  			    $http.post(
-						$scope.domain+'api/article/site/'
+						$scope.baseurl+'api/article/site/'
 						,$scope.site
 						,config
 					).success(function(response){						
@@ -398,7 +402,7 @@
 		    $scope.updatesite = function(){
 		    	console.log('site', $scope.site);
 			    $http.put(
-						$scope.domain+'api/article/site/'
+						$scope.baseurl+'api/article/site/'
 						,$scope.site
 						,config
 					).success(function(response){						
@@ -420,7 +424,7 @@
 		    	$scope.deleteStructure(id);
 		    	
  			    $http.delete(
-						$scope.domain+'api/article/site/'+id
+						$scope.baseurl+'api/article/site/'+id
 						,config
 					).success(function(response){						
 						$scope.site_list  = $scope.listsite();
@@ -441,7 +445,7 @@
 		    $scope.changeLogo = function(){
 		    	var form_data = new FormData(document.getElementById('frmupload'));                     		    	
   			    $http.post(
-						$scope.domain+'api/article/site/upload'
+						$scope.baseurl+'api/article/site/upload'
 						,form_data
 						,{
 							transformRequest : angular.identity,
@@ -478,7 +482,7 @@
 		    
 		    $scope.liststructure = function(){
 			    $http.get(
-			    		$scope.domain+'api/scrap/structure/'
+			    		$scope.baseurl+'api/scrap/structure/'
 						,config
 					).success(function(response){
 						$scope.structure_list = response.RESPONSE_DATA;
@@ -534,7 +538,7 @@
  		    
 		    $scope.updateStructure = function(){
 		    	$http.put(
-						$scope.domain+'api/scrap/structure/'
+						$scope.baseurl+'api/scrap/structure/'
 						,$scope.structure
 						,config
 					).success(function(response){						
@@ -552,7 +556,7 @@
 		    
 		    $scope.insertStructure = function(){
 		    	$http.post(
-						$scope.domain+'api/scrap/structure/'
+						$scope.baseurl+'api/scrap/structure/'
 						,$scope.structure
 						,config
 					).success(function(response){						
@@ -570,7 +574,7 @@
 		    
 		    $scope.deleteStructure = function(id){
 		    	$http.delete(
-						$scope.domain+'api/scrap/structure/'+id
+						$scope.baseurl+'api/scrap/structure/'+id
 						,config
 					).success(function(response){						
 						console.log( response );
