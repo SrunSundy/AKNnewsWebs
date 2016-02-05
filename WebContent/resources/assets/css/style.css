@@ -27,8 +27,8 @@ h1, h2 {
 
 h3 {
 	font-size: 22px;
-    font-weight: 300;
-    color: #555;
+    font-weight: bold;
+    color: #fff;
     line-height: 30px;
 }
 
@@ -109,11 +109,14 @@ img { max-width: 100%; }
 }
 
 .form-top {
-	overflow: hidden;
-	padding: 0 25px 15px 25px;
-	background: #fff;
-	-moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
-	text-align: left;
+    color: #fff;
+    overflow: hidden;
+    padding: 0 25px 15px 25px;
+    background: #4aaf51;
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+    text-align: left;
 }
 
 .form-top-left {
