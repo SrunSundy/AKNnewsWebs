@@ -433,7 +433,7 @@
 				return;
 			}
 			$scope.triggerpage++;
-			alert($scope.useridforstatus);
+		
 			$http({
                 method: "GET",
               //NOTE: userid=0 mean list news with true status 
