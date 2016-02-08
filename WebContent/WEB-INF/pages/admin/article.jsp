@@ -433,6 +433,7 @@
 				return;
 			}
 			$scope.triggerpage++;
+			alert($scope.useridforstatus);
 			$http({
                 method: "GET",
               //NOTE: userid=0 mean list news with true status 
@@ -444,6 +445,7 @@
             	if(response.RESPONSE_DATA.length == 0){
             		console.log('no article..!');              		
             	}
+            	
 	    		$scope.Totalrecord = response.TOTAL_RECORDS;
 		    		 $scope.articles=response.RESPONSE_DATA; 		    		 
 		    		 $('#display').bootpag({total: response.TOTAL_PAGES });
@@ -611,19 +613,7 @@
 		
 		
 	});
-		 function goodbye(e) {
-	   	    if(!e) e = window.event;
-	   	    //e.cancelBubble is supported by IE - this will kill the bubbling process.
-	   	    e.cancelBubble = true;
-	   	    e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
-	
-	   	    //e.stopPropagation works in Firefox.
-	   	    if (e.stopPropagation) {
-	   	        e.stopPropagation();
-	   	        e.preventDefault();
-	   	    }
-	   	}
-	   	window.onbeforeunload=goodbye;  
+		
   
   </script>
   </body>
