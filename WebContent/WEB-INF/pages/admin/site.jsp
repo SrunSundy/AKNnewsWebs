@@ -134,7 +134,7 @@
 			          	</tr>
 			          	<tr>
 			          		<th> Logo</th>
-			          		<td><img class="img" style='width:100px;height:100px'  src='{{domain}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
+			          		<td><img class="img" style='width:100px;height:100px'  src='{{baseurl}}resources/images/logo/{{site.logo}}' data-toggle="modal"/></td>
 			          	</tr>
 			      	    <tr>
 			          		<th class='active' colspan='2'><center> SITE SELECTOR  </center></th>
@@ -274,7 +274,7 @@
 							<td> {{st.id}}</td>
 							<td> <button class='btn btn-xs btn-danger'>{{st.name}}</button></td>
 							<td> {{st.url}}</td>
-							<td> <img class="img"  src='{{domain}}resources/images/logo/{{st.logo}}' data-toggle="modal" data-target="#myUpload" ng-click='findsiteById(st.id)' />  
+							<td> <img class="img"  src='{{baseurl}}resources/images/logo/{{st.logo}}' data-toggle="modal" data-target="#myUpload" ng-click='findsiteById(st.id)' />  
 								 <!-- <button ng-click='findsiteById(st.id)' class='btn btn-warning' data-toggle="modal" data-target="#myUpload">change logo</button> -->
 							</td>
 							<td> {{st.basepath}}</td>
